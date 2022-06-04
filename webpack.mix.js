@@ -19,10 +19,7 @@ mix.browserSync({
  */
  mix.sass('resources/sass/front/style.scss', 'public/css/front/style.css')
 
-mix.js('resources/js/app.js', 'public/js').vue({
-        extractStyles: true,
-        globalStyles: false
-    })
+mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
