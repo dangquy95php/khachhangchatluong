@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,6 +9,11 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        return view('admin.dashboard');
+        return view('dashboard');
+    }
+
+    public function login(Request $request)
+    {
+        return view('account.login');
     }
 }
