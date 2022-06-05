@@ -11,4 +11,9 @@ class CustomerController extends Controller
     {
         return view('customer.list');
     }
+
+    public function search(Request $request)
+    {
+        return view('customer.search');
+    }
 }

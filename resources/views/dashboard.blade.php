@@ -182,67 +182,76 @@
             <!-- Recent Sales -->
             <div class="col-12">
                <div class="card recent-sales overflow-auto">
-                  <div class="filter">
+                  <!-- <div class="filter">
                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <li class="dropdown-header text-start">
-                           <h6>Filter</h6>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                        <li><a class="dropdown-item" href="#">Hôm Nay</a></li>
+                        <li><a class="dropdown-item" href="#">Tuần Này</a></li>
+                        <li><a class="dropdown-item" href="#">Năm Nay</a></li>
                      </ul>
-                  </div>
+                  </div> -->
                   <div class="card-body">
                      <h5 class="card-title">Khách Hàng Đã Hẹn <span>| Hôm nay</span></h5>
-                     <table class="table table-borderless datatable">
+                     <table class="table table-borderless">
                         <thead>
                            <tr>
                               <th scope="col">#</th>
-                              <th scope="col">Customer</th>
-                              <th scope="col">Product</th>
-                              <th scope="col">Price</th>
-                              <th scope="col">Status</th>
+                              <th scope="col">Số Hợp Đồng</th>
+                              <th scope="col">Tên Khách Hàng</th>
+                              <th scope="col">Số Tiền</th>
+                              <th scope="col">Giới Tính</th>
+                              <th scope="col">Tuổi</th>
+                              <th scope="col">Địa Chỉ</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr>
-                              <th scope="row"><a href="#">#2457</a></th>
-                              <td>Brandon Jacob</td>
-                              <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                              <td>$64</td>
-                              <td><span class="badge bg-success">Approved</span></td>
+                              <th scope="row">1</th>
+                              <td>73968144</td>
+                              <td>NGUYỄN THẾ TÔN</td>
+                              <td> 60,000,000 </td>
+                              <td>Nam</td>
+                              <td>26</td>
+                              <td>P. AN PHÚ, TX. THUẬN AN, TỈNH BÌNH DƯƠNG</td>
                            </tr>
                            <tr>
-                              <th scope="row"><a href="#">#2147</a></th>
-                              <td>Bridie Kessler</td>
-                              <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                              <td>$47</td>
-                              <td><span class="badge bg-warning">Pending</span></td>
+                              <th scope="row">1</th>
+                              <td>73968144</td>
+                              <td>NGUYỄN THẾ TÔN</td>
+                              <td> 60,000,000 </td>
+                              <td>Nam</td>
+                              <td>26</td>
+                              <td>P. AN PHÚ, TX. THUẬN AN, TỈNH BÌNH DƯƠNG</td>
                            </tr>
                            <tr>
-                              <th scope="row"><a href="#">#2049</a></th>
-                              <td>Ashleigh Langosh</td>
-                              <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                              <td>$147</td>
-                              <td><span class="badge bg-success">Approved</span></td>
-                           </tr>
-                           <tr>
-                              <th scope="row"><a href="#">#2644</a></th>
-                              <td>Angus Grady</td>
-                              <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                              <td>$67</td>
-                              <td><span class="badge bg-danger">Rejected</span></td>
-                           </tr>
-                           <tr>
-                              <th scope="row"><a href="#">#2644</a></th>
-                              <td>Raheem Lehner</td>
-                              <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                              <td>$165</td>
-                              <td><span class="badge bg-success">Approved</span></td>
+                              <th scope="row">1</th>
+                              <td>73968144</td>
+                              <td>NGUYỄN THẾ TÔN</td>
+                              <td> 60,000,000 </td>
+                              <td>Nam</td>
+                              <td>26</td>
+                              <td>P. AN PHÚ, TX. THUẬN AN, TỈNH BÌNH DƯƠNG</td>
                            </tr>
                         </tbody>
                      </table>
+
+                     <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                           <li class="page-item">
+                           <a class="page-link" href="#" aria-label="Previous">
+                              <span aria-hidden="true">«</span>
+                           </a>
+                           </li>
+                           <li class="page-item"><a class="page-link" href="#">1</a></li>
+                           <li class="page-item"><a class="page-link" href="#">2</a></li>
+                           <li class="page-item"><a class="page-link" href="#">3</a></li>
+                           <li class="page-item">
+                           <a class="page-link" href="#" aria-label="Next">
+                              <span aria-hidden="true">»</span>
+                           </a>
+                           </li>
+                        </ul>
+                     </nav>
                   </div>
                </div>
             </div>

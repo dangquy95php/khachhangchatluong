@@ -9,18 +9,14 @@ use App\Http\Requests\User\LoginUserRequest;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     const USER_ROLE = 1;
     const ADMIN_ROLE = 2;
 
-    public function index(Request $request)
+    public function admin(Request $request)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        } else {
-            return view('dashboard');
-        }
+        return view('dashboard');
     }
     
     public function dashboard(Request $request)

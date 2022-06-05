@@ -7,7 +7,8 @@
     <title>Đăng Nhập</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1170/1170576.png">
+    <link href="{{ asset('assets/img/favicon.png')}}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -17,7 +18,7 @@
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet" type="text/css" >
       <!-- Template Main CSS File -->
       <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
 </head>
@@ -43,19 +44,19 @@
                            <h5 class="card-title text-center pb-0 fs-4">Đăng Nhập Tài Khoản Của Bạn</h5>
                            <p class="text-center small">Nhập tên người dùng và mật khẩu để đăng nhập</p>
                         </div>
-                        <form class="row g-3 needs-validation" novalidate>
+                        <form action="" class="row g-3 needs-validation" method="POST" novalidate>
+                           @csrf
                            <div class="col-12">
                               <label for="yourUsername" class="form-label">Tên người dùng</label>
-                              <div class="input-group has-validation">
-                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                 <input type="text" name="username" class="form-control" id="yourUsername" required>
-                                 <div class="invalid-feedback">Please enter your username.</div>
-                              </div>
+                              <input type="text" value="{{ old('username') }}"  name="username" class="form-control" id="yourUsername" required>
+                              <div class="invalid-feedback">Please enter your username.</div>
+                              @include('_partials.alert', ['field' => 'username'])
                            </div>
                            <div class="col-12">
                               <label for="yourPassword" class="form-label">Mật khẩu</label>
-                              <input type="password" name="password" class="form-control" id="yourPassword" required>
+                              <input type="password" value="{{ old('password') }}" name="password" class="form-control" id="yourPassword" required>
                               <div class="invalid-feedback">Please enter your password!</div>
+                              @include('_partials.alert', ['field' => 'password'])
                            </div>
                            <div class="col-12">
                               <div class="form-check">
@@ -87,10 +88,18 @@
 </main>
 <!-- End #main -->
 
+<!-- Jquery Slim JS -->
+<script src="{{ asset('js/jquery.min.js')}} "></script>
+   
+<script src="{{ asset('js/jquery-ui.min.js')}} "></script>
 
 <!-- Vendor JS Files -->
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
+
+<script src="{{ asset('js/toastr.min.js')}} "></script>
+
+{!! Toastr::message() !!}
 
 </body>
 
