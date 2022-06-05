@@ -7,7 +7,9 @@
     <title>@yield('title')</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1170/1170576.png">
+    <link href="{{ asset('assets/img/favicon.png')}}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">

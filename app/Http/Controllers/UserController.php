@@ -16,4 +16,14 @@ class UserController extends Controller
     {
         return view('account.login');
     }
+
+    public function register(Request $request)
+    {
+        return view('account.register');
+    }
+
+    public function list(Request $request)
+    {
+        return view('account.list');
+    }
 }

@@ -3,9 +3,9 @@
 
 @section('breadcrumb')
   
-   <h1>TRANG CHỦ</h1>
+   <h1>TỔNG QUAN DASHBOARD</h1>
 
-   @include('layouts.breadcrumb')
+   {{ Breadcrumbs::render('home') }}
     
 @endsection
 
