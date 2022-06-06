@@ -19,21 +19,24 @@ class UserController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login');
         } else {
-            if (Auth::user()->role == 1) {
+            if (Auth::user()->role == self::USER_ROLE) {
                 return view('index');
             } else {
-                return redirect()->route('dashboard');
+                return redirect()->route('admin');
             }
         }
     }
     
-    public function dashboard(Request $request)
+    public function admin(Request $request)
     {
-        
+        return view('dashboard');
     }
 
     public function login(Request $request)
     {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
         return view('account.login');
     }
 
@@ -48,7 +51,7 @@ class UserController extends Controller
             if (Auth::user()->role == self::USER_ROLE) {
                 return redirect()->route('home');
             } else {
-                return redirect()->route('dashboard');
+                return redirect()->route('admin');
             }
         } else {
             Toastr::error('Tên người dùng hoặc mật khẩu không chính xác!');

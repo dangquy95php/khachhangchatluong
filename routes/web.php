@@ -36,5 +36,6 @@ Route::group(['prefix' => 'excel'], function () {
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-    Route::get('/', 'AdminController@admin')->name('admin');
+    Route::get('/', 'UserController@admin')->name('admin');
+    // Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
 });
