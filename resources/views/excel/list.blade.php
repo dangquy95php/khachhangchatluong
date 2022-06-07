@@ -2,11 +2,11 @@
 @extends('layouts.template')
 
 @section('breadcrumb')
-  
+
    <h1>DANH SÁCH EXCEL IMPORT NGƯỜI DÙNG</h1>
 
     {{ Breadcrumbs::render('excel') }}
-    
+
 @endsection
 
 @section('content')
@@ -18,11 +18,12 @@
             <div class="card">
                 <div class="card-body pt-3">
                     <!-- General Form Elements -->
-                    <form>
+                    <form action="{{ route('import_customer') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label for="inputText" class="col-sm-2 col-form-label">Chọn file Excel Import</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" name="file" type="file" id="formFile">
                             </div>
                         </div>
                         <div class="row mb-3">

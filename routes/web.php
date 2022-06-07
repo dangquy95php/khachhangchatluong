@@ -28,6 +28,8 @@ Route::group(['prefix' => 'account'], function () {
 Route::group(['prefix' => 'customer'], function () {
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/search', 'CustomerController@search')->name('search_customer');
+    Route::get('/export/', 'CustomerController@export')->name('export_customer');
+    Route::post('/import/', 'CustomerController@import')->name('import_customer');
 });
 
 Route::group(['prefix' => 'excel'], function () {
