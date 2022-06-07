@@ -241,7 +241,7 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title mb-0">Chăm Sóc Khách Hàng</h5>
-   
+
             <div class="card pt-3 mb-3">
                 <div class="card-body">
                     <!-- Vertical Form -->
@@ -341,9 +341,9 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="button" class="btn btn-danger btn-lg"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button>
-                                <button type="button" class="btn btn-success btn-lg"><i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span></button>
-                                <button type="button" class="btn btn-outline-primary btn-lg">Gọi Tiếp Theo</button>
+                                <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button>
+                                <button type="button" class="btn btn-success"><i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span></button>
+                                <button type="button" class="btn btn-outline-primary">Gọi Tiếp Theo</button>
                             </div>
                         </div>
                     </form><!-- Vertical Form -->
@@ -360,7 +360,7 @@
             </ul>
             <div class="tab-content pt-2" id="myTabContent">
                 <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
- 
+
                     <div class="card mb-2">
                         <div class="card-body">
                         <!-- Table with hoverable rows -->
@@ -395,10 +395,10 @@
                         <!-- End Table with hoverable rows -->
                     </div>
                 </div>
-                 
+
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    
+
                     <div class="card">
                         <div class="card-body">
                         <!-- Table with hoverable rows -->
@@ -436,10 +436,10 @@
             </div><!-- End Default Tabs -->
         </div>
         </div>
-        
+
         <section class="section dashboard">
             <div class="row">
-                
+
             </div>
         </section>
     </main>
@@ -472,11 +472,11 @@
 
     <!-- Jquery Slim JS -->
     <script src="{{ asset('js/jquery.min.js')}} "></script>
-   
+
     <script src="{{ asset('js/jquery-ui.min.js')}} "></script>
 
     <svg id="SvgjsSvg1145" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1146"></defs><polyline id="SvgjsPolyline1147" points="0,0"></polyline><path id="SvgjsPath1148" d="M-1 270.2L-1 270.2C-1 270.2 176.9170673076923 270.2 176.9170673076923 270.2C176.9170673076923 270.2 294.86177884615387 270.2 294.86177884615387 270.2C294.86177884615387 270.2 412.80649038461536 270.2 412.80649038461536 270.2C412.80649038461536 270.2 530.7512019230769 270.2 530.7512019230769 270.2C530.7512019230769 270.2 648.6959134615385 270.2 648.6959134615385 270.2C648.6959134615385 270.2 766.640625 270.2 766.640625 270.2C766.640625 270.2 766.640625 270.2 766.640625 270.2 "></path></svg>
-    
+
     <script src="{{ asset('js/toastr.min.js')}} "></script>
 
     {!! Toastr::message() !!}
