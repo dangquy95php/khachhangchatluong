@@ -8,10 +8,33 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\DefaultValueBinder;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class CustomerImport implements ToModel, WithChunkReading, WithValidation, SkipsEmptyRows
+class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkReading, WithValidation, SkipsEmptyRows, WithCustomValueBinder
 {
     const RUN_EVERY_TIME = 500;
+
+    // set the preferred date format
+    private $date_format = 'd/m/Y';
+
+    // set the columns to be formatted as dates
+    private $date_columns = ['P'];
+
+    public function bindValue(Cell $cell, $value)
+    {
+        if (in_array($cell->getColumn(), $this->date_columns)) {
+            $cell->setValueExplicit(Date::excelToDateTimeObject($value)->format($this->date_format), DataType::TYPE_STRING);
+
+            return true;
+        }
+
+        // else return default behavior
+        return parent::bindValue($cell, $value);
+    }
 
     public function rules(): array
     {
@@ -23,7 +46,7 @@ class CustomerImport implements ToModel, WithChunkReading, WithValidation, Skips
             '12' => ['required'],//họ
             // '13' => ['required'],// tên
             '14' => ['required'],// giới tính
-            '15' => ['required'],// Ngày sinh
+            '15' => ['required'],// Ngày sinh => Cột P
             '16' => ['required'],//tuổi
             '17' => ['required'],// số điện thoại
             '19' => ['required'],
@@ -82,6 +105,19 @@ class CustomerImport implements ToModel, WithChunkReading, WithValidation, Skips
             'district'        => $row[21],
             'province'        => $row[22],
         ]);
+    }
+
+    public function map($map): array
+    {
+        return [
+            Date::dateTimeToExcel($map[15]),
+        ];
+    }
+
+    public function columnFormats(): array {
+        return [
+            'P' => NumberFormat::FORMAT_DATE_DDMMYYYY
+        ];
     }
 
     public function chunkSize(): int

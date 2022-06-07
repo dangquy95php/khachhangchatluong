@@ -13,6 +13,7 @@ class Customer extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'type_pay',
         'name_pay',
         'id_customer_pay', // mã người bán hàng

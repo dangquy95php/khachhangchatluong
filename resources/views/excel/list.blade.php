@@ -75,28 +75,19 @@
                      </tr>
                   </thead>
                   <tbody>
+                    @foreach($customers as $customer)
                      <tr>
-                        <th scope="row">1</th>
-                        <td>73956316</td>
-                        <td>20170822</td>
-                        <td>50,000,000 </td>
-                        <td>2027/08/18</td>
-                        <td>NGUYỄN THẾ TÔN</td>
-                        <td>Nam</td>
-                        <td>12/16/79</td>
-                        <td>C2.502 C/CƯ EHOME 4 BẮC SÀ ĐƯỜNG VĨNH PHÚ 41 P. VĨNH PHÚ, TX. THUẬN AN TỈNH BÌNH DƯƠNG</td>
+                        <th scope="row">{{ $customer->id }}</th>
+                        <td>{{ $customer->id_contract }}</td>
+                        <td>{{ date('Y-m-d', strtotime($customer->join_date)) }}</td>
+                        <td>{{ number_format($customer->money); }}</td>
+                        <td>{{ $customer->date_due .'-'. $customer->month_due .'-'. $customer->year_due }}</td>
+                        <td>{{ $customer->last_name .' '. $customer->first_name}}</td>
+                        <td>{{ $customer->sex == 'M' ? 'Nam' : 'Nữ' }}</td>
+                        <td>{{ $customer->date_birth }}</td>
+                        <td>{{ $customer->home .', '. $customer->ward .', '. $customer->district .', '. $customer->province }}</td>
                      </tr>
-                     <tr>
-                        <th scope="row">1</th>
-                        <td>73956316</td>
-                        <td>20170822</td>
-                        <td>50,000,000 </td>
-                        <td>2027/08/18</td>
-                        <td>NGUYỄN THẾ TÔN</td>
-                        <td>Nam</td>
-                        <td>12/16/79</td>
-                        <td>C2.502 C/CƯ EHOME 4 BẮC SÀ ĐƯỜNG VĨNH PHÚ 41 P. VĨNH PHÚ, TX. THUẬN AN TỈNH BÌNH DƯƠNG</td>
-                     </tr>
+                    @endforeach
                   </tbody>
                </table>
                <!-- End Table with stripped rows -->

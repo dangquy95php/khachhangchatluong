@@ -8,12 +8,23 @@ use App\Exports\CustomerExport;
 use App\Imports\CustomerImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Models\Customer;
 
 class CustomerController extends Controller
 {
+    public $dataCustomers = '';
+
+
+    public function __construct()
+    {
+        $this->dataCustomers = Customer::select('id', 'id_contract', 'join_date', 'money', 'date_due', 'month_due', 'year_due', 'last_name', 'first_name', 'sex', 'date_birth', 'phone', 'home', 'ward', 'district', 'province')->get();
+
+        return $this->dataCustomers;
+    }
+
     public function index(Request $request)
     {
-        return view('customer.list');
+        return view('excel.list', ['customers' => $this->dataCustomers]);
     }
 
     public function search(Request $request)
@@ -41,9 +52,7 @@ class CustomerController extends Controller
         try {
 
             Excel::import(new CustomerImport, request()->file('file'));
-            Toastr::success('Import dữ liệu thành công!');
             \DB::commit();
-
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             $errormessage = "";
@@ -56,7 +65,6 @@ class CustomerController extends Controller
                 $errormessage = $errormessage."\n Dòng số ".$failure->row().", ".$errormess."<br>";
             }
 
-            Toastr::error('Nhập dữ liệu bị lỗi! Vui lòng kiểm tra lại dữ liệu Excel.');
             return redirect()->back()->with('message', $errormessage);
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
@@ -65,6 +73,8 @@ class CustomerController extends Controller
             return redirect()->back()->with('message', 'Dữ liệu thêm vào database đã có lỗi xảy ra.'. $e->getMessage());
         }
 
-        return redirect()->back();
+        Toastr::success('Import dữ liệu thành công!');
+
+        return redirect()->route('data_import');
     }
 }

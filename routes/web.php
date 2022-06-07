@@ -33,8 +33,8 @@ Route::group(['prefix' => 'customer'], function () {
 });
 
 Route::group(['prefix' => 'excel'], function () {
-    Route::get('/import', 'ExcelController@index')->name('data_import');
-    Route::get('/history', 'ExcelController@history')->name('data_import_history');
+    Route::get('/import', 'CustomerController@index')->name('data_import');
+    Route::get('/history', 'CustomerController@history')->name('data_import_history');
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
