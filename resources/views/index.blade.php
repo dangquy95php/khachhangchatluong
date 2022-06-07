@@ -240,7 +240,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-0">Chăm Sóc Khách Hàng</h5>
+            <h5 class="card-title mb-0">PHẦN MỀM CHĂM SÓC KHÁCH HÀNG</h5>
 
             <div class="card pt-3 mb-3">
                 <div class="card-body">
@@ -252,11 +252,11 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <label for="inputNanme4" class="form-label">Ngày Đáo Hạn</label>
-                                            <input type="text" class="form-control" id="inputNanme4">
+                                            <input id="startDate" class="form-control" type="date" value="2020-10-01" />
                                         </div>
                                         <div class="col-4">
                                             <label for="inputEmail4" class="form-label">Số Tiền </label>
-                                            <input type="text" class="form-control" id="inputEmail4">
+                                            <input type="number" class="form-control" id="inputEmail4">
                                         </div>
                                         <div class="col-4 pe-0">
                                             <label for="inputPassword4" class="form-label">Số Hợp Đồng</label>
@@ -268,15 +268,19 @@
                                         </div>
                                         <div class="col-2 pe-0 pt-2">
                                             <label for="inputPassword4" class="form-label">Tuổi</label>
-                                            <input type="text" class="form-control" id="inputPassword4">
+                                            <input type="number" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
                                         </div>
                                         <div class="col-4 pe-0 pt-2">
                                             <label for="inputNanme4" class="form-label">Số Điện Thoại</label>
-                                            <input type="text" class="form-control" id="inputNanme4">
+                                            <input type="number" class="form-control" id="inputNanme4">
                                         </div>
                                         <div class="col-4 pt-2">
                                             <label for="inputEmail4" class="form-label">Giới Tính</label>
-                                            <input type="text" class="form-control" id="inputEmail4">
+                                            <select id="inputState" class="form-select">
+                                                <option selected="">Chọn giới tính...</option>
+                                                <option>Nam</option>
+                                                <option>Nữ</option>
+                                            </select>
                                         </div>
                                         <div class="col-8 pt-2 pe-0">
                                             <label for="inputEmail4" class="form-label">Nguồn Dữ Liệu</label>
@@ -343,7 +347,8 @@
                             <div class="col-12">
                                 <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button>
                                 <button type="button" class="btn btn-success"><i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span></button>
-                                <button type="button" class="btn btn-outline-primary">Gọi Tiếp Theo</button>
+                                <button type="button" class="btn btn-outline-primary"><span class="pe-1">Gọi Tiếp Theo</span><i class="bi bi-chevron-double-right"></i>
+                            </button>
                             </div>
                         </div>
                     </form><!-- Vertical Form -->

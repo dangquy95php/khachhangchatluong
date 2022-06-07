@@ -26,7 +26,7 @@ class UserController extends Controller
             }
         }
     }
-    
+
     public function admin(Request $request)
     {
         return view('dashboard');
@@ -46,7 +46,8 @@ class UserController extends Controller
             'username' => $request->get('username'),
             'password' => urldecode($request->get('password')),
         ];
-        if (Auth::attempt($data)) {
+
+        if (Auth::attempt($data, $request->get('remember'))) {
             Toastr::success('Đăng nhập vào hệ thống thành công!');
             if (Auth::user()->role == self::USER_ROLE) {
                 return redirect()->route('home');
