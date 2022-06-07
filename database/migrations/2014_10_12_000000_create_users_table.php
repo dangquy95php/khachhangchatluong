@@ -19,10 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->string('username')->unique();
             $table->string('role')->default(1);// 1 là nhân viên 2// là admin
+            $table->boolean('status')->default(0);//0 khong hoat dong
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

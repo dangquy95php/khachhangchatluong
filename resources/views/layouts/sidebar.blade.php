@@ -23,7 +23,7 @@
       <!-- End Components Nav -->
       <li class="nav-item">
          <a class="nav-link {{\Request()->route()->getPrefix() != '/customer' ? 'collapsed' : '' }}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-         <i class="bi bi-person-plus"></i><span>Khoảng Lý Khách Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
+         <i class="bi bi-person-plus"></i><span>Quản Lý Khách Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
          </a>
          <ul id="forms-nav" class="nav-content collapse {{\Request()->route()->getPrefix() == '/customer' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
@@ -47,11 +47,6 @@
             <li>
                <a href="{{route('data_import_history')}}" class="{{ \Request::route()->getName() == 'data_import_history' ? 'active' : ''}}">
                <i class="bi bi-circle"></i><span>Lịch sử Import</span>
-               </a>
-            </li>
-            <li>
-               <a href="tables-data.html">
-               <i class="bi bi-circle"></i><span>Data Tables</span>
                </a>
             </li>
          </ul>

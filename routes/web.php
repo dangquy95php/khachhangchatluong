@@ -21,8 +21,8 @@ Route::post('/login', 'UserController@postLogin')->name('post_login');
 Route::get('/logout', 'UserController@logout')->name('logout');
 
 Route::group(['prefix' => 'account'], function () {
-    Route::get('/register', 'UserController@register')->name('register_account');
     Route::get('/', 'UserController@list')->name('list_account');
+    Route::get('/register', 'UserController@register')->name('register_account');
 });
 
 Route::group(['prefix' => 'customer'], function () {
@@ -34,7 +34,7 @@ Route::group(['prefix' => 'customer'], function () {
 
 Route::group(['prefix' => 'excel'], function () {
     Route::get('/import', 'CustomerController@index')->name('data_import');
-    Route::get('/history', 'CustomerController@history')->name('data_import_history');
+    Route::get('/history', 'ExcelController@history')->name('data_import_history');
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {

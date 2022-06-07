@@ -74,6 +74,8 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        return view('account.list');
+        $data = User::select('id', 'name', 'email', 'username', 'role', 'status', 'created_at')->get();
+
+        return view('account.list', compact('data'));
     }
 }
