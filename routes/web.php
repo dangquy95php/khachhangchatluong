@@ -43,6 +43,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
     Route::group(['prefix' => 'area'], function () {
         Route::get('/', 'AreaController@index')->name('index_area');
-        Route::get('/create', 'AreaController@create')->name('create_area');
+        Route::get('/edit/{id}', 'AreaController@edit')->name('edit_area');
+        Route::post('/edit/{id}', 'AreaController@postEdit')->name('post_edit_area');
+        Route::post('/create', 'AreaController@create')->name('create_area');
+        Route::get('/delete/{id}', 'AreaController@delete')->name('delete_area');
+        
     });
 });

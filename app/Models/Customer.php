@@ -38,4 +38,9 @@ class Customer extends Model
         'district',
         'province',
     ];
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

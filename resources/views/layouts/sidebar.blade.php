@@ -58,10 +58,10 @@
       </li>
       <!-- --------------------- -->
       <li class="nav-item">
-         <a class="nav-link {{\Request()->route()->getPrefix() != '/area' ? 'collapsed' : '' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+         <a class="nav-link {{\Request()->route()->getPrefix() != '/area' ? 'collapsed' : '' }}" data-bs-target="#tables-area" data-bs-toggle="collapse" href="#">
          <i class="bi bi-file-earmark-excel"></i><span>Quản Lý Khu Vực</span><i class="bi bi-chevron-down ms-auto"></i>
          </a>
-         <ul id="tables-nav" class="nav-content collapse {{\Request()->route()->getPrefix() == '/area' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+         <ul id="tables-area" class="nav-content collapse {{\Request()->route()->getPrefix() == '/area' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
                <a href="{{route('index_area')}}" class="{{ \Request::route()->getName() == 'index_area' ? 'active' : ''}}">
                <i class="bi bi-circle"></i><span>Danh sách khu vực</span>

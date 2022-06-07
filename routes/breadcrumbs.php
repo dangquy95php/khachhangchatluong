@@ -24,3 +24,8 @@ Breadcrumbs::for('data_import', function ($trail) {
     $trail->parent('home');
     $trail->push('Lịc sử import', route('data_import'));
 });
+
+Breadcrumbs::for('area', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Danh sách khu vực', route('index_area'));
+});
