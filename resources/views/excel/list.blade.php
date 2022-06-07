@@ -22,7 +22,23 @@
                         @csrf
                         <div class="row mb-3">
                             <div class="col-12">
-                                <label for="inputText" class="col-sm-2 col-form-label">Chọn file Excel Import</label>
+                                <label for="inputText" class="col-sm-2 col-form-label"><b>Chọn file Excel Import</b></label>
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        @foreach ($errors->all() as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+
+                                @if(session()->has('message'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {!! session()->get('message') !!}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
                                 <input class="form-control" name="file" type="file" id="formFile">
                             </div>
                         </div>
