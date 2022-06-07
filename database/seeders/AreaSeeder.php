@@ -18,10 +18,12 @@ class AreaSeeder extends Seeder
             [
                 'name' => 'Lái thiêu',
                 'status' => 1,
+                'note' => 'Khu vực có nhiều người trẻ'
             ],
             [
                 'name' => 'Gò công',
                 'status' => 0,
+                'note' => 'Khu vực có tiềm năng cao'
             ],
         ];
         \DB::table('areas')->insert($data);

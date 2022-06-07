@@ -15,6 +15,7 @@ class Area extends Model
     protected $fillable = [
         'name',
         'status',
+        'note'
     ];
 
     const CLOSED = 0;

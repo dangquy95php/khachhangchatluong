@@ -17,6 +17,7 @@ class CreateTableAreasTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('status')->default(0);
+            $table->string('note')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

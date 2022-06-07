@@ -24,7 +24,13 @@ class AreaController extends Controller
 
     public function create(Request $request)
     {
-        $areas = Area::all();
+        $validator = $request->validate([
+            'name' => 'required|unique:areas|min:2',
+        ],[
+            'name.required' => 'Tên khu vực bắt buộc phải có',
+            'name.unique' => 'Tên khu vực đã tồn tại',
+            'name.min' => 'Tên khu vực quá ngắn'
+        ]);
 
         $data = $request->all();
         $product = Area::create($data);
@@ -50,11 +56,15 @@ class AreaController extends Controller
         $model = Area::find($id);
         $model->name = $request->get('name');
         $model->status = $request->get('status');
+        $model->note = $request->get('note');
 
-        $model->save();
+        try {
+            $model->update();
+            Toastr::success("Cập nhật khu vực ". $model->name ." thành công!");
+        } catch (\Exception $ex) {
+            Toastr::error("Cập nhật khu vực ". $model->name ." thất bại!". $ex->getMessage());
+        }
         
-        Toastr::success("Cập nhật khu vực ". $model->name ." thành công!");
-
         return redirect()->route('index_area');
     }
 
@@ -64,8 +74,8 @@ class AreaController extends Controller
             $areas = Area::find($id);
             $areas->delete();
             Toastr::success("Xoá khu vực ". $areas->name ." thành công!");
-        } catch (\Throwable $th) {
-            Toastr::error("Xoá khu vực ". $areas->name ." thất bại!". $th->getMessage());
+        } catch (\Exception $ex) {
+            Toastr::error("Xoá khu vực ". $areas->name ." thất bại!". $ex->getMessage());
         }
 
         return redirect()->route('index_area');
