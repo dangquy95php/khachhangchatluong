@@ -40,4 +40,9 @@ Route::group(['prefix' => 'excel'], function () {
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/', 'UserController@admin')->name('admin');
     // Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
+
+    Route::group(['prefix' => 'area'], function () {
+        Route::get('/', 'AreaController@index')->name('index_area');
+        Route::get('/create', 'AreaController@create')->name('create_area');
+    });
 });

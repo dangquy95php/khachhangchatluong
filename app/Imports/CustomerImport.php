@@ -80,7 +80,7 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
 
     public function model(array $row)
     {
-        return new Customer([
+        return Customer::firstOrCreate([
             'type_pay'        => $row[0],
             'name_pay'        => $row[1],
             'id_customer_pay' => $row[2],
