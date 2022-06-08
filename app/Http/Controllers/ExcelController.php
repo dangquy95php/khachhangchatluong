@@ -40,7 +40,13 @@ class ExcelController extends Controller
             'file.mimes' => 'Định dạng file không đúng. Chỉ cho phép import file Excel thôi.'
         ]);
         \DB::beginTransaction();
+// Danh sách khu vực  Danh sách nhân viên
+// Thêm khách hàng vào khu vực =>  Chia đều data
+// Quản lý khu vực => Quản lý data
+// Cấp khu vực cho nhân viên => Cấp data cho nhân viên
 
+
+// Kết quả gọi => Đại lý vẫn chăm sóc
         try {
 
             Excel::import(new CustomerImport, request()->file('file'));
