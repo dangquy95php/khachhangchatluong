@@ -37,7 +37,7 @@ class ExcelController extends Controller
         ],[
             'file.required' => 'Vui lòng chọn file Excel để import dữ liệu.',
             'file.max' => 'Tập tin quá lớn.',
-            'file.mimes' => 'Định dạng file không đúng. Chỉ cho phép import file Excel thôi.'
+            'file.mimes' => 'File không được cài mật khẩu, định dạng file không đúng. Chỉ cho phép import file Excel thôi.'
         ]);
         \DB::beginTransaction();
 

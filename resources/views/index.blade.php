@@ -208,10 +208,10 @@
                         <span>Trang Quản Trị</span>
                         </a>
                     </li>
-                    @endif
                     <li>
                         <hr class="dropdown-divider">
                     </li>
+                    @endif
                     <!-- <li>
                         <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                         <i class="bi bi-question-circle"></i>
