@@ -46,7 +46,9 @@ class UserController extends Controller
             'password' => urldecode($request->get('password')),
         ];
 
-        if (Auth::attempt($data, $request->get('remember'))) {
+        $remember_me = $request->has('remember') ? true : false;
+
+        if (Auth::attempt($data, $remember_me)) {
             Toastr::success('Đăng nhập vào hệ thống thành công!');
             if (Auth::user()->role == self::USER_ROLE) {
                 return redirect()->route('home');
