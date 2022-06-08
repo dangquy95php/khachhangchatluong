@@ -105,6 +105,8 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                {!! count($customers) == 0 ? '<h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>' : '' !!}
                 <!-- End Table with stripped rows -->
                 </div>
             </div>
@@ -147,7 +149,12 @@ $( "#btn-submit-customer" ).click(function() {
         }
     });
 
-    $( "#form-customer" ).submit();
+    if ($( ".table .customer_choose input" ).length > 0) {
+        console.log($( ".table .customer_choose input" ).length);
+        $( "#form-customer" ).submit();
+    } else {
+        alert("Vui lòng import dữ liệu excel vào hệ thống!");
+    }
 });
 
 </script>

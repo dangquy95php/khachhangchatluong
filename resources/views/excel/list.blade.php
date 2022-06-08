@@ -75,9 +75,12 @@
                      </tr>
                   </thead>
                   <tbody>
+                    @php
+                    $i = 1;
+                    @endphp
                     @foreach($customers as $customer)
                      <tr>
-                        <th scope="row">{{ $customer->id }}</th>
+                        <th scope="row">{{ $i }}</th>
                         <td>{{ $customer->id_contract }}</td>
                         <td>{{ date('Y-m-d', strtotime($customer->join_date)) }}</td>
                         <td>{{ number_format($customer->money); }}</td>
@@ -87,6 +90,9 @@
                         <td>{{ $customer->date_birth }}</td>
                         <td>{{ $customer->home .', '. $customer->ward .', '. $customer->district .', '. $customer->province }}</td>
                      </tr>
+                     @php
+                    $i++;
+                    @endphp
                     @endforeach
                   </tbody>
                </table>
