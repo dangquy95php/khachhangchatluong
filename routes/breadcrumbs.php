@@ -29,3 +29,8 @@ Breadcrumbs::for('area', function ($trail) {
     $trail->parent('home');
     $trail->push('Danh sách khu vực', route('index_area'));
 });
+
+Breadcrumbs::for('customer_by_area', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Thêm khách hàng theo từng khu vực', route('customer_by_area'));
+});

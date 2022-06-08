@@ -9,10 +9,13 @@ use Brian2694\Toastr\Facades\Toastr;
 class AreaController extends Controller
 {
     public $_status = '';
+    public $dataAreas = '';
+
 
     public function __construct()
     {
         $this->_status = Area::getStatus();
+        $this->dataAreas = Area::select('name', 'id', 'note', 'created_at')->opening()->get();
     }
 
     public function index(Request $request)
@@ -64,7 +67,7 @@ class AreaController extends Controller
         } catch (\Exception $ex) {
             Toastr::error("Cập nhật khu vực ". $model->name ." thất bại!". $ex->getMessage());
         }
-        
+
         return redirect()->route('index_area');
     }
 
@@ -79,5 +82,10 @@ class AreaController extends Controller
         }
 
         return redirect()->route('index_area');
+    }
+
+    public function customerByArea(Request $request)
+    {
+        return view('area.customer-by-area', ['areas' => $this->dataAreas]);
     }
 }

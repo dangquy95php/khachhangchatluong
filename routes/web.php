@@ -23,8 +23,8 @@ Route::get('/logout', 'UserController@logout')->name('logout');
 Route::group(['prefix' => 'customer'], function () {
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/search', 'CustomerController@search')->name('search_customer');
-    Route::get('/export/', 'CustomerController@export')->name('export_customer');
-    Route::post('/import/', 'CustomerController@import')->name('import_customer');
+//     Route::get('/export/', 'CustomerController@export')->name('export_customer');
+//     Route::post('/import/', 'CustomerController@import')->name('import_customer');
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
@@ -37,6 +37,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/edit/{id}', 'AreaController@postEdit')->name('post_edit_area');
         Route::post('/create', 'AreaController@create')->name('create_area');
         Route::get('/delete/{id}', 'AreaController@delete')->name('delete_area');
+        Route::get('/customer', 'AreaController@customerByArea')->name('customer_by_area');
 
     });
 

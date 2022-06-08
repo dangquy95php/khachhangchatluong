@@ -30,4 +30,9 @@ class Area extends Model
     {
         return self::STATUS;
     }
+
+    public function scopeOpening($query)
+    {
+        return $query->where('status', self::OPENING);
+    }
 }

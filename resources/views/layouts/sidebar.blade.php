@@ -62,6 +62,11 @@
                <i class="bi bi-circle"></i><span>Danh sách khu vực</span>
                </a>
             </li>
+            <li>
+               <a href="{{route('customer_by_area')}}" class="{{ \Request::route()->getName() == 'customer_by_area' ? 'active' : ''}}">
+               <i class="bi bi-circle"></i><span>Thêm khách hàng vào khu vực</span>
+               </a>
+            </li>
          </ul>
       </li>
    </ul>
