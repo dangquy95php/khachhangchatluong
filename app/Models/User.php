@@ -4,13 +4,21 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as AuthenticatableModel;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Laravel\Sanctum\HasApiTokens;
+use Stephenjude\DefaultModelSorting\Traits\DefaultOrderBy;
+use Hash;
 
-class User extends Authenticatable
+class User extends AuthenticatableModel implements AuthenticatableContract, AuthorizableContract
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, DefaultOrderBy;
+
+    protected static $orderByColumn = 'updated_at';
+
+    protected static $orderByColumnDirection = 'desc';
 
     /**
      * The attributes that are mass assignable.
@@ -55,5 +63,25 @@ class User extends Authenticatable
     public function username()
     {
         return 'username';
+    }
+
+    const NOT_APPROVED_YET = 0;
+    const ACTIVE = 1;
+    const INACTIVE = 2;
+
+    const STATUS = [
+        self::NOT_APPROVED_YET,
+        self::ACTIVE,
+        self::INACTIVE
+    ];
+
+    public static function getStatus()
+    {
+        return self::STATUS;
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

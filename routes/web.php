@@ -22,7 +22,11 @@ Route::get('/logout', 'UserController@logout')->name('logout');
 
 Route::group(['prefix' => 'account'], function () {
     Route::get('/', 'UserController@list')->name('list_account');
-    Route::get('/register', 'UserController@register')->name('register_account');
+    Route::get('/create', 'UserController@create')->name('create_account');
+    Route::post('/create', 'UserController@postCreate')->name('post_create_account');
+    Route::get('/edit/{id}', 'UserController@edit')->name('edit_account');
+    Route::post('/edit/{id}', 'UserController@postEdit')->name('post_edit_account');
+    Route::get('/delete/{id}', 'UserController@delete')->name('delete_account');
 });
 
 Route::group(['prefix' => 'customer'], function () {
@@ -47,6 +51,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/edit/{id}', 'AreaController@postEdit')->name('post_edit_area');
         Route::post('/create', 'AreaController@create')->name('create_area');
         Route::get('/delete/{id}', 'AreaController@delete')->name('delete_area');
-        
+
     });
 });

@@ -6,8 +6,11 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginUserRequest;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
+use Hash;
 
 class UserController extends Controller
 {
@@ -67,9 +70,28 @@ class UserController extends Controller
         return redirect()->route('login');
     }
 
-    public function register(Request $request)
+    public function create(Request $request)
     {
-        return view('account.register');
+        return view('account.create');
+    }
+
+    public function postCreate(CreateUserRequest $request)
+    {
+        $data = [
+            'name'          => $request->input('name'),
+            'username'      => $request->input('username'),
+            'email'         => $request->input('email'),
+            'status'        => $request->input('status'),
+            'password'      => $request->input('password'),
+        ];
+        try {
+            User::create($data);
+            Toastr::success('Tạo tài khoản '. $request->input('username') .' thành công');
+        } catch(\Exception $e) {
+            Toastr::success('Tạo tài khoản thất bại!'. $e->getMessage());
+        }
+
+        return redirect()->route('list_account');
     }
 
     public function list(Request $request)
@@ -77,5 +99,49 @@ class UserController extends Controller
         $data = User::select('id', 'name', 'email', 'username', 'role', 'status', 'created_at')->get();
 
         return view('account.list', compact('data'));
+    }
+
+    public function edit($id, Request $request)
+    {
+        $data = User::find($id);
+
+        return view('account.create', compact('data'));
+    }
+
+    public function postEdit($id, UpdateUserRequest $request)
+    {
+        $user = User::find($id);
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->status = $request->input('status');
+
+        if (!Hash::check($request->input('password'), $user->password) && $request->get('check_password') !== 'on') {
+            $user->password = Hash::make($request->input('password'));
+        }
+        try {
+            if($user->isDirty()) {
+                Toastr::success('Thông tin người dùng đã thay đổi thành công.');
+            } else {
+                Toastr::warning('Dữ liệu chưa được thay đổi');
+            }
+            $user->save();
+        } catch (\Exception $ex) {
+            Toastr::error('Có lỗi khi lưu dữ liệu '. $ex->getMessage());
+        }
+
+        return redirect()->route('list_account');
+    }
+
+    public function delete($id, Request $request)
+    {
+        try {
+            $user = User::find($id);
+            $user->delete();
+            Toastr::success("Xóa nhân viên ". $user->username ." thành công!");
+        } catch (\Exception $ex) {
+            Toastr::error("Xóa nhân viên ". $user->username ." thất bại!". $ex->getMessage());
+        }
+
+        return redirect()->route('list_account');
     }
 }
