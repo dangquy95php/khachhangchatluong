@@ -4752,3 +4752,9 @@
 127.0.0.1 - - [08/Jun/2022:20:25:17 +0700] "GET /admin/area/add-area-to-user HTTP/1.1" 200 68471
 127.0.0.1 - - [08/Jun/2022:20:25:17 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
 127.0.0.1 - - [08/Jun/2022:20:25:17 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
+127.0.0.1 - - [08/Jun/2022:20:26:11 +0700] "GET /account HTTP/1.1" 404 121632
+127.0.0.1 - - [08/Jun/2022:20:26:11 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
+127.0.0.1 - - [08/Jun/2022:20:26:11 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
+127.0.0.1 - - [08/Jun/2022:20:36:46 +0700] "GET /refresh-seed HTTP/1.1" 200 90306
+127.0.0.1 - - [08/Jun/2022:20:36:47 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
+127.0.0.1 - - [08/Jun/2022:20:36:47 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864

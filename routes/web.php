@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Clear Config cache:
+Route::get('/refresh-seed', function() {
+    $exitCode = Artisan::call('migrate:refresh --seed');
+    return '<h1>Clear Config cleared</h1>';
+});
 
 Route::get('/', 'UserController@index')->name('home');
 
