@@ -22,11 +22,7 @@ class UserController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login');
         } else {
-            if (Auth::user()->role == self::USER_ROLE) {
-                return view('index');
-            } else {
-                return redirect()->route('admin');
-            }
+            return view('index');
         }
     }
 

@@ -195,5 +195,6 @@
          <!-- End Profile Nav -->
       </ul>
    </nav>
+   <a href="{{route('home')}}" class="btn btn-primary">Call Khách Hàng</a>
    <!-- End Icons Navigation -->
 </header>

@@ -231,6 +231,9 @@
                 <!-- End Profile Nav -->
             </ul>
         </nav>
+        @if(Auth::user()->role == 2)
+        <a class="btn btn-primary" href="{{route('admin')}}">Trang Quản Trị</a>
+        @endif
         <!-- End Icons Navigation -->
     </header>
 
