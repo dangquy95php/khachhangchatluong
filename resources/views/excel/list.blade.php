@@ -86,7 +86,14 @@
                         <td>{{ number_format($customer->money); }}</td>
                         <td>{{ $customer->date_due .'-'. $customer->month_due .'-'. $customer->year_due }}</td>
                         <td>{{ $customer->last_name .' '. $customer->first_name}}</td>
-                        <td>{{ $customer->sex == 'M' ? 'Nam' : 'Nữ' }}</td>
+                        <td>
+                            @if($customer->sex == 'M')
+                            Nam
+                            @endif
+                            @if($customer->sex == 'F')
+                            Nữ
+                            @endif
+                        </td>
                         <td>{{ $customer->date_birth }}</td>
                         <td>{{ $customer->home .', '. $customer->ward .', '. $customer->district .', '. $customer->province }}</td>
                      </tr>
