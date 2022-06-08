@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableAreasTable extends Migration
+class CreateAreasUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateTableAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
+        Schema::create('areas_users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->boolean('status')->default(0);
-            $table->string('note')->nullable();
+            $table->string('id_area')->nullable();
             $table->string('id_user')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -31,6 +28,6 @@ class CreateTableAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('areas_users');
     }
 }

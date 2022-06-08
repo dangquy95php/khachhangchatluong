@@ -25,7 +25,6 @@
                         <th scope="col">Tên Đăng Nhập</th>
                         <th scope="col">Email</th>
                         <th scope="col">Trạng Thái</th>
-                        <th scope="col">Ngày Đăng Ký</th>
                         <th scope="col" class="text-center">
                             <a href="{{ route('create_account') }}" type="button" class="btn btn-primary">Thêm</a>
                         </th>
@@ -51,7 +50,6 @@
                               <span class="badge rounded-pill bg-secondary">Chưa được duyệt</span>
                            @endif
                         </td>
-                        <td>{{$item->created_at}}</td>
                         <td class="text-center">
                             <a class="btn btn-warning text-white" href="{{route('edit_account', $item->id) }}">Sửa</a>
                             <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal"  href="{{route('delete_account', $item->id) }}" class="btn btn-danger">Xoá</button>

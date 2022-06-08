@@ -24,8 +24,10 @@
     <link href="{{ asset('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet" type="text/css" >
 
-      <!-- Template Main CSS File -->
-      <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
+    @stack('css')
+
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -41,7 +43,7 @@
         @yield('breadcrumb')
 
         </div>
-        
+
         @yield('content')
 
     </main>
@@ -63,11 +65,11 @@
 
     <!-- Jquery Slim JS -->
     <script src="{{ asset('js/jquery.min.js')}} "></script>
-   
+
     <script src="{{ asset('js/jquery-ui.min.js')}} "></script>
 
     <svg id="SvgjsSvg1145" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1146"></defs><polyline id="SvgjsPolyline1147" points="0,0"></polyline><path id="SvgjsPath1148" d="M-1 270.2L-1 270.2C-1 270.2 176.9170673076923 270.2 176.9170673076923 270.2C176.9170673076923 270.2 294.86177884615387 270.2 294.86177884615387 270.2C294.86177884615387 270.2 412.80649038461536 270.2 412.80649038461536 270.2C412.80649038461536 270.2 530.7512019230769 270.2 530.7512019230769 270.2C530.7512019230769 270.2 648.6959134615385 270.2 648.6959134615385 270.2C648.6959134615385 270.2 766.640625 270.2 766.640625 270.2C766.640625 270.2 766.640625 270.2 766.640625 270.2 "></path></svg>
-    
+
     @stack('scripts')
 
     <script src="{{ asset('js/toastr.min.js')}} "></script>

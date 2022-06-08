@@ -33,6 +33,7 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
         'role',
         'password',
         'status',
+        'id_user',
         'created_at',
         'updated_at'
     ];
@@ -57,7 +58,7 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     ];
 
     protected $appends = [
-        'id', 'role', 'status', 'name'
+        'id', 'role', 'status', 'name', 'id_user'
     ];
 
     public function username()
@@ -75,6 +76,9 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
         self::INACTIVE
     ];
 
+    const USER_ROLE = 1;
+    const ADMIN_ROLE = 2;
+
     public static function getStatus()
     {
         return self::STATUS;
@@ -83,5 +87,10 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function scopeUser($query)
+    {
+        return $query->where('role', self::USER_ROLE);
     }
 }

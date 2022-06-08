@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\User;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Models\AreaUser;
+
 class AreaController extends Controller
 {
     public $_status = '';
@@ -97,7 +100,7 @@ class AreaController extends Controller
     {
         $request->validate([
             'area' => 'required',
-        ],[
+        ], [
             'area.required' => 'Vui lòng chọn khu vực.',
         ]);
 
@@ -110,5 +113,20 @@ class AreaController extends Controller
             Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
         }
         return redirect()->back();
+    }
+
+    public function addAreaToUser(Request $request)
+    {
+        $users = User::select('id', 'name', 'email', 'username', 'role', 'status', 'created_at')->user()->get();
+
+        return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'users' => $users ]);
+    }
+
+    public function postAddAreaToUser(Request $request)
+    {
+        $areaJson = $request->get('area_user_data');
+        // $result = array_values(json_decode($areaJson, true));
+
+        dd($areaJson);
     }
 }

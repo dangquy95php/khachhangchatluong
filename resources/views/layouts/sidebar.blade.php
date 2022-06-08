@@ -67,6 +67,12 @@
                <i class="bi bi-circle"></i><span>Thêm khách hàng vào khu vực</span>
                </a>
             </li>
+
+            <li>
+               <a href="{{route('add_area_to_user')}}" class="{{ \Request::route()->getName() == 'add_area_to_user' ? 'active' : ''}}">
+               <i class="bi bi-circle"></i><span>Cấp khu vực cho nhân viên</span>
+               </a>
+            </li>
          </ul>
       </li>
    </ul>
