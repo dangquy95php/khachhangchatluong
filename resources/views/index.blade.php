@@ -197,20 +197,22 @@
                         <i class="bi bi-person"></i>
                         <span>My Profile</span>
                         </a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <hr class="dropdown-divider">
-                    </li>
+                    </li> -->
+                    @if(Auth::user()->role == 2)
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('admin')}}">
                         <i class="bi bi-gear"></i>
-                        <span>Account Settings</span>
+                        <span>Trang Quản Trị</span>
                         </a>
                     </li>
+                    @endif
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li>
+                    <!-- <li>
                         <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                         <i class="bi bi-question-circle"></i>
                         <span>Need Help?</span>
@@ -231,9 +233,6 @@
                 <!-- End Profile Nav -->
             </ul>
         </nav>
-        @if(Auth::user()->role == 2)
-        <a class="btn btn-primary" href="{{route('admin')}}">Trang Quản Trị</a>
-        @endif
         <!-- End Icons Navigation -->
     </header>
 
@@ -249,35 +248,40 @@
                 <div class="card-body">
                     <!-- Vertical Form -->
                     <form class="row g-3">
-                        <div class="col-6">
+                        <div class="col-7">
                             <div class="row">
                                 <div class="col-8">
-                                    <div class="row">
+                                    <div class="row g-3">
                                         <div class="col-4">
-                                            <label for="inputNanme4" class="form-label">Ngày Đáo Hạn</label>
-                                            <input id="startDate" class="form-control" type="date" value="2020-10-01" />
+                                            <label for="inputNanme5" class="form-label">Ngày tham gia</label>
+                                            <input id="startDate" class="form-control" type="date" value="2019-05-01" />
                                         </div>
                                         <div class="col-4">
-                                            <label for="inputEmail4" class="form-label">Số Tiền </label>
-                                            <input type="number" class="form-control" id="inputEmail4">
+                                            <label for="inputNanme4" class="form-label">Ngày Đáo Hạn</label>
+                                            <input class="form-control" type="date" value="2020-10-01" />
                                         </div>
                                         <div class="col-4 pe-0">
                                             <label for="inputPassword4" class="form-label">Số Hợp Đồng</label>
                                             <input type="text" class="form-control" id="inputPassword4">
                                         </div>
-                                        <div class="col-6 pt-2">
+                                        <div class="col-4">
+                                            <label for="inputEmail4" class="form-label">Số Tiền </label>
+                                            <input type="number" class="form-control" id="inputEmail4">
+                                        </div>
+                                        <div class="col-4">
                                             <label for="inputNanme4" class="form-label">Họ Và Tên</label>
                                             <input type="text" class="form-control" id="inputNanme4">
                                         </div>
-                                        <div class="col-2 pe-0 pt-2">
-                                            <label for="inputPassword4" class="form-label">Tuổi</label>
-                                            <input type="number" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
-                                        </div>
-                                        <div class="col-4 pe-0 pt-2">
+                                        <div class="col-4 pe-0">
                                             <label for="inputNanme4" class="form-label">Số Điện Thoại</label>
                                             <input type="number" class="form-control" id="inputNanme4">
                                         </div>
-                                        <div class="col-4 pt-2">
+                                        <div class="col-2 pe-0">
+                                            <label for="inputPassword4" class="form-label">Tuổi</label>
+                                            <input type="number" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
+                                        </div>
+                                       
+                                        <div class="col-3">
                                             <label for="inputEmail4" class="form-label">Giới Tính</label>
                                             <select id="inputState" class="form-select">
                                                 <option selected="">Chọn giới tính...</option>
@@ -285,7 +289,7 @@
                                                 <option>Nữ</option>
                                             </select>
                                         </div>
-                                        <div class="col-8 pt-2 pe-0">
+                                        <div class="col-7 pe-0">
                                             <label for="inputEmail4" class="form-label">Nguồn Dữ Liệu</label>
                                             <select id="inputState" class="form-select">
                                                 <option selected="">Chọn nguồn dữ liệu...</option>
@@ -342,7 +346,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-5">
                             <div class="col-12">
                                 <!-- <textarea class="form-control" placeholder="Ghi chú cụ thể thông tin khách hàng" id="floatingTextarea" rows="5"></textarea> -->
                                 <div class="card mb-2">
