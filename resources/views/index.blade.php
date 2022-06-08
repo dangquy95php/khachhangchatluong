@@ -330,6 +330,14 @@
                                                 </label>
                                             </div>
                                         </li>
+                                        <li class="list-group-item">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios5" value="5">
+                                                <label class="form-check-label" for="gridRadios5">
+                                                Đại lý vẫn chăm sóc
+                                                </label>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
