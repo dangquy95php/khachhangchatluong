@@ -20,25 +20,11 @@ Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
 Route::get('/logout', 'UserController@logout')->name('logout');
 
-Route::group(['prefix' => 'account'], function () {
-    Route::get('/', 'UserController@list')->name('list_account');
-    Route::get('/create', 'UserController@create')->name('create_account');
-    Route::post('/create', 'UserController@postCreate')->name('post_create_account');
-    Route::get('/edit/{id}', 'UserController@edit')->name('edit_account');
-    Route::post('/edit/{id}', 'UserController@postEdit')->name('post_edit_account');
-    Route::get('/delete/{id}', 'UserController@delete')->name('delete_account');
-});
-
 Route::group(['prefix' => 'customer'], function () {
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/search', 'CustomerController@search')->name('search_customer');
     Route::get('/export/', 'CustomerController@export')->name('export_customer');
     Route::post('/import/', 'CustomerController@import')->name('import_customer');
-});
-
-Route::group(['prefix' => 'excel'], function () {
-    Route::get('/import', 'CustomerController@index')->name('data_import');
-    Route::get('/history', 'ExcelController@history')->name('data_import_history');
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
@@ -52,5 +38,19 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/create', 'AreaController@create')->name('create_area');
         Route::get('/delete/{id}', 'AreaController@delete')->name('delete_area');
 
+    });
+
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', 'UserController@list')->name('list_account');
+        Route::get('/create', 'UserController@create')->name('create_account');
+        Route::post('/create', 'UserController@postCreate')->name('post_create_account');
+        Route::get('/edit/{id}', 'UserController@edit')->name('edit_account');
+        Route::post('/edit/{id}', 'UserController@postEdit')->name('post_edit_account');
+        Route::get('/delete/{id}', 'UserController@delete')->name('delete_account');
+    });
+
+    Route::group(['prefix' => 'excel'], function () {
+        Route::get('/import', 'ExcelController@import')->name('data_import');
+        Route::get('/history', 'ExcelController@history')->name('data_import_history');
     });
 });

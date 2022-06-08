@@ -65,7 +65,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p>Tên Đăng Nhập: <b>{{ $item->name }}</b></p>
+                                <p>Tên Đăng Nhập: <b>{{ $item->username }}</b></p>
                                 <p>Email: <b>{{ $item->email }}</b></p>
                                 <p>Trạng Thái:
                                     @if($item->status == 1)

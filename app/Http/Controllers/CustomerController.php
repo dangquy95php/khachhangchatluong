@@ -24,7 +24,7 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-        return view('excel.list', ['customers' => $this->dataCustomers]);
+        return view('customer.list', ['customers' => $this->dataCustomers]);
     }
 
     public function search(Request $request)
