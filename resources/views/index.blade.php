@@ -204,7 +204,7 @@
                     @if(Auth::user()->role == 2)
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="{{route('admin')}}">
-                        <i class="bi bi-gear"></i>
+                        <i class="ri-admin-line"></i>
                         <span>Trang Quản Trị</span>
                         </a>
                     </li>

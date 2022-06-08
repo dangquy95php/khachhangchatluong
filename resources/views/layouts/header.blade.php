@@ -167,7 +167,7 @@
                </li> -->
                <li>
                   <a class="dropdown-item d-flex align-items-center" href="{{route('home')}}">
-                  <i class="bi bi-gear"></i>
+                  <i class="bi bi-headset"></i>
                   <span>Call Khách Hàng</span>
                   </a>
                </li>
