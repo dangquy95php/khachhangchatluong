@@ -64,7 +64,6 @@
                   <thead>
                      <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Chọn</th>
                         <th scope="col">Số hợp đồng</th>
                         <th scope="col">Ngày tham gia</th>
                         <th scope="col">Số tiền</th>
@@ -79,13 +78,6 @@
                     @foreach($customers as $customer)
                      <tr>
                         <th scope="row">{{ $customer->id }}</th>
-                        <th>
-                            <div class="form-check d-flex justify-content-center">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                </label>
-                            </div>
-                        </th>
                         <td>{{ $customer->id_contract }}</td>
                         <td>{{ date('Y-m-d', strtotime($customer->join_date)) }}</td>
                         <td>{{ number_format($customer->money); }}</td>

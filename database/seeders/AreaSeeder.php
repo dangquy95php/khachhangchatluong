@@ -22,7 +22,7 @@ class AreaSeeder extends Seeder
             ],
             [
                 'name' => 'Gò công',
-                'status' => 0,
+                'status' => 1,
                 'note' => 'Khu vực có tiềm năng cao'
             ],
         ];

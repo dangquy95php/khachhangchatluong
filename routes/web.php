@@ -38,7 +38,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/create', 'AreaController@create')->name('create_area');
         Route::get('/delete/{id}', 'AreaController@delete')->name('delete_area');
         Route::get('/customer', 'AreaController@customerByArea')->name('customer_by_area');
-
+        Route::post('/customer', 'AreaController@postCustomerByArea')->name('post_customer_by_area');
     });
 
     Route::group(['prefix' => 'account'], function () {
@@ -52,6 +52,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
     Route::group(['prefix' => 'excel'], function () {
         Route::get('/import', 'ExcelController@import')->name('data_import');
+        Route::post('/import', 'ExcelController@postImport')->name('post_data_import');
         Route::get('/history', 'ExcelController@history')->name('data_import_history');
     });
 });

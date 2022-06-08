@@ -37,44 +37,4 @@ class CustomerController extends Controller
         return Excel::download(new CustomerExport, 'customer.xlsx'); //download file export
         return Excel::store(new CustomerExport, 'customer.xlsx', 'disk-name'); //lưu file export trên ổ cứng
     }
-
-    public function import(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|max:10000|mimes:xlsx,xls',
-        ],[
-            'file.required' => 'Vui lòng chọn file Excel để import dữ liệu.',
-            'file.max' => 'Tập tin quá lớn.',
-            'file.mimes' => 'Định dạng file không đúng. Chỉ cho phép import file Excel thôi.'
-        ]);
-        \DB::beginTransaction();
-
-        try {
-
-            Excel::import(new CustomerImport, request()->file('file'));
-            \DB::commit();
-        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-            $failures = $e->failures();
-            $errormessage = "";
-
-            foreach ($failures as $failure) {
-                $errormess = "";
-                foreach($failure->errors() as $error) {
-                    $errormess = $errormess.$error;
-                }
-                $errormessage = $errormessage."\n Dòng số ".$failure->row().", ".$errormess."<br>";
-            }
-
-            return redirect()->back()->with('message', $errormessage);
-        } catch (\Illuminate\Database\QueryException $e) {
-            $errorCode = $e->errorInfo[1];
-            if($errorCode == 1062)
-                \DB::rollback();
-            return redirect()->back()->with('message', 'Dữ liệu thêm vào database đã có lỗi xảy ra.'. $e->getMessage());
-        }
-
-        Toastr::success('Import dữ liệu thành công!');
-
-        return redirect()->route('data_import');
-    }
 }

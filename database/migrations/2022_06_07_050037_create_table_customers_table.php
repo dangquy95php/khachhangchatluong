@@ -38,6 +38,7 @@ class CreateTableCustomersTable extends Migration
             $table->string('ward');
             $table->string('district');
             $table->string('province');
+            $table->boolean('by_area')->default(0);
             $table->timestamps();
         });
     }

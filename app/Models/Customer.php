@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
 
+    const BY_AREA_ACTIVE = 1; // đã update sau khi import. Tức là đã cho khách hàng vào khu vực
+
+    const NEW_CUSTOMER = 0;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,7 +41,13 @@ class Customer extends Model
         'ward',
         'district',
         'province',
+        'by_area'
     ];
+
+    public function scopeByArea($query)
+    {
+        return $query->where('by_area', self::NEW_CUSTOMER);
+    }
 
     public function getFullNameAttribute()
     {

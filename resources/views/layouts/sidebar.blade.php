@@ -41,7 +41,7 @@
          <ul id="tables-nav" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/excel' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
                <a href="{{route('data_import')}}" class="{{ \Request::route()->getName() == 'data_import' ? 'active' : ''}}">
-               <i class="bi bi-circle"></i><span>Nhập dũ liệu Excel</span>
+               <i class="bi bi-circle"></i><span>Nhập dữ liệu Excel</span>
                </a>
             </li>
             <!-- <li>

@@ -5,17 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 class AreaController extends Controller
 {
     public $_status = '';
     public $dataAreas = '';
+    public $dataCustomers = '';
 
+    const CUSTOMER_ACTIVE = 1;
 
     public function __construct()
     {
         $this->_status = Area::getStatus();
         $this->dataAreas = Area::select('name', 'id', 'note', 'created_at')->opening()->get();
+        $this->dataCustomers = Customer::select('id', 'id_contract', 'join_date', 'money', 'date_due', 'month_due', 'year_due', 'last_name', 'first_name', 'sex', 'date_birth', 'phone', 'home', 'ward', 'district', 'province')->byArea()->get();
     }
 
     public function index(Request $request)
@@ -86,6 +90,25 @@ class AreaController extends Controller
 
     public function customerByArea(Request $request)
     {
-        return view('area.customer-by-area', ['areas' => $this->dataAreas]);
+        return view('area.customer-by-area', ['areas' => $this->dataAreas, 'customers' => $this->dataCustomers]);
+    }
+
+    public function postCustomerByArea(Request $request)
+    {
+        $request->validate([
+            'area' => 'required',
+        ],[
+            'area.required' => 'Vui lòng chọn khu vực.',
+        ]);
+
+        $ids = $request->input('choose_customers');
+        $data = explode('_', $request->input('area'));
+        try {
+            Customer::whereIn('id', $ids)->update([ 'by_area' => self::CUSTOMER_ACTIVE ]);
+            Toastr::success("Đã thêm một số khách hàng vào khu vực ". $data[1]);
+        } catch (\Exception $ex) {
+            Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
+        }
+        return redirect()->back();
     }
 }
