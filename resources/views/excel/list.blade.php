@@ -82,7 +82,7 @@
                      <tr>
                         <th scope="row">{{ $i }}</th>
                         <td>{{ $customer->id_contract }}</td>
-                        <td>{{ date('Y-m-d', strtotime($customer->join_date)) }}</td>
+                        <td>{{ $customer->join_date != '' ? date('Y-m-d', strtotime($customer->join_date)) : '' }}</td>
                         <td>{{ number_format($customer->money); }}</td>
                         <td>{{ $customer->date_due .'-'. $customer->month_due .'-'. $customer->year_due }}</td>
                         <td>{{ $customer->last_name .' '. $customer->first_name}}</td>
