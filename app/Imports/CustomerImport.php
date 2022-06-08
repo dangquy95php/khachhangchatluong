@@ -40,19 +40,19 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
     {
         return [
             '4' => ['required'],//số hợp đồng
-            '5' => ['required'],//ngày tham gia
-            '7' => ['required'],//số tiền
-            '8' => ['required'],//ngày đáo hạn
-            '12' => ['required'],//họ
-            // '13' => ['required'],// tên
-            '14' => ['required'],// giới tính
-            '15' => ['required'],// Ngày sinh => Cột P
-            '16' => ['required'],//tuổi
-            '17' => ['required'],// số điện thoại
-            '19' => ['required'],
-            '20' => ['required'],
-            '21' => ['required'],
-            '22' => ['required'],
+            // '5' => ['required'],//ngày tham gia
+            // '7' => ['required'],//số tiền
+            // '8' => ['required'],//ngày đáo hạn
+            // '12' => ['required'],//họ
+            // // '13' => ['required'],// tên
+            // '14' => ['required'],// giới tính
+            // '15' => ['required'],// Ngày sinh => Cột P
+            // '16' => ['required'],//tuổi
+            // '17' => ['required'],// số điện thoại
+            // '19' => ['required'],
+            // '20' => ['required'],
+            // '21' => ['required'],
+            // '22' => ['required'],
         ];
     }
 
@@ -63,18 +63,18 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
     {
         return [
             '4.required' => 'Số hợp đồng không được để trống cột số :attribute.',
-            '5.required' => 'Ngày tham không được để trống cột số :attribute.',
-            '7.required' => 'Số tiền không được để trống cột số :attribute.',
-            '8.required' => 'Ngày đáo hạn không được để trống cột số :attribute.',
-            '12.required' => 'Họ tên không được để trống cột số :attribute.',
-            '14.required' => 'Giới tính không được để trống cột số :attribute.',
-            '15.required' => 'Ngày sinh không được để trống cột số :attribute.',
-            '16.required' => 'Tuổi không được để trống cột số :attribute.',
-            '17.required' => 'Số điện thoại không được để trống cột số :attribute.',
-            '19.required' => 'Địa chỉ không được để trống cột số :attribute.',
-            '20.required' => 'Đường không được để trống cột số :attribute.',
-            '21.required' => 'Thị xã không được để trống cột số :attribute.',
-            '22.required' => 'Tỉnh không được để trống cột số :attribute.',
+            // '5.required' => 'Ngày tham không được để trống cột số :attribute.',
+            // '7.required' => 'Số tiền không được để trống cột số :attribute.',
+            // '8.required' => 'Ngày đáo hạn không được để trống cột số :attribute.',
+            // '12.required' => 'Họ tên không được để trống cột số :attribute.',
+            // '14.required' => 'Giới tính không được để trống cột số :attribute.',
+            // '15.required' => 'Ngày sinh không được để trống cột số :attribute.',
+            // '16.required' => 'Tuổi không được để trống cột số :attribute.',
+            // '17.required' => 'Số điện thoại không được để trống cột số :attribute.',
+            // '19.required' => 'Địa chỉ không được để trống cột số :attribute.',
+            // '20.required' => 'Đường không được để trống cột số :attribute.',
+            // '21.required' => 'Thị xã không được để trống cột số :attribute.',
+            // '22.required' => 'Tỉnh không được để trống cột số :attribute.',
         ];
     }
 
