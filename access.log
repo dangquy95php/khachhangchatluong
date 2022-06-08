@@ -4770,3 +4770,6 @@
 127.0.0.1 - - [08/Jun/2022:20:42:37 +0700] "GET /admin/excel/import HTTP/1.1" 200 61626
 127.0.0.1 - - [08/Jun/2022:20:42:37 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
 127.0.0.1 - - [08/Jun/2022:20:42:37 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
+127.0.0.1 - - [08/Jun/2022:21:13:58 +0700] "GET /refresh-seed HTTP/1.1" 200 90651
+127.0.0.1 - - [08/Jun/2022:21:13:59 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
+127.0.0.1 - - [08/Jun/2022:21:13:59 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
