@@ -383,6 +383,7 @@
 
                     <div class="card mb-2">
                         <div class="card-body">
+                            <h5 class="text-center">Dữ liệu chưa có</h5>
                         <!-- Table with hoverable rows -->
                         <!-- <table class="table table-hover">
                             <thead>
@@ -421,6 +422,7 @@
 
                     <div class="card">
                         <div class="card-body">
+                            <h5 class="text-center">Dữ liệu chưa có</h5>
                         <!-- Table with hoverable rows -->
                         <!-- <table class="table table-hover">
                             <thead>
