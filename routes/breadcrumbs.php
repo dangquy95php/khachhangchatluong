@@ -27,7 +27,7 @@ Breadcrumbs::for('data_import', function ($trail) {
 
 Breadcrumbs::for('area', function ($trail) {
     $trail->parent('home');
-    $trail->push('Danh sách khu vực', route('index_area'));
+    $trail->push('Cấp data cho nhân viên', route('index_area'));
 });
 
 Breadcrumbs::for('customer_by_area', function ($trail) {
