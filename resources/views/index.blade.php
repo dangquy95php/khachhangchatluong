@@ -382,8 +382,8 @@
                 <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                     <div class="card mb-2">
-                        <div class="card-body">
-                            <h5 class="text-center">Dữ liệu chưa có</h5>
+                        <div class="card-body pt-3">
+                        <h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>
                         <!-- Table with hoverable rows -->
                         <!-- <table class="table table-hover">
                             <thead>
@@ -421,8 +421,8 @@
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="text-center">Dữ liệu chưa có</h5>
+                        <div class="card-body pt-3">
+                            <h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>
                         <!-- Table with hoverable rows -->
                         <!-- <table class="table table-hover">
                             <thead>
