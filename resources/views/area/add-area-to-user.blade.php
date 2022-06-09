@@ -24,7 +24,7 @@
                             <hr />
                             <ul class="list-group sortable" id="area_area_name">
                                 @foreach($areas as $area)
-                                    <li id_area ="{{ $area->id }}" class="d-flex btn btn-secondary mb-2">{{ $area->name }}</li>
+                                    <li id_area ="{{ $area->id }}" class="btn-modify d-flex btn btn-secondary mb-2">{{ $area->name }}</li>
                                 @endforeach
                             </ul>
                         </div>

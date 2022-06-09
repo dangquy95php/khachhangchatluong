@@ -1092,3 +1092,7 @@ h1, h2, h3, h4, h5, h6 {
 #form-user-to-area .sortable {
     min-height: 60px;
 }
+#form-user-to-area .btn-modify {
+    background-color: #146c43;
+    border-color: #13653f;
+}
