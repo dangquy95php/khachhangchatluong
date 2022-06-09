@@ -253,36 +253,36 @@
                                 <div class="col-8">
                                     <div class="row g-3">
                                         <div class="col-4">
-                                            <label for="inputNanme5" class="form-label">Ngày tham gia</label>
+                                            <label for="inputNanme5" class="form-label"><b>Ngày tham gia</b></label>
                                             <input id="startDate" class="form-control" type="date" value="2019-05-01" />
                                         </div>
                                         <div class="col-4">
-                                            <label for="inputNanme4" class="form-label">Ngày Đáo Hạn</label>
+                                            <label for="inputNanme4" class="form-label"><b>Ngày Đáo Hạn</b></label>
                                             <input class="form-control" type="date" value="2020-10-01" />
                                         </div>
                                         <div class="col-4 pe-0">
-                                            <label for="inputPassword4" class="form-label">Số Hợp Đồng</label>
+                                            <label for="inputPassword4" class="form-label"><b>Số Hợp Đồng</b></label>
                                             <input type="text" class="form-control" id="inputPassword4">
                                         </div>
                                         <div class="col-4">
-                                            <label for="inputEmail4" class="form-label">Số Tiền </label>
+                                            <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
                                             <input type="number" class="form-control" id="inputEmail4">
                                         </div>
                                         <div class="col-4">
-                                            <label for="inputNanme4" class="form-label">Họ Và Tên</label>
+                                            <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
                                             <input type="text" class="form-control" id="inputNanme4">
                                         </div>
                                         <div class="col-4 pe-0">
-                                            <label for="inputNanme4" class="form-label">Số Điện Thoại</label>
+                                            <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
                                             <input type="number" class="form-control" id="inputNanme4">
                                         </div>
                                         <div class="col-2 pe-0">
-                                            <label for="inputPassword4" class="form-label">Tuổi</label>
+                                            <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
                                             <input type="number" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
                                         </div>
 
                                         <div class="col-3">
-                                            <label for="inputEmail4" class="form-label">Giới Tính</label>
+                                            <label for="inputEmail4" class="form-label"><b>Giới Tính</b></label>
                                             <select id="inputState" class="form-select">
                                                 <option selected="">Chọn giới tính...</option>
                                                 <option>Nam</option>
@@ -290,7 +290,7 @@
                                             </select>
                                         </div>
                                         <div class="col-7 pe-0">
-                                            <label for="inputEmail4" class="form-label">Nguồn Dữ Liệu</label>
+                                            <label for="inputEmail4" class="form-label"><b>Nguồn Dữ Liệu</b></label>
                                             <select id="inputState" class="form-select">
                                                 <option selected="">Chọn nguồn dữ liệu...</option>
                                                 <option>Lái Thiêu</option>
@@ -300,7 +300,7 @@
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <label for="inputEmail4" class="form-label">Kết Quả Gọi</label>
+                                    <label for="inputEmail4" class="form-label"><b>Kết Quả Gọi</b></label>
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <div class="form-check">
@@ -351,7 +351,7 @@
                                 <!-- <textarea class="form-control" placeholder="Ghi chú cụ thể thông tin khách hàng" id="floatingTextarea" rows="5"></textarea> -->
                                 <div class="card mb-2">
                                     <div class="card-body">
-                                        <h5 class="card-title pt-3 pb-0">Ghi Chú</h5>
+                                        <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
 
                                             <!-- Quill Editor default -->
                                         <div class="quill-editor-default" style="min-height: 100px;"></div>
