@@ -54,7 +54,7 @@
       <!-- --------------------- -->
       <li class="nav-item">
          <a class="nav-link {{\Request()->route()->getPrefix() != '/area' ? 'collapsed' : '' }}" data-bs-target="#tables-area" data-bs-toggle="collapse" href="#">
-         <i class="bi bi-file-earmark-excel"></i><span>Quản Lý Data</span><i class="bi bi-chevron-down ms-auto"></i>
+         <i class="bi bi-hdd-rack"></i><span>Quản Lý Data</span><i class="bi bi-chevron-down ms-auto"></i>
          </a>
          <ul id="tables-area" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/area' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
