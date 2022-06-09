@@ -280,7 +280,7 @@
                                             <label for="inputPassword4" class="form-label">Tuổi</label>
                                             <input type="number" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
                                         </div>
-                                       
+
                                         <div class="col-3">
                                             <label for="inputEmail4" class="form-label">Giới Tính</label>
                                             <select id="inputState" class="form-select">
@@ -384,7 +384,7 @@
                     <div class="card mb-2">
                         <div class="card-body">
                         <!-- Table with hoverable rows -->
-                        <table class="table table-hover">
+                        <!-- <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -411,7 +411,7 @@
                                     <td><span class="badge bg-primary">Primary</span></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
                         <!-- End Table with hoverable rows -->
                     </div>
                 </div>
@@ -422,7 +422,7 @@
                     <div class="card">
                         <div class="card-body">
                         <!-- Table with hoverable rows -->
-                        <table class="table table-hover">
+                        <!-- <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -449,7 +449,7 @@
                                     <td><span class="badge bg-primary">Primary</span></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
                         <!-- End Table with hoverable rows -->
                     </div>
                 </div>
