@@ -33,6 +33,12 @@ class UserTableSeeder extends Seeder
                 'status' => 1,
                 'password' => bcrypt('admin!@#123'),
             ],
+            [
+                'username' => 'PHANYEN',
+                'role' => 2,
+                'status' => 1,
+                'password' => bcrypt('Yen12345'),
+            ],
         ];
         \DB::table('users')->insert($data);
     }
