@@ -32,5 +32,5 @@ Breadcrumbs::for('area', function ($trail) {
 
 Breadcrumbs::for('customer_by_area', function ($trail) {
     $trail->parent('home');
-    $trail->push('Thêm khách hàng theo từng khu vực', route('customer_by_area'));
+    $trail->push('Chia đều data', route('customer_by_area'));
 });
