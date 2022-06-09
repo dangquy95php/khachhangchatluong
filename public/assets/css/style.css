@@ -1075,3 +1075,20 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 13px;
   color: #012970;
 }
+
+/* ------------------------------------- */
+.full-height {
+    height: 100%;
+}
+#area_area_name {
+    height: 100%;
+}
+.sortable li {
+    max-width: 50%;
+}
+.sortable li:last-child {
+    margin-bottom: 0 !important;
+}
+#form-user-to-area .sortable {
+    min-height: 60px;
+}
