@@ -80,6 +80,7 @@ class UserController extends Controller
             'username'      => $request->input('username'),
             'email'         => $request->input('email'),
             'status'        => $request->input('status'),
+            'role'          => $request->input('role'),
             'password'      => $request->input('password'),
         ];
         try {
@@ -111,6 +112,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
+        $user->role = $request->get('role');
         $user->status = $request->input('status');
 
         if (!Hash::check($request->input('password'), $user->password) && $request->get('check_password') !== 'on') {

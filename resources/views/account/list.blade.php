@@ -24,6 +24,7 @@
                         <th scope="col">Tên Nhân Viên</th>
                         <th scope="col">Tên Đăng Nhập</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Quyền Truy Cập</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col" class="text-center">
                             <a href="{{ route('create_account') }}" type="button" class="btn btn-primary">Thêm</a>
@@ -37,6 +38,14 @@
                         <td>{{$item->name}}</td>
                         <td>{{$item->username}}</td>
                         <td>{{ $item->email }}</td>
+                        <td>
+                            @if($item->role == '1')
+                                <span class="badge bg-primary">Người dùng</span>
+                            @endif
+                            @if($item->role == '2')
+                                <span class="badge bg-success">Quản trị</span>
+                            @endif
+                        </td>
                         <td>
                            @if ($item->status == 1)
                               <span class="badge rounded-pill bg-success">Đang hoạt động</span>

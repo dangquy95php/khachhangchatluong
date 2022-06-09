@@ -81,6 +81,34 @@
                            </div>
                            @endif
 
+                           <div class="col-12">
+                                <label for="yourPassword" class="form-label">Cấp quyền truy cập</label>
+                                <select class="form-select" name="role" aria-label="Default select example">
+                                    <option vlue="">Chọn quyền truy cập</option>
+                                    @foreach(App\Models\User::getRole() as $role)
+                                        <option
+                                            {{ old('role') == $role ? "selected" : "" }}
+
+                                            @if($role == 1 && $data->role == 1)
+                                                selected
+                                            @endif
+                                            @if($role == 2 && @$data->role == 2)
+                                                selected
+                                            @endif
+
+                                            value="{{$role}}">
+                                            @if($role == 1)
+                                                Người dùng
+                                            @endif
+                                            @if($role == 2)
+                                                Admin
+                                            @endif
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @include('_partials.alert', ['field' => 'status'])
+                           </div>
+
                             <div class="col-12">
                                 <label for="yourPassword" class="form-label">Chọn trạng thái tài khoản</label>
                                 <select class="form-select" name="status" aria-label="Default select example">
@@ -96,6 +124,8 @@
                                             @if($status == 2 && @$data->status == 2)
                                                 selected
                                             @endif
+
+                                            {{ old('status') == $status ? "selected" : "" }}
 
                                             value="{{$status}}">
                                             @if($status == 1)

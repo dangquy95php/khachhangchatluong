@@ -79,9 +79,19 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     const USER_ROLE = 1;
     const ADMIN_ROLE = 2;
 
+    const ROLES_ALL = [
+        self::USER_ROLE,
+        self::ADMIN_ROLE
+    ];
+
     public static function getStatus()
     {
         return self::STATUS;
+    }
+
+    public static function getRole()
+    {
+        return self::ROLES_ALL;
     }
 
     public function setPasswordAttribute($value)
