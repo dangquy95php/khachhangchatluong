@@ -46,19 +46,20 @@ Route::get('/refresh-seed', function() {
 // Khu Vực.. Không cần thêm
 // Thêm nhiều data. Tạo nút search
 
-Route::get('/', 'HomeController@index')->name('home');
 
-Route::post('/by-data-id', 'HomeController@detail')->name('customer_detail');
+Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
-Route::get('/logout', 'UserController@logout')->name('logout');
 
-Route::group(['prefix' => 'customer'], function () {
+Route::group(['auth' => '', 'prefix' => 'customer'], function () {
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/search', 'CustomerController@search')->name('search_customer');
 //     Route::get('/export/', 'CustomerController@export')->name('export_customer');
 //     Route::post('/import/', 'CustomerController@import')->name('import_customer');
+
+    Route::post('/by-data-id', 'HomeController@detail')->name('customer_detail');
+    Route::get('/logout', 'UserController@logout')->name('logout');
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
