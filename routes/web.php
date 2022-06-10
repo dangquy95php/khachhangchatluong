@@ -58,7 +58,9 @@ Route::group(['auth' => '', 'prefix' => 'customer'], function () {
 //     Route::get('/export/', 'CustomerController@export')->name('export_customer');
 //     Route::post('/import/', 'CustomerController@import')->name('import_customer');
 
-    Route::post('/by-data-id', 'HomeController@detail')->name('customer_detail');
+    Route::post('/detail', 'HomeController@detail')->name('customer_detail');
+    Route::post('/update', 'HomeController@update')->name('customer_update');
+
     Route::get('/logout', 'UserController@logout')->name('logout');
 });
 

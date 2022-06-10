@@ -41,7 +41,9 @@ class Customer extends Model
         'ward',
         'district',
         'province',
-        'by_area'
+        'by_area',
+        'info_option',
+        'comment'
     ];
 
     public function scopeByArea($query)

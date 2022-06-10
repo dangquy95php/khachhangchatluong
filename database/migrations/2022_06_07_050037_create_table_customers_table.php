@@ -39,6 +39,8 @@ class CreateTableCustomersTable extends Migration
             $table->string('district')->nullable();
             $table->string('province')->nullable();
             $table->boolean('by_area')->default(0);
+            $table->string('info_option')->nullable(0);
+            $table->text('comment')->nullable(0);
             $table->timestamps();
         });
     }
