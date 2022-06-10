@@ -15,21 +15,21 @@ class AreaSeeder extends Seeder
     {
         //
          $data = [
-            [
-                'name' => 'username1',
-                'status' => 1,
-                'note' => 'Khu vực có nhiều người trẻ'
-            ],
-            [
-                'name' => 'username2',
-                'status' => 1,
-                'note' => 'Khu vực có tiềm năng cao'
-            ],
-            [
-                'name' => 'Bình Chuẩn',
-                'status' => 1,
-                'note' => 'Khu vực đông người đăng ký bảo hiểm'
-            ],
+            // [
+            //     'name' => 'username1',
+            //     'status' => 1,
+            //     'note' => 'Khu vực có nhiều người trẻ'
+            // ],
+            // [
+            //     'name' => 'username2',
+            //     'status' => 1,
+            //     'note' => 'Khu vực có tiềm năng cao'
+            // ],
+            // [
+            //     'name' => 'Bình Chuẩn',
+            //     'status' => 1,
+            //     'note' => 'Khu vực đông người đăng ký bảo hiểm'
+            // ],
         ];
         \DB::table('areas')->insert($data);
     }

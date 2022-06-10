@@ -118,7 +118,7 @@
             <div class="card pt-3 mb-3">
                 <div class="card-body">
                     <!-- Vertical Form -->
-                    <form method="post" action={{route('customer_update')}} class="row g-3" id="customerForm">
+                    <form method="post" action="" class="row g-3" id="customerForm">
                         <input type="text" class="d-none" name="id" value="{{$customer->id}}" id="">
                         <!-- <input type="text" name="id" value=""/> -->
                         @csrf
@@ -170,7 +170,7 @@
                                             <select name="by_area" id="data_oririn" class="form-select">
                                                 <option value="">Chọn nguồn dữ liệu</option>
                                                 @foreach ($areas as $area)
-                                                    <option {{old('by_area', $customer->by_area) == $area->id_area ? 'selected' : '' }} value="{{ $area->id_area }}">{{$customer->by_area .'_'. $area->id_area.'_'.$area->name }}</option>
+                                                    <option {{old('by_area', $customer->by_area) == $area->id_area ? 'selected' : '' }} value="{{ $area->id_area }}">{{ $area->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -181,7 +181,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '1' : $customer->info_option }}" id="gridRadios1" {{ $customer->info_option == 1 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="1" id="gridRadios1" {{ $customer->info_option == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                     Đã hẹn
                                                 </label>
@@ -189,7 +189,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '2' : $customer->info_option }}" id="gridRadios2" {{ $customer->info_option == 2 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="2" id="gridRadios2" {{ $customer->info_option == 2 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios2">
                                                     Không nghe máy
                                                 </label>
@@ -197,7 +197,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '3' : $customer->info_option }}" id="gridRadios3" {{ $customer->info_option == 3 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="3" id="gridRadios3" {{ $customer->info_option == 3 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Khách hàng đang suy nghĩ, gọi lại sau.
                                                 </label>
@@ -205,7 +205,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '4' : $customer->info_option }}" id="gridRadios4" {{ $customer->info_option == 4 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="4" id="gridRadios4" {{ $customer->info_option == 4 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios4">
                                                     Khách hàng ít tiền
                                                 </label>
@@ -213,7 +213,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '5' : $customer->info_option }}" id="gridRadios5" {{ $customer->info_option == 5 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="5" id="gridRadios5" {{ $customer->info_option == 5 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios5">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
@@ -231,16 +231,20 @@
                                     <div class="card-body">
                                         <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
 
-                                        <textarea name="comment" value="{{ $customer->comment }}" class="form-control" rows="6">{{ $customer->comment }}</textarea>
+                                        <textarea name="comment" value="{{ $customer->comment }}" class="form-control" rows="6">{{ old('comment', $customer->comment) }}</textarea>
                                         <!-- End Quill Editor default -->
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <!-- <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button> -->
-                                <button type="button" class="btn btn-success"><i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span></button>
-                                <button type="submit" class="btn-next btn btn-outline-primary"><span class="pe-1">Gọi Tiếp Theo</span><i class="bi bi-chevron-double-right"></i>
-                            </button>
+                                <a class="btn-save btn btn-success"><i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span></a>
+                                @if (\Request::route()->getName() !== 'customer_detail')
+                                <a class="btn-next btn btn-outline-primary"><span class="pe-1">Gọi Tiếp Theo</span><i class="bi bi-chevron-double-right"></i>
+                                @else
+                                    <a href="/" class="btn btn-outline-primary"><span class="pe-1">Gọi Tiếp Theo</span><i class="bi bi-chevron-double-right"></i>
+                                @endif
+                                </a>
                             </div>
                         </div>
                     </form><!-- Vertical Form -->
@@ -336,29 +340,24 @@
         </div>
         </div>
 
-        <div class="card">
-            <div class="card-body">
-              <!-- Disabled Backdrop Modal -->
-              <button type="button" class="btn-alert" data-bs-toggle="modal" data-bs-target="#disablebackdrop">
-              </button>
-              <div class="modal fade" id="disablebackdrop" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">THÔNG BÁO</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    Bạn đã sử dụng hết dữ liệu. Vui lòng liên hệ với quản trị viên để cấp dữ liệu thêm.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đã Hiểu</button>
-                    </div>
-                  </div>
+        <!-- Disabled Backdrop Modal -->
+        <button type="button" class="btn-alert p-0 d-none" data-bs-toggle="modal" data-bs-target="#disablebackdrop"></button>
+            <div class="modal fade" id="disablebackdrop" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">THÔNG BÁO</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-              </div><!-- End Disabled Backdrop Modal-->
+                <div class="modal-body">
+                Bạn đã sử dụng hết dữ liệu. Vui lòng liên hệ với quản trị viên để cấp dữ liệu thêm.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đã Hiểu</button>
+                </div>
+                </div>
             </div>
-          </div>
+        </div><!-- End Disabled Backdrop Modal-->
     </main>
 
     <footer class="footer">
@@ -401,6 +400,18 @@
             if (option < 2) {
                 $('.btn-alert').trigger('click');
             }
+
+            $(".btn-next").click(function() {
+                var formUpdate = $('#customerForm');
+                formUpdate.attr('action', "{{route('customer_update')}}");
+                formUpdate.submit();
+            });
+
+            $(".btn-save").click(function() {
+                var formSave = $('#customerForm');
+                formSave.attr('action', "{{route('customer_save')}}");
+                formSave.submit();
+            });
         });
 
         // $(document).ready(function() {
