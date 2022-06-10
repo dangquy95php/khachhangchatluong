@@ -89,7 +89,7 @@
                                         <option
                                             {{ old('role') == $role ? "selected" : "" }}
 
-                                            @if($role == 1 && $data->role == 1)
+                                            @if($role == 1 && @$data->role == 1)
                                                 selected
                                             @endif
                                             @if($role == 2 && @$data->role == 2)
