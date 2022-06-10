@@ -25,6 +25,11 @@ class AreaSeeder extends Seeder
                 'status' => 1,
                 'note' => 'Khu vực có tiềm năng cao'
             ],
+            [
+                'name' => 'Bình Chuẩn',
+                'status' => 1,
+                'note' => 'Khu vực đông người đăng ký bảo hiểm'
+            ],
         ];
         \DB::table('areas')->insert($data);
     }

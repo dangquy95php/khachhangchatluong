@@ -107,7 +107,9 @@ class AreaController extends Controller
         $ids = $request->input('choose_customers');
         $data = explode('_', $request->input('area'));
         try {
-            Customer::whereIn('id', $ids)->update([ 'by_area' => self::CUSTOMER_ACTIVE ]);
+            Customer::whereIn('id', $ids)->update([ 'by_area' =>  $data[0] ]);
+
+
             Toastr::success("Đã thêm một số khách hàng vào khu vực ". $data[1]);
         } catch (\Exception $ex) {
             Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
@@ -124,9 +126,28 @@ class AreaController extends Controller
 
     public function postAddAreaToUser(Request $request)
     {
-        $areaJson = $request->get('area_user_data');
-        // $result = array_values(json_decode($areaJson, true));
+        $data = $request->get('user_area');
 
-        dd($areaJson);
+        \DB::beginTransaction();
+        
+        collect($data)->contains(function ($value, $key) {
+            try {
+                foreach($value as $item) {
+                    $model = new AreaUser;
+                    $model->id_area = $item;
+                    $model->id_user = $key;
+                    $model->save();
+                }
+                \DB::commit();
+            } catch (\Exception $ex) {
+                Toastr::error("Cấp quyền cho khu vực thất bại! ". $ex->getMessage());
+                \DB::rollback();
+
+                return redirect()->route('index_area');
+            }
+        });
+        Toastr::success("Cấp quyền khu vực cho nhân viên thành công!");
+
+        return redirect()->route('customer_by_area');
     }
 }

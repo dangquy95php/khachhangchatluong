@@ -33,7 +33,7 @@
                                             </div>
                                         @endif
                                         <select id="inputState" name="area" class="form-select">
-                                            <option selected="" value="">Chọn nhân viên</option>
+                                            <option value="">Chọn nhân viên</option>
                                             @foreach($areas as $area)
                                         <option value="{{ $area->id .'_'. $area->name }}">{{$area->name}}</option>
                                             @endforeach

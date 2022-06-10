@@ -80,16 +80,19 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
 
     public function model(array $row)
     {
+        var_dump($row[8]);
+        var_dump(Date::excelToDateTimeObject($row[8])->format('YYYY-mm-dd'));
+        dd(date_format($row[8], 'YYYY-mm-dd'));
         return Customer::firstOrCreate([
             'type_pay'        => $row[0],
             'name_pay'        => $row[1],
             'id_customer_pay' => $row[2],
             'position'        => $row[3],
             'id_contract'     => $row[4],
-            'join_date'       => $row[5],
+            'join_date'       => (!empty($row[5])) ? date_format($row[5], 'YYYY/mm/dd') : '',
             'note'            => $row[6],
             'money'           => $row[7],
-            'date_due_full'   => $row[8],
+            'date_due_full'   => (!empty($row[8])) ? date_format($row[8], 'YYYY/mm/dd') : '',
             'date_due'        => $row[9],
             'month_due'       => $row[10],
             'year_due'        => $row[11],

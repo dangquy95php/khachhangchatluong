@@ -53,4 +53,9 @@ class Customer extends Model
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    public function area()
+    {
+        return $this->belongsTo('App\Models\Area', 'id' , 'by_area');
+    }
 }

@@ -17,15 +17,6 @@ class UserController extends Controller
     const USER_ROLE = 1;
     const ADMIN_ROLE = 2;
 
-    public function index(Request $request)
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        } else {
-            return view('index');
-        }
-    }
-
     public function admin(Request $request)
     {
         return view('dashboard');

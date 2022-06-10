@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('assets/img/favicon.png')}}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
-
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -58,126 +57,7 @@
                     </a>
                 </li>
                 <!-- End Search Icon-->
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <i class="bi bi-bell"></i>
-                    <span class="badge bg-primary badge-number">4</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                    <li class="dropdown-header">
-                        You have 4 new notifications
-                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="notification-item">
-                        <i class="bi bi-exclamation-circle text-warning"></i>
-                        <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>30 min. ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="notification-item">
-                        <i class="bi bi-x-circle text-danger"></i>
-                        <div>
-                            <h4>Atque rerum nesciunt</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>1 hr. ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="notification-item">
-                        <i class="bi bi-check-circle text-success"></i>
-                        <div>
-                            <h4>Sit rerum fuga</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>2 hrs. ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="notification-item">
-                        <i class="bi bi-info-circle text-primary"></i>
-                        <div>
-                            <h4>Dicta reprehenderit</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>4 hrs. ago</p>
-                        </div>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="dropdown-footer">
-                        <a href="#">Show all notifications</a>
-                    </li>
-                    </ul>
-                </li> -->
-                <!-- End Notification Nav -->
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <i class="bi bi-chat-left-text"></i>
-                    <span class="badge bg-success badge-number">3</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                    <li class="dropdown-header">
-                        You have 3 new messages
-                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="{{asset('assets/img/messages-1.jpg')}}" alt="" class="rounded-circle">
-                            <div>
-                                <h4>Maria Hudson</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="{{asset('assets/img/messages-2.jpg')}}" alt="" class="rounded-circle">
-                            <div>
-                                <h4>Anna Nelson</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>6 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="{{asset('assets/img/messages-3.jpg')}}" alt="" class="rounded-circle">
-                            <div>
-                                <h4>David Muldon</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>8 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="dropdown-footer">
-                        <a href="#">Show all messages</a>
-                    </li>
-                    </ul>
-                </li> -->
+            
                 <!-- End Messages Nav -->
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -212,15 +92,6 @@
                         <hr class="dropdown-divider">
                     </li>
                     @endif
-                    <!-- <li>
-                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                        <i class="bi bi-question-circle"></i>
-                        <span>Need Help?</span>
-                        </a>
-                    </li> -->
-                    <!-- <li>
-                        <hr class="dropdown-divider">
-                    </li> -->
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="{{route('logout')}}">
                             <i class="bi bi-box-arrow-right"></i>
@@ -254,36 +125,36 @@
                                     <div class="row g-3">
                                         <div class="col-4">
                                             <label for="inputNanme5" class="form-label"><b>Ngày tham gia</b></label>
-                                            <input id="startDate" class="form-control" type="date" value="2019-05-01" />
+                                            <input id="join_date" class="form-control" type="date" value="" />
                                         </div>
                                         <div class="col-4">
                                             <label for="inputNanme4" class="form-label"><b>Ngày Đáo Hạn</b></label>
-                                            <input class="form-control" type="date" value="2020-10-01" />
+                                            <input id="date_due_full" class="form-control" type="date" value="" />
                                         </div>
                                         <div class="col-4 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Số Hợp Đồng</b></label>
-                                            <input type="text" class="form-control" id="inputPassword4">
+                                            <input type="text" id="id_contract" class="form-control" id="inputPassword4">
                                         </div>
                                         <div class="col-4">
                                             <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                            <input type="number" class="form-control" id="inputEmail4">
+                                            <input type="number" id="money" class="form-control" id="inputEmail4">
                                         </div>
                                         <div class="col-4">
                                             <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
-                                            <input type="text" class="form-control" id="inputNanme4">
+                                            <input type="text" class="form-control" id="fullname">
                                         </div>
                                         <div class="col-4 pe-0">
                                             <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
-                                            <input type="number" class="form-control" id="inputNanme4">
+                                            <input type="number" class="form-control" id="phone">
                                         </div>
                                         <div class="col-2 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
-                                            <input type="number" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
+                                            <input type="number" id="age" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
                                         </div>
 
                                         <div class="col-3">
                                             <label for="inputEmail4" class="form-label"><b>Giới Tính</b></label>
-                                            <select id="inputState" class="form-select">
+                                            <select id="sex" class="form-select">
                                                 <option selected="">Chọn giới tính...</option>
                                                 <option>Nam</option>
                                                 <option>Nữ</option>
@@ -291,10 +162,13 @@
                                         </div>
                                         <div class="col-7 pe-0">
                                             <label for="inputEmail4" class="form-label"><b>Nguồn Dữ Liệu</b></label>
-                                            <select id="inputState" class="form-select">
-                                                <option selected="">Chọn nguồn dữ liệu...</option>
-                                                <option>Lái Thiêu</option>
-                                                <option>Bến Cát</option>
+                                            <select id="data_oririn" class="form-select">
+                                                @foreach ($areas as $area)
+                                                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                                @endforeach
+                                                @if(count($areas) == 0)
+                                                    <option value="0">Dữ liệu data đã hết</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -488,7 +362,7 @@
     <script src="{{asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
     <script src="{{asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
     <!-- Template Main JS File -->
     <script src="{{asset('assets/js/main.js')}}"></script>
 
@@ -500,6 +374,34 @@
     <svg id="SvgjsSvg1145" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1146"></defs><polyline id="SvgjsPolyline1147" points="0,0"></polyline><path id="SvgjsPath1148" d="M-1 270.2L-1 270.2C-1 270.2 176.9170673076923 270.2 176.9170673076923 270.2C176.9170673076923 270.2 294.86177884615387 270.2 294.86177884615387 270.2C294.86177884615387 270.2 412.80649038461536 270.2 412.80649038461536 270.2C412.80649038461536 270.2 530.7512019230769 270.2 530.7512019230769 270.2C530.7512019230769 270.2 648.6959134615385 270.2 648.6959134615385 270.2C648.6959134615385 270.2 766.640625 270.2 766.640625 270.2C766.640625 270.2 766.640625 270.2 766.640625 270.2 "></path></svg>
 
     <script src="{{ asset('js/toastr.min.js')}} "></script>
+
+    <script>
+        $(document).ready(function() {
+            var data_origin = $('#data_oririn').val();
+
+            console.log(data_origin);
+
+                $.ajax({
+                type: 'POST',
+                url: 'http://khachhangchatluong.local/by-data-id',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    data_id: 3,
+                },success: function (data) {
+                    console.log(moment(data.join_date, 'YYY-mm-dd').format());
+                    console.log(data);
+                    $('#join_date').val($.datepicker.formatDate('YYY-mm-dd', data.join_date));
+                    $('#date_due_full').val(data.date_due_full);
+                    $('#id_contract').val(data.id_contract);
+                    $('#money').val(data.money);
+                    $('#fullname').val(data.last_name + data.first_name);
+                    $('#phone').val(data.phone);
+                    $('#age').val(data.age);
+                    $('#sex').val(data.sex);
+                }
+            });
+        });
+    </script>
 
     {!! Toastr::message() !!}
 

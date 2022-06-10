@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AreaUser extends Model
+class AreaCustomer extends Model
 {
     use HasFactory;
-
-    protected $table = 'areas_users';
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +16,6 @@ class AreaUser extends Model
      */
     protected $fillable = [
         'id_area',
-        'id_user',
+        'id_customer',
     ];
 }

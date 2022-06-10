@@ -103,4 +103,12 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     {
         return $query->where('role', self::USER_ROLE);
     }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function area()
+    {
+        return $this->belongsToMany('App\Models\Area', 'areas_users', 'id_user', 'id_area');
+    }
 }

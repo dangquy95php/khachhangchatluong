@@ -24,7 +24,7 @@
                             <hr />
                             <ul class="list-group sortable" id="area_area_name">
                                 @foreach($areas as $area)
-                                    <li id_area ="{{ $area->id }}" class="btn-modify d-flex btn btn-secondary mb-2">{{ $area->name }}</li>
+                                    <li id ="{{ $area->id }}" class="btn-modify d-flex btn btn-secondary mb-2">{{ $area->name }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -42,13 +42,13 @@
                                     <div class="accordion" id="accordionExample{{$user->id}}">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne{{$user->id}}">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{$user->id}}" aria-expanded="false" aria-controls="collapseOne{{$user->id}}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne_{{$user->id}}" aria-expanded="false" aria-controls="collapseOne_{{$user->id}}">
                                                <b> {{$user->username}}</b>
                                                 </button>
                                             </h2>
 
-                                            <div id="collapseOne{{$user->id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample{{$user->id}}">
-                                                <ul class="pb-4 mb-0 accordion-body sortable" id="area_username{{$user->id}}">
+                                            <div id="collapseOne_{{$user->id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample{{$user->id}}">
+                                                <ul class="pb-4 mb-0 is-body-user accordion-body sortable" id_user="{{$user->id}}">
 
                                                 </ul>
                                             </div>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        <a href="#" id="btn-submit-user" class="btn btn-primary d-flex justify-content-center">Save</a>
+                        <button type="submit" id="btn-submit-user" class="btn btn-primary d-flex justify-content-center">Cấp Quyền</button>
                     </form>
                 </div>
             </div>
@@ -69,12 +69,6 @@
 
 @push('scripts')
 <script>
-    $(function() {
-        $("#area_area_name, #area_username4").sortable({
-            connectWith: '.connectedSortable'
-        }).disableSelection();
-    });
-
 
     $(function() {
     var oldList, newList, item;
@@ -82,8 +76,22 @@
         start: function(event, ui) {
             item = ui.item;
             newList = oldList = ui.item.parent().parent();
+            // console.log(item);
         },
         stop: function(event, ui) {
+            if (item[0].parentElement.classList.contains('is-body-user')) {
+                var id_area = item[0].id;
+                var id_string = newList[0].id;
+                var id_userArray = id_string.split("_")[1];
+
+                var tag_input = `<input style="display:none;" value="${id_area}" name="user_area[${id_userArray}][]"/>`
+                item[0].innerHTML += tag_input;
+            } else {
+                var textInner = item[0].innerText;
+                item[0].innerHTML = "";
+                item[0].innerText = textInner;
+            }
+            console.log(item);
             // alert("Moved " + item.text() + " from " + oldList.attr('id') + " to " + newList.attr('id'));
         },
         change: function(event, ui) {
@@ -92,37 +100,6 @@
         connectWith: ".sortable"
     }).disableSelection();
 });
-
-</script>
-
-<script>
-
-
-$( "#btn-submit-user" ).click(function() {
-
-    var listArea = [];
-    $(".accordion").each(function(index) {
-        var username = $(this).find('.accordion-header').text().trim();
-        var area = {};
-
-        var listAreaEl = $(this).find('.drop-item');
-
-        $(listAreaEl).each(function(i) {
-            let that = this;
-            area.id_area = $(that).find('a').attr('id');
-            area.name_area = $(that).find('a').text().trim();
-
-            listArea.push(JSON.stringify(area));
-        });
-    });
-console.log(listArea);
-    var input = $("<input>").attr("type", "hidden").attr("name", "area_user_data").val(listArea);
-    $('#form-user-to-area').append(input);
-
-    // $( "#form-user-to-area" ).submit();
-});
-
-
 
 </script>
 

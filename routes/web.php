@@ -46,7 +46,9 @@ Route::get('/refresh-seed', function() {
 // Khu Vực.. Không cần thêm
 // Thêm nhiều data. Tạo nút search
 
-Route::get('/', 'UserController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::post('/by-data-id', 'HomeController@detail')->name('customer_detail');
 
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
