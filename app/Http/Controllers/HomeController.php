@@ -29,8 +29,8 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // Lấy danh muc
-        $areas = \DB::table('areas_users')->leftJoin('areas', 'areas_users.id_area', 'areas.id')->where('areas_users.id_user', Auth::user()->id) 
-                ->join('customers', 'areas.id', 'customers.by_area')->where('customers.info_option', null)->get();
+        $areas = \DB::table('areas_users')->join('areas', 'areas_users.id_area', 'areas.id')->where('areas_users.id_user', Auth::user()->id) 
+                ->join('customers', 'areas.id', 'customers.by_area')->orderBy('areas_users.id_area', 'DESC')->where('customers.info_option', null)->get();
 
         $unique = collect($areas)->unique('id_area');
         $areas = $unique->values()->all();
@@ -40,7 +40,7 @@ class HomeController extends Controller
         if (count($areas) > 0) {
             $data_id = $areas[0]->id_area;
 
-            $customer = Customer::where(['by_area' => $data_id, 'info_option' => null ])->select('*')->first();
+            $customer = Customer::where(['by_area' => $data_id, 'info_option' => null ])->orderBy('by_area', 'DESC')->select('*')->first();
 
             $re = '/([0-9]{4})([0-9]{2})([0-9]{2})/';
 

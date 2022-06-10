@@ -170,7 +170,7 @@
                                             <select name="by_area" id="data_oririn" class="form-select">
                                                 <option value="">Chọn nguồn dữ liệu</option>
                                                 @foreach ($areas as $area)
-                                                    <option {{$customer->by_area == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                    <option {{old('by_area', $customer->by_area) == $area->id_area ? 'selected' : '' }} value="{{ $area->id_area }}">{{$customer->by_area .'_'. $area->id_area.'_'.$area->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -336,11 +336,29 @@
         </div>
         </div>
 
-        <section class="section dashboard">
-            <div class="row">
-
+        <div class="card">
+            <div class="card-body">
+              <!-- Disabled Backdrop Modal -->
+              <button type="button" class="btn-alert" data-bs-toggle="modal" data-bs-target="#disablebackdrop">
+              </button>
+              <div class="modal fade" id="disablebackdrop" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">THÔNG BÁO</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    Bạn đã sử dụng hết dữ liệu. Vui lòng liên hệ với quản trị viên để cấp dữ liệu thêm.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đã Hiểu</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Disabled Backdrop Modal-->
             </div>
-        </section>
+          </div>
     </main>
 
     <footer class="footer">
@@ -378,6 +396,13 @@
     <script src="{{ asset('js/toastr.min.js')}} "></script>
 
     <script>
+        $(document).ready(function() {
+            var option = $('#data_oririn > option').length;
+            if (option < 2) {
+                $('.btn-alert').trigger('click');
+            }
+        });
+
         // $(document).ready(function() {
         //     function numberWithCommas(x) {
         //         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
