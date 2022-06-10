@@ -39,7 +39,7 @@
                                 <h5 class="card-title">Nhân viên cấp quyền khu vực</h5>
                                 <!-- Default Accordion -->
                                 @foreach($users as $user)
-                                    <div class="accordion" id="accordionExample{{$user->id}}">
+                                    <div class="accordion is-item" id="accordionExample{{$user->id}}">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne{{$user->id}}">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne_{{$user->id}}" aria-expanded="false" aria-controls="collapseOne_{{$user->id}}">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" id="btn-submit-user" class="btn btn-primary d-flex justify-content-center">Cấp Quyền</button>
+                        <a id="btn-submit-user"  class="btn btn-primary d-flex justify-content-center">Cấp Quyền</a>
                     </form>
                 </div>
             </div>
@@ -76,29 +76,39 @@
         start: function(event, ui) {
             item = ui.item;
             newList = oldList = ui.item.parent().parent();
-            // console.log(item);
+            console.log(item);
         },
         stop: function(event, ui) {
-            if (item[0].parentElement.classList.contains('is-body-user')) {
-                var id_area = item[0].id;
-                var id_string = newList[0].id;
-                var id_userArray = id_string.split("_")[1];
+            // if (item[0].parentElement.classList.contains('is-body-user')) {
+            //     var id_area = item[0].id;
+            //     var id_string = newList[0].id;
+            //     var id_userArray = id_string.split("_")[1];
 
-                var tag_input = `<input style="display:none;" value="${id_area}" name="user_area[${id_userArray}][]"/>`
-                item[0].innerHTML += tag_input;
-            } else {
-                var textInner = item[0].innerText;
-                item[0].innerHTML = "";
-                item[0].innerText = textInner;
-            }
-            console.log(item);
+            //     var tag_input = `<input style="display:none;" value="${id_area}" name="user_area[${id_userArray}][]"/>`
+            //     item[0].innerHTML += tag_input;
+            // } else {
+            //     var textInner = item[0].innerText;
+            //     item[0].innerHTML = "";
+            //     item[0].innerText = textInner;
+            // }
             // alert("Moved " + item.text() + " from " + oldList.attr('id') + " to " + newList.attr('id'));
         },
         change: function(event, ui) {
+            console.log(event);
             if(ui.sender) newList = ui.placeholder.parent().parent();
         },
         connectWith: ".sortable"
     }).disableSelection();
+
+
+    $("#btn-submit-user").click(function() {
+        var list = $(".is-item");
+        list.each(function(index) {
+            $(this).child
+        })
+
+        $("#form-user-to-area").submit();
+    })
 });
 
 </script>
