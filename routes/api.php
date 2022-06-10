@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/customer/by-data-id', 'Api\HomeController@detail')->name('customer_detail');
+// Route::get('/customer/by-data-id', 'Api\HomeController@detail')->name('customer_detail');
+
+// Route::get('/', 'HomeController@index')->name('home');

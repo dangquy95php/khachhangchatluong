@@ -79,18 +79,18 @@
             console.log(item);
         },
         stop: function(event, ui) {
-            // if (item[0].parentElement.classList.contains('is-body-user')) {
-            //     var id_area = item[0].id;
-            //     var id_string = newList[0].id;
-            //     var id_userArray = id_string.split("_")[1];
+            if (item[0].parentElement.classList.contains('is-body-user')) {
+                var id_area = item[0].id;
+                var id_string = newList[0].id;
+                var id_userArray = id_string.split("_")[1];
 
-            //     var tag_input = `<input style="display:none;" value="${id_area}" name="user_area[${id_userArray}][]"/>`
-            //     item[0].innerHTML += tag_input;
-            // } else {
-            //     var textInner = item[0].innerText;
-            //     item[0].innerHTML = "";
-            //     item[0].innerText = textInner;
-            // }
+                var tag_input = `<input style="display:none;" value="${id_area}" name="user_area[${id_userArray}][]"/>`
+                item[0].innerHTML += tag_input;
+            } else {
+                var textInner = item[0].innerText;
+                item[0].innerHTML = "";
+                item[0].innerText = textInner;
+            }
             // alert("Moved " + item.text() + " from " + oldList.attr('id') + " to " + newList.attr('id'));
         },
         change: function(event, ui) {

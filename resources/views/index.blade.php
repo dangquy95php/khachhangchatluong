@@ -118,7 +118,9 @@
             <div class="card pt-3 mb-3">
                 <div class="card-body">
                     <!-- Vertical Form -->
-                    <form method="post" class="row g-3" id="customerForm">
+                    <form method="post" action={{route('customer_update')}} class="row g-3" id="customerForm">
+                        <input type="text" class="d-none" name="id" value="{{$customer->id}}" id="">
+                        <!-- <input type="text" name="id" value=""/> -->
                         @csrf
                         <div class="col-7">
                             <div class="row">
@@ -126,51 +128,50 @@
                                     <div class="row g-3">
                                         <div class="col-4">
                                             <label for="inputNanme5" class="form-label"><b>Ngày tham gia</b></label>
-                                            <input id="join_date" name="join_date" class="form-control" type="date" value="" />
-
+                                            <?php
+                                            ?>
+                                            <input id="join_date" name="join_date" class="form-control" type="date" value="{{ !is_array($customer->join_date) ? $customer->join_date : '' }}" />
                                         </div>
                                         <div class="col-4">
                                             <label for="inputNanme4" class="form-label"><b>Ngày Đáo Hạn</b></label>
-                                            <input id="date_due_full" class="form-control" type="date" value="" />
+                                            <input id="date_due_full" name="date_due_full" class="form-control" type="date" value="{{ !is_array($customer->date_due_full) ? $customer->date_due_full : '' }}" />
                                         </div>
                                         <div class="col-4 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Số Hợp Đồng</b></label>
-                                            <input type="text" disabled name="date_due_full" id="id_contract" class="form-control" id="inputPassword4">
+                                            <input type="text" disabled name="id_contract" value="{{ $customer->id_contract }}" id="id_contract" class="form-control" id="inputPassword4">
                                         </div>
                                         <div class="col-4">
                                             <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                            <input type="text" id="money" name="money" class="form-control" id="inputEmail4">
+                                            <input type="text" id="money" name="money" value="{{ number_format($customer->money) }}" class="form-control" id="inputEmail4">
                                         </div>
                                         <div class="col-4">
                                             <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
-                                            <input type="text" name="last_name" class="form-control" id="fullname">
+                                            <input type="text" name="last_name" value="{{ $customer->last_name .' '. $customer->first_name }}" class="form-control" id="fullname">
                                         </div>
                                         <div class="col-4 pe-0">
                                             <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
-                                            <input type="number" name="phone" class="form-control" id="phone">
+                                            <input type="number" name="phone" value="{{ $customer->phone }}" class="form-control" id="phone">
                                         </div>
                                         <div class="col-2 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
-                                            <input type="number" name="age" id="age" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
+                                            <input type="number" name="age" value="{{ $customer->age }}" id="age" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
                                         </div>
 
                                         <div class="col-3">
                                             <label for="inputEmail4" class="form-label"><b>Giới Tính</b></label>
                                             <select name="sex" id="sex" class="form-select">
                                                 <option selected="">Chọn giới tính...</option>
-                                                <option value="M">Nam</option>
-                                                <option value="F">Nữ</option>
+                                                <option {{ $customer->sex == 'M' ? 'selected' : '' }} value="M">Nam</option>
+                                                <option {{ $customer->sex == 'F' ? 'selected' : '' }} value="F">Nữ</option>
                                             </select>
                                         </div>
                                         <div class="col-7 pe-0">
                                             <label for="inputEmail4" class="form-label"><b>Nguồn Dữ Liệu</b></label>
                                             <select name="by_area" id="data_oririn" class="form-select">
+                                                <option value="">Chọn nguồn dữ liệu</option>
                                                 @foreach ($areas as $area)
-                                                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                                    <option {{$customer->by_area == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
                                                 @endforeach
-                                                @if(count($areas) == 0)
-                                                    <option value="0">Dữ liệu data đã hết</option>
-                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -180,7 +181,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" id="gridRadios1" value="1">
+                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '1' : $customer->info_option }}" id="gridRadios1" {{ $customer->info_option == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                     Đã hẹn
                                                 </label>
@@ -188,7 +189,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" id="gridRadios2" value="2">
+                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '2' : $customer->info_option }}" id="gridRadios2" {{ $customer->info_option == 2 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios2">
                                                     Không nghe máy
                                                 </label>
@@ -196,7 +197,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" id="gridRadios3" value="3">
+                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '3' : $customer->info_option }}" id="gridRadios3" {{ $customer->info_option == 3 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Khách hàng đang suy nghĩ, gọi lại sau.
                                                 </label>
@@ -204,7 +205,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" id="gridRadios4" value="4">
+                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '4' : $customer->info_option }}" id="gridRadios4" {{ $customer->info_option == 4 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios4">
                                                     Khách hàng ít tiền
                                                 </label>
@@ -212,13 +213,14 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" id="gridRadios5" value="5">
+                                                <input class="form-check-input" type="radio" name="info_option" value="{{ empty($customer->info_option) ? '5' : $customer->info_option }}" id="gridRadios5" {{ $customer->info_option == 5 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios5">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
                                             </div>
                                         </li>
                                     </ul>
+                                    @include('_partials.alert', ['field' => 'info_option'])
                                 </div>
                             </div>
                         </div>
@@ -229,7 +231,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
 
-                                        <textarea name="comment" class="form-control" rows="6"></textarea>
+                                        <textarea name="comment" value="{{ $customer->comment }}" class="form-control" rows="6">{{ $customer->comment }}</textarea>
                                         <!-- End Quill Editor default -->
                                     </div>
                                 </div>
@@ -237,7 +239,7 @@
                             <div class="col-12">
                                 <!-- <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button> -->
                                 <button type="button" class="btn btn-success"><i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span></button>
-                                <button type="button" class="btn-next btn btn-outline-primary"><span class="pe-1">Gọi Tiếp Theo</span><i class="bi bi-chevron-double-right"></i>
+                                <button type="submit" class="btn-next btn btn-outline-primary"><span class="pe-1">Gọi Tiếp Theo</span><i class="bi bi-chevron-double-right"></i>
                             </button>
                             </div>
                         </div>
@@ -376,72 +378,73 @@
     <script src="{{ asset('js/toastr.min.js')}} "></script>
 
     <script>
-        $(document).ready(function() {
-            function numberWithCommas(x) {
-                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
+        // $(document).ready(function() {
+        //     function numberWithCommas(x) {
+        //         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        //     }
 
-            var data_origin = $('#data_oririn').val();
+        //     var data_origin = $('#data_oririn').val();
 
-            var pattern = /^[0-9]{4}[0-9]{2}[0-9]{2}/;
+        //     var pattern = /^[0-9]{4}[0-9]{2}[0-9]{2}/;
 
-            $.ajax({
-                type: 'POST',
-                url: 'http://khachhangchatluong.local/customer/detail',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    data_id: $("#data_oririn").val(),
-                },success: function (data) {
-                    var join_date = data.join_date[0][1] +'-'+ data.join_date[0][2] +'-'+ data.join_date[0][3] ?? '';
-                    var date_due_full = data.date_due_full[0][1] +'-'+ data.date_due_full[0][2] +'-'+ data.date_due_full[0][3] ?? '';
-                    
-                    $('#join_date').val(join_date);
-                    $('#date_due_full').val(date_due_full);
-                    $('#id_contract').val(data.id_contract);
-                    $('#money').val(numberWithCommas(data.money));
-                    $('#fullname').val(data.last_name +' '+ data.first_name);
-                    $('#phone').val(data.phone);
-                    $('#age').val(data.age);
-                    $('#sex').val(data.sex);
-                }, error: function(error) {
-                    console.log('error');
-                }
-            });
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: 'http://khachhangchatluong.local/customer/detail',
+        //         data: {
+        //             _token: "{{ csrf_token() }}",
+        //             data_id: $("#data_oririn").val(),
+        //         },success: function (data) {
+        //             var join_date = data.join_date[0][1] +'-'+ data.join_date[0][2] +'-'+ data.join_date[0][3] ?? '';
+        //             var date_due_full = data.date_due_full[0][1] +'-'+ data.date_due_full[0][2] +'-'+ data.date_due_full[0][3] ?? '';
+        //             console.log(data);
+
+        //             $('#join_date').val(join_date);
+        //             $('#date_due_full').val(date_due_full);
+        //             $('#id_contract').val(data.id_contract);
+        //             $('#money').val(numberWithCommas(data.money));
+        //             $('#fullname').val(data.last_name +' '+ data.first_name);
+        //             $('#phone').val(data.phone);
+        //             $('#age').val(data.age);
+        //             $('#sex').val(data.sex);
+        //         }, error: function(error) {
+        //             console.log(error);
+        //         }
+        //     });
             
-            $(".btn-next").click(function() {
-                    $("#show-validation-error").children().addClass('d-block');
-                    $("#show-validation-error").children().removeClass('d-none');
+        //     $(".btn-next").click(function() {
+        //             $("#show-validation-error").children().addClass('d-block');
+        //             $("#show-validation-error").children().removeClass('d-none');
 
-                    $("#how-validation-error").html();
-                    $(this).attr('disabled', true); 
-                    $(this).prepend('<span class="me-2 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+        //             $("#how-validation-error").html();
+        //             $(this).attr('disabled', true); 
+        //             $(this).prepend('<span class="me-2 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 
-                    var disabled = $("#customerForm").find(':input:disabled').removeAttr('disabled');
-                    var dataForm = $("#customerForm").serialize();
+        //             var disabled = $("#customerForm").find(':input:disabled').removeAttr('disabled');
+        //             var dataForm = $("#customerForm").serialize();
 
-                    disabled.attr('disabled','disabled');
-                    toastr.options.progressBar = true;
-                    $.ajax({
-                    type: 'POST',
-                    url: 'http://khachhangchatluong.local/customer/update',
-                    data: dataForm,
-                    async: false, 
-                    dataType: "json",
-                    success: function (data) {
-                        toastr.success(data.message, 'Thông báo!', {timeOut: 3000})
-                    }, error: function(error) {
-                        toastr.error('', 'Thông báo!', {timeOut: 3000})
-                        let resp = error.responseJSON.errors;
-                        for (index in resp) {
-                            $(".toast-error").append(`<div class="toast-message">${resp[index]}</div>`);
-                        }
-                        return false;
-                    }
-                });
-                $('.btn-next').attr('disabled', false); 
-                $('.btn-next').children().first().remove();
-            });
-        });
+        //             disabled.attr('disabled','disabled');
+        //             toastr.options.progressBar = true;
+        //             $.ajax({
+        //             type: 'POST',
+        //             url: 'http://khachhangchatluong.local/customer/update',
+        //             data: dataForm,
+        //             async: false, 
+        //             dataType: "json",
+        //             success: function (data) {
+        //                 toastr.success(data.message, 'Thông báo!', {timeOut: 3000})
+        //             }, error: function(error) {
+        //                 toastr.error('', 'Thông báo!', {timeOut: 3000})
+        //                 let resp = error.responseJSON.errors;
+        //                 for (index in resp) {
+        //                     $(".toast-error").append(`<div class="toast-message">${resp[index]}</div>`);
+        //                 }
+        //                 return false;
+        //             }
+        //         });
+        //         $('.btn-next').attr('disabled', false); 
+        //         $('.btn-next').children().first().remove();
+        //     });
+        // });
     </script>
 
     {!! Toastr::message() !!}

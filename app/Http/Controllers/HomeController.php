@@ -11,6 +11,7 @@ use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\AreaUser;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -27,18 +28,45 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $areas = User::find(Auth::user()->id)->area()->get();
+        // Lấy danh muc
+        $areas = \DB::table('areas_users')->leftJoin('areas', 'areas_users.id_area', 'areas.id')->where('areas_users.id_user', Auth::user()->id) 
+                ->join('customers', 'areas.id', 'customers.by_area')->where('customers.info_option', null)->get();
 
-        return view('index', compact('areas'));
+        $unique = collect($areas)->unique('id_area');
+        $areas = $unique->values()->all();
+
+        $customer = new Customer();
+
+        if (count($areas) > 0) {
+            $data_id = $areas[0]->id_area;
+
+            $customer = Customer::where(['by_area' => $data_id, 'info_option' => null ])->select('*')->first();
+
+            $re = '/([0-9]{4})([0-9]{2})([0-9]{2})/';
+
+            preg_match_all($re, $customer->join_date, $matches, PREG_SET_ORDER, 0);
+            preg_match_all($re, $customer->date_due_full, $matches1, PREG_SET_ORDER, 0);
+    
+            $customer->join_date = $matches;
+            $customer->date_due_full = $matches1;
+            if (count($matches) > 0) {
+                $customer->join_date = $matches[0][1] .'-'. $matches[0][2] .'-'. $matches[0][3];
+            }
+            if (count($matches1) > 0) {
+                $customer->date_due_full = $matches1[0][1] .'-'. $matches1[0][2] .'-'. $matches1[0][3];
+            }
+        }
+
+        return view('index', ['areas' => $areas, 'customer' => $customer]);
     }
 
     public function detail(Request $request)
     {
         $id = $request->get('data_id');
-
+\Log::info($id);
         $customer = Customer::where('by_area', $id)->join('areas', 'customers.by_area', '=', 'areas.id')
         ->select('customers.*', 'areas.name')->first();
-
+        \Log::info($customer);
         $re = '/([0-9]{4})([0-9]{2})([0-9]{2})/';
 
         preg_match_all($re, $customer->join_date, $matches, PREG_SET_ORDER, 0);
@@ -56,21 +84,30 @@ class HomeController extends Controller
 
     public function update(Request $request)
     {
-        $validator = \Validator::make($request->all(), [
+        $request->validate([
             'info_option' => 'required',
-        ],[
-           'info_option.required' => 'Vui lòng chọn kết quả gọi' 
+        ], [
+            'info_option.required' => 'Vui lòng chọn kết quả gọi' 
         ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()], Response::HTTP_BAD_REQUEST);
+
+        try {
+
+            $customer = Customer::find($request->get('id'));
+            $customer->info_option = $request->get('info_option');
+            $customer->comment = $request->get('comment');
+
+            if($customer->isDirty()) {
+                Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
+            } else {
+                Toastr::warning('Dữ liệu chưa được cập nhật');
+            }
+
+            $customer->save();
+        } catch (\Exception $ex) {
+            Toastr::error('Cập nhật khách hàng thất bại'. $ex->getMessage());
         }
+        
 
-        $model = new Customer();
-        $model->info_option = $request->get('info_option');
-        $model->comment = $request->get('comment');
-        $model->save();
-        \Log::info($request->all());
-
-        return response()->json(['message' => 'Cập nhật thông tin thành công!'], Response::HTTP_OK);
+        return redirect()->back();
     }
 }

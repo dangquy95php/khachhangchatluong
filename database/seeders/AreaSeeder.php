@@ -16,12 +16,12 @@ class AreaSeeder extends Seeder
         //
          $data = [
             [
-                'name' => 'Lái thiêu',
+                'name' => 'username1',
                 'status' => 1,
                 'note' => 'Khu vực có nhiều người trẻ'
             ],
             [
-                'name' => 'Gò công',
+                'name' => 'username2',
                 'status' => 1,
                 'note' => 'Khu vực có tiềm năng cao'
             ],
