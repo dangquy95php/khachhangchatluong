@@ -17,6 +17,7 @@ class AreaController extends Controller
     public $dataCustomers = '';
 
     const CUSTOMER_ACTIVE = 1;
+    const USER_ACTIVE = 1;
 
     public function __construct()
     {
@@ -119,7 +120,7 @@ class AreaController extends Controller
 
     public function addAreaToUser(Request $request)
     {
-        $users = User::select('id', 'name', 'email', 'username', 'role', 'status', 'created_at')->user()->get();
+        $users = User::where('status',self::USER_ACTIVE )->get();
 
         return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'users' => $users ]);
     }
