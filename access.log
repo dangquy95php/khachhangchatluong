@@ -13882,3 +13882,7 @@
 127.0.0.1 - - [11/Jun/2022:12:55:37 +0700] "GET /admin/excel/import HTTP/1.1" 200 68470
 127.0.0.1 - - [11/Jun/2022:12:55:38 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
 127.0.0.1 - - [11/Jun/2022:12:55:38 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
+127.0.0.1 - - [11/Jun/2022:20:34:13 +0700] "GET / HTTP/1.1" 500 1216901
+127.0.0.1 - - [11/Jun/2022:20:34:13 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
+127.0.0.1 - - [11/Jun/2022:20:34:13 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
+127.0.0.1 - - [11/Jun/2022:20:34:14 +0700] "GET /favicon.ico HTTP/1.1" 304 -
