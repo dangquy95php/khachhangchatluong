@@ -140,9 +140,10 @@ class UserController extends Controller
     {
         try {
             $exitCode = Artisan::call('migrate:refresh --seed');
+            Toastr::success("Xoá database thành công.");
         } catch (\Throwable $th) {
-            Toastr::error("Xóa nhân viên ". $user->username ." thất bại!". $ex->getMessage());
+            Toastr::error("Xoá dữ liệu thất bại");
         }
-        
+        return redirect()->back();
     }
 }
