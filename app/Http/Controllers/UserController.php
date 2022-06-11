@@ -11,6 +11,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Hash;
+use Artisan;
 
 class UserController extends Controller
 {
@@ -147,3 +148,6 @@ class UserController extends Controller
         return redirect()->back();
     }
 }
+// 20.58.164.83
+// root
+// Dtt@123456
