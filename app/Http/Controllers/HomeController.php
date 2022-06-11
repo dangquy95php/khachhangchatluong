@@ -79,8 +79,10 @@ class HomeController extends Controller
         
         $request->validate([
             'info_option' => 'required',
+            'by_area' => 'required'
         ], [
-            'info_option.required' => 'Vui lòng chọn kết quả gọi' 
+            'info_option.required' => 'Vui lòng chọn kết quả gọi',
+            'by_area.required' => 'Vui lòng chọn nguồn dữ liệu' 
         ]);
 
         try {
@@ -145,8 +147,10 @@ class HomeController extends Controller
         
         $request->validate([
             'info_option' => 'required',
+            'by_area' => 'required'
         ], [
-            'info_option.required' => 'Vui lòng chọn kết quả gọi' 
+            'info_option.required' => 'Vui lòng chọn kết quả gọi',
+            'by_area.required' => 'Vui lòng chọn nguồn dữ liệu' 
         ]);
 
         try {

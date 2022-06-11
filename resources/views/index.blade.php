@@ -180,6 +180,9 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @error('by_area')
+                                            <div class="text-danger text-end mt-1"> {{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-4">
