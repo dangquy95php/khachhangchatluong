@@ -142,7 +142,13 @@
                                         </div>
                                         <div class="col-4">
                                             <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                            <input type="text" id="money" name="money" value="{{ number_format($customer->money) }}" class="form-control" id="inputEmail4">
+                                            <input type="text" id="money" name="money"
+                                            @if ($customer->money < 200000000)
+                                                value="{{ number_format($customer->money + 200000000) }}"
+                                            @else
+                                                value="{{ number_format($customer->money) }}"
+                                            @endif
+                                            class="form-control" id="inputEmail4">
                                         </div>
                                         <div class="col-4">
                                             <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
