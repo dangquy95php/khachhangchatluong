@@ -181,7 +181,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="1" id="gridRadios1" {{ $customer->info_option == 1 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="0" id="gridRadios1" {{ $customer->info_option === 0 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                     Đã hẹn
                                                 </label>
@@ -189,7 +189,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="2" id="gridRadios2" {{ $customer->info_option == 2 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="1" id="gridRadios2" {{ $customer->info_option == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios2">
                                                     Không nghe máy
                                                 </label>
@@ -197,7 +197,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="3" id="gridRadios3" {{ $customer->info_option == 3 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="2" id="gridRadios3" {{ $customer->info_option == 2 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Khách hàng đang suy nghĩ, gọi lại sau.
                                                 </label>
@@ -205,7 +205,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="4" id="gridRadios4" {{ $customer->info_option == 4 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="3" id="gridRadios4" {{ $customer->info_option == 3 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios4">
                                                     Khách hàng ít tiền
                                                 </label>
@@ -213,7 +213,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="info_option" value="5" id="gridRadios5" {{ $customer->info_option == 5 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="info_option" value="4" id="gridRadios5" {{ $customer->info_option == 4 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios5">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
@@ -253,14 +253,11 @@
             <!-- Default Tabs -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Nhật ký cuộc gọi</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Danh sách đã gọi</button>
+                    <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Danh sách đã gọi</button>
                 </li>
             </ul>
             <div class="tab-content pt-2" id="myTabContent">
-                <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                     <div class="card mb-2">
                         <div class="card-body pt-3">
@@ -299,40 +296,53 @@
                 </div>
 
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
                     <div class="card">
                         <div class="card-body pt-3">
-                            <h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>
+                        {{count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                         <!-- Table with hoverable rows -->
-                        <!-- <table class="table table-hover">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Số hợp đồng</th>
                                     <th scope="col">Tên</th>
                                     <th scope="col">Số Điện Thoại</th>
                                     <th scope="col">Ghi Chú</th>
                                     <th scope="col">Kết Quả Cuộc Gọi</th>
-                                    <th scope="col">Ngày Gửi</th>
                                     <th scope="col">Ngày Gọi</th>
                                     <th scope="col">Nguồn Dữ Liệu</th>
-                                    <th scope="col">Trạng Thái ĐT</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $i = 1;
+                                @endphp
+                                @foreach($dataHistory as $data)
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Nguyễn Văn Nam</td>
-                                    <td>097262212</td>
-                                    <td>Khách hàng có ý định muốn mua bảo hiểm. Hiện tại chưa có tiền đủ</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td><span class="badge bg-primary">Primary</span></td>
+                                    <th scope="row">{{$i}}</th>
+                                    <td>{{ $data->id_contract }}</td>
+                                    <td>{{ $data->last_name .' '. $data->first_name }}</td>
+                                    <td>{{ $data->phone }}</td>
+                                    <td>{{ $data->comment }}</td>
+                                    <td>
+                                        @foreach(\App\Models\Customer::getInforOption() as $key => $value)
+                                            @if($key == $data->info_option)
+                                                <span class="badge bg-primary">{{ $value }}</span>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    
+                                    <td>{{ $data->updated_at }}</td>
+                                    <td>{{ $data->name_areas }}</td>
                                 </tr>
+                                @php
+                                $i++;
+                                @endphp
+                                @endforeach
                             </tbody>
-                        </table> -->
+                        </table>
                         <!-- End Table with hoverable rows -->
                     </div>
                 </div>

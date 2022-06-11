@@ -45,6 +45,30 @@ class Customer extends Model
         'info_option',
         'comment'
     ];
+        //     Đã hẹn
+        //     Không nghe máy
+        //     Khách hàng đang suy nghĩ, gọi lại sau.
+        //     Khách hàng ít tiền
+        // Đại lý vẫn chăm sóc
+
+    const APPOINTMENT = 0;
+    const NOTE_ANS_PHONE = 1;
+    const CALL_BACK_LATER = 2;
+    const LOWBUDGET_CUSTOMETRS = 3;
+    const DEALES_TAKE_CARE = 4;
+
+    const INFOR_OPTION = [
+        self::APPOINTMENT => 'Đã hẹn',
+        self::NOTE_ANS_PHONE => 'Không nghe máy',
+        self::CALL_BACK_LATER => 'Khách hàng đang suy nghĩ, gọi lại sau.',
+        self::LOWBUDGET_CUSTOMETRS => 'Khách hàng ít tiền',
+        self::DEALES_TAKE_CARE => 'Đại lý vẫn chăm sóc',
+    ];
+
+    public static function getInforOption()
+    {
+        return self::INFOR_OPTION;
+    }
 
     public function scopeByArea($query)
     {
@@ -59,5 +83,10 @@ class Customer extends Model
     public function area()
     {
         return $this->belongsTo('App\Models\Area', 'id' , 'by_area');
+    }
+
+    public function scopeNotNullOnly($query){
+
+        return $query->where('info_option', '<>', '');
     }
 }

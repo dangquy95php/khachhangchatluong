@@ -16,18 +16,28 @@ use Illuminate\Support\Facades\Log;
 class HomeController extends Controller
 {
     private $_dataOrigin = '';
+    private $_dataHistory = '';
 
     public function __construct()
     {
-        if (Auth::check()) {
-            return redirect()->route('home');
-        }
-        return view('account.login');
+        // if (Auth::check()) {
+        //     return redirect()->route('home');
+        // }
+       
+        // return view('account.login');
         // $this->_dataOrigin = User::find()->get();
     }
 
     public function index(Request $request)
     {
+        $dataHistory = Customer::query('info_option')
+        ->notNullOnly()->join('areas_users', function($join) {
+            $join->on('customers.by_area', '=', 'areas_users.id_area')
+            ->where('areas_users.id_user', Auth::user()->id)
+            ->orderBy('customers.updated_at', 'DESC');
+        })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
+        ->select('customers.*', 'areas.name as name_areas')->get();
+
         // Lấy danh muc
         $areas = \DB::table('areas_users')->join('areas', 'areas_users.id_area', 'areas.id')->where('areas_users.id_user', Auth::user()->id) 
                 ->join('customers', 'areas.id', 'customers.by_area')->orderBy('areas_users.id_area', 'DESC')->where('customers.info_option', null)->get();
@@ -57,7 +67,8 @@ class HomeController extends Controller
             }
         }
 
-        return view('index', ['areas' => $areas, 'customer' => $customer]);
+        //nhat ky cuoc goi
+        return view('index', compact('areas', 'customer', 'dataHistory'));
     }
 
     public function save(Request $request)
@@ -114,7 +125,16 @@ class HomeController extends Controller
             $customer->date_due_full = $matches1[0][1] .'-'. $matches1[0][2] .'-'. $matches1[0][3];
         }
 
-        return view('index', ['areas' => $areas, 'customer' => $customer]);
+        $dataHistory = Customer::query('info_option')
+        ->notNullOnly()->join('areas_users', function($join) {
+            $join->on('customers.by_area', '=', 'areas_users.id_area')
+            ->where('areas_users.id_user', Auth::user()->id)
+            ->orderBy('customers.updated_at', 'DESC');
+        })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
+        ->select('customers.*', 'areas.name as name_areas')->get();
+
+
+        return view('index', compact('areas', 'customer', 'dataHistory'));
     }
 
     public function update(Request $request)
