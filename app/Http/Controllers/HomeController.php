@@ -34,7 +34,7 @@ class HomeController extends Controller
         ->notNullOnly()->join('areas_users', function($join) {
             $join->on('customers.by_area', '=', 'areas_users.id_area')
             ->where('areas_users.id_user', Auth::user()->id)
-            ->orderBy('customers.updated_at', 'DESC');
+            ->orderBy('customers.updated_at', 'ASC');
         })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
         ->select('customers.*', 'areas.name as name_areas')->get();
 
@@ -129,7 +129,7 @@ class HomeController extends Controller
         ->notNullOnly()->join('areas_users', function($join) {
             $join->on('customers.by_area', '=', 'areas_users.id_area')
             ->where('areas_users.id_user', Auth::user()->id)
-            ->orderBy('customers.updated_at', 'DESC');
+            ->orderBy('customers.updated_at', 'ASC');
         })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
         ->select('customers.*', 'areas.name as name_areas')->get();
 
