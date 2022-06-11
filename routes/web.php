@@ -48,7 +48,7 @@ Route::get('/refresh-seed', function() {
 
 Route::get('/clear', 'UserController@clear')->name('clear');
 
-Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
