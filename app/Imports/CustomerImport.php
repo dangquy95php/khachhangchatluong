@@ -100,10 +100,10 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
             'age'             => $row[16],
             'phone'           => $row[17],
             'address_full'    => $row[18],
-            'home'            => $row[19],
-            'ward'            => $row[20],
-            'district'        => $row[21],
-            'province'        => $row[22],
+            'home'            => @$row[19],
+            'ward'            => @$row[20],
+            'district'        => @$row[21],
+            'province'        => @$row[22],
         ]);
     }
 

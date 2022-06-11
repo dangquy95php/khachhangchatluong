@@ -135,4 +135,14 @@ class UserController extends Controller
 
         return redirect()->route('list_account');
     }
+
+    public function clear(Request $request)
+    {
+        try {
+            $exitCode = Artisan::call('migrate:refresh --seed');
+        } catch (\Throwable $th) {
+            Toastr::error("Xóa nhân viên ". $user->username ." thất bại!". $ex->getMessage());
+        }
+        
+    }
 }
