@@ -158,6 +158,10 @@
                                             <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
                                             <input type="number" name="phone" value="{{ $customer->phone }}" class="form-control" id="phone">
                                         </div>
+                                        <div class="col-12">
+                                            <label for="inputPassword4" class="form-label"><b>Địa Chỉ</b></label>
+                                            <input type="text" name="address_full" value="{{ $customer->address_full }}" id="address_full" class="form-control" id="inputPassword4">
+                                        </div>
                                         <div class="col-2 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
                                             <input type="number" name="age" value="{{ $customer->age }}" id="age" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
@@ -324,6 +328,8 @@
                                     <th scope="col">Nguồn Dữ Liệu</th>
                                 </tr>
                             </thead>
+                            chỉ cần năm đáo hạn
+                            thêm địa chỉ
                             <tbody>
                                 @php
                                 $i = 1;
