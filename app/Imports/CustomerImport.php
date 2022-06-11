@@ -38,6 +38,7 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
 
     public function rules(): array
     {
+        
         return [
             '4' => ['required'],//số hợp đồng
             // '5' => ['required'],//ngày tham gia
@@ -80,31 +81,34 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
 
     public function model(array $row)
     {
-        return Customer::firstOrCreate([
-            'type_pay'        => @$row[0],
-            'name_pay'        => @$row[1],
-            'id_customer_pay' => @$row[2],
-            'position'        => @$row[3],
-            'id_contract'     => $row[4],
-            'join_date'       => @$row[5],
-            'note'            => @$row[6],
-            'money'           => @$row[7],
-            'date_due_full'   => @$row[8],
-            'date_due'        => @$row[9],
-            'month_due'       => @$row[10],
-            'year_due'        => @$row[11],
-            'last_name'       => @$row[12],
-            'first_name'      => @$row[13],
-            'sex'             => @$row[14],
-            'date_birth'      => @$row[15],
-            'age'             => @$row[16],
-            'phone'           => @$row[17],
-            'address_full'    => @$row[18],
-            'home'            => @$row[19],
-            'ward'            => @$row[20],
-            'district'        => @$row[21],
-            'province'        => @$row[22],
-        ]);
+        $data = Customer::where('id_contract', $row[4])->first();
+        if (!$data) {
+            return Customer::create([
+                'type_pay'        => $row[0],
+                'name_pay'        => $row[1],
+                'id_customer_pay' => $row[2],
+                'position'        => $row[3],
+                'id_contract'     => $row[4],
+                'join_date'       => $row[5],
+                'note'            => $row[6],
+                'money'           => $row[7],
+                'date_due_full'   => $row[8],
+                'date_due'        => $row[9],
+                'month_due'       => $row[10],
+                'year_due'        => $row[11],
+                'last_name'       => $row[12],
+                'first_name'      => $row[13],
+                'sex'             => $row[14],
+                'date_birth'      => $row[15],
+                'age'             => $row[16],
+                'phone'           => $row[17],
+                'address_full'    => @$row[18],
+                'home'            => @$row[19],
+                'ward'            => @$row[20],
+                'district'        => @$row[21],
+                'province'        => @$row[22],
+            ]);
+        }
     }
 
     public function map($map): array

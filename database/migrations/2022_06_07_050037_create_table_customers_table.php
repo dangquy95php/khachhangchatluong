@@ -19,7 +19,7 @@ class CreateTableCustomersTable extends Migration
             $table->string('name_pay')->nullable();
             $table->string('id_customer_pay')->nullable();;
             $table->string('position')->nullable();;
-            $table->string('id_contract');
+            $table->string('id_contract')->unique();
             $table->string('join_date')->nullable();
             $table->string('note')->nullable();
             $table->string('money')->nullable();
