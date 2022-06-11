@@ -33,10 +33,11 @@ class HomeController extends Controller
         $dataHistory = Customer::query('info_option')
         ->notNullOnly()->join('areas_users', function($join) {
             $join->on('customers.by_area', '=', 'areas_users.id_area')
-            ->where('areas_users.id_user', Auth::user()->id)
-            ->orderBy('customers.updated_at', 'ASC');
+            ->where('areas_users.id_user', Auth::user()->id);
         })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
-        ->select('customers.*', 'areas.name as name_areas')->get();
+        ->select('customers.*', 'areas.name as name_areas')
+        ->orderBy('customers.updated_at', 'DESC')
+        ->get();
 
         // Lấy danh muc
         $areas = \DB::table('areas_users')->join('areas', 'areas_users.id_area', 'areas.id')->where('areas_users.id_user', Auth::user()->id) 
@@ -128,11 +129,11 @@ class HomeController extends Controller
         $dataHistory = Customer::query('info_option')
         ->notNullOnly()->join('areas_users', function($join) {
             $join->on('customers.by_area', '=', 'areas_users.id_area')
-            ->where('areas_users.id_user', Auth::user()->id)
-            ->orderBy('customers.updated_at', 'ASC');
+            ->where('areas_users.id_user', Auth::user()->id);
         })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
-        ->select('customers.*', 'areas.name as name_areas')->get();
-
+        ->select('customers.*', 'areas.name as name_areas')
+        ->orderBy('customers.updated_at', 'DESC')
+        ->get();
 
         return view('index', compact('areas', 'customer', 'dataHistory'));
     }
