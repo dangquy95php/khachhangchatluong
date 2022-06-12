@@ -15,6 +15,7 @@
    <div class="row">
       <div class="col-lg-12">
          <div class="card">
+            <a href="{{route('delete_customers')}}">XOÁ TẤT CẢ</a>
             <div class="card-body">
                <!-- Table with stripped rows -->
                <table class="table table-striped">
