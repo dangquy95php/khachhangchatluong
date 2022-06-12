@@ -49,7 +49,18 @@
 
                                             <div id="collapseOne_{{$user->id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample{{$user->id}}">
                                                 <ul class="pb-4 mb-0 is-body-user accordion-body sortable" id_user="{{$user->id}}">
-
+                                                    @foreach ($areas_users as $area_user)
+                                                        @if ($area_user->id_user == $user->id)
+                                                            <li class="btn-modify d-flex justify-content-between btn btn-secondary mb-2">
+                                                                {{ $area_user->name }}
+                                                                <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+                                                                    class="bg-danger link-light text-center" style="width: 25px;"
+                                                                    href="{{route('del_area_to_user', ['id'=>$area_user->id])}}">
+                                                                    <strong>X</strong>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                         </div>

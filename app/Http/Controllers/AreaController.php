@@ -142,10 +142,10 @@ class AreaController extends Controller
     public function addAreaToUser(Request $request)
     {
         $users = User::where('status', self::USER_ACTIVE )->get();
+        $areas_users = Area::join('areas_users', 'areas.id', '=', 'areas_users.id_area')->get(['areas.name', 'areas_users.*']);
 
 
-
-        return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'users' => $users ]);
+        return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'users' => $users, 'areas_users' => $areas_users ]);
     }
 
     public function postAddAreaToUser(Request $request)
@@ -173,5 +173,17 @@ class AreaController extends Controller
         Toastr::success("Cấp quyền khu vực cho nhân viên thành công!");
 
         return redirect()->route('customer_by_area');
+    }
+
+    public function delAreaToUser($id) {
+        try {
+            $area_user = AreaUser::find($id);
+            Toastr::success("Xóa quyền khu vực cho nhân viên thành công");
+            $area_user->delete();
+            return redirect()->route('add_area_to_user');
+        } catch (\Exception $ex) {
+            Toastr::error("Xóa quyền cho khu vực thất bại! ". $ex->getMessage());
+            return redirect()->route('index_area');
+        }
     }
 }
