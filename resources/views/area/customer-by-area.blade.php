@@ -65,6 +65,7 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Chọn</th>
                             <th scope="col">Số hợp đồng</th>
                             <th scope="col">Mệnh Giá</th>
                             <th scope="col">Năm Đáo Hạn</th>
@@ -82,7 +83,14 @@
                         @endphp
                         @foreach($customers as $customer)
                         <tr>
-                            <th scope="row">{{ $i }}</th>
+                            <th scope="row">{{ $customer->id }}</th>
+                            <th class="customer_choose">
+                                <div class="form-check d-flex justify-content-center">
+                                    <input name="choose_customers[]" class="form-check-input" type="checkbox" value="{{ $customer->id }}" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                    </label>
+                                </div>
+                            </th>
                             <td>{{ $customer->so_hop_dong }}</td>
                             <td>{{ number_format($customer->menh_gia) ?? '' }}</td>
                             <td>{{ $customer->nam_dao_han }}</td>
@@ -123,8 +131,8 @@
 
 
 $( "#btn-submit-customer" ).click(function() {
-    var from_row = $('.from_row').val();
-    var to_row = $('.to_row').val();
+    var from_row = $('.from_row').val() || 0;
+    var to_row = $('.to_row').val() || 0;
 
     var checked = false;
     $( ".table .customer_choose input" ).each(function( index ) {
@@ -138,10 +146,9 @@ $( "#btn-submit-customer" ).click(function() {
             from_row = 0;
         }
         if (to_row == '') {
-            to_row = 1;
+            to_row = 0;
         }
     }
-
     $( ".table .customer_choose input" ).each(function( index ) {
         if (index < Number(to_row) ) {
             $(this).prop('checked', true);
@@ -151,7 +158,6 @@ $( "#btn-submit-customer" ).click(function() {
     });
 
     if ($( ".table .customer_choose input" ).length > 0) {
-        console.log($( ".table .customer_choose input" ).length);
         $( "#form-customer" ).submit();
     } else {
         alert("Vui lòng import dữ liệu excel vào hệ thống!");

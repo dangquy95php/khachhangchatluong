@@ -50,6 +50,8 @@ Route::post('/login', 'UserController@postLogin')->name('post_login');
 Route::group(['auth' => '', 'prefix' => 'customer'], function () {
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/search', 'CustomerController@search')->name('search_customer');
+    Route::get('/delete', 'CustomerController@delete')->name('delete_customers');
+    
 //     Route::get('/export/', 'CustomerController@export')->name('export_customer');
 //     Route::post('/import/', 'CustomerController@import')->name('import_customer');
 

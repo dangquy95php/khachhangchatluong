@@ -37,4 +37,15 @@ class CustomerController extends Controller
         return Excel::download(new CustomerExport, 'customer.xlsx'); //download file export
         return Excel::store(new CustomerExport, 'customer.xlsx', 'disk-name'); //lưu file export trên ổ cứng
     }
+
+    public function delete(Request $request)
+    {   
+        try {
+            Customer::truncate();
+            Toastr::success("Xoá dữ liệu thành công");
+        } catch (\Exception $ex) {
+            Toastr::error("Xoá dữ liệu thất bại". $ex->getMessage());
+        }
+        return redirect()->back();
+    }
 }

@@ -15,35 +15,46 @@
    <div class="row">
       <div class="col-lg-12">
          <div class="card">
-            <a href="{{route('delete_customers')}}">XOÁ TẤT CẢ</a>
+            <div class="p-3">
+               <a class="btn btn-primary" href="{{route('delete_customers')}}">XOÁ TẤT CẢ</a>
+            </div>
             <div class="card-body">
                <!-- Table with stripped rows -->
                <table class="table table-striped">
                   <thead>
                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Số hợp đồng</th>
-                        <th scope="col">Ngày tham gia</th>
-                        <th scope="col">Số tiền</th>
-                        <th scope="col">Ngày Đáo Hạn</th>
-                        <th scope="col">Họ Và Tên</th>
-                        <th scope="col">Giới Tính</th>
-                        <th scope="col">Ngày Sinh</th>
-                        <th scope="col">Địa chỉ</th>
+                     <th scope="col">#</th>
+                     <th scope="col">Số hợp đồng</th>
+                     <th scope="col">Mệnh Giá</th>
+                     <th scope="col">Năm Đáo Hạn</th>
+                     <th scope="col">Họ Và Tên</th>
+                     <th scope="col">Giới Tính</th>
+                     <th scope="col">Ngày Sinh</th>
+                     <th scope="col">Điện Thoại</th>
+                     <th scope="col">Tuổi</th>
+                     <th scope="col text-center">Địa chỉ</th>
                      </tr>
                   </thead>
                   <tbody>
                     @foreach($customers as $customer)
                      <tr>
                         <th scope="row">{{ $customer->id }}</th>
-                        <td>{{ $customer->id_contract }}</td>
-                        <td>{{ date('Y-m-d', strtotime($customer->join_date)) }}</td>
-                        <td>{{ number_format($customer->money); }}</td>
-                        <td>{{ $customer->date_due .'-'. $customer->month_due .'-'. $customer->year_due }}</td>
-                        <td>{{ $customer->last_name .' '. $customer->first_name}}</td>
-                        <td>{{ $customer->sex == 'M' ? 'Nam' : 'Nữ' }}</td>
-                        <td>{{ $customer->date_birth }}</td>
-                        <td>{{ $customer->home .', '. $customer->ward .', '. $customer->district .', '. $customer->province }}</td>
+                           <td>{{ $customer->so_hop_dong }}</td>
+                           <td>{{ number_format($customer->menh_gia) ?? '' }}</td>
+                           <td>{{ $customer->nam_dao_han }}</td>
+                           <td>{{ $customer->ten_kh }}</td>
+                           <td>
+                              @if($customer->gioi_tinh == 'M')
+                              Nam
+                              @endif
+                              @if($customer->gioi_tinh == 'F')
+                              Nữ
+                              @endif
+                           </td>
+                           <td>{{ $customer->ngay_sinh }}</td>
+                           <td>{{ $customer->dien_thoai }}</td>
+                           <td>{{ $customer->tuoi }}</td>
+                           <td>{{ $customer->dia_chi_cu_the }}</td>
                      </tr>
                     @endforeach
                   </tbody>

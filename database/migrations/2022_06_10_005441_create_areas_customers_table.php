@@ -15,8 +15,8 @@ class CreateAreasCustomersTable extends Migration
     {
         Schema::create('areas_customers', function (Blueprint $table) {
             $table->id();
-            $table->string('id_area')->nullable();
-            $table->string('id_customer')->nullable();
+            $table->string('area_id')->nullable();
+            $table->string('customer_id')->nullable();
             $table->timestamps();
         });
     }

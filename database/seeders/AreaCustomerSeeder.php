@@ -15,16 +15,16 @@ class AreaCustomerSeeder extends Seeder
     {
         $data = [
             [
-                'id_area' => 2,
-                'id_customer' => 3,
+                'area_id' => 2,
+                'customer_id' => 3,
             ],
             [
-                'id_area' => 1,
-                'id_customer' => 4,
+                'area_id' => 1,
+                'customer_id' => 4,
             ],
             [
-                'id_area' => 3,
-                'id_customer' => 10,
+                'area_id' => 3,
+                'customer_id' => 10,
             ],
         ];
         \DB::table('areas_customers')->insert($data);

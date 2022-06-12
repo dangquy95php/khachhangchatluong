@@ -59,7 +59,7 @@
          <ul id="tables-area" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/area' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
                <a href="{{route('index_area')}}" class="{{ \Request::route()->getName() == 'index_area' ? 'active' : ''}}">
-               <i class="bi bi-circle"></i><span>Danh sách nhân viên</span>
+               <i class="bi bi-circle"></i><span>Danh sách nhân viên - Khu vực</span>
                </a>
             </li>
             <li>

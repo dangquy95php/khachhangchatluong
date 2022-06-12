@@ -10,6 +10,7 @@ use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\AreaUser;
 use App\Models\AreaCustomer;
+use DB;
 
 class AreaController extends Controller
 {
@@ -95,8 +96,12 @@ class AreaController extends Controller
 
     public function customerByArea(Request $request)
     {
-        AreaCustomer::query()->leftJoin('customer', 'areas_users.customer_id', '=', 'customer.id');
-        return view('area.customer-by-area', ['areas' => $this->dataAreas, 'customers' => $this->dataCustomers]);
+        $customers = \DB::table('areas_customers AS t1')
+        ->select('t1.customer_id')
+        ->rightJoin('customers AS t2', 't2.id','=', 't1.customer_id')
+        ->whereNull('t1.id')->select('t2.*')->get();
+
+        return view('area.customer-by-area', ['areas' => $this->dataAreas, 'customers' => $customers]);
     }
 
     public function postCustomerByArea(Request $request)
@@ -108,13 +113,27 @@ class AreaController extends Controller
         ]);
 
         $ids = $request->input('choose_customers');
+
+        if (empty($ids)) {
+            Toastr::error("Khách hàng chưa được chọn! ");
+            return redirect()->back();
+        }
         $data = explode('_', $request->input('area'));
+
+        DB::beginTransaction();
         try {
-            Customer::whereIn('id', $ids)->update([ 'by_area' =>  $data[0] ]);
+            $dataSet = [];
+            foreach ($ids as $custtomer) {
+                $model = new AreaCustomer();
+                $model->area_id = $data[0];
+                $model->customer_id = $custtomer;
+                $model->save();
+            }
 
-
+            DB::commit();
             Toastr::success("Đã thêm một số khách hàng vào khu vực ". $data[1]);
         } catch (\Exception $ex) {
+            DB::rollback();
             Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
         }
         return redirect()->back();

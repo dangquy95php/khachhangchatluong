@@ -9,6 +9,8 @@ class AreaCustomer extends Model
 {
     use HasFactory;
 
+    protected $table = 'areas_customers';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,4 +20,5 @@ class AreaCustomer extends Model
         'area_id',
         'customer_id',
     ];
+
 }
