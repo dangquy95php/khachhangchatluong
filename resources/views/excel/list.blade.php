@@ -45,7 +45,6 @@
                         <div class="row mb-3">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Improt File</button>
-                                <a href="{{route('clear')}}" class="btn btn-success text-white">Xoá dữ liệu</a>
                             </div>
                         </div>
                     </form>
@@ -65,13 +64,14 @@
                      <tr>
                         <th scope="col">#</th>
                         <th scope="col">Số hợp đồng</th>
-                        <th scope="col">Ngày tham gia</th>
-                        <th scope="col">Số tiền</th>
-                        <th scope="col">Ngày Đáo Hạn</th>
+                        <th scope="col">Mệnh Giá</th>
+                        <th scope="col">Năm Đáo Hạn</th>
                         <th scope="col">Họ Và Tên</th>
                         <th scope="col">Giới Tính</th>
                         <th scope="col">Ngày Sinh</th>
-                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Điện Thoại</th>
+                        <th scope="col">Tuổi</th>
+                        <th scope="col text-center">Địa chỉ</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -81,21 +81,22 @@
                     @foreach($customers as $customer)
                      <tr>
                         <th scope="row">{{ $i }}</th>
-                        <td>{{ $customer->id_contract }}</td>
-                        <td>{{ $customer->join_date != '' ? date('Y-m-d', strtotime($customer->join_date)) : '' }}</td>
-                        <td>{{ number_format($customer->money); }}</td>
-                        <td>{{ $customer->date_due .'-'. $customer->month_due .'-'. $customer->year_due }}</td>
-                        <td>{{ $customer->last_name .' '. $customer->first_name}}</td>
+                        <td>{{ $customer->so_hop_dong }}</td>
+                        <td>{{ number_format($customer->menh_gia) ?? '' }}</td>
+                        <td>{{ $customer->nam_dao_han }}</td>
+                        <td>{{ $customer->ten_kh }}</td>
                         <td>
-                            @if($customer->sex == 'M')
+                            @if($customer->gioi_tinh == 'M')
                             Nam
                             @endif
-                            @if($customer->sex == 'F')
+                            @if($customer->gioi_tinh == 'F')
                             Nữ
                             @endif
                         </td>
-                        <td>{{ $customer->date_birth }}</td>
-                        <td>{{ $customer->home .', '. $customer->ward .', '. $customer->district .', '. $customer->province }}</td>
+                        <td>{{ $customer->ngay_sinh }}</td>
+                        <td>{{ $customer->dien_thoai }}</td>
+                        <td>{{ $customer->tuoi }}</td>
+                        <td>{{ $customer->dia_chi_cu_the }}</td>
                      </tr>
                      @php
                     $i++;

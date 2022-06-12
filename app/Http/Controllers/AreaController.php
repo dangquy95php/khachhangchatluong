@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\AreaUser;
+use App\Models\AreaCustomer;
 
 class AreaController extends Controller
 {
@@ -23,7 +24,7 @@ class AreaController extends Controller
     {
         $this->_status = Area::getStatus();
         $this->dataAreas = Area::select('name', 'id', 'note', 'created_at')->opening()->get();
-        $this->dataCustomers = Customer::select('id', 'id_contract', 'join_date', 'money', 'date_due', 'month_due', 'year_due', 'last_name', 'first_name', 'sex', 'date_birth', 'phone', 'home', 'ward', 'district', 'province')->byArea()->get();
+        $this->dataCustomers = Customer::select('*')->get();
     }
 
     public function index(Request $request)
@@ -94,6 +95,7 @@ class AreaController extends Controller
 
     public function customerByArea(Request $request)
     {
+        AreaCustomer::query()->leftJoin('customer', 'areas_users.customer_id', '=', 'customer.id');
         return view('area.customer-by-area', ['areas' => $this->dataAreas, 'customers' => $this->dataCustomers]);
     }
 
@@ -120,7 +122,9 @@ class AreaController extends Controller
 
     public function addAreaToUser(Request $request)
     {
-        $users = User::where('status',self::USER_ACTIVE )->get();
+        $users = User::where('status', self::USER_ACTIVE )->get();
+
+
 
         return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'users' => $users ]);
     }

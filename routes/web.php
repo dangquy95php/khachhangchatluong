@@ -40,13 +40,7 @@ Route::get('/refresh-seed', function() {
     $exitCode = Artisan::call('migrate:refresh --seed');
     return '<h1>Clear Config cleared</h1>';
 });
-// Ngày tham gia
-// Số hợp đông trước, số tiền, tên khách hànghàng
-// Số điện thoại: Cột N,O,P,Q,R
-// Khu Vực.. Không cần thêm
-// Thêm nhiều data. Tạo nút search
 
-Route::get('/clear', 'UserController@clear')->name('clear');
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 

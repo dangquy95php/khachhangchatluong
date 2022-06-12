@@ -17,39 +17,20 @@ class Customer extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'type_pay',
-        'name_pay',
-        'id_customer_pay', // mã người bán hàng
-        'position', // chức vụ của văn phòng B
-        'id_contract',
-        'join_date',
-        'note',
-        'money',
-        'date_due_full',
-        'date_due',
-        'month_due',
-        'year_due',
-        'last_name',
-        'first_name',
-        'sex',
-        'date_birth',
-        'age',
-        'phone',
-        'address_full',
-        'home',
-        'ward',
-        'district',
-        'province',
-        'by_area',
-        'info_option',
-        'comment'
+        'so_thu_tu',
+        'vpbank',
+        'msdl',
+        'cv', 
+        'so_hop_dong',
+        'menh_gia',
+        'nam_dao_han',
+        'ten_kh',
+        'gioi_tinh',
+        'ngay_sinh',
+        'tuoi',
+        'dien_thoai',
+        'dia_chi_cu_the',
     ];
-        //     Đã hẹn
-        //     Không nghe máy
-        //     Khách hàng đang suy nghĩ, gọi lại sau.
-        //     Khách hàng ít tiền
-        // Đại lý vẫn chăm sóc
 
     const APPOINTMENT = 0;
     const NOTE_ANS_PHONE = 1;
@@ -70,10 +51,10 @@ class Customer extends Model
         return self::INFOR_OPTION;
     }
 
-    public function scopeByArea($query)
-    {
-        return $query->where('by_area', self::NEW_CUSTOMER);
-    }
+    // public function scopeByArea($query)
+    // {
+    //     return $query->where('by_area', self::NEW_CUSTOMER);
+    // }
 
     public function getFullNameAttribute()
     {

@@ -17,7 +17,7 @@ class ExcelController extends Controller
 
     public function __construct()
     {
-        $this->dataCustomers = Customer::select('id', 'id_contract', 'join_date', 'money', 'date_due', 'month_due', 'year_due', 'last_name', 'first_name', 'sex', 'date_birth', 'phone', 'home', 'ward', 'district', 'province')->get();
+        $this->dataCustomers = Customer::all();
     }
 
     public function import(Request $request)
@@ -39,6 +39,7 @@ class ExcelController extends Controller
             'file.max' => 'Tập tin quá lớn.',
             'file.mimes' => 'File không được cài mật khẩu, định dạng file không đúng. Chỉ cho phép import file Excel(xlsx,xls) thôi.'
         ]);
+
         \DB::beginTransaction();
 
         try {

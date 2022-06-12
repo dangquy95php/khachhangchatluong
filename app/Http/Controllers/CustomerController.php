@@ -17,7 +17,7 @@ class CustomerController extends Controller
 
     public function __construct()
     {
-        $this->dataCustomers = Customer::select('id', 'id_contract', 'join_date', 'money', 'date_due', 'month_due', 'year_due', 'last_name', 'first_name', 'sex', 'date_birth', 'phone', 'home', 'ward', 'district', 'province')->get();
+        $this->dataCustomers = Customer::all();
 
         return $this->dataCustomers;
     }

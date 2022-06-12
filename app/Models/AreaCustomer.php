@@ -15,7 +15,7 @@ class AreaCustomer extends Model
      * @var array
      */
     protected $fillable = [
-        'id_area',
-        'id_customer',
+        'area_id',
+        'customer_id',
     ];
 }

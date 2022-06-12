@@ -6,54 +6,39 @@ use App\Models\Customer;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\DefaultValueBinder;
-use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-
-class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkReading, WithValidation, SkipsEmptyRows, WithCustomValueBinder
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Jobs\Data\ImportExcel as Import;
+class CustomerImport implements ToCollection, ShouldQueue, WithChunkReading, WithStartRow, WithHeadingRow
 {
-    const RUN_EVERY_TIME = 500;
+    const RUN_EVERY_TIME = 200;
 
     // set the preferred date format
     private $date_format = 'd/m/Y';
 
     // set the columns to be formatted as dates
-    private $date_columns = ['P'];
 
-    public function bindValue(Cell $cell, $value)
+    public function startRow(): int
     {
-        if (in_array($cell->getColumn(), $this->date_columns)) {
-            $cell->setValueExplicit(Date::excelToDateTimeObject($value)->format($this->date_format), DataType::TYPE_STRING);
-
-            return true;
-        }
-
-        // else return default behavior
-        return parent::bindValue($cell, $value);
+        return 3;
     }
+
+    public function collection(Collection $userCollections)
+    {
+        foreach ($userCollections as $key => $customer) {
+            dispatch(new Import($customer));
+        }
+    }
+
 
     public function rules(): array
     {
-        
         return [
-            '4' => ['required'],//số hợp đồng
-            // '5' => ['required'],//ngày tham gia
-            // '7' => ['required'],//số tiền
-            // '8' => ['required'],//ngày đáo hạn
-            // '12' => ['required'],//họ
-            // // '13' => ['required'],// tên
-            // '14' => ['required'],// giới tính
-            // '15' => ['required'],// Ngày sinh => Cột P
-            // '16' => ['required'],//tuổi
-            // '17' => ['required'],// số điện thoại
-            // '19' => ['required'],
-            // '20' => ['required'],
-            // '21' => ['required'],
-            // '22' => ['required'],
+            'so_hop_dong' => ['required'],//số hợp đồng
         ];
     }
 
@@ -63,7 +48,7 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
     public function customValidationMessages()
     {
         return [
-            '4.required' => 'Số hợp đồng không được để trống cột số :attribute.',
+            'so_hop_dong.required' => 'Số hợp đồng không được để trống cột số :attribute.',
             // '5.required' => 'Ngày tham không được để trống cột số :attribute.',
             // '7.required' => 'Số tiền không được để trống cột số :attribute.',
             // '8.required' => 'Ngày đáo hạn không được để trống cột số :attribute.',
@@ -79,37 +64,27 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
         ];
     }
 
-    public function model(array $row)
-    {
-        $data = Customer::where('id_contract', $row[4])->first();
-        if (!$data) {
-            return Customer::create([
-                'type_pay'        => $row[0],
-                'name_pay'        => $row[1],
-                'id_customer_pay' => $row[2],
-                'position'        => $row[3],
-                'id_contract'     => $row[4],
-                'join_date'       => @$row[5],
-                'note'            => @$row[6],
-                'money'           => @$row[7],
-                'date_due_full'   => @$row[8],
-                'date_due'        => @$row[9],
-                'month_due'       => @$row[10],
-                'year_due'        => @$row[11],
-                'last_name'       => @$row[12],
-                'first_name'      => @$row[13],
-                'sex'             => @$row[14],
-                'date_birth'      => @$row[15],
-                'age'             => @$row[16],
-                'phone'           => @$row[17],
-                'address_full'    => @$row[18],
-                'home'            => @$row[19],
-                'ward'            => @$row[20],
-                'district'        => @$row[21],
-                'province'        => @$row[22],
-            ]);
-        }
-    }
+    // public function model(array $row)
+    // {
+    //     $data = Customer::where('so_hop_dong', $row['so_hop_dong'])->first();
+    //     if (!$data) {
+    //         return Customer::create([
+    //             'so_thu_tu'        => @$row['so_thu_tu'],
+    //             'vpbank'           => @$row['vpbank'],
+    //             'msdl'             => @$row['msdl'],
+    //             'cv'               => @$row['cv'],
+    //             'so_hop_dong'      => $row['so_hop_dong'],
+    //             'menh_gia'         => @$row['menh_gia'],
+    //             'nam_dao_han'      => @$row['nam_dao_han'],
+    //             'ten_kh'           => @$row['ten_kh'],
+    //             'gioi_tinh'        => @$row['gioi_tinh'],
+    //             'ngay_sinh'        => @$row['ngay_sinh'],
+    //             'tuoi'             => @$row['tuoi'],
+    //             'dien_thoai'       => @$row['dien_thoai'],
+    //             'dia_chi_cu_the'   => @$row['dia_chi_cu_the'],
+    //         ]);
+    //     }
+    // }
 
     public function map($map): array
     {
@@ -118,11 +93,11 @@ class CustomerImport extends DefaultValueBinder implements ToModel, WithChunkRea
         ];
     }
 
-    public function columnFormats(): array {
-        return [
-            'P' => NumberFormat::FORMAT_DATE_DDMMYYYY
-        ];
-    }
+    // public function columnFormats(): array {
+    //     return [
+    //         'P' => NumberFormat::FORMAT_DATE_DDMMYYYY
+    //     ];
+    // }
 
     public function chunkSize(): int
     {
