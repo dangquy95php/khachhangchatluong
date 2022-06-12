@@ -43,6 +43,7 @@ Route::get('/refresh-seed', function() {
 
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
+Route::post('/', 'HomeController@updateCusomter')->middleware('auth');
 
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
@@ -76,7 +77,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/customer', 'AreaController@postCustomerByArea')->name('post_customer_by_area');
         Route::get('/add-area-to-user', 'AreaController@addAreaToUser')->name('add_area_to_user');
         Route::post('/add-area-to-user', 'AreaController@postAddAreaToUser')->name('post_add_area_to_user');
-        Route::get('/del-area-to-user/{id}', 'AreaController@delAreaToUser')->name('del_area_to_user');
+
 
     });
 

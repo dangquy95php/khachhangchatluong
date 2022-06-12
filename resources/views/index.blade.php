@@ -118,62 +118,57 @@
             <div class="card pt-3 mb-3">
                 <div class="card-body">
                     <!-- Vertical Form -->
-                    <form method="post" action="" class="row g-3" id="customerForm">
-                        <input type="text" class="d-none" name="id" value="{{@$customer['customer'][0]->id}}" id="">
-                        <!-- <input type="text" name="id" value=""/> -->
+                    <form method="POST" action="" class="row g-3" id="customerForm">
+                        <input type="text" class="d-none" name="id" value="{{@$customer->id}}"/>
                         @csrf
                         <div class="col-8">
                             <div class="row">
                                 <div class="col-9 pe-1">
                                     <div class="row g-3">
-                                        <!-- <div class="col-4">
-                                            <label for="inputNanme5" class="form-label"><b>Ngày tham gia</b></label>
-                                            <input id="join_date" name="join_date" class="form-control" type="text" value="{{ !is_array($customer->ngay_tham_gia) ? $customer->ngay_tham_gia : '' }}" />
-                                        </div> -->
                                         <div class="col-3">
                                             <label for="inputNanme4" class="form-label"><b>Năm Đáo Hạn</b></label>
-                                            <input id="nam_dao_han" name="nam_dao_han" class="form-control" type="text" value="{{ @$customer->customer[0]->nam_dao_han }}" />
+                                            <input id="nam_dao_han" name="nam_dao_han" class="form-control" type="text" value="{{ @$customer->nam_dao_han }}" />
                                         </div>
                                         <div class="col-4 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Số Hợp Đồng</b></label>
-                                            <input type="text" disabled name="id_contract" value="{{ @$customer->customer[0]->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
+                                            <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
                                         </div>
                                         <div class="col-5">
                                             <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                            <input type="text" class="form-control" value="{{ number_format((int) @$customer->customer[0]->menh_gia) }}"  id="money" name="money"
+                                            <input type="text" class="form-control" value="{{ number_format((int) @$customer->menh_gia) }}"  id="money" name="money"
                                            >
                                         </div>
                                         <div class="col-8">
                                             <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
-                                            <input type="text" value="{{ @$customer->customer[0]->ten_kh }}" name="last_name" class="form-control" id="fullname">
+                                            <input type="text" value="{{ @$customer->ten_kh }}" name="last_name" class="form-control" id="fullname">
                                         </div>
                                         <div class="col-4">
                                             <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
-                                            <input type="text" name="phone" value="{{ @$customer->customer[0]->dien_thoai }}" class="form-control" id="phone">
+                                            <input type="text" name="phone" value="{{ @$customer->dien_thoai }}" class="form-control" id="phone">
                                         </div>
                                         <div class="col-12">
                                             <label for="inputPassword4" class="form-label"><b>Địa Chỉ</b></label>
-                                            <input type="text" value="{{ @$customer->customer[0]->dia_chi_cu_the }}" name="address_full" id="address_full" class="form-control" id="inputPassword4">
+                                            <input type="text" value="{{ @$customer->dia_chi_cu_the }}" name="address_full" id="address_full" class="form-control" id="inputPassword4">
                                         </div>
                                         <div class="col-2 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
-                                            <input type="number" value="{{ @$customer->customer[0]->tuoi }}" name="age" id="age" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
+                                            <input type="number" value="{{ @$customer->tuoi }}" name="age" id="age" min="1" max="200" onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="form-control" id="inputPassword4">
                                         </div>
 
                                         <div class="col-3">
                                             <label for="inputEmail4" class="form-label"><b>Giới Tính</b></label>
                                             <select name="sex" id="sex" class="form-select">
                                                 <option selected="">Chọn giới tính...</option>
-                                                <option {{ @$customer[0]->sex == 'M' ? 'selected' : '' }} value="M">Nam</option>
-                                                <option {{ @$customer[0]->sex == 'F' ? 'selected' : '' }} value="F">Nữ</option>
+                                                <option {{ @$customer->gioi_tinh === 'M' ? 'selected' : '' }} value="M">Nam</option>
+                                                <option {{ @$customer->gioi_tinh === 'F' ? 'selected' : '' }} value="F">Nữ</option>
                                             </select>
                                         </div>
                                         <div class="col-7 pe-0">
                                             <label for="inputEmail4" class="form-label"><b>Nguồn Dữ Liệu</b></label>
-                                            <select name="area_name" id="data_oririn" class="form-select">
+                                            <select name="area_name" id="data_area_id" class="form-select">
                                                 <option value="">Chọn nguồn dữ liệu</option>
                                                 @foreach ($areas as $area)
-                                                    <option {{old('area_name', @$customer->customer[0]->id) == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                    <option {{old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -187,7 +182,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="1" id="gridRadios1" {{ old('type_result', @$customer->customer[0]->type_result) == 1 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="1" id="gridRadios1" {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                     Đã hẹn
                                                 </label>
@@ -195,7 +190,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="2" id="gridRadios2" {{ old('type_result', @$customer->customer[0]->type_result) == 2 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="2" id="gridRadios2" {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios2">
                                                     Không nghe máy
                                                 </label>
@@ -203,7 +198,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="3" id="gridRadios3" {{ old('type_result', @$customer->customer[0]->type_result) == 3 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="3" id="gridRadios3" {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Khách hàng đang suy nghĩ, gọi lại sau.
                                                 </label>
@@ -211,7 +206,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios4" {{ old('type_result', @$customer->customer[0]->type_result) == 4 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios4" {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios4">
                                                     Khách hàng ít tiền
                                                 </label>
@@ -219,7 +214,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="5" id="gridRadios5" {{ old('type_result', @$customer->customer[0]->type_result) == 5 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="5" id="gridRadios5" {{ old('type_result', @$customer->type_result) == 5 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios5">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
@@ -236,20 +231,21 @@
                                 <div class="card mb-2">
                                     <div class="card-body">
                                         <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
-                                        <textarea name="comment" value="{{ @$customer->customer[0]->comment }}" class="form-control" rows="6">{{ old('comment', @$customer->customer[0]->comment) }}</textarea>
+                                        <textarea name="comment" value="{{ @$customer->comment }}" class="form-control" rows="6">{{ old('comment', @$customer->comment) }}</textarea>
                                         <!-- End Quill Editor default -->
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <!-- <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button> -->
-                                <a class="btn-save btn btn-success"><i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span></a>
-                                @if (\Request::route()->getName() !== 'customer_detail')
-                                <a class="btn-next btn btn-outline-primary"><span class="pe-1">Gọi Tiếp Theo111</span><i class="bi bi-chevron-double-right"></i>
-                                @else
-                                    <a href="/" class="btn btn-outline-primary"><span class="pe-1">Gọi Tiếp Theo</span><i class="bi bi-chevron-double-right"></i>
-                                @endif
-                                </a>
+                                <!-- <a  class="btn-save btn btn-success">
+                                    <i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span>
+                                </a> -->
+                               
+                                <button type="submit" class="btn-next btn btn-outline-primary">
+                                    <span class="pe-1">Gọi Tiếp Theo</span>
+                                    <i class="bi bi-chevron-double-right"></i>
+                                </button>
                             </div>
                         </div>
                     </form><!-- Vertical Form -->
@@ -268,7 +264,7 @@
                         <div class="card-body pt-3">
                         <h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>
                         <!-- Table with hoverable rows -->
-                        <!-- <table class="table table-hover">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -283,19 +279,33 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $i = 1;
+                                @endphp
+                                @foreach($dataHistory as $data)
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Nguyễn Văn Nam</td>
-                                    <td>097262212</td>
-                                    <td>Khách hàng có ý định muốn mua bảo hiểm. Hiện tại chưa có tiền đủ</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td><span class="badge bg-primary">Primary</span></td>
+                                    <th scope="row">{{$i}}</th>
+                                    <td>{{ $data->so_hop_dong }}</td>
+                                    <td>{{ $data->ten_kh }}</td>
+                                    <td>{{ $data->dien_thoai }}</td>
+                                    <td>{{ $data->comment }}</td>
+                                    <td>
+                                        @foreach(\App\Models\Customer::getInforOption() as $key => $value)
+                                            @if($key == $data->type_result)
+                                                <span class="badge bg-primary">{{ $value }}</span>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    
+                                    <td>{{ $data->updated_at }}</td>
+                                    <td></td>
                                 </tr>
+                                @php
+                                $i++;
+                                @endphp
+                                @endforeach
                             </tbody>
-                        </table> -->
+                        </table>
                         <!-- End Table with hoverable rows -->
                     </div>
                 </div>
@@ -388,19 +398,28 @@
                 $('.btn-alert').trigger('click');
             }
 
-            $(".btn-next").click(function() {
-                var formUpdate = $('#customerForm');
-                formUpdate.attr('action', "{{route('customer_update')}}");
-                formUpdate.submit();
-            });
+            // $(".btn-next").click(function() {
+            //     var formUpdate = $('#customerForm');
+            //     formUpdate.attr('action', "{{route('customer_update')}}");
+            //     formUpdate.submit();
+            // });
 
-            $(".btn-save").click(function() {
-                var formSave = $('#customerForm');
-                formSave.attr('action', "{{route('customer_save', )}}");
-                formSave.submit();
-            });
+            // $(".btn-save").click(function() {
+            //     var formSave = $('#customerForm');
+            //     formSave.attr('action');
+            //     formSave.submit();
+            // });
+
+            // $('#data_area_id').on('change', function (e) {
+            //     var optionSelected = $("option:selected", this);
+            //     var valueSelected = this.value;
+            //     console.log(valueSelected);
+
+            //     $('#customerForm').submit();
+            // });
         });
 
+       
         // $(document).ready(function() {
         //     function numberWithCommas(x) {
         //         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

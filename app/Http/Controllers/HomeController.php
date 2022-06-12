@@ -31,15 +31,6 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        // $dataHistory = Customer::query('type_result')
-        // ->notNullOnly()->join('areas_users', function($join) {
-        //     $join->on('customers.area_name', '=', 'areas_users.id_area')
-        //     ->where('areas_users.id_user', Auth::user()->id);
-        // })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
-        // ->select('customers.*', 'areas.name as name_areas')
-        // ->orderBy('customers.updated_at', 'DESC')
-        // ->get();
-
         // Lấy danh muc
         $areas = \DB::table('areas_users')
                 ->join('areas', 'areas_users.id_area', 'areas.id')
@@ -49,20 +40,44 @@ class HomeController extends Controller
         $customer = new Customer();
         if (count($areas) > 0) {
             $data_id = $areas[0]->id;
-            $customer = AreaCustomer::with('customer')->orderBy('updated_at', 'DESC')->first();
+
+            $customer = AreaCustomer::where('area_id', $data_id)
+                ->join('customers', 'areas_customers.customer_id', 'customers.id')
+                ->where('type_result', '=', '')->first();
         }
         
-        // foreach($customer as $item) {
-        //     if (count($item->customer) > 0 ) {
-        //         $customer = $item;
-        //         break;
-        //     }
-        // }
+        $dataHistory =\ DB::table('areas_users')
+            ->where('areas_users.id_user', Auth::user()->id)
+            ->join('areas', 'areas_users.id_area', '=', 'areas.id')
+            ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
+            ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+            ->select('customers.*', 'areas.name')
+            ->get();
 
-        //nhat ky cuoc goi
-        return view('index', compact('areas', 'customer'));
-        // return view('index', compact('areas', 'customer', 'dataHistory'));
+        return view('index', compact('areas', 'customer', 'dataHistory'));
+    }
 
+    public function updateCusomter(Request $request)
+    {
+        $request->validate([
+            'type_result' => 'required',
+            'area_name' => 'required'
+        ], [
+            'type_result.required' => 'Vui lòng chọn kết quả gọi',
+            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu' 
+        ]);
+
+        try {
+            $customer = Customer::find($request->get('id'));
+            $customer->type_result = $request->get('type_result');
+            $customer->comment = $request->get('comment');
+            $customer->save();
+            Toastr::success('Cập nhật thông tin khách hàng thàng công.');
+        } catch (\Exception $ex) {
+            Toastr::error('Có lỗi khi cập nhật thông tin người dùng.'. $ex->getMessage());
+        }
+
+        return redirect()->route('home');
     }
 
     public function save(Request $request)
@@ -83,12 +98,16 @@ class HomeController extends Controller
             $customer->type_result = $request->get('type_result');
             $customer->comment = $request->get('comment');
 
-            if($customer->isDirty()) {
+            // update danh muc, khu vuc va nhan vien
+            $category = AreaCustomer::where('customer_id', $request->get('id'))->first();
+            $category->customer_id= $request->get('area_name');
+
+            if($customer->isDirty() || $category->isDirty()) {
                 Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
             } else {
                 Toastr::warning('Dữ liệu chưa được lưu');
             }
-
+            $category->save();
             $customer->save();
         } catch (\Exception $ex) {
             Toastr::error('Lưu khách hàng thất bại'. $ex->getMessage());
@@ -104,13 +123,63 @@ class HomeController extends Controller
                 ->where('areas_users.id_user', Auth::user()->id)
                 ->select('areas.*')->get();
 
+                
         $customer = new Customer();
         if (count($areas) > 0) {
             $data_id = $areas[0]->id;
-            $customer = AreaCustomer::with('customer')->orderBy('updated_at', 'DESC')->first();
+
+            $customer = AreaCustomer::where('area_id', $data_id)
+                        ->join('customers', 'areas_customers.customer_id', 'customers.id')
+                        ->where('type_result', '=', '')->first();
         }
-        //nhat ky cuoc goi
+
         return view('index', compact('areas', 'customer'));
+
+
+        // $customer = Customer::query()
+        // ->join('areas_customers', 'customers.id', 'areas_customers.customer_id')
+        // ->where('customers.id', $id)
+        // ->select('*')->get();
+
+        // dd($customer);
+        // // $customer = AreaCustomer::where('area_id', $data_id)
+        // //             ->join('customers', 'areas_customers.customer_id', 'customers.id')
+        // //             ->where('type_result', '=', '')->first();
+                    
+        // $areas = \DB::table('areas_users')
+        // ->join('areas', 'areas_users.id_area', 'areas.id')
+        // ->where('areas_users.id_user', Auth::user()->id)
+        // ->select('areas.*')->get();
+        // dd($customer);
+
+        // return view('index', compact('areas', 'customer'));
+    }
+
+    public function postDetail($id, Request $request)
+    {
+        dd(23);
+         // update danh muc, khu vuc va nhan vien
+         try {
+            $customer = Customer::find($id);
+            $customer->type_result = $request->get('type_result');
+            $customer->comment = $request->get('comment');
+
+            // update danh muc, khu vuc va nhan vien
+            $category = AreaCustomer::where('customer_id', $id)->first();
+            $category->customer_id= $request->get('area_name');
+
+            if($customer->isDirty() || $category->isDirty()) {
+                Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
+            } else {
+                Toastr::warning('Dữ liệu chưa được lưu');
+            }
+            $category->save();
+            $customer->save();
+        } catch (\Exception $ex) {
+            Toastr::error('Lưu khách hàng thất bại'. $ex->getMessage());
+        }
+
+        return redirect()->back('customer_detail', $id);
     }
 
     public function update(Request $request)
