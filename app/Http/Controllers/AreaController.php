@@ -183,7 +183,7 @@ class AreaController extends Controller
             return redirect()->route('add_area_to_user');
         } catch (\Exception $ex) {
             Toastr::error("Xóa quyền cho khu vực thất bại! ". $ex->getMessage());
-            return redirect()->route('index_area');
+            return redirect()->route('add_area_to_user');
         }
     }
 }
