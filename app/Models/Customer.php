@@ -31,6 +31,8 @@ class Customer extends Model
         'tuoi',
         'dien_thoai',
         'dia_chi_cu_the',
+        'comment',
+        'type_result'
     ];
 
     const APPOINTMENT = 0;
@@ -71,4 +73,5 @@ class Customer extends Model
 
         return $query->where('info_option', '<>', '');
     }
+
 }

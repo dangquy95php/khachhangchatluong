@@ -18,14 +18,14 @@ class UserTableSeeder extends Seeder
             [
                 'username' => 'username1',
                 'role' => 1,
-                'status' => 0,
+                'status' => 1,
                 'name' => '',
                 'password' => bcrypt('12345'),
             ],
             [
                 'username' => 'username2',
                 'role' => 1,
-                'status' => 0,
+                'status' => 1,
                 'name' => '',
                 'password' => bcrypt('12345'),
             ],

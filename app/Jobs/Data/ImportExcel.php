@@ -50,6 +50,8 @@ class ImportExcel implements ShouldQueue
                 'tuoi'             => $this->customer['tuoi'],
                 'dien_thoai'       => $this->customer['dien_thoai'],
                 'dia_chi_cu_the'   => $this->customer['dia_chi_cu_the'],
+                'type_result'      => '',
+                'comment'          => '',
             ]);
         }
     }

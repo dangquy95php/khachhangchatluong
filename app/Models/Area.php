@@ -35,9 +35,4 @@ class Area extends Model
     {
         return $query->where('status', self::OPENING);
     }
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
 }

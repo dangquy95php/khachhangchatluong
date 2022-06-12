@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\AreaUser;
+use App\Models\AreaCustomer;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
@@ -30,46 +31,38 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $dataHistory = Customer::query('info_option')
-        ->notNullOnly()->join('areas_users', function($join) {
-            $join->on('customers.by_area', '=', 'areas_users.id_area')
-            ->where('areas_users.id_user', Auth::user()->id);
-        })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
-        ->select('customers.*', 'areas.name as name_areas')
-        ->orderBy('customers.updated_at', 'DESC')
-        ->get();
+        // $dataHistory = Customer::query('type_result')
+        // ->notNullOnly()->join('areas_users', function($join) {
+        //     $join->on('customers.area_name', '=', 'areas_users.id_area')
+        //     ->where('areas_users.id_user', Auth::user()->id);
+        // })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
+        // ->select('customers.*', 'areas.name as name_areas')
+        // ->orderBy('customers.updated_at', 'DESC')
+        // ->get();
 
         // Lấy danh muc
-        $areas = \DB::table('areas_users')->join('areas', 'areas_users.id_area', 'areas.id')->where('areas_users.id_user', Auth::user()->id) 
-                ->join('customers', 'areas.id', 'customers.by_area')->orderBy('areas_users.id_area', 'DESC')->where('customers.info_option', null)->get();
-
-        $unique = collect($areas)->unique('id_area');
-        $areas = $unique->values()->all();
+        $areas = \DB::table('areas_users')
+                ->join('areas', 'areas_users.id_area', 'areas.id')
+                ->where('areas_users.id_user', Auth::user()->id)
+                ->select('areas.*')->get();
 
         $customer = new Customer();
-
         if (count($areas) > 0) {
-            $data_id = $areas[0]->id_area;
-
-            $customer = Customer::where(['by_area' => $data_id, 'info_option' => null ])->orderBy('by_area', 'DESC')->select('*')->first();
-
-            $re = '/([0-9]{4})([0-9]{2})([0-9]{2})/';
-
-            preg_match_all($re, $customer->join_date, $matches, PREG_SET_ORDER, 0);
-            preg_match_all($re, $customer->date_due_full, $matches1, PREG_SET_ORDER, 0);
-    
-            $customer->join_date = $matches;
-            $customer->date_due_full = $matches1;
-            if (count($matches) > 0) {
-                $customer->join_date = $matches[0][1] .'-'. $matches[0][2] .'-'. $matches[0][3];
-            }
-            if (count($matches1) > 0) {
-                $customer->date_due_full = $matches1[0][1] .'-'. $matches1[0][2] .'-'. $matches1[0][3];
-            }
+            $data_id = $areas[0]->id;
+            $customer = AreaCustomer::with('customer')->orderBy('updated_at', 'DESC')->first();
         }
+        
+        // foreach($customer as $item) {
+        //     if (count($item->customer) > 0 ) {
+        //         $customer = $item;
+        //         break;
+        //     }
+        // }
 
         //nhat ky cuoc goi
-        return view('index', compact('areas', 'customer', 'dataHistory'));
+        return view('index', compact('areas', 'customer'));
+        // return view('index', compact('areas', 'customer', 'dataHistory'));
+
     }
 
     public function save(Request $request)
@@ -78,16 +71,16 @@ class HomeController extends Controller
             return redirect()->back();
         
         $request->validate([
-            'info_option' => 'required',
-            'by_area' => 'required'
+            'type_result' => 'required',
+            'area_name' => 'required'
         ], [
-            'info_option.required' => 'Vui lòng chọn kết quả gọi',
-            'by_area.required' => 'Vui lòng chọn nguồn dữ liệu' 
+            'type_result.required' => 'Vui lòng chọn kết quả gọi',
+            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu' 
         ]);
 
         try {
             $customer = Customer::find($request->get('id'));
-            $customer->info_option = $request->get('info_option');
+            $customer->type_result = $request->get('type_result');
             $customer->comment = $request->get('comment');
 
             if($customer->isDirty()) {
@@ -106,38 +99,18 @@ class HomeController extends Controller
 
     public function detail($id, Request $request)
     {
-        $id = $request->route('id');
-        $areas = \DB::table('areas_users')->join('areas', 'areas_users.id_area', 'areas.id')->where('areas_users.id_user', Auth::user()->id) 
-                ->join('customers', 'areas.id', 'customers.by_area')->orderBy('areas_users.id_area', 'DESC')->where('customers.info_option', null)->get();
+        $areas = \DB::table('areas_users')
+                ->join('areas', 'areas_users.id_area', 'areas.id')
+                ->where('areas_users.id_user', Auth::user()->id)
+                ->select('areas.*')->get();
 
-        $unique = collect($areas)->unique('id_area');
-        $areas = $unique->values()->all();
-
-        $customer = Customer::find($id);
-        $re = '/([0-9]{4})([0-9]{2})([0-9]{2})/';
-
-        preg_match_all($re, $customer->join_date, $matches, PREG_SET_ORDER, 0);
-        preg_match_all($re, $customer->date_due_full, $matches1, PREG_SET_ORDER, 0);
-
-        $customer->join_date = $matches;
-        $customer->date_due_full = $matches1;
-        if (count($matches) > 0) {
-            $customer->join_date = $matches[0][1] .'-'. $matches[0][2] .'-'. $matches[0][3];
+        $customer = new Customer();
+        if (count($areas) > 0) {
+            $data_id = $areas[0]->id;
+            $customer = AreaCustomer::with('customer')->orderBy('updated_at', 'DESC')->first();
         }
-        if (count($matches1) > 0) {
-            $customer->date_due_full = $matches1[0][1] .'-'. $matches1[0][2] .'-'. $matches1[0][3];
-        }
-
-        $dataHistory = Customer::query('info_option')
-        ->notNullOnly()->join('areas_users', function($join) {
-            $join->on('customers.by_area', '=', 'areas_users.id_area')
-            ->where('areas_users.id_user', Auth::user()->id);
-        })->join('areas', 'areas.id',  '=', 'areas_users.id_area')
-        ->select('customers.*', 'areas.name as name_areas')
-        ->orderBy('customers.updated_at', 'DESC')
-        ->get();
-
-        return view('index', compact('areas', 'customer', 'dataHistory'));
+        //nhat ky cuoc goi
+        return view('index', compact('areas', 'customer'));
     }
 
     public function update(Request $request)
@@ -146,30 +119,35 @@ class HomeController extends Controller
             return redirect()->back();
         
         $request->validate([
-            'info_option' => 'required',
-            'by_area' => 'required'
+            'type_result' => 'required',
+            'area_name' => 'required'
         ], [
-            'info_option.required' => 'Vui lòng chọn kết quả gọi',
-            'by_area.required' => 'Vui lòng chọn nguồn dữ liệu' 
+            'type_result.required' => 'Vui lòng chọn kết quả gọi',
+            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu' 
         ]);
 
         try {
             $customer = Customer::find($request->get('id'));
-            $customer->info_option = $request->get('info_option');
+            $customer->type_result = $request->get('type_result');
             $customer->comment = $request->get('comment');
 
-            if($customer->isDirty()) {
+            // update danh muc, khu vuc va nhan vien
+            $category = AreaCustomer::where('customer_id', $request->get('id'))->first();
+            $category->customer_id= $request->get('area_name');
+
+            if($customer->isDirty() || $customer->isDirty()) {
                 Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
             } else {
                 Toastr::warning('Dữ liệu chưa được cập nhật');
             }
 
+            $category->save();
             $customer->save();
         } catch (\Exception $ex) {
+
             Toastr::error('Cập nhật khách hàng thất bại'. $ex->getMessage());
         }
-        
 
-        return redirect()->back();
+        return \Redirect::route('customer_detail', $request->get('id'));
     }
 }

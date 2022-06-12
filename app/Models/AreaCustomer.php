@@ -21,4 +21,8 @@ class AreaCustomer extends Model
         'customer_id',
     ];
 
+    public function customer()
+    {
+        return $this->hasMany('App\Models\Customer', 'id', 'customer_id');
+    }
 }
