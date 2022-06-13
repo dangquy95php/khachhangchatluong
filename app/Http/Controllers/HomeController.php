@@ -24,7 +24,7 @@ class HomeController extends Controller
         // if (Auth::check()) {
         //     return redirect()->route('home');
         // }
-       
+
         // return view('account.login');
         // $this->_dataOrigin = User::find()->get();
     }
@@ -45,12 +45,13 @@ class HomeController extends Controller
                 ->join('customers', 'areas_customers.customer_id', 'customers.id')
                 ->where('type_result', '=', '')->first();
         }
-        
+
         $dataHistory =\ DB::table('areas_users')
             ->where('areas_users.id_user', Auth::user()->id)
             ->join('areas', 'areas_users.id_area', '=', 'areas.id')
             ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
             ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+            ->where('customers.type_result', '<>', '')
             ->orderBy('customers.updated_at', 'DESC')
             ->select('customers.*', 'areas.name')
             ->get();
@@ -65,7 +66,7 @@ class HomeController extends Controller
             'area_name' => 'required'
         ], [
             'type_result.required' => 'Vui lòng chọn kết quả gọi',
-            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu' 
+            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
         ]);
 
         try {
@@ -85,13 +86,13 @@ class HomeController extends Controller
     {
         if (empty($request->get('id')))
             return redirect()->back();
-        
+
         $request->validate([
             'type_result' => 'required',
             'area_name' => 'required'
         ], [
             'type_result.required' => 'Vui lòng chọn kết quả gọi',
-            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu' 
+            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
         ]);
 
         try {
@@ -113,7 +114,7 @@ class HomeController extends Controller
         } catch (\Exception $ex) {
             Toastr::error('Lưu khách hàng thất bại'. $ex->getMessage());
         }
-        
+
         return redirect()->route('customer_detail', $request->get('id'));
     }
 
@@ -124,7 +125,7 @@ class HomeController extends Controller
                 ->where('areas_users.id_user', Auth::user()->id)
                 ->select('areas.*')->get();
 
-                
+
         $customer = new Customer();
         if (count($areas) > 0) {
             $data_id = $areas[0]->id;
@@ -146,7 +147,7 @@ class HomeController extends Controller
         // // $customer = AreaCustomer::where('area_id', $data_id)
         // //             ->join('customers', 'areas_customers.customer_id', 'customers.id')
         // //             ->where('type_result', '=', '')->first();
-                    
+
         // $areas = \DB::table('areas_users')
         // ->join('areas', 'areas_users.id_area', 'areas.id')
         // ->where('areas_users.id_user', Auth::user()->id)
@@ -186,13 +187,13 @@ class HomeController extends Controller
     {
         if (empty($request->get('id')))
             return redirect()->back();
-        
+
         $request->validate([
             'type_result' => 'required',
             'area_name' => 'required'
         ], [
             'type_result.required' => 'Vui lòng chọn kết quả gọi',
-            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu' 
+            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
         ]);
 
         try {

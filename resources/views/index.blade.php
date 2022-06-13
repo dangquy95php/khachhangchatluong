@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <!-- End Search Icon-->
-            
+
                 <!-- End Messages Nav -->
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -126,14 +126,19 @@
                                 <div class="col-9 pe-1">
                                     <div class="row g-3">
                                         <div class="col-3">
+                                            <label for="inputEmail4" class="form-label"><b>Ngày Bắt Đầu</b></label>
+                                            <input type="text" class="form-control" value="{{ @$customer->ngay_bat_dau }}"  id="ngay_bat_dau" name="ngay_bat_dau"
+                                           >
+                                        </div>
+                                        <div class="col-3">
                                             <label for="inputNanme4" class="form-label"><b>Năm Đáo Hạn</b></label>
                                             <input id="nam_dao_han" name="nam_dao_han" class="form-control" type="text" value="{{ @$customer->nam_dao_han }}" />
                                         </div>
-                                        <div class="col-4 pe-0">
+                                        <div class="col-3 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Số Hợp Đồng</b></label>
                                             <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
                                         </div>
-                                        <div class="col-5">
+                                        <div class="col-3">
                                             <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
                                             <input type="text" class="form-control" value="{{ number_format((int) @$customer->menh_gia) }}"  id="money" name="money"
                                            >
@@ -166,10 +171,13 @@
                                         <div class="col-7 pe-0">
                                             <label for="inputEmail4" class="form-label"><b>Nguồn Dữ Liệu</b></label>
                                             <select name="area_name" id="data_area_id" class="form-select">
+                                                @if( @$customer->area_id)
+                                                    @foreach ($areas as $area)
+                                                        <option {{old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                    @endforeach
+                                                @else
                                                 <option value="">Chọn nguồn dữ liệu</option>
-                                                @foreach ($areas as $area)
-                                                    <option {{old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
-                                                @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                         @error('area_name')
@@ -182,7 +190,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="1" id="gridRadios1" {{ old('type_result', @$customer->type_result) === 0 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="0" id="gridRadios1" {{ old('type_result', @$customer->type_result) === 0 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                     Đã hẹn
                                                 </label>
@@ -190,7 +198,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="2" id="gridRadios2" {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="1" id="gridRadios2" {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios2">
                                                     Không nghe máy
                                                 </label>
@@ -198,7 +206,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="3" id="gridRadios3" {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="2" id="gridRadios3" {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Khách hàng đang suy nghĩ, gọi lại sau.
                                                 </label>
@@ -206,7 +214,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios4" {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="3" id="gridRadios4" {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios4">
                                                     Khách hàng ít tiền
                                                 </label>
@@ -214,7 +222,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="5" id="gridRadios5" {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios5" {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios5">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
@@ -241,7 +249,7 @@
                                 <!-- <a  class="btn-save btn btn-success">
                                     <i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ Liệu</span>
                                 </a> -->
-                               
+
                                 <button type="submit" class="btn-next btn btn-outline-primary">
                                     <span class="pe-1">Gọi Tiếp Theo</span>
                                     <i class="bi bi-chevron-double-right"></i>
@@ -407,9 +415,9 @@
     <script>
         $(document).ready(function() {
             var option = $('#data_area_id > option').length;
-            if (option < 2) {
-                $('.btn-alert').trigger('click');
-            }
+            // if (option < 1) {
+            //     $('.btn-alert').trigger('click');
+            // }
             if (!$('#id_contract').val()) {
                 $('.btn-alert').trigger('click');
             }
@@ -434,7 +442,7 @@
             // });
         });
 
-       
+
         // $(document).ready(function() {
         //     function numberWithCommas(x) {
         //         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -467,13 +475,13 @@
         //             console.log(error);
         //         }
         //     });
-            
+
         //     $(".btn-next").click(function() {
         //             $("#show-validation-error").children().addClass('d-block');
         //             $("#show-validation-error").children().removeClass('d-none');
 
         //             $("#how-validation-error").html();
-        //             $(this).attr('disabled', true); 
+        //             $(this).attr('disabled', true);
         //             $(this).prepend('<span class="me-2 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 
         //             var disabled = $("#customerForm").find(':input:disabled').removeAttr('disabled');
@@ -485,7 +493,7 @@
         //             type: 'POST',
         //             url: 'http://khachhangchatluong.local/customer/update',
         //             data: dataForm,
-        //             async: false, 
+        //             async: false,
         //             dataType: "json",
         //             success: function (data) {
         //                 toastr.success(data.message, 'Thông báo!', {timeOut: 3000})
@@ -498,7 +506,7 @@
         //                 return false;
         //             }
         //         });
-        //         $('.btn-next').attr('disabled', false); 
+        //         $('.btn-next').attr('disabled', false);
         //         $('.btn-next').children().first().remove();
         //     });
         // });
