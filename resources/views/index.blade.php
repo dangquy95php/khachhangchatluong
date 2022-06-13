@@ -125,7 +125,7 @@
                             <div class="row">
                                 <div class="col-9 pe-1">
                                     <div class="row g-3">
-                                        <div class="col-2">
+                                        <div class="col-3">
                                             <label for="inputEmail4" class="form-label"><b>Ngày Bắt Đầu</b></label>
                                             <input type="text" class="form-control" value="{{ @$customer->ngay_bat_dau }}"  id="ngay_bat_dau" name="ngay_bat_dau"
                                            >
@@ -138,7 +138,7 @@
                                             <label for="inputPassword4" class="form-label"><b>Số Hợp Đồng</b></label>
                                             <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
                                             <input type="text" class="form-control" value="{{ number_format((int) @$customer->menh_gia) }}"  id="money" name="money"
                                            >
