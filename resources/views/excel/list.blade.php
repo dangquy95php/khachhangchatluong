@@ -82,7 +82,7 @@
                      <tr>
                         <th scope="row">{{ $i }}</th>
                         <td>{{ $customer->so_hop_dong }}</td>
-                        <td>{{ number_format($customer->menh_gia) ?? '' }}</td>
+                        <td>{{ is_numeric(@$customer->menh_gia) ? number_format(@$customer->menh_gia) : '' }}</td>
                         <td>{{ $customer->nam_dao_han }}</td>
                         <td>{{ $customer->ten_kh }}</td>
                         <td>

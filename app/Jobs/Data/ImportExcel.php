@@ -43,10 +43,9 @@ class ImportExcel implements ShouldQueue
                 'so_hop_dong'      => $this->customer['so_hop_dong'],
                 'menh_gia'         => $this->customer['menh_gia'],
                 'nam_dao_han'      => $this->customer['nam_dao_han'],
-                'ten_kh'           => $this->customer['ten_kh'],
+                'ten_kh'           => $this->customer['ho'] .' '. $this->customer['ten'],
                 'gioi_tinh'        => $this->customer['gioi_tinh'],
-                'ngay_sinh'        => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($this->customer['ngay_sinh'])->format('d/m/Y')
-                ,
+                'ngay_sinh'        => is_int($this->customer['ngay_sinh']) ? \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($this->customer['ngay_sinh'])->format('d/m/Y') : '',
                 'tuoi'             => $this->customer['tuoi'],
                 'dien_thoai'       => $this->customer['dien_thoai'],
                 'dia_chi_cu_the'   => $this->customer['dia_chi_cu_the'],

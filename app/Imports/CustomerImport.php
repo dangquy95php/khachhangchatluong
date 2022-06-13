@@ -12,9 +12,18 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
 use App\Jobs\Data\ImportExcel as Import;
-class CustomerImport implements ToCollection, ShouldQueue, WithChunkReading, WithStartRow, WithHeadingRow
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
+
+class CustomerImport implements ToCollection, ShouldQueue, WithChunkReading, WithStartRow, WithHeadingRow, SkipsOnFailure, SkipsEmptyRows, SkipsOnError
 {
+    use Importable, SkipsFailures, SkipsErrors;
+
     const RUN_EVERY_TIME = 100;
 
     // set the preferred date format
