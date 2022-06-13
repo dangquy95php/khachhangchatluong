@@ -34,6 +34,9 @@ class ImportExcel implements ShouldQueue
     {
         $data = Customer::where('so_hop_dong', $this->customer['so_hop_dong'])->first();
 
+        \Log::info( $this->customer['so_hop_dong']);
+
+        \Log::info($this->customer['ho'] .' '. $this->customer['ten']);
         if (!$data) {
             return Customer::create([
                 'so_thu_tu'        => $this->customer['so_thu_tu'],

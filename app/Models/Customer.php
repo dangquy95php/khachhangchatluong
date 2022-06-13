@@ -21,7 +21,7 @@ class Customer extends Model
         'so_thu_tu',
         'vpbank',
         'msdl',
-        'cv', 
+        'cv',
         'so_hop_dong',
         'menh_gia',
         'nam_dao_han',
@@ -32,7 +32,8 @@ class Customer extends Model
         'dien_thoai',
         'dia_chi_cu_the',
         'comment',
-        'type_result'
+        'type_result',
+        'ngay_bat_dau'
     ];
 
     const APPOINTMENT = 0;
