@@ -182,7 +182,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="1" id="gridRadios1" {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="1" id="gridRadios1" {{ old('type_result', @$customer->type_result) === 0 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                     Đã hẹn
                                                 </label>
@@ -190,7 +190,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="2" id="gridRadios2" {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="2" id="gridRadios2" {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios2">
                                                     Không nghe máy
                                                 </label>
@@ -198,7 +198,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="3" id="gridRadios3" {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="3" id="gridRadios3" {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Khách hàng đang suy nghĩ, gọi lại sau.
                                                 </label>
@@ -206,7 +206,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios4" {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios4" {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios4">
                                                     Khách hàng ít tiền
                                                 </label>
@@ -214,7 +214,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="5" id="gridRadios5" {{ old('type_result', @$customer->type_result) == 5 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_result" value="5" id="gridRadios5" {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios5">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
@@ -264,7 +264,7 @@
                         <div class="card-body pt-3">
                         <h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>
                         <!-- Table with hoverable rows -->
-                        <table class="table table-hover">
+                        <!-- <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -276,6 +276,44 @@
                                     <th scope="col">Ngày Gọi</th>
                                     <th scope="col">Nguồn Dữ Liệu</th>
                                     <th scope="col">Trạng Thái ĐT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Nguyễn Văn Nam</td>
+                                    <td>097262212</td>
+                                    <td>Khách hàng có ý định muốn mua bảo hiểm. Hiện tại chưa có tiền đủ</td>
+                                    <td>2016-05-25</td>
+                                    <td>2016-05-25</td>
+                                    <td>2016-05-25</td>
+                                    <td>2016-05-25</td>
+                                    <td><span class="badge bg-primary">Primary</span></td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                        <!-- End Table with hoverable rows -->
+                    </div>
+                </div>
+
+                </div>
+                <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                        {{count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                        <!-- Table with hoverable rows -->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Số hợp đồng</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Số Điện Thoại</th>
+                                    <th scope="col">Ghi Chú</th>
+                                    <th scope="col">Kết Quả Cuộc Gọi</th>
+                                    <th scope="col">Ngày Gọi</th>
+                                    <th scope="col">Nguồn Dữ Liệu</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -296,39 +334,14 @@
                                             @endif
                                         @endforeach
                                     </td>
-                                    
                                     <td>{{ $data->updated_at }}</td>
-                                    <td></td>
+                                    <td>{{ $data->name }}</td>
                                 </tr>
                                 @php
                                 $i++;
                                 @endphp
                                 @endforeach
                             </tbody>
-                        </table>
-                        <!-- End Table with hoverable rows -->
-                    </div>
-                </div>
-
-                </div>
-                <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
-                    <div class="card">
-                        <div class="card-body pt-3">
-                        <!-- Table with hoverable rows -->
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Số hợp đồng</th>
-                                    <th scope="col">Tên</th>
-                                    <th scope="col">Số Điện Thoại</th>
-                                    <th scope="col">Ghi Chú</th>
-                                    <th scope="col">Kết Quả Cuộc Gọi</th>
-                                    <th scope="col">Ngày Gọi</th>
-                                    <th scope="col">Nguồn Dữ Liệu</th>
-                                </tr>
-                            </thead>
                         </table>
                         <!-- End Table with hoverable rows -->
                     </div>
@@ -393,11 +406,13 @@
 
     <script>
         $(document).ready(function() {
-            var option = $('#data_oririn > option').length;
+            var option = $('#data_area_id > option').length;
             if (option < 2) {
                 $('.btn-alert').trigger('click');
             }
-
+            if (!$('#id_contract').val()) {
+                $('.btn-alert').trigger('click');
+            }
             // $(".btn-next").click(function() {
             //     var formUpdate = $('#customerForm');
             //     formUpdate.attr('action', "{{route('customer_update')}}");

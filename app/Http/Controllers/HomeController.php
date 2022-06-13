@@ -51,6 +51,7 @@ class HomeController extends Controller
             ->join('areas', 'areas_users.id_area', '=', 'areas.id')
             ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
             ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+            ->orderBy('customers.updated_at', 'DESC')
             ->select('customers.*', 'areas.name')
             ->get();
 
@@ -157,7 +158,6 @@ class HomeController extends Controller
 
     public function postDetail($id, Request $request)
     {
-        dd(23);
          // update danh muc, khu vuc va nhan vien
          try {
             $customer = Customer::find($id);
