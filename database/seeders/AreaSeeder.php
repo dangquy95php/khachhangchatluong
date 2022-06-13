@@ -18,12 +18,12 @@ class AreaSeeder extends Seeder
             [
                 'name' => 'THIỆN',
                 'status' => 1,
-                'note' => 'Khu vực có nhiều người trẻ'
+                'note' => ''
             ],
             [
                 'name' => 'YẾN',
                 'status' => 1,
-                'note' => 'Khu vực có tiềm năng cao'
+                'note' => ''
             ],
             [
                 'name' => 'TRÚC LINH',
