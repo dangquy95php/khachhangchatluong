@@ -166,9 +166,13 @@
                                         <div class="col-7 pe-0">
                                             <label for="inputEmail4" class="form-label"><b>Nguồn Dữ Liệu</b></label>
                                             <select name="area_name" id="data_area_id" class="form-select">
-                                                @foreach ($areas as $area)
-                                                    <option {{old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
-                                                @endforeach
+                                                @if( @$customer->area_id)
+                                                    @foreach ($areas as $area)
+                                                        <option {{old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                    @endforeach
+                                                @else
+                                                <option value="">Chọn nguồn dữ liệu</option>
+                                                @endif
                                             </select>
                                         </div>
                                         @error('area_name')
