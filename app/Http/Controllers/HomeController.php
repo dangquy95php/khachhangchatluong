@@ -33,24 +33,25 @@ class HomeController extends Controller
     {
         // Lấy danh muc
         $areas = \DB::table('areas_users')
-                ->join('areas', 'areas_users.id_area', 'areas.id')
-                ->where('areas_users.id_user', Auth::user()->id)
-                ->select('areas.*')->get();
+            ->join('areas', 'areas_users.id_area', 'areas.id')
+            ->where('areas_users.id_user', Auth::user()->id)
+            ->select('areas.*')->get();
 
         $customer = new Customer();
 
         if (count($areas) > 0) {
             for ($i = 0; $i < count($areas); $i++) {
                 $data_id = $areas[$i]->id;
-                
+
                 //đếm số dòng chưa gọi -> mới hiển thị
-                if($customer = AreaCustomer::where('area_id', $data_id)
-                ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                ->where('type_result', '=', '')->count() > 0) {
+                if ($customer = AreaCustomer::where('area_id', $data_id)
+                    ->join('customers', 'areas_customers.customer_id', 'customers.id')
+                    ->where('called', '=', '')->count() > 0
+                ) {
                     //dd(123);
                     $customer = AreaCustomer::where('area_id', $data_id)
-                    ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                    ->where('type_result', '=', '')->first();
+                        ->join('customers', 'areas_customers.customer_id', 'customers.id')
+                        ->where('called', '=', '')->first();
                     break;
                 } else {
                     continue;
@@ -73,25 +74,93 @@ class HomeController extends Controller
 
     public function updateCusomter(Request $request)
     {
-        $request->validate([
-            'type_result' => 'required',
-            'area_name' => 'required'
-        ], [
-            'type_result.required' => 'Vui lòng chọn kết quả gọi',
-            'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
-        ]);
+        if ($_POST['action'] == 'save') {
+            // $request->validate([
+            //     'type_result' => 'required',
+            //     'area_name' => 'required'
+            // ], [
+            //     'type_result.required' => 'Vui lòng chọn kết quả gọi',
+            //     'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
+            // ]);
 
-        try {
-            $customer = Customer::find($request->get('id'));
-            $customer->type_result = $request->get('type_result');
-            $customer->comment = $request->get('comment');
-            $customer->save();
-            Toastr::success('Cập nhật thông tin khách hàng thàng công.');
-        } catch (\Exception $ex) {
-            Toastr::error('Có lỗi khi cập nhật thông tin người dùng.'. $ex->getMessage());
+            try {
+                $customer = Customer::find($request->id);
+                $customer->nam_dao_han = $request->nam_dao_han;
+                $customer->menh_gia = $request->menh_gia;
+                $customer->ten_kh = $request->ten_kh;
+                $customer->dien_thoai = $request->dien_thoai;
+                $customer->dia_chi_cu_the = $request->dia_chi_cu_the;
+                $customer->tuoi = $request->tuoi;
+                $customer->gioi_tinh = $request->gioi_tinh;
+                $customer->type_result = $request->type_result;
+                $customer->comment = $request->comment;
+                $customer->save();
+                Toastr::success('Cập nhật thông tin khách hàng thàng công.');
+            } catch (\Exception $ex) {
+                Toastr::error('Có lỗi khi cập nhật thông tin người dùng.' . $ex->getMessage());
+            }
+
+            return redirect()->route('home');
+        } else if ($_POST['action'] == 'next') {
+            $request->validate([
+                'type_result' => 'required',
+                'area_name' => 'required'
+            ], [
+                'type_result.required' => 'Vui lòng chọn kết quả gọi',
+                'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
+            ]);
+
+            try {
+                $customer = Customer::find($request->get('id'));
+                $customer->type_result = $request->get('type_result');
+                $customer->comment = $request->get('comment');
+                $customer->called = 1;
+                $customer->save();
+                Toastr::success('Cập nhật thông tin khách hàng thàng công.');
+            } catch (\Exception $ex) {
+                Toastr::error('Có lỗi khi cập nhật thông tin người dùng.' . $ex->getMessage());
+            }
+
+            return redirect()->route('home');
         }
+    }
 
-        return redirect()->route('home');
+    public function editCustomer($id)
+    {
+        // $customer = Customer::find($id);
+        $customer = \DB::table('areas_users')
+            ->where('areas_users.id_user', Auth::user()->id)
+            ->join('areas', 'areas_users.id_area', '=', 'areas.id')
+            ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
+            ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+            ->where('customers.type_result', '<>', '')
+            ->where('customers.id', $id)
+            ->orderBy('customers.updated_at', 'DESC')
+            ->select('customers.*', 'areas.name')
+            ->first();
+
+        return response()->json([
+            'data' => $customer
+        ]);
+    }
+
+    public function postEditCustomer(Request $request, $id)
+    {
+        try {
+            Customer::updateOrCreate(
+                [
+                    'id' => $id
+                ],
+                [
+                    'type_result' => $request->type_result,
+                    'comment' => $request->comment,
+                ]
+            );
+            Toastr::success('Cập nhật thành công.');
+        } catch (\Exception $ex) {
+            Toastr::error('Cập nhật thất bại - ' . $ex->getMessage());
+        }
+        return response()->json(['success' => true]);
     }
 
     public function save(Request $request)
@@ -114,9 +183,9 @@ class HomeController extends Controller
 
             // update danh muc, khu vuc va nhan vien
             $category = AreaCustomer::where('customer_id', $request->get('id'))->first();
-            $category->customer_id= $request->get('area_name');
+            $category->customer_id = $request->get('area_name');
 
-            if($customer->isDirty() || $category->isDirty()) {
+            if ($customer->isDirty() || $category->isDirty()) {
                 Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
             } else {
                 Toastr::warning('Dữ liệu chưa được lưu');
@@ -124,7 +193,7 @@ class HomeController extends Controller
             $category->save();
             $customer->save();
         } catch (\Exception $ex) {
-            Toastr::error('Lưu khách hàng thất bại'. $ex->getMessage());
+            Toastr::error('Lưu khách hàng thất bại' . $ex->getMessage());
         }
 
         return redirect()->route('customer_detail', $request->get('id'));
@@ -133,9 +202,9 @@ class HomeController extends Controller
     public function detail($id, Request $request)
     {
         $areas = \DB::table('areas_users')
-                ->join('areas', 'areas_users.id_area', 'areas.id')
-                ->where('areas_users.id_user', Auth::user()->id)
-                ->select('areas.*')->get();
+            ->join('areas', 'areas_users.id_area', 'areas.id')
+            ->where('areas_users.id_user', Auth::user()->id)
+            ->select('areas.*')->get();
 
 
         $customer = new Customer();
@@ -143,8 +212,8 @@ class HomeController extends Controller
             $data_id = $areas[0]->id;
 
             $customer = AreaCustomer::where('area_id', $data_id)
-                        ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                        ->where('type_result', '=', '')->first();
+                ->join('customers', 'areas_customers.customer_id', 'customers.id')
+                ->where('type_result', '=', '')->first();
         }
 
         return view('index', compact('areas', 'customer'));
@@ -171,17 +240,17 @@ class HomeController extends Controller
 
     public function postDetail($id, Request $request)
     {
-         // update danh muc, khu vuc va nhan vien
-         try {
+        // update danh muc, khu vuc va nhan vien
+        try {
             $customer = Customer::find($id);
             $customer->type_result = $request->get('type_result');
             $customer->comment = $request->get('comment');
 
             // update danh muc, khu vuc va nhan vien
             $category = AreaCustomer::where('customer_id', $id)->first();
-            $category->customer_id= $request->get('area_name');
+            $category->customer_id = $request->get('area_name');
 
-            if($customer->isDirty() || $category->isDirty()) {
+            if ($customer->isDirty() || $category->isDirty()) {
                 Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
             } else {
                 Toastr::warning('Dữ liệu chưa được lưu');
@@ -189,7 +258,7 @@ class HomeController extends Controller
             $category->save();
             $customer->save();
         } catch (\Exception $ex) {
-            Toastr::error('Lưu khách hàng thất bại'. $ex->getMessage());
+            Toastr::error('Lưu khách hàng thất bại' . $ex->getMessage());
         }
 
         return redirect()->back('customer_detail', $id);
@@ -215,9 +284,9 @@ class HomeController extends Controller
 
             // update danh muc, khu vuc va nhan vien
             $category = AreaCustomer::where('customer_id', $request->get('id'))->first();
-            $category->customer_id= $request->get('area_name');
+            $category->customer_id = $request->get('area_name');
 
-            if($customer->isDirty() || $customer->isDirty()) {
+            if ($customer->isDirty() || $customer->isDirty()) {
                 Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
             } else {
                 Toastr::warning('Dữ liệu chưa được cập nhật');
@@ -227,7 +296,7 @@ class HomeController extends Controller
             $customer->save();
         } catch (\Exception $ex) {
 
-            Toastr::error('Cập nhật khách hàng thất bại'. $ex->getMessage());
+            Toastr::error('Cập nhật khách hàng thất bại' . $ex->getMessage());
         }
 
         return \Redirect::route('customer_detail', $request->get('id'));
