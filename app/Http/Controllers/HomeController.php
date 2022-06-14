@@ -86,12 +86,12 @@ class HomeController extends Controller
             try {
                 $customer = Customer::find($request->id);
                 $customer->nam_dao_han = $request->nam_dao_han;
-                $customer->menh_gia = $request->menh_gia;
-                $customer->ten_kh = $request->ten_kh;
-                $customer->dien_thoai = $request->dien_thoai;
-                $customer->dia_chi_cu_the = $request->dia_chi_cu_the;
-                $customer->tuoi = $request->tuoi;
-                $customer->gioi_tinh = $request->gioi_tinh;
+                $customer->menh_gia = $request->money;
+                $customer->ten_kh = $request->last_name;
+                $customer->dien_thoai = $request->phone;
+                $customer->dia_chi_cu_the = $request->address_full;
+                $customer->tuoi = $request->age;
+                $customer->gioi_tinh = $request->sex;
                 $customer->type_result = $request->type_result;
                 $customer->comment = $request->comment;
                 $customer->save();
@@ -146,6 +146,11 @@ class HomeController extends Controller
 
     public function postEditCustomer(Request $request, $id)
     {
+        $request->validate([
+            'type_result' => 'required',
+        ], [
+            'type_result.required' => 'Vui lòng chọn kết quả gọi',
+        ]);
         try {
             Customer::updateOrCreate(
                 [

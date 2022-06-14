@@ -418,7 +418,7 @@
                                                 <td><button type="button" class="btn btn-warning" id="editCustomer"
                                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                                         data-id="{{ $data->id }}">
-                                                        Sửa
+                                                        Cập Nhật
                                                     </button></td>
                                             </tr>
                                             @php
@@ -481,14 +481,14 @@
                                                         <div class="col-3">
                                                             <label for="inputEmail4" class="form-label"><b>Ngày Bắt
                                                                     Đầu</b></label>
-                                                            <input type="text" class="form-control" id="ngay_bat_dau"
+                                                            <input disabled type="text" class="form-control" id="ngay_bat_dau"
                                                                 value="{{ @$customer->ngay_bat_dau }}"
                                                                 id="ngay_bat_dau" name="ngay_bat_dau">
                                                         </div>
                                                         <div class="col-3">
                                                             <label for="inputNanme4" class="form-label"><b>Năm Đáo
                                                                     Hạn</b></label>
-                                                            <input id="nam_dao_han" name="nam_dao_han" id="nam_dao_han"
+                                                            <input disabled id="nam_dao_han" name="nam_dao_han" id="nam_dao_han"
                                                                 class="form-control" type="text"
                                                                 value="{{ @$customer->nam_dao_han }}" />
                                                         </div>
@@ -496,7 +496,7 @@
                                                             <label for="inputPassword4" class="form-label"><b>Số
                                                                     Hợp
                                                                     Đồng</b></label>
-                                                            <input type="text" disabled name="id_contract"
+                                                            <input disabled type="text" disabled name="id_contract"
                                                                 id="so_hop_dong"
                                                                 value="{{ @$customer->so_hop_dong }}"
                                                                 id="id_contract" class="form-control"
@@ -505,28 +505,28 @@
                                                         <div class="col-3">
                                                             <label for="inputEmail4" class="form-label"><b>Số
                                                                     Tiền</b></label>
-                                                            <input type="text" class="form-control" id="menh_gia"
+                                                            <input disabled type="text" class="form-control" id="menh_gia"
                                                                 value="{{ number_format((int) @$customer->menh_gia) }}"
                                                                 id="money" name="money">
                                                         </div>
                                                         <div class="col-8">
                                                             <label for="inputNanme4" class="form-label"><b>Họ Và
                                                                     Tên</b></label>
-                                                            <input id="ten_kh" type="text"
+                                                            <input disabled id="ten_kh" type="text"
                                                                 value="{{ @$customer->ten_kh }}" name="last_name"
                                                                 class="form-control" id="fullname">
                                                         </div>
                                                         <div class="col-4">
                                                             <label for="inputNanme4" class="form-label"><b>Số Điện
                                                                     Thoại</b></label>
-                                                            <input type="text" name="phone" id="dien_thoai"
+                                                            <input disabled type="text" name="phone" id="dien_thoai"
                                                                 value="{{ @$customer->dien_thoai }}"
                                                                 class="form-control" id="phone">
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="inputPassword4" class="form-label"><b>Địa
                                                                     Chỉ</b></label>
-                                                            <input type="text" id="dia_chi_cu_the"
+                                                            <input disabled type="text" id="dia_chi_cu_the"
                                                                 value="{{ @$customer->dia_chi_cu_the }}"
                                                                 name="address_full" id="address_full"
                                                                 class="form-control" id="inputPassword4">
@@ -534,7 +534,7 @@
                                                         <div class="col-2 pe-0">
                                                             <label for="inputPassword4"
                                                                 class="form-label"><b>Tuổi</b></label>
-                                                            <input type="number" value="{{ @$customer->tuoi }}"
+                                                            <input disabled type="number" value="{{ @$customer->tuoi }}"
                                                                 id="tuoi" name="age" id="age" min="1" max="200"
                                                                 onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }"
                                                                 class="form-control" id="inputPassword4">
@@ -557,10 +557,10 @@
                                                             <label for="inputEmail4" class="form-label"><b>Nguồn Dữ
                                                                     Liệu</b></label>
                                                             <select name="area_name" id="data_area_id"
-                                                                class="form-select">
+                                                                class="form-select ">
                                                                 @if (@$customer->area_id)
                                                                     @foreach ($areas as $area)
-                                                                        <option
+                                                                        <option class="area_id"
                                                                             {{ old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }}
                                                                             value="{{ $area->id }}">
                                                                             {{ $area->name }}
@@ -690,8 +690,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                             <button type="button" id="submit" class="btn btn-success"><i class="bi bi-check-circle"></i><span
-                                    class="ps-2">Lưu Dữ
-                                    Liệu</span></button>
+                                    class="ps-2">Cập Nhật </span></button>
                         </div>
                     </div>
                 </div>
@@ -887,10 +886,12 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-
-                        // $('#companydata').trigger("reset");
-                        // $('#practice_modal').modal('hide');
                         window.location.reload(true);
+                    },
+                    error: function (err) {
+                        if (err.status == 422) {
+                            alert('Vui lòng chọn kết quả gọi');
+                        }
                     }
                 });
             });
