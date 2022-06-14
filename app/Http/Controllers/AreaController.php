@@ -151,16 +151,15 @@ class AreaController extends Controller
     public function postAddAreaToUser(Request $request)
     {
         $data = $request->get('user_area');
-
         \DB::beginTransaction();
 
         collect($data)->contains(function ($value, $key) {
             try {
                 foreach($value as $item) {
-                    $model = new AreaUser;
-                    $model->id_area = $item;
-                    $model->id_user = $key;
-                    $model->save();
+                    AreaUser::firstOrCreate([
+                        'id_area' =>  $item,
+                        'id_user' =>  $key,
+                    ]);
                 }
                 \DB::commit();
             } catch (\Exception $ex) {
@@ -170,6 +169,7 @@ class AreaController extends Controller
                 return redirect()->route('index_area');
             }
         });
+
         Toastr::success("Cấp quyền khu vực cho nhân viên thành công!");
 
         return redirect()->back();

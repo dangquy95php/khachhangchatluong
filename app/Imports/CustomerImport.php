@@ -21,7 +21,7 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
 
     public function headingRow(): int
     {
-        return 2;
+        return 1;
     }
 
     public function model(array $row)
