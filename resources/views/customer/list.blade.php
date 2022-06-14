@@ -25,6 +25,7 @@
                      <tr>
                      <th scope="col">#</th>
                      <th scope="col">Số hợp đồng</th>
+                     <th scope="col">Ngày tham gia</th>
                      <th scope="col">Mệnh Giá</th>
                      <th scope="col">Năm Đáo Hạn</th>
                      <th scope="col">Họ Và Tên</th>
@@ -33,6 +34,7 @@
                      <th scope="col">Điện Thoại</th>
                      <th scope="col">Tuổi</th>
                      <th scope="col text-center">Địa chỉ</th>
+                     <th scope="col text-center">Ngày Tạo</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -40,6 +42,7 @@
                      <tr>
                         <th scope="row">{{ $customer->id }}</th>
                            <td>{{ $customer->so_hop_dong }}</td>
+                           <td>{{ $customer->ngay_tham_gia }}</td>
                            <td>{{ is_numeric($customer->menh_gia) ? number_format($customer->menh_gia) : '' }}</td>
                            <td>{{ $customer->nam_dao_han }}</td>
                            <td>{{ $customer->ten_kh }}</td>
@@ -55,6 +58,7 @@
                            <td>{{ $customer->dien_thoai }}</td>
                            <td>{{ $customer->tuoi }}</td>
                            <td>{{ $customer->dia_chi_cu_the }}</td>
+                           <td>{{ $customer->created_at }}</td>
                      </tr>
                     @endforeach
                   </tbody>

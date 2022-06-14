@@ -20,6 +20,7 @@ class Customer extends Model
         'id',
         'so_thu_tu',
         'vpbank',
+        'ngay_tham_gia',
         'msdl',
         'cv',
         'so_hop_dong',
@@ -35,7 +36,6 @@ class Customer extends Model
         'dia_chi_cu_the',
         'comment',
         'type_result',
-        'ngay_bat_dau'
     ];
 
     const APPOINTMENT = 0;
