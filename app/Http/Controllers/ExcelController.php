@@ -70,4 +70,9 @@ class ExcelController extends Controller
 
         return redirect()->route('data_import');
     }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new CustomerExport, 'users.xlsx');
+    }
 }

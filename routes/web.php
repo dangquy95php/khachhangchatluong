@@ -28,7 +28,7 @@ Route::get('/route-cache', function() {
 Route::get('/config-cache', function() {
  	Artisan::call('config:cache');
  	return 'Config cache has been cleared';
-}); 
+});
 
 // Clear view cache:
 Route::get('/view-clear', function() {
@@ -52,7 +52,7 @@ Route::group(['auth' => '', 'prefix' => 'customer'], function () {
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/search', 'CustomerController@search')->name('search_customer');
     Route::get('/delete', 'CustomerController@delete')->name('delete_customers');
-    
+
 //     Route::get('/export/', 'CustomerController@export')->name('export_customer');
 //     Route::post('/import/', 'CustomerController@import')->name('import_customer');
 
@@ -94,6 +94,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::group(['prefix' => 'excel'], function () {
         Route::get('/import', 'ExcelController@import')->name('data_import');
         Route::post('/import', 'ExcelController@postImport')->name('post_data_import');
+        Route::get('/export', 'ExcelController@postImport')->name('export_customer');
+
         Route::get('/history', 'ExcelController@history')->name('data_import_history');
     });
 });

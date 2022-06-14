@@ -42,11 +42,8 @@
                                 <input class="form-control" name="file" type="file" id="formFile">
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Improt File</button>
-                            </div>
-                        </div>
+                        <button type="submit" class="btn btn-primary">Improt File</button>
+                        <button type="submit" class="btn btn-success">Export File</button>
                     </form>
                     <!-- End General Form Elements -->
                 </div>
