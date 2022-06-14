@@ -22,6 +22,8 @@ class CreateTableCustomersTable extends Migration
             $table->string('so_hop_dong')->unique();
             $table->string('menh_gia')->nullable();
             $table->string('nam_dao_han')->nullable();
+            $table->string('ho')->nullable();
+            $table->string('ten')->nullable();
             $table->string('ten_kh')->nullable();
             $table->string('gioi_tinh')->nullable();
             $table->string('ngay_sinh')->nullable();

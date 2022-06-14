@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-body pt-3">
                     <!-- General Form Elements -->
-                    <form action="{{ route('data_import') }}" method="POST" enctype="multipart/form-data">
+                    <form id="form_import_excel" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-12">
@@ -42,8 +42,8 @@
                                 <input class="form-control" name="file" type="file" id="formFile">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Improt File</button>
-                        <button type="submit" class="btn btn-success">Export File</button>
+                        <a class="btn-import btn btn-primary me-2">Improt File</a>
+                        <a href="{{route('export_customer')}}" class="btn btn-success">Export File</a>
                     </form>
                     <!-- End General Form Elements -->
                 </div>
@@ -108,3 +108,16 @@
    </div>
 </section>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.btn-import').click(function() {
+            var formImport = $('#form_import_excel');
+            formImport.attr('action', "{{route('data_import')}}");
+            formImport.attr("method", "POST");
+            formImport.submit();
+        })
+    })
+</script>
+@endpush

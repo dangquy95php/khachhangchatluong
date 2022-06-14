@@ -25,6 +25,8 @@ class Customer extends Model
         'so_hop_dong',
         'menh_gia',
         'nam_dao_han',
+        'ho',
+        'ten',
         'ten_kh',
         'gioi_tinh',
         'ngay_sinh',

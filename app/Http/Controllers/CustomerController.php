@@ -39,7 +39,7 @@ class CustomerController extends Controller
     }
 
     public function delete(Request $request)
-    {   
+    {
         try {
             Customer::truncate();
             Toastr::success("Xoá dữ liệu thành công");

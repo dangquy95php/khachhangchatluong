@@ -13,6 +13,9 @@ use App\Imports\CustomerImport;
 
 class ExcelController extends Controller
 {
+
+    const EXCEL_TYPE_FILE = '.xlsx';
+
     public $dataCustomers = '';
 
     public function __construct()
@@ -73,6 +76,14 @@ class ExcelController extends Controller
 
     public function export(Request $request)
     {
-        return Excel::download(new CustomerExport, 'users.xlsx');
+        try {
+            $fileName = now()->format('Y-m-d-H-i-s');
+            $customer = Excel::download(new CustomerExport, 'customer_'. $fileName .self::EXCEL_TYPE_FILE);
+            Toastr::success('Export dữ liệu thành công!');
+        } catch (\Exception $ex) {
+            Toastr::success('Export dữ liệu thất bại'. $ex->getMessage());
+        }
+
+        return redirect()->back();
     }
 }
