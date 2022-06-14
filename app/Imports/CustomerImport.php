@@ -68,7 +68,7 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
     public function customValidationMessages()
     {
         return [
-            'so_hop_dong.required' => 'Không được để trống cột số :attribute. Xem lại dòng đầu tiên đã để trống chưa?',
+            'so_hop_dong.required' => 'Không được để trống cột số :attribute. Không được để trống dòng đầu.',
         ];
     }
 
