@@ -153,7 +153,7 @@ class AreaController extends Controller
         $data = $request->get('user_area');
 
         \DB::beginTransaction();
-        
+
         collect($data)->contains(function ($value, $key) {
             try {
                 foreach($value as $item) {
@@ -172,7 +172,7 @@ class AreaController extends Controller
         });
         Toastr::success("Cấp quyền khu vực cho nhân viên thành công!");
 
-        return redirect()->route('customer_by_area');
+        return redirect()->back();
     }
 
     public function delAreaToUser($id) {

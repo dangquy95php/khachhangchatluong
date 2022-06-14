@@ -14,7 +14,7 @@ class AreaSeeder extends Seeder
     public function run()
     {
         //
-         $data = [
+        $data = [
             [
                 'name' => 'THIỆN',
                 'status' => 1,
@@ -30,7 +30,6 @@ class AreaSeeder extends Seeder
                 'status' => 1,
                 'note' => ''
             ],
-
 
             [
                 'name' => 'MÙI',
@@ -82,7 +81,6 @@ class AreaSeeder extends Seeder
                 'status' => 1,
                 'note' => ''
             ],
-
             [
                 'name' => 'HUYỀN',
                 'status' => 1,
@@ -94,6 +92,7 @@ class AreaSeeder extends Seeder
                 'note' => ''
             ],
         ];
+
         \DB::table('areas')->insert($data);
     }
 }

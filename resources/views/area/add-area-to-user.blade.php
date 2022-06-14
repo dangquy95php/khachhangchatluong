@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <h5 class="card-title pb-0">Tên khu vực cần cấp quyền</h5>
                                 <hr />
-                                <ul class="list-group sortable" id="area_area_name">
+                                <ul class="list-group sortable is-scroll" id="area_area_name">
                                     @php
                                         $a = array();
                                         $b = array();
@@ -53,7 +53,7 @@
                         <form method="post" action="" id="form-user-to-area">
                             {{ csrf_field() }}
                             <div class="card mb-2">
-                                <div class="card-body">
+                                <div class="card-body pe-0 is-scroll">
                                     <h5 class="card-title">Nhân viên cấp quyền khu vực</h5>
                                     <!-- Default Accordion -->
                                     @foreach ($users as $user)

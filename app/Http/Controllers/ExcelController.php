@@ -44,7 +44,7 @@ class ExcelController extends Controller
 
         try {
 
-            Excel::import(new CustomerImport, request()->file('file'));
+            Excel::queueImport(new CustomerImport, request()->file('file'));
             \DB::commit();
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
