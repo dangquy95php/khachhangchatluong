@@ -38,15 +38,27 @@ class HomeController extends Controller
                 ->select('areas.*')->get();
 
         $customer = new Customer();
-        if (count($areas) > 0) {
-            $data_id = $areas[0]->id;
 
-            $customer = AreaCustomer::where('area_id', $data_id)
+        if (count($areas) > 0) {
+            for ($i = 0; $i < count($areas); $i++) {
+                $data_id = $areas[$i]->id;
+                
+                //đếm số dòng chưa gọi -> mới hiển thị
+                if($customer = AreaCustomer::where('area_id', $data_id)
                 ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                ->where('type_result', '=', '')->first();
+                ->where('type_result', '=', '')->count() > 0) {
+                    //dd(123);
+                    $customer = AreaCustomer::where('area_id', $data_id)
+                    ->join('customers', 'areas_customers.customer_id', 'customers.id')
+                    ->where('type_result', '=', '')->first();
+                    break;
+                } else {
+                    continue;
+                }
+            }
         }
 
-        $dataHistory =\ DB::table('areas_users')
+        $dataHistory = \DB::table('areas_users')
             ->where('areas_users.id_user', Auth::user()->id)
             ->join('areas', 'areas_users.id_area', '=', 'areas.id')
             ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')

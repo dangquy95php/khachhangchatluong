@@ -127,7 +127,7 @@
                                     <div class="row g-3">
                                         <div class="col-3">
                                             <label for="inputEmail4" class="form-label"><b>Ngày Bắt Đầu</b></label>
-                                            <input type="text" class="form-control" value="{{ @$customer->ngay_bat_dau }}"  id="ngay_bat_dau" name="ngay_bat_dau"
+                                            <input type="text" class="form-control" value="{{ @$customer->id }}"  id="ngay_bat_dau" name="ngay_bat_dau"
                                            >
                                         </div>
                                         <div class="col-3">
