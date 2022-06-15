@@ -191,8 +191,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-7 pe-0">
-                                                <label for="inputEmail4" class="form-label"><b>Nguồn Dữ
-                                                        Liệu</b></label>
+                                                <label for="inputEmail4" class="form-label"><b>Nguồn Dữ Liệu</b></label>
                                                 <select name="area_name" id="data_area_id" class="form-select">
                                                     @if (@$customer->area_id)
                                                         @foreach ($areas as $area)

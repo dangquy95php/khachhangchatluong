@@ -54,7 +54,7 @@ class HomeController extends Controller
             // xu ly lay ten nam khu vuc
             foreach ($areas as $area) {
                 if ($customer->area_id == $area->id) {
-                    $customer->area_name = $area->name;
+                    $customer->area_id = $area->id;
                 }
             }
         }
@@ -71,10 +71,10 @@ class HomeController extends Controller
             }
         }
 
-        foreach($dataHistory as &$customer) {
+        foreach($dataHistory as &$item) {
             foreach($idCustomers as $item) {
-                if ($customer->id == $item->customer_id) {
-                    $customer->area_name = $item->area_name;
+                if ($item->id == $item->customer_id) {
+                    $item->area_name = $item->area_name;
                 }
             }
         }

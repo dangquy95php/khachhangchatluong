@@ -15246,3 +15246,16 @@
 127.0.0.1 - - [15/Jun/2022:23:42:28 +0700] "GET /assets/vendor/bootstrap/js/bootstrap.bundle.min.js.map HTTP/1.1" 200 331017
 127.0.0.1 - - [15/Jun/2022:23:42:29 +0700] "GET /assets/vendor/quill/quill.min.js.map HTTP/1.1" 200 1006285
 127.0.0.1 - - [15/Jun/2022:23:42:29 +0700] "GET /js/toastr.js.map HTTP/1.1" 404 119283
+127.0.0.1 - - [15/Jun/2022:23:43:51 +0700] "GET / HTTP/1.1" 500 19455
+127.0.0.1 - - [15/Jun/2022:23:44:04 +0700] "GET / HTTP/1.1" 200 130023
+127.0.0.1 - - [15/Jun/2022:23:44:04 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
+127.0.0.1 - - [15/Jun/2022:23:44:04 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
+127.0.0.1 - - [15/Jun/2022:23:45:37 +0700] "GET / HTTP/1.1" 500 26755
+127.0.0.1 - - [15/Jun/2022:23:50:33 +0700] "GET / HTTP/1.1" 200 129956
+127.0.0.1 - - [15/Jun/2022:23:50:34 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
+127.0.0.1 - - [15/Jun/2022:23:50:34 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
+127.0.0.1 - - [15/Jun/2022:23:51:20 +0700] "GET / HTTP/1.1" 500 26755
+127.0.0.1 - - [15/Jun/2022:23:52:12 +0700] "GET / HTTP/1.1" 500 19249
+127.0.0.1 - - [15/Jun/2022:23:52:17 +0700] "GET / HTTP/1.1" 200 131590
+127.0.0.1 - - [15/Jun/2022:23:52:18 +0700] "GET /_debugbar/assets/stylesheets?v=1644393152&theme=auto HTTP/1.1" 200 242429
+127.0.0.1 - - [15/Jun/2022:23:52:18 +0700] "GET /_debugbar/assets/javascript?v=1644393152 HTTP/1.1" 200 366864
