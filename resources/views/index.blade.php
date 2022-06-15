@@ -273,24 +273,26 @@
                     <div class="col-12">
                         <form action="" method="get">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-md-3 col-md-5 col-sm-5">
                                     <div class="row p-2">
-                                        <label for="inputTime" class="col-md-5 col-form-label text-end"><b>Ngày bắt đầu:</b></label>
+                                        <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày bắt đầu:</b></label>
                                         <div class="col-md-7">
                                             <input type="date" class="form-control">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-md-3 col-md-5 col-sm-5">
                                     <div class="row p-2">
-                                        <label for="inputTime" class="col-md-5 col-form-label text-end"><b>Ngày kết thúc:</b></label>
+                                        <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày kết thúc:</b></label>
                                         <div class="col-md-7">
                                             <input type="date" class="form-control">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-2 p-2">
-                                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                <div class="col-md-2 col-sm-12">
+                                    <div class="p-md-2 p-sm-0">
+                                        <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
