@@ -59,15 +59,25 @@ class HomeController extends Controller
             }
         }
 
-        $dataHistory = \DB::table('areas_users')
-            ->where('areas_users.id_user', Auth::user()->id)
-            ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-            ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
-            ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-            ->where('customers.type_result', '<>', '')
-            ->orderBy('customers.updated_at', 'DESC')
-            ->select('customers.*', 'areas.name')
-            ->get();
+        $idCustomers = AreaCustomer::whereIn('area_id', $areas->pluck('id')->toArray())->select('customer_id', 'area_id');
+        $dataHistory = Customer::whereIn('id', $idCustomers->pluck('customer_id')->toArray())->get();
+        $idCustomers = $idCustomers->get();
+
+        foreach ($idCustomers as &$areaCustomer) {
+            foreach($areas as $area) {
+                if ($area->id == $areaCustomer->area_id) {
+                    $areaCustomer->area_name = $area->name;
+                }
+            }
+        }
+
+        foreach($dataHistory as &$customer) {
+            foreach($idCustomers as $item) {
+                if ($customer->id == $item->customer_id) {
+                    $customer->area_name = $item->area_name;
+                }
+            }
+        }
 
         return view('index', compact('areas', 'customer', 'dataHistory'));
     }
