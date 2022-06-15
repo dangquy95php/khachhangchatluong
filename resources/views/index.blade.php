@@ -289,7 +289,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-sm-12">
+                                <div class="col-md-2 col-sm-2">
                                     <div class="p-md-2 p-sm-0">
                                         <button type="submit" class="btn btn-success">Tìm kiếm</button>
                                     </div>
@@ -298,20 +298,20 @@
                         </form>
                     </div>
 
-                    <div class="card mb-2">
-                        <div class="card-body pt-3">
+                    <div class="card mb-2 mt-md-2 mt-sm-3">
+                        <div class="card-body pt-3 table-responsive">
                         <!-- <h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5> -->
                         <!-- Table with hoverable rows -->
-                        <table class="table table-hover">
+                        <table class="table table-hover" style="min-width: 1000px;">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Tên</th>
                                     <th scope="col">Số Điện Thoại</th>
-                                    <th scope="col">Ghi Chú</th>
+                                    <th scope="col" style="width:25%">Ghi Chú</th>
                                     <th scope="col">Kết Quả Cuộc Gọi</th>
-                                    <th scope="col">Ngày Gửi</th>
-                                    <th scope="col">Ngày Gọi</th>
+                                    <th scope="col" style="width:10%">Ngày Gửi</th>
+                                    <th scope="col" style="width:10%">Ngày Gọi</th>
                                     <th scope="col">Nguồn Dữ Liệu</th>
                                     <th scope="col">Trạng Thái ĐT</th>
                                 </tr>
