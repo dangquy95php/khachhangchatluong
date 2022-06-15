@@ -37,7 +37,7 @@
                                     @foreach ($lastAreas as $lastArea)
                                         @foreach ($areas as $area)
                                             @if($lastArea == $area->id)
-                                                <li data-id="{{ $area->id }}"
+                                                <li id="{{ $area->id }}"
                                                     class="btn-modify d-flex btn btn-secondary mb-2">{{ $area->name }}
                                                 </li>
                                             @else
@@ -53,49 +53,46 @@
                         <form method="post" action="" id="form-user-to-area">
                             {{ csrf_field() }}
                             <div class="card mb-2">
-                                <div class="card-body pe-0">
+                                <div class="card-body pe-0 is-scroll">
                                     <h5 class="card-title">Nhân viên cấp quyền khu vực</h5>
                                     <!-- Default Accordion -->
-                                    <div class="is-scroll">
-                                        @foreach ($users as $user)
-                                            <div class="accordion is-item" id="accordionExample{{ $user->id }}">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" data-id_user="{{ $user->id }}" id="headingOne{{ $user->id }}">
-                                                        <button class="accordion-button collapsed" type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseOne_{{ $user->id }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="collapseOne_{{ $user->id }}">
-                                                            <b> {{ $user->username }}</b>
-                                                        </button>
-                                                    </h2>
+                                    @foreach ($users as $user)
+                                        <div class="accordion is-item" id="accordionExample{{ $user->id }}">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingOne{{ $user->id }}">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseOne_{{ $user->id }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseOne_{{ $user->id }}">
+                                                        <b> {{ $user->username }}</b>
+                                                    </button>
+                                                </h2>
 
-                                                    <div id="collapseOne_{{ $user->id }}"
-                                                        class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                                        data-bs-parent="#accordionExample{{ $user->id }}">
-                                                        <ul class="pb-4 mb-0 is-body-user accordion-body sortable"
-                                                            id_user="{{ $user->id }}">
-                                                            @foreach ($areas_users as $area_user)
-                                                                @if ($area_user->id_user == $user->id)
-                                                                    <li data-id={{$area_user->id}}
-                                                                        class="btn-modify d-flex justify-content-between btn btn-secondary mb-2">
-                                                                        {{ $area_user->name }}
-                                                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                            class="bg-danger link-light text-center"
-                                                                            style="width: 25px;"
-                                                                            href="{{ route('del_area_to_user', ['id' => $area_user->id]) }}">
-                                                                            <strong>X</strong>
-                                                                        </a>
-                                                                        <input type="text" class="d-none" value="{{$area_user->id}} name'user_area[$area_user->id][]'">
-                                                                    </li>
-                                                                @endif
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
+                                                <div id="collapseOne_{{ $user->id }}"
+                                                    class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                                    data-bs-parent="#accordionExample{{ $user->id }}">
+                                                    <ul class="pb-4 mb-0 is-body-user accordion-body sortable"
+                                                        id_user="{{ $user->id }}">
+                                                        @foreach ($areas_users as $area_user)
+                                                            @if ($area_user->id_user == $user->id)
+                                                                <li
+                                                                    class="btn-modify d-flex justify-content-between btn btn-secondary mb-2">
+                                                                    {{ $area_user->name }}
+                                                                    <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+                                                                        class="bg-danger link-light text-center"
+                                                                        style="width: 25px;"
+                                                                        href="{{ route('del_area_to_user', ['id' => $area_user->id]) }}">
+                                                                        <strong>X</strong>
+                                                                    </a>
+                                                                </li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -116,51 +113,34 @@
                 start: function(event, ui) {
                     item = ui.item;
                     newList = oldList = ui.item.parent().parent();
-                    // console.log(item);
+                    console.log(item);
                 },
                 stop: function(event, ui) {
                     if (item[0].parentElement.classList.contains('is-body-user')) {
-                        // var id_area = item[0].id;
-                        // var id_string = newList[0].id;
-                        // var id_userArray = id_string.split("_")[1];
-
-                        // var tag_input =
-                        //     `<input style="display:none;" value="${id_area}" name="user_area[${id_userArray}][]"/>`
-                        // item[0].innerHTML += tag_input;
+                        var id_area = item[0].id;
+                        var id_string = newList[0].id;
+                        var id_userArray = id_string.split("_")[1];
+                        var tag_input =
+                            `<input style="display:none;" value="${id_area}" name="user_area[${id_userArray}][]"/>`
+                        item[0].innerHTML += tag_input;
                     } else {
-                        // var textInner = item[0].innerText;
-                        // item[0].innerHTML = "";
-                        // item[0].innerText = textInner;
+                        var textInner = item[0].innerText;
+                        item[0].innerHTML = "";
+                        item[0].innerText = textInner;
                     }
                     // alert("Moved " + item.text() + " from " + oldList.attr('id') + " to " + newList.attr('id'));
                 },
                 change: function(event, ui) {
+                    console.log(event);
                     if (ui.sender) newList = ui.placeholder.parent().parent();
                 },
                 connectWith: ".sortable"
             }).disableSelection();
-
-
             $("#btn-submit-user").click(function() {
                 var list = $(".is-item");
-                // list.each(function(index) {
-                //     $(this).child
-                // })
-
-                $("#form-user-to-area .is-item").each(function() {
-                    let that = this;
-                    var id_user = $($(that).find('.accordion-header').get(0)).data('id_user') ;
-
-                    console.log(id_user);
-                    $(that).find(".btn-modify").each(function() {
-                        var area_id = $($(this).get(0)).data('id');
-
-                        // <input style="display:none;" value="" name="user_area[1][]">
-                        var tag_input =`<input class="d-none" value="${area_id}" name="user_area[${id_user}][]"/>`
-                        $($(this).get(0)).append(tag_input);
-                    })
-                });
-
+                list.each(function(index) {
+                    $(this).child
+                })
                 $("#form-user-to-area").submit();
             })
         });
