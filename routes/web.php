@@ -13,46 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Clear application cache:
-Route::get('/clear-cache', function() {
-    Artisan::call('cache:clear');
-    return 'Application cache has been cleared';
-});
-
-//Clear route cache:
-Route::get('/route-cache', function() {
-	Artisan::call('route:cache');
-    return 'Routes cache has been cleared';
-});
-
-//Clear config cache:
-Route::get('/config-cache', function() {
- 	Artisan::call('config:cache');
- 	return 'Config cache has been cleared';
-});
-
-// Clear view cache:
-Route::get('/view-clear', function() {
-    Artisan::call('view:clear');
-    return 'View cache has been cleared';
-});
-//Clear Config cache:
-Route::get('/refresh-seed', function() {
-    $exitCode = Artisan::call('migrate:refresh --seed');
-    return '<h1>Clear Config cleared</h1>';
-});
-
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Route::post('/', 'HomeController@updateCusomter')->middleware('auth');
-Route::get('/customer/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
-Route::post('/customer/{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
 
 
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
 
-Route::group(['auth' => '', 'prefix' => 'customer'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     Route::get('/', 'CustomerController@index')->name('list_customer');
+    Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
+    Route::post('{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
+
     Route::get('/search', 'CustomerController@search')->name('search_customer');
     Route::get('/delete', 'CustomerController@delete')->name('delete_customers');
 
