@@ -40,7 +40,7 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
                     'nam_dao_han'      => @$row['nam_dao_han'],
                     'ho'               => @$row['ho'],
                     'ten'              => @$row['ten'],
-                    // 'ten_kh'           => @$row['ho'] .' '. @$row['ten'],
+                    'ten_kh'           => @$row['ho'] .' '. @$row['ten'],
                     'ten_kh'           => @$row['ten_kh'],
                     'gioi_tinh'        => @$row['gioi_tinh'],
                     'ngay_sinh'        => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject(@$row['ngay_sinh'])->format('d/m/Y'),
@@ -69,7 +69,7 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
     public function customValidationMessages()
     {
         return [
-            'so_hop_dong.required' => 'Không được để trống cột số :attribute. Xem lại dòng đầu tiên đã để trống chưa?',
+            'so_hop_dong.required' => 'Không được để trống cột số :attribute và dòng đầu tiên cũng không đượcc để trống.',
         ];
     }
 

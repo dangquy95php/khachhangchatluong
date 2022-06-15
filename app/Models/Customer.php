@@ -65,11 +65,6 @@ class Customer extends Model
         return self::INFOR_OPTION;
     }
 
-    // public function scopeByArea($query)
-    // {
-    //     return $query->where('by_area', self::NEW_CUSTOMER);
-    // }
-
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;

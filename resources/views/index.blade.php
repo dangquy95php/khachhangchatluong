@@ -746,9 +746,9 @@
             // if (option < 1) {
             //     $('.btn-alert').trigger('click');
             // }
-            if (!$('#id_contract').val()) {
-                $('.btn-alert').trigger('click');
-            }
+            // if (!$('#id_contract').val()) {
+            //     $('.btn-alert').trigger('click');
+            // }
             // $(".btn-next").click(function() {
             //     var formUpdate = $('#customerForm');
             //     formUpdate.attr('action', "{{ route('customer_update') }}");

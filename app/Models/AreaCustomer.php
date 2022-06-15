@@ -25,4 +25,9 @@ class AreaCustomer extends Model
     {
         return $this->hasMany('App\Models\Customer', 'id', 'customer_id');
     }
+
+    public function scopeAreaID($query, $id){
+
+        return $query->where('area_id', $id);
+    }
 }

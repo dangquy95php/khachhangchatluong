@@ -18,6 +18,9 @@ class HomeController extends Controller
 {
     private $_dataOrigin = '';
     private $_dataHistory = '';
+    
+    const AREA_ACTIVE = 1;
+    const CUSTOMER_CALLED = 1;
 
     public function __construct()
     {
@@ -31,30 +34,27 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        // Lấy danh muc
+        // Lấy khu vực của người dùng đã join
         $areas = \DB::table('areas_users')
             ->join('areas', 'areas_users.id_area', 'areas.id')
-            ->where('areas_users.id_user', Auth::user()->id)
-            ->select('areas.*')->get();
+            ->where([
+                'areas_users.id_user' => Auth::user()->id,
+                'areas.status' => self::AREA_ACTIVE
+            ])->select('areas.*', 'areas_users.id_user')->get();
 
-        $customer = new Customer();
-
+        // lấy list khu vực của người join
+        // Lấy thằng đầu tiên danh mục
         if (count($areas) > 0) {
-            for ($i = 0; $i < count($areas); $i++) {
-                $data_id = $areas[$i]->id;
+            $customer = AreaCustomer::where([
+                'areas_customers.area_id' => $areas[0]->id,
+                'called' => self::CUSTOMER_CALLED
+            ])->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+            ->select('customers.*', 'areas_customers.area_id')->first();
 
-                //đếm số dòng chưa gọi -> mới hiển thị
-                if ($customer = AreaCustomer::where('area_id', $data_id)
-                    ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                    ->where('called', '=', '')->count() > 0
-                ) {
-                    //dd(123);
-                    $customer = AreaCustomer::where('area_id', $data_id)
-                        ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                        ->where('called', '=', '')->first();
-                    break;
-                } else {
-                    continue;
+            // xu ly lay ten nam khu vuc
+            foreach ($areas as $area) {
+                if ($customer->area_id == $area->id) {
+                    $customer->area_name = $area->name;
                 }
             }
         }
