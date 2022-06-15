@@ -44,6 +44,9 @@ Route::get('/refresh-seed', function() {
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Route::post('/', 'HomeController@updateCusomter')->middleware('auth');
+Route::get('/customer/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
+Route::post('/customer/{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
+
 
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');

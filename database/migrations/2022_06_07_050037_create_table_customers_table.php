@@ -17,8 +17,8 @@ class CreateTableCustomersTable extends Migration
             $table->id();
             $table->string('so_thu_tu')->nullable();
             $table->string('vpbank')->nullable();
-            $table->string('msdl')->nullable();;
-            $table->string('cv')->nullable();;
+            $table->string('msdl')->nullable();
+            $table->string('cv')->nullable();
             $table->string('so_hop_dong')->unique();
             $table->string('menh_gia')->nullable();
             $table->string('nam_dao_han')->nullable();
@@ -32,6 +32,7 @@ class CreateTableCustomersTable extends Migration
             $table->string('dia_chi_cu_the')->nullable();
             $table->string('comment')->nullable();
             $table->string('type_result')->nullable();
+            $table->string('called')->default('');
             $table->timestamps();
         });
     }

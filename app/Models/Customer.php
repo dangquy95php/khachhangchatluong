@@ -39,18 +39,26 @@ class Customer extends Model
     ];
 
     const APPOINTMENT = 0;
-    const NOTE_ANS_PHONE = 1;
-    const CALL_BACK_LATER = 2;
-    const LOWBUDGET_CUSTOMETRS = 3;
-    const DEALES_TAKE_CARE = 4;
+    const AGENT_STILL_CARE = 1;
+    const LESS_MONEY = 2;
+    const CALL_LATER = 3;
+    const WRONG_OR_BUSY = 4;
+    const CANCEL_DURATION = 5;
+    const NEW_CONTRACT = 6;
+    const OTHER = 7;
 
     const INFOR_OPTION = [
         self::APPOINTMENT => 'Đã hẹn',
-        self::NOTE_ANS_PHONE => 'Không nghe máy',
-        self::CALL_BACK_LATER => 'Khách hàng đang suy nghĩ, gọi lại sau.',
-        self::LOWBUDGET_CUSTOMETRS => 'Khách hàng ít tiền',
-        self::DEALES_TAKE_CARE => 'Đại lý vẫn chăm sóc',
+        self::AGENT_STILL_CARE => 'Đại lý vẫn chăm sóc',
+        self::LESS_MONEY => 'Khách hàng ít tiền',
+        self::CALL_LATER => 'Khách hàng suy nghĩ, gọi lại sau',
+        self::WRONG_OR_BUSY => 'KNM / Bận / Tắt máy / Sai số / Đổi số',
+        self::CANCEL_DURATION => 'Hợp đồng Hủy / Đáo hạn / Hoàn trả giá trị',
+        self::NEW_CONTRACT => 'Đã tham gia hợp đồng mới / Không tham gia',
+        self::OTHER => 'Khác',
     ];
+
+    
 
     public static function getInforOption()
     {
