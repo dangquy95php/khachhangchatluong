@@ -749,95 +749,10 @@
             if (!$('#id_contract').val()) {
                 $('.btn-alert').trigger('click');
             }
-            // $(".btn-next").click(function() {
-            //     var formUpdate = $('#customerForm');
-            //     formUpdate.attr('action', "{{ route('customer_update') }}");
-            //     formUpdate.submit();
-            // });
 
-            // $(".btn-save").click(function() {
-            //     var formSave = $('#customerForm');
-            //     formSave.attr('action');
-            //     formSave.submit();
-            // });
-
-            // $('#data_area_id').on('change', function (e) {
-            //     var optionSelected = $("option:selected", this);
-            //     var valueSelected = this.value;
-            //     console.log(valueSelected);
-
-            //     $('#customerForm').submit();
-            // });
         });
 
 
-        // $(document).ready(function() {
-        //     function numberWithCommas(x) {
-        //         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        //     }
-
-        //     var data_origin = $('#data_oririn').val();
-
-        //     var pattern = /^[0-9]{4}[0-9]{2}[0-9]{2}/;
-
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: 'http://khachhangchatluong.local/customer/detail',
-        //         data: {
-        //             _token: "{{ csrf_token() }}",
-        //             data_id: $("#data_oririn").val(),
-        //         },success: function (data) {
-        //             var join_date = data.join_date[0][1] +'-'+ data.join_date[0][2] +'-'+ data.join_date[0][3] ?? '';
-        //             var date_due_full = data.date_due_full[0][1] +'-'+ data.date_due_full[0][2] +'-'+ data.date_due_full[0][3] ?? '';
-        //             console.log(data);
-
-        //             $('#join_date').val(join_date);
-        //             $('#date_due_full').val(date_due_full);
-        //             $('#id_contract').val(data.id_contract);
-        //             $('#money').val(numberWithCommas(data.money));
-        //             $('#fullname').val(data.last_name +' '+ data.first_name);
-        //             $('#phone').val(data.phone);
-        //             $('#age').val(data.age);
-        //             $('#sex').val(data.sex);
-        //         }, error: function(error) {
-        //             console.log(error);
-        //         }
-        //     });
-
-        //     $(".btn-next").click(function() {
-        //             $("#show-validation-error").children().addClass('d-block');
-        //             $("#show-validation-error").children().removeClass('d-none');
-
-        //             $("#how-validation-error").html();
-        //             $(this).attr('disabled', true);
-        //             $(this).prepend('<span class="me-2 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
-
-        //             var disabled = $("#customerForm").find(':input:disabled').removeAttr('disabled');
-        //             var dataForm = $("#customerForm").serialize();
-
-        //             disabled.attr('disabled','disabled');
-        //             toastr.options.progressBar = true;
-        //             $.ajax({
-        //             type: 'POST',
-        //             url: 'http://khachhangchatluong.local/customer/update',
-        //             data: dataForm,
-        //             async: false,
-        //             dataType: "json",
-        //             success: function (data) {
-        //                 toastr.success(data.message, 'Thông báo!', {timeOut: 3000})
-        //             }, error: function(error) {
-        //                 toastr.error('', 'Thông báo!', {timeOut: 3000})
-        //                 let resp = error.responseJSON.errors;
-        //                 for (index in resp) {
-        //                     $(".toast-error").append(`<div class="toast-message">${resp[index]}</div>`);
-        //                 }
-        //                 return false;
-        //             }
-        //         });
-        //         $('.btn-next').attr('disabled', false);
-        //         $('.btn-next').children().first().remove();
-        //     });
-        // });
     </script>
 
     <script>
