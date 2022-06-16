@@ -142,24 +142,31 @@ class AreaController extends Controller
     public function addAreaToUser(Request $request)
     {
         $users = User::where('status', self::USER_ACTIVE )->get();
-        $areas_users = Area::join('areas_users', 'areas.id', '=', 'areas_users.id_area')->get(['areas.name', 'areas_users.*']);
-
+        $areas_users = Area::rightJoin('areas_users', 'areas.id', '=', 'areas_users.id_area')->select('areas.name', 'areas.id', 'areas_users.*')->get();
 
         return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'users' => $users, 'areas_users' => $areas_users ]);
     }
 
     public function postAddAreaToUser(Request $request)
     {
-        $data = $request->get('user_area');
-        \DB::beginTransaction();
 
-        collect($data)->contains(function ($value, $key) {
+        $userArea = \DB::table('users')->leftJoin('areas_users', 'users.id', '=', 'areas_users.id_user')
+                    ->join('areas', 'areas_users.id_area', '=', 'areas.id')
+                    ->select('users.*', 'areas.id as area_id')->get();
+
+        $data = $request->get('user_area');
+
+        collect($data)->contains(function ($value, $key) use($userArea) {
+            AreaUser::where('id_user', $key)->delete();
+
+            \DB::beginTransaction();
             try {
                 foreach($value as $item) {
-                    AreaUser::firstOrCreate([
-                        'id_area' =>  $item,
-                        'id_user' =>  $key,
-                    ]);
+                    // delete all userid area
+                    $model = new AreaUser();
+                    $model->id_area = $item;
+                    $model->id_user = $key;
+                    $model->save();
                 }
                 \DB::commit();
             } catch (\Exception $ex) {
