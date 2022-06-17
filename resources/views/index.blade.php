@@ -68,22 +68,6 @@
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->username }}</span>
                     </a><!-- End Profile Iamge Icon -->
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                        <!-- <li class="dropdown-header">
-                        <h6>Kevin Anderson</h6>
-                        <span>Web Designer</span>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                        <i class="bi bi-person"></i>
-                        <span>My Profile</span>
-                        </a>
-                    </li> -->
-                        <!-- <li>
-                        <hr class="dropdown-divider">
-                    </li> -->
                         @if (Auth::user()->role == 2)
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('admin') }}">
@@ -140,8 +124,7 @@
                                                 type="text" value="{{ @$customer->nam_dao_han }}" />
                                             </div>
                                             <div class="pe-0 col-sm-6">
-                                            <label for="inputPassword4" class="form-label"><b>Số Hợp
-                                            Đồng</b></label>
+                                            <label for="inputPassword4" class="form-label"><b>Số Hợp Đồng</b></label>
                                             <input type="text" disabled name="id_contract"
                                                 value="{{ @$customer->so_hop_dong }}" id="id_contract"
                                                 class="form-control" id="inputPassword4">
@@ -208,7 +191,7 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_result" value="0" id="gridRadios1"
-                                                {{ old('type_result', @$customer->type_result) == 0 ? 'checked' : '' }}>
+                                                {{ old('type_result') !== null && old('type_result', @$customer->type_result) == 0 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                 Đã hẹn
                                                 </label>
@@ -398,7 +381,7 @@
                                             <td class="tuoi">{{ $data->tuoi }}</td>
                                             <td class="dien_thoai">{{ $data->dien_thoai }}</td>
                                             <td class="comment">{{ $data->comment }}</td>
-                                            <td class="comment">{{ $data->menh_gia }}</td>
+                                            <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia) : @$data->menh_gia }}</td>
                                             <td class="type_result">
                                                 @foreach (\App\Models\Customer::getInforOption() as $key => $value)
                                                 @if ($key == $data->type_result)

@@ -26,7 +26,6 @@ class HomeController extends Controller
         // }
 
         // return view('account.login');
-        // $this->_dataOrigin = User::find()->get();
     }
 
     public function index(Request $request)

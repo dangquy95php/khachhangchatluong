@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{area_id?}', 'HomeController@index')->name('home')->middleware('auth');
-Route::post('/', 'HomeController@updateCusomter')->middleware('auth');
-
-
+Route::get('/', 'UserController@login')->name('login');
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
+    Route::get('/call/{area_id?}', 'HomeController@index')->name('home')->middleware('auth');
+    Route::post('/call', 'HomeController@updateCusomter')->middleware('auth');
+
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
     Route::post('{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/', 'UserController@admin')->name('admin');
-    // Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
+    Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
 
     Route::group(['prefix' => 'area'], function () {
         Route::get('/', 'AreaController@index')->name('index_area');
