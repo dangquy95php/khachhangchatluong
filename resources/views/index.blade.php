@@ -124,29 +124,29 @@
                         <form method="POST" action="" class="row g-3" id="customerForm">
                             <input type="text" class="d-none" name="id" value="{{ @$customer->id }}" />
                             @csrf
-                            <div class="col-8">
+                            <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-9 pe-1">
+                                    <div class="col-lg-5 col-md-8 col-sm-12 pe-1">
                                         <div class="row g-3">
-                                            <div class="col-3">
+                                            <div class="col-sm-6">
                                             <label for="inputEmail4" class="form-label"><b>Ngày Tham Gia</b></label>
                                             <input type="text" class="form-control"
                                                 value="{{ @$customer->ngay_tham_gia }}" id="ngay_tham_gia"
                                                 name="ngay_tham_gia">
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-sm-6">
                                             <label for="inputNanme4" class="form-label"><b>Năm Đáo Hạn</b></label>
                                             <input id="nam_dao_han" name="nam_dao_han" class="form-control"
                                                 type="text" value="{{ @$customer->nam_dao_han }}" />
                                             </div>
-                                            <div class="col-3 pe-0">
+                                            <div class="pe-0 col-sm-6">
                                             <label for="inputPassword4" class="form-label"><b>Số Hợp
                                             Đồng</b></label>
                                             <input type="text" disabled name="id_contract"
                                                 value="{{ @$customer->so_hop_dong }}" id="id_contract"
                                                 class="form-control" id="inputPassword4">
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-sm-6">
                                             <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
                                             <input type="text" class="form-control"
                                                 value="{{ number_format((int) @$customer->menh_gia) }}"
@@ -167,14 +167,14 @@
                                                 name="address_full" id="dia_chi_cu_the" class="form-control"
                                                 id="inputPassword4">
                                             </div>
-                                            <div class="col-2 pe-0">
+                                            <div class="col-md-2 col-sm-6 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
                                             <input type="number" value="{{ @$customer->tuoi }}" name="age"
                                                 id="tuoi" min="1" max="200"
                                                 onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }"
                                                 class="form-control" id="inputPassword4">
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-md-3 col-sm-6">
                                             <label for="inputEmail4" class="form-label"><b>Giới Tính</b></label>
                                             <select name="sex" id="gioi_tinh" class="form-select">
                                                 <option selected="">Chọn giới tính...</option>
@@ -184,7 +184,7 @@
                                                 value="F">Nữ</option>
                                             </select>
                                             </div>
-                                            <div class="col-7 pe-0">
+                                            <div class="col-md-7 col-sm-12">
                                             <label for="inputEmail4" class="form-label"><b>Nguồn Dữ
                                             Liệu</b></label>
                                             <select name="area_name" id="data_area_id" class="form-select">
@@ -202,7 +202,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-3 px-1">
+                                    <div class="col-lg-3 col-md-4 col-sm-6 px-md-1 mt-md-0 mt-sm-3">
                                         <label for="inputEmail4" class="form-label"><b>Kết Quả Gọi</b></label>
                                         <ul class="list-group is-result">
                                             <li class="list-group-item">
@@ -286,90 +286,86 @@
                                         </ul>
                                         @include('_partials.alert', ['field' => 'type_result'])
                                     </div>
-                                </div>
-                                </div>
-                            <div class="col-4">
-                                <div class="col-12">
-                                    <!-- <textarea class="form-control" placeholder="Ghi chú cụ thể thông tin khách hàng" id="floatingTextarea" rows="5"></textarea> -->
-                                    <div class="card mb-2">
-                                        <div class="card-body">
-                                            <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
-                                            <textarea name="comment" id="comment" value="{{ @$customer->comment }}" class="form-control" rows="6">{{ old('comment', @$customer->comment) }}</textarea>
-                                            <!-- End Quill Editor default -->
+
+                                    <div class="col-lg-4 col-md-12 col-sm-6 mt-lg-0 mt-md-4 mt-sm-3 px-md-1">
+                                        <div class="col-12 col-sm-12">
+                                            <!-- <textarea class="form-control" placeholder="Ghi chú cụ thể thông tin khách hàng" id="floatingTextarea" rows="5"></textarea> -->
+                                            <div class="card mb-2">
+                                                <div class="card-body">
+                                                    <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
+                                                    <textarea name="comment" id="comment" value="{{ @$customer->comment }}" class="form-control" rows="10">{{ old('comment', @$customer->comment) }}</textarea>
+                                                    <!-- End Quill Editor default -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-6">
+                                            <!-- <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button> -->
+                                            <button type="submit" class="btn-save btn btn-success" name="action" value="save">
+                                                <i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ
+                                                    Liệu</span>
+                                            </button>
+
+                                            <button type="submit" class="btn-next btn btn-outline-primary" name="action"
+                                                value="next">
+                                                <span class="pe-1">Gọi Tiếp Theo</span>
+                                                <i class="bi bi-chevron-double-right"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <!-- <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button> -->
-                                    <button type="submit" class="btn-save btn btn-success" name="action" value="save">
-                                        <i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ
-                                            Liệu</span>
-                                    </button>
-
-                                    <button type="submit" class="btn-next btn btn-outline-primary" name="action"
-                                        value="next">
-                                        <span class="pe-1">Gọi Tiếp Theo</span>
-                                        <i class="bi bi-chevron-double-right"></i>
-                                    </button>
-                                </div>
-                            </div>
+                             </div>
                         </form><!-- Vertical Form -->
                     </div>
                 </div>
                 <!-- Default Tabs -->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">Lịch sử đã gọi</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                             type="button" role="tab" aria-controls="profile" aria-selected="false">Danh sách đã gọi</button>
                     </li>
                 </ul>
                 <div class="tab-content pt-2" id="myTabContent">
-                    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
 
-                        <div class="card mb-2">
-                            <div class="card-body pt-3">
-                                <h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>
-                                <!-- Table with hoverable rows -->
-                                <!-- <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Tên</th>
-                                    <th scope="col">Số Điện Thoại</th>
-                                    <th scope="col">Ghi Chú</th>
-                                    <th scope="col">Kết Quả Cuộc Gọi</th>
-                                    <th scope="col">Ngày Gửi</th>
-                                    <th scope="col">Ngày Gọi</th>
-                                    <th scope="col">Nguồn Dữ Liệu</th>
-                                    <th scope="col">Trạng Thái ĐT</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Nguyễn Văn Nam</td>
-                                    <td>097262212</td>
-                                    <td>Khách hàng có ý định muốn mua bảo hiểm. Hiện tại chưa có tiền đủ</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td><span class="badge bg-primary">Primary</span></td>
-                                </tr>
-                            </tbody>
-                        </table> -->
-                                <!-- End Table with hoverable rows -->
-                            </div>
+                        <div class="col-12">
+                            <form action="" method="get">
+                                <div class="row">
+                                    <div class="col-md-3 col-md-5 col-sm-5">
+                                        <div class="row p-2">
+                                            <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày bắt đầu:</b></label>
+                                            <div class="col-md-7">
+                                                <input type="date" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-5 col-sm-5">
+                                        <div class="row p-2">
+                                            <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày kết thúc:</b></label>
+                                            <div class="col-md-7">
+                                                <input type="date" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2">
+                                        <div class="p-md-2 p-sm-0">
+                                            <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
                     <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-                        <div class="card">
-                            <div class="card-body pt-3">
+                        <div class="card mb-2 mt-md-2 mt-sm-3">
+                            <div class="card-body pt-3 table-responsive">
                                 {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                                 <!-- Table with hoverable rows -->
-                                <table class="table table-hover">
+                                <table class="table table-hover" style="min-width: 1000px;">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
