@@ -129,183 +129,172 @@
                                     <div class="col-9 pe-1">
                                         <div class="row g-3">
                                             <div class="col-3">
-                                                <label for="inputEmail4" class="form-label"><b>Ngày Bắt
-                                                        Đầu</b></label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ @$customer->ngay_bat_dau }}" id="ngay_bat_dau"
-                                                    name="ngay_bat_dau">
+                                            <label for="inputEmail4" class="form-label"><b>Ngày Tham Gia</b></label>
+                                            <input type="text" class="form-control"
+                                                value="{{ @$customer->ngay_tham_gia }}" id="ngay_tham_gia"
+                                                name="ngay_tham_gia">
                                             </div>
                                             <div class="col-3">
-                                                <label for="inputNanme4" class="form-label"><b>Năm Đáo
-                                                        Hạn</b></label>
-                                                <input id="nam_dao_han" name="nam_dao_han" class="form-control"
-                                                    type="text" value="{{ @$customer->nam_dao_han }}" />
+                                            <label for="inputNanme4" class="form-label"><b>Năm Đáo Hạn</b></label>
+                                            <input id="nam_dao_han" name="nam_dao_han" class="form-control"
+                                                type="text" value="{{ @$customer->nam_dao_han }}" />
                                             </div>
                                             <div class="col-3 pe-0">
-                                                <label for="inputPassword4" class="form-label"><b>Số Hợp
-                                                        Đồng</b></label>
-                                                <input type="text" disabled name="id_contract"
-                                                    value="{{ @$customer->so_hop_dong }}" id="id_contract"
-                                                    class="form-control" id="inputPassword4">
+                                            <label for="inputPassword4" class="form-label"><b>Số Hợp
+                                            Đồng</b></label>
+                                            <input type="text" disabled name="id_contract"
+                                                value="{{ @$customer->so_hop_dong }}" id="id_contract"
+                                                class="form-control" id="inputPassword4">
                                             </div>
                                             <div class="col-3">
-                                                <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ number_format((int) @$customer->menh_gia) }}"
-                                                    id="money" name="money">
+                                            <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
+                                            <input type="text" class="form-control"
+                                                value="{{ number_format((int) @$customer->menh_gia) }}"
+                                                id="menh_gia" name="money">
                                             </div>
                                             <div class="col-8">
-                                                <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
-                                                <input type="text" value="{{ @$customer->ten_kh }}" name="last_name"
-                                                    class="form-control" id="fullname">
+                                            <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
+                                            <input type="text" value="{{ @$customer->ten_kh }}" name="last_name"
+                                                class="form-control" id="ten_kh">
                                             </div>
                                             <div class="col-4">
-                                                <label for="inputNanme4" class="form-label"><b>Số Điện
-                                                        Thoại</b></label>
-                                                <input type="text" name="phone" value="{{ @$customer->dien_thoai }}"
-                                                    class="form-control" id="phone">
+                                                <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
+                                                <input type="text" name="phone" value="{{ @$customer->dien_thoai }}" class="form-control" id="dien_thoai">
                                             </div>
                                             <div class="col-12">
-                                                <label for="inputPassword4" class="form-label"><b>Địa
-                                                        Chỉ</b></label>
-                                                <input type="text" value="{{ @$customer->dia_chi_cu_the }}"
-                                                    name="address_full" id="address_full" class="form-control"
-                                                    id="inputPassword4">
+                                            <label for="inputPassword4" class="form-label"><b>Địa Chỉ</b></label>
+                                            <input type="text" value="{{ @$customer->dia_chi_cu_the }}"
+                                                name="address_full" id="dia_chi_cu_the" class="form-control"
+                                                id="inputPassword4">
                                             </div>
                                             <div class="col-2 pe-0">
-                                                <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
-                                                <input type="number" value="{{ @$customer->tuoi }}" name="age"
-                                                    id="age" min="1" max="200"
-                                                    onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }"
-                                                    class="form-control" id="inputPassword4">
+                                            <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
+                                            <input type="number" value="{{ @$customer->tuoi }}" name="age"
+                                                id="tuoi" min="1" max="200"
+                                                onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }"
+                                                class="form-control" id="inputPassword4">
                                             </div>
-
                                             <div class="col-3">
-                                                <label for="inputEmail4" class="form-label"><b>Giới Tính</b></label>
-                                                <select name="sex" id="sex" class="form-select">
-                                                    <option selected="">Chọn giới tính...</option>
-                                                    <option {{ @$customer->gioi_tinh === 'M' ? 'selected' : '' }}
-                                                        value="M">Nam</option>
-                                                    <option {{ @$customer->gioi_tinh === 'F' ? 'selected' : '' }}
-                                                        value="F">Nữ</option>
-                                                </select>
+                                            <label for="inputEmail4" class="form-label"><b>Giới Tính</b></label>
+                                            <select name="sex" id="gioi_tinh" class="form-select">
+                                                <option selected="">Chọn giới tính...</option>
+                                                <option {{ @$customer->gioi_tinh === 'M' ? 'selected' : '' }}
+                                                value="M">Nam</option>
+                                                <option {{ @$customer->gioi_tinh === 'F' ? 'selected' : '' }}
+                                                value="F">Nữ</option>
+                                            </select>
                                             </div>
                                             <div class="col-7 pe-0">
-                                                <label for="inputEmail4" class="form-label"><b>Nguồn Dữ
-                                                        Liệu</b></label>
-                                                <select name="area_name" id="data_area_id" class="form-select">
-                                                    @if (@$customer->area_id)
-                                                        @foreach ($areas as $area)
-                                                            <option
-                                                                {{ old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }}
-                                                                value="{{ $area->id }}">{{ $area->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    @else
-                                                        <option value="">Chọn nguồn dữ liệu</option>
-                                                    @endif
-                                                </select>
+                                            <label for="inputEmail4" class="form-label"><b>Nguồn Dữ
+                                            Liệu</b></label>
+                                            <select name="area_name" id="data_area_id" class="form-select">
+                                                <option value="">Chọn nguồn dữ liệu</option>
+                                                @foreach ($areas as $area)
+                                                <option
+                                                {{ old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }}
+                                                value="{{ $area->id }}">{{ $area->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
                                             </div>
                                             @error('area_name')
-                                                <div class="text-danger text-end mt-1"> {{ $message }}</div>
+                                            <div class="text-danger text-end mt-1"> {{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-3 px-1">
                                         <label for="inputEmail4" class="form-label"><b>Kết Quả Gọi</b></label>
-                                        <ul class="list-group">
+                                        <ul class="list-group is-result">
                                             <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="type_result"
-                                                        value="0" id="gridRadios1"
-                                                        {{ old('type_result', @$customer->type_result) === 0 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="gridRadios1">
-                                                        Đã hẹn
-                                                    </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type_result" value="0" id="gridRadios1"
+                                                {{ old('type_result', @$customer->type_result) == 0 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="gridRadios1">
+                                                Đã hẹn
+                                                </label>
+                                            </div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="type_result"
-                                                        value="1" id="gridRadios2"
-                                                        {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="gridRadios2">
-                                                        Đại lý vẫn chăm sóc
-                                                    </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type_result"
+                                                value="1" id="gridRadios2"
+                                                {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="gridRadios2">
+                                                Đại lý vẫn chăm sóc
+                                                </label>
+                                            </div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="type_result"
-                                                        value="2" id="gridRadios3"
-                                                        {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="gridRadios3">
-                                                        Khách hàng ít tiền
-                                                    </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type_result"
+                                                value="2" id="gridRadios3"
+                                                {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="gridRadios3">
+                                                Khách hàng ít tiền
+                                                </label>
+                                            </div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="type_result"
-                                                        value="3" id="gridRadios4"
-                                                        {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="gridRadios4">
-                                                        Khách hàng suy nghĩ, gọi lại sau
-                                                    </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type_result"
+                                                value="3" id="gridRadios4"
+                                                {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="gridRadios4">
+                                                Khách hàng suy nghĩ, gọi lại sau
+                                                </label>
+                                            </div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="type_result"
-                                                        value="4" id="gridRadios5"
-                                                        {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="gridRadios5">
-                                                        KNM / Bận / Tắt máy / Sai số / Đổi số
-                                                    </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios5"
+                                                {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="gridRadios5">
+                                                KNM / Bận / Tắt máy / Sai số / Đổi số
+                                                </label>
+                                            </div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="type_result"
-                                                        value="5" id="gridRadios6"
-                                                        {{ old('type_result', @$customer->type_result) == 5 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="gridRadios6">
-                                                        Hợp đồng Hủy / Đáo hạn / Hoàn trả giá trị
-                                                    </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type_result"
+                                                value="5" id="gridRadios6"
+                                                {{ old('type_result', @$customer->type_result) == 5 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="gridRadios6">
+                                                Hợp đồng Hủy / Đáo hạn / Hoàn trả giá trị
+                                                </label>
+                                            </div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="type_result"
-                                                        value="6" id="gridRadios7"
-                                                        {{ old('type_result', @$customer->type_result) == 6 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="gridRadios7">
-                                                        Đã tham gia hợp đồng mới / Không tham gia
-                                                    </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type_result"
+                                                value="6" id="gridRadios7"
+                                                {{ old('type_result', @$customer->type_result) == 6 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="gridRadios7">
+                                                Đã tham gia hợp đồng mới / Không tham gia
+                                                </label>
+                                            </div>
                                             </li>
                                             <li class="list-group-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="type_result"
-                                                        value="7" id="gridRadios8"
-                                                        {{ old('type_result', @$customer->type_result) == 7 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="gridRadios8">
-                                                        Khác
-                                                    </label>
-                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="type_result"
+                                                value="7" id="gridRadios8"
+                                                {{ old('type_result', @$customer->type_result) == 7 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="gridRadios8">
+                                                Khác
+                                                </label>
+                                            </div>
                                             </li>
                                         </ul>
                                         @include('_partials.alert', ['field' => 'type_result'])
                                     </div>
                                 </div>
-                            </div>
+                                </div>
                             <div class="col-4">
                                 <div class="col-12">
                                     <!-- <textarea class="form-control" placeholder="Ghi chú cụ thể thông tin khách hàng" id="floatingTextarea" rows="5"></textarea> -->
                                     <div class="card mb-2">
                                         <div class="card-body">
                                             <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
-                                            <textarea name="comment" value="{{ @$customer->comment }}" class="form-control" rows="6">{{ old('comment', @$customer->comment) }}</textarea>
+                                            <textarea name="comment" id="comment" value="{{ @$customer->comment }}" class="form-control" rows="6">{{ old('comment', @$customer->comment) }}</textarea>
                                             <!-- End Quill Editor default -->
                                         </div>
                                     </div>
@@ -331,8 +320,7 @@
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                            type="button" role="tab" aria-controls="profile" aria-selected="false">Danh sách đã
-                            gọi</button>
+                            type="button" role="tab" aria-controls="profile" aria-selected="false">Danh sách đã gọi</button>
                     </li>
                 </ul>
                 <div class="tab-content pt-2" id="myTabContent">
@@ -385,45 +373,57 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Số hợp đồng</th>
+                                            <th scope="col">Ngày Tham Gia</th>
+                                            <th scope="col">Năm Đáo Hạn</th>
+                                            <th scope="col">Số Hợp Đồng</th>
                                             <th scope="col">Tên</th>
+                                            <th scope="col">Tuổi</th>
                                             <th scope="col">Số Điện Thoại</th>
                                             <th scope="col">Ghi Chú</th>
+                                            <th scope="col">Mệnh Giá</th>
                                             <th scope="col">Kết Quả Cuộc Gọi</th>
                                             <th scope="col">Ngày Gọi</th>
+                                            <th scope="col">Địa Chỉ</th>
+                                            <th scope="col">Giới Tính</th>
                                             <th scope="col">Nguồn Dữ Liệu</th>
-                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
-                                            $i = 1;
+                                        $i = 1;
                                         @endphp
                                         @foreach ($dataHistory as $data)
-                                            <tr>
-                                                <th scope="row">{{ $i }}</th>
-                                                <td>{{ $data->so_hop_dong }}</td>
-                                                <td>{{ $data->ten_kh }}</td>
-                                                <td>{{ $data->dien_thoai }}</td>
-                                                <td>{{ $data->comment }}</td>
-                                                <td>
-                                                    @foreach (\App\Models\Customer::getInforOption() as $key => $value)
-                                                        @if ($key == $data->type_result)
-                                                            <span class="badge bg-primary">{{ $value }}</span>
-                                                        @endif
-                                                    @endforeach
-                                                </td>
-                                                <td>{{ $data->updated_at }}</td>
-                                                <td>{{ $data->name }}</td>
-                                                <td><button type="button" class="btn btn-warning" id="editCustomer"
-                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                                        data-id="{{ $data->id }}">
-                                                        Cập Nhật
-                                                    </button></td>
-                                            </tr>
-                                            @php
-                                                $i++;
-                                            @endphp
+                                        <tr role="button" class="is-item-customer">
+                                            <th scope="row">{{ $i }}</th>
+                                            <td class="ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
+                                            <td class="nam_dao_han">{{ @$data->nam_dao_han }}</td>
+                                            <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
+                                            <td class="ten_kh">{{ $data->ten_kh }}</td>
+                                            <td class="tuoi">{{ $data->tuoi }}</td>
+                                            <td class="dien_thoai">{{ $data->dien_thoai }}</td>
+                                            <td class="comment">{{ $data->comment }}</td>
+                                            <td class="comment">{{ $data->menh_gia }}</td>
+                                            <td class="type_result">
+                                                @foreach (\App\Models\Customer::getInforOption() as $key => $value)
+                                                @if ($key == $data->type_result)
+                                                <span data-id="{{ $key }}" class="badge bg-primary">{{ $value }}</span>
+                                                @endif
+                                                @endforeach
+                                            </td>
+                                            <td class="updated_at">{{ $data->updated_at }}</td>
+                                            <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
+                                            <td class="gioi_tinh">
+                                                @if($data->gioi_tinh === 'M')
+                                                Nam
+                                                @elseif($data->gioi_tinh === 'F')
+                                                Nữ
+                                               @endif
+                                            </td>
+                                            <td class="area_name">{{ $data->name }}</td>
+                                        </tr>
+                                        @php
+                                        $i++;
+                                        @endphp
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -435,8 +435,7 @@
             </div>
 
             <!-- Disabled Backdrop Modal -->
-            <button type="button" class="btn-alert p-0 d-none" data-bs-toggle="modal"
-                data-bs-target="#disablebackdrop"></button>
+            <button type="button" class="btn-alert p-0 d-none" data-bs-toggle="modal" data-bs-target="#disablebackdrop"></button>
             <div class="modal fade" id="disablebackdrop" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -455,247 +454,6 @@
                 </div>
             </div>
             <!-- End Disabled Backdrop Modal-->
-
-            {{-- start: modal called customer list --}}
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Chỉnh Sửa</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="card pt-3 mb-3">
-                                <div class="card-body">
-                                    <!-- Vertical Form -->
-                                    <form method="" action="" class="row g-3" id="customerForm">
-                                        <input type="text" class="d-none"  name="id"
-                                            value="{{ @$customer->id }}" />
-                                        @csrf
-                                        <div class="col-8">
-                                            <div class="row">
-                                                <div class="col-12 pe-1">
-                                                    <div class="row g-3">
-                                                        <div class="col-3">
-                                                            <label for="inputEmail4" class="form-label"><b>Ngày Bắt
-                                                                    Đầu</b></label>
-                                                            <input disabled type="text" class="form-control" id="ngay_bat_dau"
-                                                                value="{{ @$customer->ngay_bat_dau }}"
-                                                                id="ngay_bat_dau" name="ngay_bat_dau">
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <label for="inputNanme4" class="form-label"><b>Năm Đáo
-                                                                    Hạn</b></label>
-                                                            <input disabled id="nam_dao_han" name="nam_dao_han" id="nam_dao_han"
-                                                                class="form-control" type="text"
-                                                                value="{{ @$customer->nam_dao_han }}" />
-                                                        </div>
-                                                        <div class="col-3 pe-0">
-                                                            <label for="inputPassword4" class="form-label"><b>Số
-                                                                    Hợp
-                                                                    Đồng</b></label>
-                                                            <input disabled type="text" disabled name="id_contract"
-                                                                id="so_hop_dong"
-                                                                value="{{ @$customer->so_hop_dong }}"
-                                                                id="id_contract" class="form-control"
-                                                                id="inputPassword4">
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <label for="inputEmail4" class="form-label"><b>Số
-                                                                    Tiền</b></label>
-                                                            <input disabled type="text" class="form-control" id="menh_gia"
-                                                                value="{{ number_format((int) @$customer->menh_gia) }}"
-                                                                id="money" name="money">
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <label for="inputNanme4" class="form-label"><b>Họ Và
-                                                                    Tên</b></label>
-                                                            <input disabled id="ten_kh" type="text"
-                                                                value="{{ @$customer->ten_kh }}" name="last_name"
-                                                                class="form-control" id="fullname">
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <label for="inputNanme4" class="form-label"><b>Số Điện
-                                                                    Thoại</b></label>
-                                                            <input disabled type="text" name="phone" id="dien_thoai"
-                                                                value="{{ @$customer->dien_thoai }}"
-                                                                class="form-control" id="phone">
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="inputPassword4" class="form-label"><b>Địa
-                                                                    Chỉ</b></label>
-                                                            <input disabled type="text" id="dia_chi_cu_the"
-                                                                value="{{ @$customer->dia_chi_cu_the }}"
-                                                                name="address_full" id="address_full"
-                                                                class="form-control" id="inputPassword4">
-                                                        </div>
-                                                        <div class="col-2 pe-0">
-                                                            <label for="inputPassword4"
-                                                                class="form-label"><b>Tuổi</b></label>
-                                                            <input disabled type="number" value="{{ @$customer->tuoi }}"
-                                                                id="tuoi" name="age" id="age" min="1" max="200"
-                                                                onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }"
-                                                                class="form-control" id="inputPassword4">
-                                                        </div>
-
-                                                        <div class="col-3">
-                                                            <label for="inputEmail4" class="form-label"><b>Giới
-                                                                    Tính</b></label>
-                                                            <select name="sex" id="sex" class="form-select gioi_tinh">
-                                                                <option selected="">Chọn giới tính...</option>
-                                                                <option
-                                                                    {{ @$customer->gioi_tinh === 'M' ? 'selected' : '' }}
-                                                                    value="M">Nam</option>
-                                                                <option
-                                                                    {{ @$customer->gioi_tinh === 'F' ? 'selected' : '' }}
-                                                                    value="F">Nữ</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-7 pe-0">
-                                                            <label for="inputEmail4" class="form-label"><b>Nguồn Dữ
-                                                                    Liệu</b></label>
-                                                            <select name="area_name" id="data_area_id"
-                                                                class="form-select ">
-                                                                @if (@$customer->area_id)
-                                                                    @foreach ($areas as $area)
-                                                                        <option class="area_id"
-                                                                            {{ old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }}
-                                                                            value="{{ $area->id }}">
-                                                                            {{ $area->name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                @else
-                                                                    <option value="">Chọn nguồn dữ liệu</option>
-                                                                @endif
-                                                            </select>
-                                                        </div>
-                                                        @error('area_name')
-                                                            <div class="text-danger text-end mt-1"> {{ $message }}
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="col-12">
-                                                <!-- <textarea class="form-control" placeholder="Ghi chú cụ thể thông tin khách hàng" id="floatingTextarea" rows="5"></textarea> -->
-                                                <div class="card mb-2">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
-                                                        <textarea name="comment" id="comment" value="{{ @$customer->comment }}" class="form-control" rows="8">{{ old('comment', @$customer->comment) }}</textarea>
-                                                        <!-- End Quill Editor default -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-12 px-1">
-                                                    <label for="inputEmail4" class="form-label"><b>Kết Quả
-                                                            Gọi: </b></label>
-                                                    <span id="type_result">{{ @$customer->type_result }}</span>
-                                                    <ul class="list-group">
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="type_result" value="0" id="gridRadios11"
-                                                                    {{ old('type_result', @$customer->type_result) === 0 ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="gridRadios11">
-                                                                    Đã hẹn
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="type_result" value="1" id="gridRadios22"
-                                                                    {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="gridRadios22">
-                                                                    Đại lý vẫn chăm sóc
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="type_result" value="2" id="gridRadios33"
-                                                                    {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="gridRadios33">
-                                                                    Khách hàng ít tiền
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="type_result" value="3" id="gridRadios44"
-                                                                    {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="gridRadios44">
-                                                                    Khách hàng suy nghĩ, gọi lại sau
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="type_result" value="4" id="gridRadios55"
-                                                                    {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="gridRadios55">
-                                                                    KNM / Bận / Tắt máy / Sai số / Đổi số
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="type_result" value="5" id="gridRadios66"
-                                                                    {{ old('type_result', @$customer->type_result) == 5 ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="gridRadios66">
-                                                                    Hợp đồng Hủy / Đáo hạn / Hoàn trả giá trị
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="type_result" value="6" id="gridRadios77"
-                                                                    {{ old('type_result', @$customer->type_result) == 6 ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="gridRadios77">
-                                                                    Đã tham gia hợp đồng mới / Không tham gia
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="type_result" value="7" id="gridRadios88"
-                                                                    {{ old('type_result', @$customer->type_result) == 7 ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="gridRadios88">
-                                                                    Khác
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    @include('_partials.alert', ['field' => 'type_result'])
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form><!-- Vertical Form -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="button" id="submit" class="btn btn-success"><i class="bi bi-check-circle"></i><span
-                                    class="ps-2">Cập Nhật </span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- end:  modal called customer list --}}
     </main>
 
     <footer class="footer">
@@ -742,102 +500,50 @@
 
     <script>
         $(document).ready(function() {
-            var option = $('#data_area_id > option').length;
-            // if (option < 1) {
-            //     $('.btn-alert').trigger('click');
-            // }
             if (!$('#id_contract').val()) {
                 $('.btn-alert').trigger('click');
             }
-            // $(".btn-next").click(function() {
-            //     var formUpdate = $('#customerForm');
-            //     formUpdate.attr('action', "{{ route('customer_update') }}");
-            //     formUpdate.submit();
-            // });
+            $(".is-item-customer").click(function() {
+                var el= $(this).get(0);
 
-            // $(".btn-save").click(function() {
-            //     var formSave = $('#customerForm');
-            //     formSave.attr('action');
-            //     formSave.submit();
-            // });
+                $('#ngay_tham_gia').val($($(el).find('.ngay_tham_gia').get(0)).text());
+                $('#nam_dao_han').val($($(el).find('.nam_dao_han').get(0)).text());
+                $('#id_contract').val($($(el).find('.so_hop_dong').get(0)).text());
+                $('#menh_gia').val($($(el).find('.menh_gia').get(0)).text());
+                $('#ten_kh').val($($(el).find('.ten_kh').get(0)).text());
+                $('#dien_thoai').val($($(el).find('.dien_thoai').get(0)).text());
+                $('#dia_chi_cu_the').val($($(el).find('.dia_chi_cu_the').get(0)).text());
+                $('#tuoi').val($($(el).find('.tuoi').get(0)).text());
+                $('#data_area_id').val($($(el).find('.area_id').get(0)).text());
+                $('#comment').val($($(el).find('.comment').get(0)).text());
+                var id_result = $($(el).find('.type_result')).children().data('id');
 
-            // $('#data_area_id').on('change', function (e) {
-            //     var optionSelected = $("option:selected", this);
-            //     var valueSelected = this.value;
-            //     console.log(valueSelected);
+                var sex = $($(el).find('.gioi_tinh').get(0)).text().trim();
+                $("#gioi_tinh option").each(function() {
+                    $(this).attr('selected', false);
+                    if ($(this).text().trim() == sex) {
+                        $(this).attr('selected', true);
+                    } else if($(this).text().trim() == sex) {
+                        $(this).attr('selected', true);
+                    }
+                });
 
-            //     $('#customerForm').submit();
-            // });
+                var area_text = $($(el).find('.area_name').get(0)).text().trim();
+
+                $("#data_area_id option").each(function() {
+                    if ($(this).text().trim() == area_text) {
+                        $(this).prop("selected","selected");
+                    }
+                });
+
+                $('.is-result .list-group-item').each(function() {
+                    var value_radio = $($(this).find('input').get(0)).val();
+                    if (value_radio  == id_result) {
+                        $($(this).find('input').get(0)).attr('checked', true);
+                    }
+                });
+            });
         });
-
-
-        // $(document).ready(function() {
-        //     function numberWithCommas(x) {
-        //         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        //     }
-
-        //     var data_origin = $('#data_oririn').val();
-
-        //     var pattern = /^[0-9]{4}[0-9]{2}[0-9]{2}/;
-
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: 'http://khachhangchatluong.local/customer/detail',
-        //         data: {
-        //             _token: "{{ csrf_token() }}",
-        //             data_id: $("#data_oririn").val(),
-        //         },success: function (data) {
-        //             var join_date = data.join_date[0][1] +'-'+ data.join_date[0][2] +'-'+ data.join_date[0][3] ?? '';
-        //             var date_due_full = data.date_due_full[0][1] +'-'+ data.date_due_full[0][2] +'-'+ data.date_due_full[0][3] ?? '';
-        //             console.log(data);
-
-        //             $('#join_date').val(join_date);
-        //             $('#date_due_full').val(date_due_full);
-        //             $('#id_contract').val(data.id_contract);
-        //             $('#money').val(numberWithCommas(data.money));
-        //             $('#fullname').val(data.last_name +' '+ data.first_name);
-        //             $('#phone').val(data.phone);
-        //             $('#age').val(data.age);
-        //             $('#sex').val(data.sex);
-        //         }, error: function(error) {
-        //             console.log(error);
-        //         }
-        //     });
-
-        //     $(".btn-next").click(function() {
-        //             $("#show-validation-error").children().addClass('d-block');
-        //             $("#show-validation-error").children().removeClass('d-none');
-
-        //             $("#how-validation-error").html();
-        //             $(this).attr('disabled', true);
-        //             $(this).prepend('<span class="me-2 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
-
-        //             var disabled = $("#customerForm").find(':input:disabled').removeAttr('disabled');
-        //             var dataForm = $("#customerForm").serialize();
-
-        //             disabled.attr('disabled','disabled');
-        //             toastr.options.progressBar = true;
-        //             $.ajax({
-        //             type: 'POST',
-        //             url: 'http://khachhangchatluong.local/customer/update',
-        //             data: dataForm,
-        //             async: false,
-        //             dataType: "json",
-        //             success: function (data) {
-        //                 toastr.success(data.message, 'Thông báo!', {timeOut: 3000})
-        //             }, error: function(error) {
-        //                 toastr.error('', 'Thông báo!', {timeOut: 3000})
-        //                 let resp = error.responseJSON.errors;
-        //                 for (index in resp) {
-        //                     $(".toast-error").append(`<div class="toast-message">${resp[index]}</div>`);
-        //                 }
-        //                 return false;
-        //             }
-        //         });
-        //         $('.btn-next').attr('disabled', false);
-        //         $('.btn-next').children().first().remove();
-        //     });
-        // });
     </script>
 
     <script>
@@ -851,7 +557,7 @@
                     // $('#userCrudModal').html("Edit category");
                     // $('#submit').val("Edit category");
                     $('#staticBackdrop').modal('show');
-                    $('#ngay_bat_dau').val(data.data.ngay_bat_dau);
+                    $('#ngay_bat_dau').val($($(el).find('.so_hop_dong').get(0)).text());
                     $('#nam_dao_han').val(data.data.nam_dao_han);
                     $('#so_hop_dong').val(data.data.so_hop_dong);
                     $('#menh_gia').val(data.data.menh_gia);
