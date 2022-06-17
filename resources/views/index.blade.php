@@ -131,9 +131,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                             <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                            <input type="text" class="form-control"
-                                                value="{{ number_format((int) @$customer->menh_gia) }}"
-                                                id="menh_gia" name="money">
+                                            <input type="text" class="form-control" value="{{ @$customer->menh_gia }}" id="menh_gia" name="money">
                                             </div>
                                             <div class="col-8">
                                             <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
