@@ -16,20 +16,20 @@ class AreaUserSeeder extends Seeder
     {
         $data = [];
         if (Config::get('local.APP_LOCAL')) {
-            $data = [
-                [
-                    'id_area' => 2,
-                    'id_user' => 3,
-                ],
-                [
-                    'id_area' => 1,
-                    'id_user' => 2,
-                ],
-                [
-                    'id_area' => 3,
-                    'id_user' => 3,
-                ],
-            ];
+            // $data = [
+            //     [
+            //         'id_area' => 2,
+            //         'id_user' => 3,
+            //     ],
+            //     [
+            //         'id_area' => 1,
+            //         'id_user' => 2,
+            //     ],
+            //     [
+            //         'id_area' => 3,
+            //         'id_user' => 3,
+            //     ],
+            // ];
         }
         \DB::table('areas_users')->insert($data);
     }

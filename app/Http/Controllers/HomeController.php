@@ -38,23 +38,35 @@ class HomeController extends Controller
             ->select('areas.*')->get();
 
         $customer = new Customer();
+        if ($request->get('area_id')) {
+            $data_id = $request->get('area_id');
 
-        if (count($areas) > 0) {
-            for ($i = 0; $i < count($areas); $i++) {
-                $data_id = $areas[$i]->id;
-
-                //đếm số dòng chưa gọi -> mới hiển thị
-                if ($customer = AreaCustomer::where('area_id', $data_id)
+            //đếm số dòng chưa gọi -> mới hiển thị
+            if ($customer = AreaCustomer::where('area_id', $data_id)
+                ->join('customers', 'areas_customers.customer_id', 'customers.id')
+                ->where('called', '=', '')->count() > 0
+            ) {
+                $customer = AreaCustomer::where('area_id', $data_id)
                     ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                    ->where('called', '=', '')->count() > 0
-                ) {
-                    //dd(123);
-                    $customer = AreaCustomer::where('area_id', $data_id)
+                    ->where('called', '=', '')->first();
+            }
+        } else {
+            if (count($areas) > 0) {
+                for ($i = 0; $i < count($areas); $i++) {
+                    $data_id = $areas[$i]->id;
+    
+                    //đếm số dòng chưa gọi -> mới hiển thị
+                    if ($customer = AreaCustomer::where('area_id', $data_id)
                         ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                        ->where('called', '=', '')->first();
-                    break;
-                } else {
-                    continue;
+                        ->where('called', '=', '')->count() > 0
+                    ) {
+                        $customer = AreaCustomer::where('area_id', $data_id)
+                                        ->join('customers', 'areas_customers.customer_id', 'customers.id')
+                                        ->where('called', '=', '')->first();
+                        break;
+                    } else {
+                        continue;
+                    }
                 }
             }
         }
@@ -75,14 +87,15 @@ class HomeController extends Controller
     public function updateCusomter(Request $request)
     {
         if ($_POST['action'] == 'save') {
-            // $request->validate([
-            //     'type_result' => 'required',
-            //     'area_name' => 'required'
-            // ], [
-            //     'type_result.required' => 'Vui lòng chọn kết quả gọi',
-            //     'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
-            // ]);
-
+            if (!empty($request->get('id'))) {
+                $request->validate([
+                    'type_result' => 'required',
+                    'area_name' => 'required'
+                ], [
+                    'type_result.required' => 'Vui lòng chọn kết quả gọi',
+                    'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
+                ]);
+            }
             try {
                 $customer = Customer::find($request->id);
                 $customer->nam_dao_han = $request->nam_dao_han;
@@ -97,18 +110,22 @@ class HomeController extends Controller
                 $customer->save();
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
             } catch (\Exception $ex) {
-                Toastr::error('Có lỗi khi cập nhật thông tin người dùng.' . $ex->getMessage());
+                if (!empty($request->get('id'))) {
+                    Toastr::error('Có lỗi khi cập nhật thông tin người dùng.' . $ex->getMessage());
+                }
             }
 
             return redirect()->route('home');
         } else if ($_POST['action'] == 'next') {
-            $request->validate([
-                'type_result' => 'required',
-                'area_name' => 'required'
-            ], [
-                'type_result.required' => 'Vui lòng chọn kết quả gọi',
-                'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
-            ]);
+            if($request->get('id')) {
+                $request->validate([
+                    'type_result' => 'required',
+                    'area_name' => 'required'
+                ], [
+                    'type_result.required' => 'Vui lòng chọn kết quả gọi',
+                    'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
+                ]);
+            }
 
             try {
                 $customer = Customer::find($request->get('id'));
@@ -118,10 +135,12 @@ class HomeController extends Controller
                 $customer->save();
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
             } catch (\Exception $ex) {
-                Toastr::error('Có lỗi khi cập nhật thông tin người dùng.' . $ex->getMessage());
+                if (!empty($request->get('id'))) {
+                    Toastr::error('Có lỗi khi cập nhật thông tin người dùng.' . $ex->getMessage());
+                }
             }
 
-            return redirect()->route('home');
+            return redirect(route("home")."?area_id=". $request->get('area_name'));
         }
     }
 

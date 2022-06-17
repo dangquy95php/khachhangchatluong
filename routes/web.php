@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Clear application cache:
 
-Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/{area_id?}', 'HomeController@index')->name('home')->middleware('auth');
 Route::post('/', 'HomeController@updateCusomter')->middleware('auth');
 
 
@@ -28,6 +27,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
 
     Route::get('/search', 'CustomerController@search')->name('search_customer');
     Route::get('/delete', 'CustomerController@delete')->name('delete_customers');
+    Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
+    Route::post('/{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
 
 //     Route::get('/export/', 'CustomerController@export')->name('export_customer');
 //     Route::post('/import/', 'CustomerController@import')->name('import_customer');

@@ -116,7 +116,6 @@
                 start: function(event, ui) {
                     item = ui.item;
                     newList = oldList = ui.item.parent().parent();
-                    // console.log(item);
                 },
                 stop: function(event, ui) {
                     if (item[0].parentElement.classList.contains('is-body-user')) {
