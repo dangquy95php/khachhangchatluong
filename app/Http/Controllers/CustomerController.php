@@ -48,8 +48,8 @@ class CustomerController extends Controller
         
         try {
             Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->delete();
-            Toastr::success("Xoá dữ liệu thành công");
             Cache::forget('list_customer');
+            Toastr::success("Xoá dữ liệu thành công");
         } catch (\Exception $ex) {
             Toastr::error("Xoá dữ liệu thất bại". $ex->getMessage());
         }

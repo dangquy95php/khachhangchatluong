@@ -106,7 +106,7 @@
                     <div class="card-body">
                         <!-- Vertical Form -->
                         <form method="POST" action="" class="row g-3" id="customerForm">
-                            <input type="text" class="d-none" name="id" value="{{ @$customer->id }}" />
+                            <input type="text" class="d-none" id="customer_id" name="id" value="{{ @$customer->id }}" />
                             @csrf
                             <div class="col-lg-12">
                                 <div class="row">
@@ -192,9 +192,9 @@
                                         <ul class="list-group is-result">
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="0" id="gridRadios1"
+                                                <input class="form-check-input" type="radio" name="type_result" value="0" id="gridRadios0"
                                                 {{ old('type_result') !== null && old('type_result', @$customer->type_result) == 0 ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="gridRadios1">
+                                                <label class="form-check-label" for="gridRadios0">
                                                 Đã hẹn
                                                 </label>
                                             </div>
@@ -202,9 +202,9 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_result"
-                                                value="1" id="gridRadios2"
+                                                value="1" id="gridRadios1"
                                                 {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="gridRadios2">
+                                                <label class="form-check-label" for="gridRadios1">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
                                             </div>
@@ -212,9 +212,9 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_result"
-                                                value="2" id="gridRadios3"
+                                                value="2" id="gridRadios2"
                                                 {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="gridRadios3">
+                                                <label class="form-check-label" for="gridRadios2">
                                                 Khách hàng ít tiền
                                                 </label>
                                             </div>
@@ -222,18 +222,18 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_result"
-                                                value="3" id="gridRadios4"
+                                                value="3" id="gridRadios3"
                                                 {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="gridRadios4">
+                                                <label class="form-check-label" for="gridRadios3">
                                                 Khách hàng suy nghĩ, gọi lại sau
                                                 </label>
                                             </div>
                                             </li>
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios5"
+                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios4"
                                                 {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="gridRadios5">
+                                                <label class="form-check-label" for="gridRadios4">
                                                 KNM / Bận / Tắt máy / Sai số / Đổi số
                                                 </label>
                                             </div>
@@ -241,9 +241,9 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_result"
-                                                value="5" id="gridRadios6"
+                                                value="5" id="gridRadios5"
                                                 {{ old('type_result', @$customer->type_result) == 5 ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="gridRadios6">
+                                                <label class="form-check-label" for="gridRadios5">
                                                 Hợp đồng Hủy / Đáo hạn / Hoàn trả giá trị
                                                 </label>
                                             </div>
@@ -251,9 +251,9 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_result"
-                                                value="6" id="gridRadios7"
+                                                value="6" id="gridRadios6"
                                                 {{ old('type_result', @$customer->type_result) == 6 ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="gridRadios7">
+                                                <label class="form-check-label" for="gridRadios6">
                                                 Đã tham gia hợp đồng mới / Không tham gia
                                                 </label>
                                             </div>
@@ -261,9 +261,9 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_result"
-                                                value="7" id="gridRadios8"
+                                                value="7" id="gridRadios7"
                                                 {{ old('type_result', @$customer->type_result) == 7 ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="gridRadios8">
+                                                <label class="form-check-label" for="gridRadios7">
                                                 Khác
                                                 </label>
                                             </div>
@@ -367,12 +367,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                            $i = 1;
-                                            @endphp
                                             @foreach ($dataHistory as $data)
                                             <tr role="button" class="is-item-customer">
-                                                <th scope="row">{{ $i }}</th>
+                                                <th class="id" scope="row">{{ @$data->id }}</th>
                                                 <td class="ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
                                                 <td class="nam_dao_han">{{ @$data->nam_dao_han }}</td>
                                                 <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
@@ -401,9 +398,6 @@
                                                 </td>
                                                 <td class="area_name">{{ $data->name }}</td>
                                             </tr>
-                                            @php
-                                            $i++;
-                                            @endphp
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -559,7 +553,8 @@
             }
             $(".is-item-customer").click(function() {
                 var el= $(this).get(0);
-
+                
+                $('#customer_id').val($($(el).find('.id').get(0)).text());
                 $('#ngay_tham_gia').val($($(el).find('.ngay_tham_gia').get(0)).text());
                 $('#nam_dao_han').val($($(el).find('.nam_dao_han').get(0)).text());
                 $('#id_contract').val($($(el).find('.so_hop_dong').get(0)).text());
@@ -595,7 +590,7 @@
                 $('.is-result .list-group-item').each(function() {
                     var value_radio = $($(this).find('input').get(0)).val();
                     if (value_radio  == id_result) {
-                        $($(this).find('input').get(0)).attr('checked', true);
+                        $("#gridRadios"+ id_result).trigger('click');
                     }
                 });
             });

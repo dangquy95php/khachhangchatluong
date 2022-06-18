@@ -34,13 +34,11 @@ class HomeController extends Controller
             //đếm số dòng chưa gọi -> mới hiển thị
             if ($customer = AreaCustomer::where('area_id', $data_id)
                 ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                ->where('called', '=', '')
-                ->where('type_result', '=', '')->count() > 0
+                ->where('called', '=', '')->count() > 0
             ) {
                 $customer = AreaCustomer::where('area_id', $data_id)
                     ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                    ->where('called', '=', '')
-                    ->where('type_result', '=', '')->first();
+                    ->where('called', '=', '')->first();
             }
         } else {
             if (count($areas) > 0) {
@@ -50,13 +48,11 @@ class HomeController extends Controller
                     //đếm số dòng chưa gọi -> mới hiển thị
                     if ($customer = AreaCustomer::where('area_id', $data_id)
                         ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                        ->where('called', '=', '')
-                        ->where('type_result', '=', '')->count() > 0
+                        ->where('called', '=', '')->count() > 0
                     ) {
                         $customer = AreaCustomer::where('area_id', $data_id)
                                         ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                                        ->where('called', '=', '')
-                                        ->where('type_result', '=', '')->first();
+                                        ->where('called', '=', '')->first();
                         break;
                     } else {
                         continue;
@@ -154,186 +150,4 @@ class HomeController extends Controller
             return redirect(route("home")."?area_id=". $request->get('area_name'));
         }
     }
-
-    // public function editCustomer($id)
-    // {
-    //     // $customer = Customer::find($id);
-    //     $customer = \DB::table('areas_users')
-    //         ->where('areas_users.id_user', Auth::user()->id)
-    //         ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-    //         ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
-    //         ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-    //         ->where('customers.type_result', '<>', '')
-    //         ->where('customers.id', $id)
-    //         ->orderBy('customers.updated_at', 'DESC')
-    //         ->select('customers.*', 'areas.name')
-    //         ->first();
-
-    //     return response()->json([
-    //         'data' => $customer
-    //     ]);
-    // }
-
-    // public function postEditCustomer(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'type_result' => 'required',
-    //     ], [
-    //         'type_result.required' => 'Vui lòng chọn kết quả gọi',
-    //     ]);
-    //     try {
-    //         Customer::updateOrCreate(
-    //             [
-    //                 'id' => $id
-    //             ],
-    //             [
-    //                 'type_result' => $request->type_result,
-    //                 'comment' => $request->comment,
-    //             ]
-    //         );
-    //         Toastr::success('Cập nhật thành công.');
-    //     } catch (\Exception $ex) {
-    //         Toastr::error('Cập nhật thất bại - ' . $ex->getMessage());
-    //     }
-    //     return response()->json(['success' => true]);
-    // }
-
-    // public function save(Request $request)
-    // {
-    //     if (empty($request->get('id')))
-    //         return redirect()->back();
-
-    //     $request->validate([
-    //         'type_result' => 'required',
-    //         'area_name' => 'required'
-    //     ], [
-    //         'type_result.required' => 'Vui lòng chọn kết quả gọi',
-    //         'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
-    //     ]);
-
-    //     try {
-    //         $customer = Customer::find($request->get('id'));
-    //         $customer->type_result = $request->get('type_result');
-    //         $customer->comment = $request->get('comment');
-
-    //         // update danh muc, khu vuc va nhan vien
-    //         $category = AreaCustomer::where('customer_id', $request->get('id'))->first();
-    //         $category->customer_id = $request->get('area_name');
-
-    //         if ($customer->isDirty() || $category->isDirty()) {
-    //             Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
-    //         } else {
-    //             Toastr::warning('Dữ liệu chưa được lưu');
-    //         }
-    //         $category->save();
-    //         $customer->save();
-    //     } catch (\Exception $ex) {
-    //         Toastr::error('Lưu khách hàng thất bại' . $ex->getMessage());
-    //     }
-
-    //     return redirect()->route('customer_detail', $request->get('id'));
-    // }
-
-    // public function detail($id, Request $request)
-    // {
-    //     $areas = \DB::table('areas_users')
-    //         ->join('areas', 'areas_users.id_area', 'areas.id')
-    //         ->where('areas_users.id_user', Auth::user()->id)
-    //         ->select('areas.*')->get();
-
-
-    //     $customer = new Customer();
-    //     if (count($areas) > 0) {
-    //         $data_id = $areas[0]->id;
-
-    //         $customer = AreaCustomer::where('area_id', $data_id)
-    //             ->join('customers', 'areas_customers.customer_id', 'customers.id')
-    //             ->where('type_result', '=', '')->first();
-    //     }
-
-    //     return view('index', compact('areas', 'customer'));
-
-
-    //     // $customer = Customer::query()
-    //     // ->join('areas_customers', 'customers.id', 'areas_customers.customer_id')
-    //     // ->where('customers.id', $id)
-    //     // ->select('*')->get();
-
-    //     // dd($customer);
-    //     // // $customer = AreaCustomer::where('area_id', $data_id)
-    //     // //             ->join('customers', 'areas_customers.customer_id', 'customers.id')
-    //     // //             ->where('type_result', '=', '')->first();
-
-    //     // $areas = \DB::table('areas_users')
-    //     // ->join('areas', 'areas_users.id_area', 'areas.id')
-    //     // ->where('areas_users.id_user', Auth::user()->id)
-    //     // ->select('areas.*')->get();
-    //     // dd($customer);
-
-    //     // return view('index', compact('areas', 'customer'));
-    // }
-
-    // public function postDetail($id, Request $request)
-    // {
-    //     // update danh muc, khu vuc va nhan vien
-    //     try {
-    //         $customer = Customer::find($id);
-    //         $customer->type_result = $request->get('type_result');
-    //         $customer->comment = $request->get('comment');
-
-    //         // update danh muc, khu vuc va nhan vien
-    //         $category = AreaCustomer::where('customer_id', $id)->first();
-    //         $category->customer_id = $request->get('area_name');
-
-    //         if ($customer->isDirty() || $category->isDirty()) {
-    //             Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
-    //         } else {
-    //             Toastr::warning('Dữ liệu chưa được lưu');
-    //         }
-    //         $category->save();
-    //         $customer->save();
-    //     } catch (\Exception $ex) {
-    //         Toastr::error('Lưu khách hàng thất bại' . $ex->getMessage());
-    //     }
-
-    //     return redirect()->back('customer_detail', $id);
-    // }
-
-    // public function update(Request $request)
-    // {
-    //     if (empty($request->get('id')))
-    //         return redirect()->back();
-
-    //     $request->validate([
-    //         'type_result' => 'required',
-    //         'area_name' => 'required'
-    //     ], [
-    //         'type_result.required' => 'Vui lòng chọn kết quả gọi',
-    //         'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
-    //     ]);
-
-    //     try {
-    //         $customer = Customer::find($request->get('id'));
-    //         $customer->type_result = $request->get('type_result');
-    //         $customer->comment = $request->get('comment');
-
-    //         // update danh muc, khu vuc va nhan vien
-    //         $category = AreaCustomer::where('customer_id', $request->get('id'))->first();
-    //         $category->customer_id = $request->get('area_name');
-
-    //         if ($customer->isDirty() || $customer->isDirty()) {
-    //             Toastr::success('Thông tin khách hàng đã thay đổi thành công.');
-    //         } else {
-    //             Toastr::warning('Dữ liệu chưa được cập nhật');
-    //         }
-
-    //         $category->save();
-    //         $customer->save();
-    //     } catch (\Exception $ex) {
-
-    //         Toastr::error('Cập nhật khách hàng thất bại' . $ex->getMessage());
-    //     }
-
-    //     return \Redirect::route('customer_detail', $request->get('id'));
-    // }
 }
