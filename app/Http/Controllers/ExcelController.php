@@ -81,8 +81,8 @@ class ExcelController extends Controller
     {
         try {
             $fileName = now()->format('Y-m-d-H-i-s');
-            $customer = Excel::download(new CustomerExport, 'customer_'. $fileName .self::EXCEL_TYPE_FILE);
             Toastr::success('Export dữ liệu thành công!');
+            return Excel::download(new CustomerExport, 'customer_'. $fileName .self::EXCEL_TYPE_FILE);
         } catch (\Exception $ex) {
             Toastr::success('Export dữ liệu thất bại'. $ex->getMessage());
         }
