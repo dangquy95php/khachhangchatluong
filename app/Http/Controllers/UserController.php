@@ -136,17 +136,6 @@ class UserController extends Controller
 
         return redirect()->route('list_account');
     }
-
-    public function clear(Request $request)
-    {
-        try {
-            $exitCode = Artisan::call('migrate:refresh --seed');
-            Toastr::success("Xoá database thành công.");
-        } catch (\Exception $ex) {
-            Toastr::error("Xoá dữ liệu thất bại". $ex->getMessage());
-        }
-        return redirect()->back();
-    }
 }
 // 20.58.164.83
 // root

@@ -19,17 +19,8 @@ class HomeController extends Controller
     private $_dataOrigin = '';
     private $_dataHistory = '';
 
-    public function __construct()
-    {
-        // if (Auth::check()) {
-        //     return redirect()->route('home');
-        // }
-
-        // return view('account.login');
-    }
-
     public function index(Request $request)
-    {
+    {   
         // Lấy danh muc
         $areas = \DB::table('areas_users')
             ->join('areas', 'areas_users.id_area', 'areas.id')
@@ -75,12 +66,29 @@ class HomeController extends Controller
             ->join('areas', 'areas_users.id_area', '=', 'areas.id')
             ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
             ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-            ->where('customers.type_result', '<>', '')
+            ->where('customers.called', '<>', '')
             ->orderBy('customers.updated_at', 'DESC')
             ->select('customers.*', 'areas.name')
             ->get();
 
-        return view('index', compact('areas', 'customer', 'dataHistory'));
+        $startDate = $request->get('start_date');
+        $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
+        if ($startDate && $endDate) {
+            $dataHistory = collect($dataHistory)->filter(function ($item) use ($startDate, $endDate) {
+                return (data_get($item, 'updated_at') >= $startDate) && (data_get($item, 'updated_at') <= $endDate);
+            });
+        }
+        $timeNow = \Carbon\Carbon::today();
+
+        $todayData = collect($dataHistory)->filter(function ($item) use ($timeNow) {
+            return (data_get($item, 'updated_at') >= $timeNow);
+        });
+
+        $dataToday = collect($dataHistory)->filter(function ($item) use ($startDate, $endDate) {
+            return (data_get($item, 'updated_at') >= $startDate) && (data_get($item, 'updated_at') <= $endDate);
+        });
+
+        return view('index', compact('areas', 'customer', 'dataHistory', 'todayData'));
     }
 
     public function updateCusomter(Request $request)

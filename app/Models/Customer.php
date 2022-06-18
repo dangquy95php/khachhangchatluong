@@ -61,8 +61,6 @@ class Customer extends Model
         self::OTHER => 'Khác',
     ];
 
-    
-
     public static function getInforOption()
     {
         return self::INFOR_OPTION;

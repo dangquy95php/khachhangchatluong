@@ -305,24 +305,24 @@
                 <!-- Default Tabs -->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">Lịch sử đã gọi</button>
+                        <button class="nav-link active" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">Lịch sử đã gọi</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                             type="button" role="tab" aria-controls="profile" aria-selected="false">Danh sách vừa gọi</button>
                     </li>
                 </ul>
                 <div class="tab-content pt-2" id="myTabContent">
-                    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                    <div class="tab-pane fade active show" id="history" role="tabpanel" aria-labelledby="history-tab">
 
                         <div class="col-12">
-                            <form action="" method="get">
+                            <form action="" method="GET">
                                 <div class="row">
                                     <div class="col-md-3 col-md-5 col-sm-5">
                                         <div class="row p-2">
                                             <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày bắt đầu:</b></label>
                                             <div class="col-md-7">
-                                                <input type="date" class="form-control">
+                                                <input type="date" name="start_date" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -330,7 +330,7 @@
                                         <div class="row p-2">
                                             <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày kết thúc:</b></label>
                                             <div class="col-md-7">
-                                                <input type="date" class="form-control">
+                                                <input type="date" name="end_date" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -341,10 +341,79 @@
                                     </div>
                                 </div>
                             </form>
+                            <div class="card mb-2 mt-md-2 mt-sm-3">
+                                <div class="card-body pt-3 table-responsive">
+                                    {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                    <!-- Table with hoverable rows -->
+                                    <table class="table table-hover" style="min-width: 1000px;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Ngày Tham Gia</th>
+                                                <th scope="col">Năm Đáo Hạn</th>
+                                                <th scope="col">Số Hợp Đồng</th>
+                                                <th scope="col">VP/Bank</th>
+                                                <th scope="col">CV</th>
+                                                <th scope="col">Tên</th>
+                                                <th scope="col">Tuổi</th>
+                                                <th scope="col">Số Điện Thoại</th>
+                                                <th scope="col">Ghi Chú</th>
+                                                <th scope="col">Mệnh Giá</th>
+                                                <th scope="col">Kết Quả Cuộc Gọi</th>
+                                                <th scope="col">Ngày Gọi</th>
+                                                <th scope="col">Địa Chỉ</th>
+                                                <th scope="col">Giới Tính</th>
+                                                <th scope="col">Nguồn Dữ Liệu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                            $i = 1;
+                                            @endphp
+                                            @foreach ($dataHistory as $data)
+                                            <tr role="button" class="is-item-customer">
+                                                <th scope="row">{{ $i }}</th>
+                                                <td class="ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
+                                                <td class="nam_dao_han">{{ @$data->nam_dao_han }}</td>
+                                                <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
+                                                <td class="vpbank">{{ $data->vpbank }}</td>
+                                                <td class="cv">{{ $data->cv }}</td>
+                                                <td class="ten_kh">{{ $data->ten_kh }}</td>
+                                                <td class="tuoi">{{ $data->tuoi }}</td>
+                                                <td class="dien_thoai">{{ $data->dien_thoai }}</td>
+                                                <td class="comment">{{ $data->comment }}</td>
+                                                <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia) : @$data->menh_gia }}</td>
+                                                <td class="type_result">
+                                                    @foreach (\App\Models\Customer::getInforOption() as $key => $value)
+                                                    @if ($key == $data->type_result)
+                                                    <span data-id="{{ $key }}" class="badge bg-primary">{{ $value }}</span>
+                                                    @endif
+                                                    @endforeach
+                                                </td>
+                                                <td class="updated_at">{{ $data->updated_at }}</td>
+                                                <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
+                                                <td class="gioi_tinh">
+                                                    @if($data->gioi_tinh === 'M')
+                                                    Nam
+                                                    @elseif($data->gioi_tinh === 'F')
+                                                    Nữ
+                                                @endif
+                                                </td>
+                                                <td class="area_name">{{ $data->name }}</td>
+                                            </tr>
+                                            @php
+                                            $i++;
+                                            @endphp
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <!-- End Table with hoverable rows -->
+                                </div>
+                            </div>
                         </div>
 
                     </div>
-                    <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
                         <div class="card mb-2 mt-md-2 mt-sm-3">
                             <div class="card-body pt-3 table-responsive">
@@ -375,7 +444,7 @@
                                         @php
                                         $i = 1;
                                         @endphp
-                                        @foreach ($dataHistory as $data)
+                                        @foreach ($todayData as $data)
                                         <tr role="button" class="is-item-customer">
                                             <th scope="row">{{ $i }}</th>
                                             <td class="ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
