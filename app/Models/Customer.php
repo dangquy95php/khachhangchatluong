@@ -39,6 +39,7 @@ class Customer extends Model
         'dia_chi_cu_the',
         'comment',
         'type_result',
+        'called'
     ];
 
     const APPOINTMENT = 0;
