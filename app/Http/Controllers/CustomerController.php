@@ -19,7 +19,7 @@ class CustomerController extends Controller
     public function __construct()
     {
         $this->dataCustomers = Cache::remember('list_customer', self::CACHE_EXPIRED,function(){
-            return Customer::all();
+            return Customer::all()->sortByDesc("updated_at");
          });
 
         return $this->dataCustomers;
