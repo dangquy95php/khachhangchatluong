@@ -43,9 +43,13 @@ class CustomerController extends Controller
 
     public function delete(Request $request)
     {
+        $startDate = $request->get('start_date');
+        $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
+        
         try {
-            Customer::truncate();
+            Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->delete();
             Toastr::success("Xoá dữ liệu thành công");
+            \Cache::forget('list_customer');
         } catch (\Exception $ex) {
             Toastr::error("Xoá dữ liệu thất bại". $ex->getMessage());
         }

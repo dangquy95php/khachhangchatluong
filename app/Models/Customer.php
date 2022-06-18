@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    protected static $orderByColumn = 'created_at';
+
+    protected static $orderByColumnDirection = 'desc';
 
     const BY_AREA_ACTIVE = 1; // đã update sau khi import. Tức là đã cho khách hàng vào khu vực
 
@@ -64,11 +67,6 @@ class Customer extends Model
     {
         return self::INFOR_OPTION;
     }
-
-    // public function scopeByArea($query)
-    // {
-    //     return $query->where('by_area', self::NEW_CUSTOMER);
-    // }
 
     public function getFullNameAttribute()
     {

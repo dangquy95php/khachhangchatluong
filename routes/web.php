@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'UserController@login')->name('login');
+Route::get('/', 'UserController@login');
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
 
@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     Route::post('{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
 
     Route::get('/search', 'CustomerController@search')->name('search_customer');
-    Route::get('/delete', 'CustomerController@delete')->name('delete_customers');
+    Route::get('/delete', 'CustomerController@delete')->name('customer.delete');
     Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
     Route::post('/{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
 

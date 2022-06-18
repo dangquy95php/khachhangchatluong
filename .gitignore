@@ -1,4 +1,5 @@
 /node_modules
+/db_export
 /public/hot
 /public/storage
 /storage/*.key
