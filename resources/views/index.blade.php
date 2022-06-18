@@ -112,26 +112,30 @@
                                 <div class="row">
                                     <div class="col-lg-5 col-md-8 col-sm-12 pe-1">
                                         <div class="row g-3">
-                                            <div class="col-sm-6">
-                                            <label for="inputEmail4" class="form-label"><b>Ngày Tham Gia</b></label>
-                                            <input type="text" class="form-control"
-                                                value="{{ @$customer->ngay_tham_gia }}" id="ngay_tham_gia"
-                                                name="ngay_tham_gia">
+                                            <div class="pe-0 col-sm-4">
+                                                <label for="inputPassword4" class="form-label text-danger"><b>Số Hợp Đồng</b></label>
+                                                <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
                                             </div>
-                                            <div class="col-sm-6">
-                                            <label for="inputNanme4" class="form-label"><b>Năm Đáo Hạn</b></label>
-                                            <input id="nam_dao_han" name="nam_dao_han" class="form-control"
-                                                type="text" value="{{ @$customer->nam_dao_han }}" />
+                                            <div class="col-sm-4">
+                                                <label for="inputEmail4" class="form-label"><b>Ngày Tham Gia</b></label>
+                                                <input type="text" class="form-control" value="{{ @$customer->ngay_tham_gia }}" id="ngay_tham_gia" name="ngay_tham_gia">
                                             </div>
-                                            <div class="pe-0 col-sm-6">
-                                            <label for="inputPassword4" class="form-label"><b>Số Hợp Đồng</b></label>
-                                            <input type="text" disabled name="id_contract"
-                                                value="{{ @$customer->so_hop_dong }}" id="id_contract"
-                                                class="form-control" id="inputPassword4">
+                                            <div class="col-sm-4">
+                                                <label for="inputNanme4" class="form-label"><b>Năm Đáo Hạn</b></label>
+                                                <input id="nam_dao_han" name="nam_dao_han" class="form-control" type="text" value="{{ @$customer->nam_dao_han }}" />
                                             </div>
-                                            <div class="col-sm-6">
-                                            <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                            <input type="text" class="form-control" value="{{ @$customer->menh_gia }}" id="menh_gia" name="money">
+                                            <div class="col-sm-4">
+                                                <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
+                                                <input type="text" class="form-control" value="{{ is_numeric(@$customer->menh_gia) ? number_format(@$customer->menh_gia) : @$customer->menh_gia }}" id="menh_gia" name="money">
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <label class="form-label"><b>VP/Bank</b></label>
+                                                <input type="text" class="form-control" value="{{ @$customer->vpbank }}" id="vpbank" name="vpbank">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label class="form-label"><b>CV</b></label>
+                                                <input type="text" class="form-control" value="{{ @$customer->cv }}" id="cv" name="cv">
                                             </div>
                                             <div class="col-8">
                                             <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
@@ -353,6 +357,8 @@
                                             <th scope="col">Ngày Tham Gia</th>
                                             <th scope="col">Năm Đáo Hạn</th>
                                             <th scope="col">Số Hợp Đồng</th>
+                                            <th scope="col">VP/Bank</th>
+                                            <th scope="col">CV</th>
                                             <th scope="col">Tên</th>
                                             <th scope="col">Tuổi</th>
                                             <th scope="col">Số Điện Thoại</th>
@@ -375,6 +381,8 @@
                                             <td class="ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
                                             <td class="nam_dao_han">{{ @$data->nam_dao_han }}</td>
                                             <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
+                                            <td class="vpbank">{{ $data->vpbank }}</td>
+                                            <td class="cv">{{ $data->cv }}</td>
                                             <td class="ten_kh">{{ $data->ten_kh }}</td>
                                             <td class="tuoi">{{ $data->tuoi }}</td>
                                             <td class="dien_thoai">{{ $data->dien_thoai }}</td>
@@ -422,7 +430,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Bạn đã sử dụng hết dữ liệu. Vui lòng liên hệ với quản trị viên để cấp dữ liệu thêm.
+                            Bạn đã sử dụng hết dữ liệu. Vui lòng chuyển đổi nguồn dữ liệu hoặc liên hệ với quản trị viên để cấp dữ liệu thêm.
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đã Hiểu</button>
@@ -486,6 +494,8 @@
                 $('#ngay_tham_gia').val($($(el).find('.ngay_tham_gia').get(0)).text());
                 $('#nam_dao_han').val($($(el).find('.nam_dao_han').get(0)).text());
                 $('#id_contract').val($($(el).find('.so_hop_dong').get(0)).text());
+                $('#vpbank').val($($(el).find('.vpbank').get(0)).text());
+                $('#cv').val($($(el).find('.cv').get(0)).text());
                 $('#menh_gia').val($($(el).find('.menh_gia').get(0)).text());
                 $('#ten_kh').val($($(el).find('.ten_kh').get(0)).text());
                 $('#dien_thoai').val($($(el).find('.dien_thoai').get(0)).text());
@@ -520,65 +530,6 @@
                     }
                 });
             });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            var id = 0;
-            //get
-            $('body').on('click', '#editCustomer', function(event) {
-                id = $(this).data('id');
-                console.log(id);
-                $.get('customer/' + id + '/edit', function(data) {
-                    // $('#userCrudModal').html("Edit category");
-                    // $('#submit').val("Edit category");
-                    $('#staticBackdrop').modal('show');
-                    $('#ngay_bat_dau').val($($(el).find('.so_hop_dong').get(0)).text());
-                    $('#nam_dao_han').val(data.data.nam_dao_han);
-                    $('#so_hop_dong').val(data.data.so_hop_dong);
-                    $('#menh_gia').val(data.data.menh_gia);
-                    $('#ten_kh').val(data.data.ten_kh);
-                    $('#dien_thoai').val(data.data.dien_thoai);
-                    $('#dia_chi_cu_the').val(data.data.dia_chi_cu_the);
-                    $('#tuoi').val(data.data.tuoi);
-                    $('.gioi_tinh').val(data.data.gioi_tinh);
-                    $('.area_id').val(data.data.area_id);
-                    $('#comment').val(data.data.comment);
-                    $('#type_result').val(data.data.type_result);
-                })
-            });
-
-            //post
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('body').on('click', '#submit', function(event) {
-                var type_result = $(".form-check-input:checked").val();
-                var comment = $("#comment").val();
-                $.ajax({
-                    url: 'customer/' + id,
-                    type: "POST",
-                    data: {
-                        id: id,
-                        type_result: type_result,
-                        comment: comment,
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        window.location.reload(true);
-                    },
-                    error: function (err) {
-                        if (err.status == 422) {
-                            alert('Vui lòng chọn kết quả gọi');
-                        }
-                    }
-                });
-            });
-
         });
     </script>
 

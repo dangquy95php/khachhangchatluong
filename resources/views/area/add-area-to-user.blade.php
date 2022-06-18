@@ -75,18 +75,18 @@
                                                         data-bs-parent="#accordionExample{{ $user->id }}">
                                                         <ul class="pb-4 mb-0 is-body-user accordion-body sortable"
                                                             id_user="{{ $user->id }}">
+
                                                             @foreach ($areas_users as $area_user)
                                                                 @if ($area_user->id_user == $user->id)
-                                                                    <li data-id={{$area_user->id}}
+                                                                    <li data-id="{{$area_user->id_area}}"
                                                                         class="btn-modify d-flex justify-content-between btn btn-secondary mb-2">
                                                                         {{ $area_user->name }}
                                                                         <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                            class="bg-danger link-light text-center"
+                                                                            class="btn-close-area bg-danger link-light text-center"
                                                                             style="width: 25px;"
                                                                             href="{{ route('del_area_to_user', ['id' => $area_user->id]) }}">
                                                                             <strong>X</strong>
                                                                         </a>
-                                                                        <input type="text" class="d-none" value="{{$area_user->id}} name'user_area[$area_user->id][]'">
                                                                     </li>
                                                                 @endif
                                                             @endforeach
@@ -149,14 +149,21 @@
                 $("#form-user-to-area .is-item").each(function() {
                     let that = this;
                     var id_user = $($(that).find('.accordion-header').get(0)).data('id_user') ;
-
+                    // group-area-user-id
                     console.log(id_user);
                     $(that).find(".btn-modify").each(function() {
                         var area_id = $($(this).get(0)).data('id');
+                        var group_change_id_user_area = $($(this).get(0)).data('group-area-user-id');
+                        // if (group_change_id_user_area == undefined) {
+                        //     var id_user_move = $(this).closest('.accordion-item').children().data('id_user');
+                        //     group_change_id_user_area = id_user_move;
+                        // }
 
                         // <input style="display:none;" value="" name="user_area[1][]">
                         var tag_input =`<input class="d-none" value="${area_id}" name="user_area[${id_user}][]"/>`
+                        // var tag_input_change =`<input class="d-none" value="${area_id}" name="user_area[${id_user}][]"/>`
                         $($(this).get(0)).append(tag_input);
+                        // $($(this).get(0)).append(tag_input_change);
                     })
                 });
 

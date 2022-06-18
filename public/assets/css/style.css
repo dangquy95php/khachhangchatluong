@@ -1101,3 +1101,7 @@ h1, h2, h3, h4, h5, h6 {
     overflow-y: scroll;
     max-height: 600px;
 }
+
+#area_area_name .btn-close-area {
+  display: none;
+}

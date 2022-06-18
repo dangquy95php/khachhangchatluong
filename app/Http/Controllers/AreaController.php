@@ -149,20 +149,18 @@ class AreaController extends Controller
 
     public function postAddAreaToUser(Request $request)
     {
-
         $userArea = \DB::table('users')->leftJoin('areas_users', 'users.id', '=', 'areas_users.id_user')
                     ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-                    ->select('users.*', 'areas.id as area_id')->get();
-
+                    ->select('users.*', 'areas.id as area_id', 'areas.name')->get();
+                    
         $data = $request->get('user_area');
+        AreaUser::truncate();
 
         collect($data)->contains(function ($value, $key) use($userArea) {
-            AreaUser::where('id_user', $key)->delete();
 
             \DB::beginTransaction();
             try {
                 foreach($value as $item) {
-                    // delete all userid area
                     $model = new AreaUser();
                     $model->id_area = $item;
                     $model->id_user = $key;
