@@ -25,10 +25,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
     Route::post('{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
 
+    Route::get('/{id}/delete', 'CustomerController@deleteById')->name('customer.delete.byId');
     Route::get('/search', 'CustomerController@search')->name('search_customer');
     Route::get('/delete', 'CustomerController@delete')->name('customer.delete');
     Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
     Route::post('/{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
+    
 
 //     Route::get('/export/', 'CustomerController@export')->name('export_customer');
 //     Route::post('/import/', 'CustomerController@import')->name('import_customer');

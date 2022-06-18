@@ -49,10 +49,17 @@ class CustomerController extends Controller
         try {
             Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->delete();
             Toastr::success("Xoá dữ liệu thành công");
-            \Cache::forget('list_customer');
+            Cache::forget('list_customer');
         } catch (\Exception $ex) {
             Toastr::error("Xoá dữ liệu thất bại". $ex->getMessage());
         }
+        return redirect()->back();
+    }
+
+    public function deleteById($id, Request $request)
+    {
+        Cache::forget('list_customer');
+        Customer::findOrFail($id)->delete();
         return redirect()->back();
     }
 }

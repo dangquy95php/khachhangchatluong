@@ -59,6 +59,7 @@
                      <th scope="col">Tuổi</th>
                      <th scope="col text-center">Địa chỉ</th>
                      <th scope="col text-center">Ngày Tạo</th>
+                     <th scope="col"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -83,8 +84,11 @@
                            <td>{{ $customer->tuoi }}</td>
                            <td>{{ $customer->dia_chi_cu_the }}</td>
                            <td>{{ $customer->created_at }}</td>
-                     </tr>
-                    @endforeach
+                           <td>
+                              <a class="btn btn-danger" href="{{ route('customer.delete.byId', $customer->id) }}">Xoá</a>
+                           </td>
+                        </tr>
+                     @endforeach
                   </tbody>
                </table>
                <!-- End Table with stripped rows -->
