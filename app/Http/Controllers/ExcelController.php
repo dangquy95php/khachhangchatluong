@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Exports\CustomerExport;
 use App\Imports\CustomerImport;
+use Cache;
 
 class ExcelController extends Controller
 {
@@ -48,6 +49,8 @@ class ExcelController extends Controller
         try {
 
             Excel::queueImport(new CustomerImport, request()->file('file'));
+            Cache::forget('list_customer');
+
             \DB::commit();
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
@@ -60,7 +63,7 @@ class ExcelController extends Controller
                 }
                 $errormessage = $errormessage."\n Dòng số ".$failure->row().", ".$errormess."<br>";
             }
-
+            
             return redirect()->back()->with('message', $errormessage);
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];

@@ -9,15 +9,18 @@ use App\Imports\CustomerImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Customer;
+use Cache;
 
 class CustomerController extends Controller
 {
     public $dataCustomers = '';
-
+    const CACHE_EXPIRED = 600;
 
     public function __construct()
     {
-        $this->dataCustomers = Customer::all();
+        $this->dataCustomers = Cache::remember('list_customer', self::CACHE_EXPIRED,function(){
+            return Customer::all();
+         });
 
         return $this->dataCustomers;
     }
