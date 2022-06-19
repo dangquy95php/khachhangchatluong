@@ -103,16 +103,16 @@
                 <h5 class="card-title mb-0">PHẦN MỀM CHĂM SÓC KHÁCH HÀNG</h5>
 
                 <div class="card pt-3 mb-3">
-                    <div class="card-body">
+                    <div class="card-body p-md-2">
                         <!-- Vertical Form -->
                         <form method="POST" action="" class="row g-3" id="customerForm">
                             <input type="text" class="d-none" id="customer_id" name="id" value="{{ @$customer->id }}" />
                             @csrf
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-lg-5 col-md-8 col-sm-12 pe-1">
+                                    <div class="col-lg-5 col-md-8 col-sm-12 pe-md-1">
                                         <div class="row g-3">
-                                            <div class="pe-0 col-sm-4">
+                                            <div class="col-sm-4 pe-md-2">
                                                 <label for="inputPassword4" class="form-label text-danger"><b>Số Hợp Đồng</b></label>
                                                 <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
                                             </div>
@@ -137,12 +137,12 @@
                                                 <label class="form-label"><b>CV</b></label>
                                                 <input type="text" class="form-control" value="{{ @$customer->cv }}" id="cv" name="cv">
                                             </div>
-                                            <div class="col-8">
+                                            <div class="col-md-8 col-sm-12">
                                             <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
                                             <input type="text" value="{{ @$customer->ten_kh }}" name="last_name"
                                                 class="form-control" id="ten_kh">
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-md-4 col-sm-12">
                                                 <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
                                                 <input type="text" name="phone" value="{{ @$customer->dien_thoai }}" class="form-control" id="dien_thoai">
                                             </div>
