@@ -47,9 +47,14 @@ class CustomerController extends Controller
         $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
         
         try {
+            $count = Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->count();
             Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->delete();
             Cache::forget('list_customer');
-            Toastr::success("Xoá dữ liệu thành công");
+            if ($count == 0) {
+                Toastr::warning("Dữ liệu không được tìm thấy. Không thể xoá được!");
+            } else {
+                Toastr::success("Xoá tổng cộng ". $count ." thành công");
+            }
         } catch (\Exception $ex) {
             Toastr::error("Xoá dữ liệu thất bại". $ex->getMessage());
         }
