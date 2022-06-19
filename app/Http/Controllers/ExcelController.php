@@ -65,6 +65,7 @@ class ExcelController extends Controller
         \DB::beginTransaction();
 
         try {
+            $numberRows = Customer::count();
 
             Excel::queueImport(new CustomerImport, request()->file('file'));
             Cache::forget('list_customer');
@@ -89,7 +90,14 @@ class ExcelController extends Controller
                 \DB::rollback();
             return \Response::json(['message' => 'Dữ liệu thêm vào database đã có lỗi xảy ra.'. $e->getMessage()], 500);
         }
-        Toastr::success('Import dữ liệu thành công!');
+        $numberRows1 = Customer::count();
+
+        if ($numberRows == $numberRows1) {
+            Toastr::warning('Vui lòng kiểm tra lại dữ liệu đã bị trùng lặp!');
+        } else {
+            Toastr::success('Import dữ liệu thành công!');
+        }
+
         return \Response::json(['message' => 'Import dữ liệu thành công!'], 200);
     }
 
