@@ -64,17 +64,15 @@ class ExcelController extends Controller
                 $errormessage = $errormessage."\n Dòng số ".$failure->row().", ".$errormess."<br>";
             }
             
-            return redirect()->back()->with('message', $errormessage);
+            return \Response::json(['message' => $errormessage], 400);
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if($errorCode == 1062)
                 \DB::rollback();
-            return redirect()->back()->with('message', 'Dữ liệu thêm vào database đã có lỗi xảy ra.'. $e->getMessage());
+            return \Response::json(['message' => 'Dữ liệu thêm vào database đã có lỗi xảy ra.'. $e->getMessage()], 500);
         }
-
         Toastr::success('Import dữ liệu thành công!');
-
-        return redirect()->route('data_import');
+        return \Response::json(['message' => 'Import dữ liệu thành công!'], 200);
     }
 
     public function export(Request $request)

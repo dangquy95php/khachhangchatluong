@@ -17,6 +17,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body pt-3">
+                    <div id="overlay">
+                        <div class="cv-spinner">
+                            <span class="spinner"></span>
+                        </div>
+                    </div>
                     <!-- General Form Elements -->
                     <form id="form_import_excel" enctype="multipart/form-data">
                         @csrf
@@ -24,21 +29,11 @@
                             <div class="col-12">
                                 <label for="inputText" class="col-sm-2 col-form-label"><b>Chọn file Excel Import</b></label>
 
-                                @if ($errors->any())
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        @foreach ($errors->all() as $error)
-                                            {{ $error }}
-                                        @endforeach
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                @endif
+                                <div class="d-none is-show-error alert alert-danger alert-dismissible fade show" role="alert">
+                                    <div class="is-show-error-mess"></div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
 
-                                @if(session()->has('message'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {!! session()->get('message') !!}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                @endif
                                 <input class="form-control" name="file" type="file" id="formFile">
                             </div>
                         </div>
@@ -117,13 +112,49 @@
 
 @push('scripts')
 <script type="text/javascript">
+
     $(document).ready(function() {
-        $('.btn-import').click(function() {
-            var formImport = $('#form_import_excel');
-            formImport.attr('action', "{{route('data_import')}}");
-            formImport.attr("method", "POST");
-            formImport.submit();
-        })
+        var formImport = $('#form_import_excel');
+        $(".btn-import").click(function(event){
+            event.preventDefault();
+            $("#overlay").show();
+
+            var formData = new FormData();
+            formData.append('file', $('#formFile')[0].files[0]);
+            formData.append('_token', "{{ csrf_token() }}");
+
+            $.ajax({
+                url: "{{route('data_import')}}",
+                data: formData,
+                type: 'post',
+                async: true,
+                processData: false,
+                contentType: false,
+                success:function(response){
+                    $("#overlay").hide();
+                    $(".is-show-error").removeClass('d-block');
+                    $(".is-show-error").addClass('d-none');
+                    location.reload();
+                },
+                error: function(errors) {
+                    toastr.error('Import dữ liệu thất bại!')
+                    $("#overlay").hide();
+                    $(".is-show-error").addClass('d-block');
+                    $(".is-show-error").removeClass('d-none');
+
+                    if (errors.status == 422) {
+                        var errorsData = errors.responseJSON.errors.file;
+                        errorsData.forEach(function(el) {
+                            $(".is-show-error .is-show-error-mess").append(el);    
+                        })
+                    }
+                    if (errors.status == 400 || errors.status == 500) {
+                        var error = errors.responseJSON.message;
+                        $(".is-show-error").html(error);    
+                    }
+                }
+            });
+        });
     })
 </script>
 @endpush

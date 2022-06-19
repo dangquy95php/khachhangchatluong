@@ -1105,3 +1105,36 @@ h1, h2, h3, h4, h5, h6 {
 #area_area_name .btn-close-area {
   display: none;
 }
+
+#overlay{	
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height:100%;
+  display: none;
+  background: rgba(0,0,0,0.6);
+}
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 5px #ddd solid;
+  border-top: 5px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+.is-hide{
+  display:none;
+}
