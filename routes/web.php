@@ -76,5 +76,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::get('/export', 'ExcelController@export')->name('export_customer');
 
         Route::get('/history', 'ExcelController@history')->name('data_import_history');
+        Route::get('/customer/delete/{id}', 'ExcelController@deleteExcelCustomer')->name('delete_excel_import');
+        
     });
 });

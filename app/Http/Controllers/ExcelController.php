@@ -21,12 +21,30 @@ class ExcelController extends Controller
 
     public function __construct()
     {
-        $this->dataCustomers = Customer::paginate(20);
+        // $this->dataCustomers = Customer::paginate(20);
     }
 
     public function import(Request $request)
     {
-        return view('excel.list', [ 'customers' => $this->dataCustomers ]);
+        $customers = \DB::table('areas_customers AS t1')
+        ->select('t1.customer_id')
+        ->rightJoin('customers AS t2', 't2.id','=', 't1.customer_id')
+        ->whereNull('t1.id')->select('t2.*')->get();
+
+        return view('excel.list', [ 'customers' => $customers ]);
+    }
+
+    public function deleteExcelCustomer($id, Request $request)
+    {
+        try {
+            $customer = Customer::find($id);
+            $customer->delete();
+            Toastr::success("Xóa khách hàng ". $customer->ten ." thành công!");
+        } catch (\Exception $ex) {
+            Toastr::error("Xóa khách hàng ". $customer->ten ." thất bại!". $ex->getMessage());
+        }
+
+        return redirect()->route('data_import');
     }
 
     public function history(Request $request)
