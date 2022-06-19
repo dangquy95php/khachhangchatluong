@@ -92,7 +92,7 @@
                   </tbody>
                </table>
                <!-- End Table with stripped rows -->
-               {{ $customers->links('_partials.pagination') }}
+               {!! $customers->links('_partials.pagination') !!}
             </div>
          </div>
       </div>
