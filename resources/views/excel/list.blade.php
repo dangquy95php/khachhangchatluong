@@ -29,10 +29,7 @@
                             <div class="col-12">
                                 <label for="inputText" class="col-sm-2 col-form-label"><b>Chọn file Excel Import</b></label>
 
-                                <div class="d-none is-show-error alert alert-danger alert-dismissible fade show" role="alert">
-                                    <div class="is-show-error-mess"></div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
+                                <div class="is-show-error"></div>
 
                                 <input class="form-control" name="file" type="file" id="formFile">
                             </div>
@@ -130,27 +127,33 @@
                 async: true,
                 processData: false,
                 contentType: false,
-                success:function(response){
+                success:function(response) {
                     $("#overlay").hide();
-                    $(".is-show-error").removeClass('d-block');
-                    $(".is-show-error").addClass('d-none');
                     location.reload();
                 },
                 error: function(errors) {
                     toastr.error('Import dữ liệu thất bại!')
                     $("#overlay").hide();
-                    $(".is-show-error").addClass('d-block');
-                    $(".is-show-error").removeClass('d-none');
-
                     if (errors.status == 422) {
                         var errorsData = errors.responseJSON.errors.file;
-                        errorsData.forEach(function(el) {
-                            $(".is-show-error .is-show-error-mess").append(el);    
-                        })
+
+                        $.each(errorsData , function (index, value){ 
+                            $(".is-show-error").html(
+                                `<div class="alert alert-danger alert-dismissible fade show d-block" role="alert">
+                                ${value}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`
+                            );
+                        });
                     }
                     if (errors.status == 400 || errors.status == 500) {
                         var error = errors.responseJSON.message;
-                        $(".is-show-error").html(error);    
+                        $(".is-show-error").html(
+                            `<div class="alert alert-danger alert-dismissible fade show d-block" role="alert">
+                                ${error}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`
+                        );    
                     }
                 }
             });
