@@ -108,6 +108,8 @@
                <!-- End Table with stripped rows -->
             </div>
          </div>
+         
+         {!! $customers->links('_partials.pagination') !!}
       </div>
    </div>
 </section>

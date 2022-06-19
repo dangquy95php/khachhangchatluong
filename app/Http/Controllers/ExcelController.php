@@ -21,7 +21,7 @@ class ExcelController extends Controller
 
     public function __construct()
     {
-        $this->dataCustomers = Customer::all();
+        $this->dataCustomers = Customer::paginate(20);
     }
 
     public function import(Request $request)
