@@ -18,11 +18,7 @@ class CustomerController extends Controller
 
     public function __construct()
     {
-        $this->dataCustomers = Cache::remember('list_customer', self::CACHE_EXPIRED,function(){
-            return Customer::orderBy("updated_at", "desc")->paginate(20);
-         });
-
-        return $this->dataCustomers;
+        $this->dataCustomers = Customer::orderBy("updated_at", "desc")->paginate(20);
     }
 
     public function index(Request $request)
@@ -49,7 +45,6 @@ class CustomerController extends Controller
         try {
             $count = Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->count();
             Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->delete();
-            Cache::forget('list_customer');
             if ($count == 0) {
                 Toastr::warning("Dữ liệu không được tìm thấy. Không thể xoá được!");
             } else {
@@ -63,7 +58,6 @@ class CustomerController extends Controller
 
     public function deleteById($id, Request $request)
     {
-        Cache::forget('list_customer');
         Customer::findOrFail($id)->delete();
         return redirect()->back();
     }
