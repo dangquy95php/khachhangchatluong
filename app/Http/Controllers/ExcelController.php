@@ -68,7 +68,6 @@ class ExcelController extends Controller
             $numberRows = Customer::count();
 
             Excel::queueImport(new CustomerImport, request()->file('file'));
-            Cache::forget('list_customer');
 
             \DB::commit();
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
