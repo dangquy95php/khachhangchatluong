@@ -41,7 +41,6 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
                     'ho'               => @$row['ho'],
                     'ten'              => @$row['ten'],
                     'ten_kh'           => @$row['ho'] .' '. @$row['ten'],
-                    'ten_kh'           => @$row['ten_kh'],
                     'gioi_tinh'        => @$row['gioi_tinh'],
                     'ngay_sinh'        => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject(@$row['ngay_sinh'])->format('d/m/Y'),
                     'tuoi'             => @$row['tuoi'],
