@@ -48,11 +48,11 @@ class HomeController extends Controller
                     //đếm số dòng chưa gọi -> mới hiển thị
                     if ($customer = AreaCustomer::where('area_id', $data_id)
                         ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                        ->whereNull('called')->orWhere('called', '')->count() > 0
+                        ->where('called', '')->count() > 0
                     ) {
                         $customer = AreaCustomer::where('area_id', $data_id)
                                         ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                                        ->whereNull('called')->orWhere('called', '')->first();
+                                        ->where('called', '')->first();
                         break;
                     } else {
                         continue;
