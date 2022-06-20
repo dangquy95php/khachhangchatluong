@@ -34,11 +34,11 @@ class HomeController extends Controller
             //đếm số dòng chưa gọi -> mới hiển thị
             if ($customer = AreaCustomer::where('area_id', $data_id)
                 ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                ->where('called', '=', '')->count() > 0
+                ->whereNull('called')->count() > 0
             ) {
                 $customer = AreaCustomer::where('area_id', $data_id)
                     ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                    ->where('called', '=', '')->first();
+                    ->whereNull('called')->first();
             }
         } else {
             if (count($areas) > 0) {
@@ -48,11 +48,11 @@ class HomeController extends Controller
                     //đếm số dòng chưa gọi -> mới hiển thị
                     if ($customer = AreaCustomer::where('area_id', $data_id)
                         ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                        ->where('called', '=', '')->count() > 0
+                        ->whereNull('called')->count() > 0
                     ) {
                         $customer = AreaCustomer::where('area_id', $data_id)
                                         ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                                        ->where('called', '=', '')->first();
+                                        ->whereNull('called')->first();
                         break;
                     } else {
                         continue;
