@@ -83,11 +83,15 @@ class AreaController extends Controller
 
     public function delete($id, Request $request)
     {
+        DB::beginTransaction();
         try {
             $areas = Area::find($id);
             $areas->delete();
+            AreaCustomer::where('area_id', $id)->delete();
             Toastr::success("Xoá khu vực ". $areas->name ." thành công!");
+            DB::commit();
         } catch (\Exception $ex) {
+            DB::rollback();
             Toastr::error("Xoá khu vực ". $areas->name ." thất bại!". $ex->getMessage());
         }
 

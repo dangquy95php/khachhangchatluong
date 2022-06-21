@@ -32,7 +32,7 @@ class CreateTableCustomersTable extends Migration
             $table->string('dia_chi_cu_the')->nullable();
             $table->string('comment')->nullable();
             $table->integer('type_result')->nullable();
-            $table->string('called')->nullable();
+            $table->string('called')->default('');
             $table->timestamps();
         });
     }
