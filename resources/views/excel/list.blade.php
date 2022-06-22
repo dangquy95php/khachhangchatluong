@@ -46,7 +46,7 @@
    <div class="row">
       <div class="col-lg-12">
          <div class="card">
-            <div class="card-body">
+            <div class="card-body table-responsive">
                <!-- Table with stripped rows -->
                <table class="table table-striped">
                   <thead>
@@ -139,7 +139,7 @@
                     if (errors.status == 422) {
                         var errorsData = errors.responseJSON.errors.file;
 
-                        $.each(errorsData , function (index, value){ 
+                        $.each(errorsData , function (index, value){
                             $(".is-show-error").html(
                                 `<div class="alert alert-danger alert-dismissible fade show d-block" role="alert">
                                 ${value}
@@ -155,7 +155,7 @@
                                 ${error}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>`
-                        );    
+                        );
                     }
                 }
             });

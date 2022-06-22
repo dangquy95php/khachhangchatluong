@@ -42,7 +42,7 @@
                </div>
             </form>
             <hr/>
-            <div class="card-body">
+            <div class="card-body table-responsive">
                <!-- Table with stripped rows -->
                <table class="table table-striped">
                   <thead>
