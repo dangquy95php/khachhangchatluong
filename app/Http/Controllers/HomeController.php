@@ -96,7 +96,7 @@ class HomeController extends Controller
             ->where('customers.called', '<>', '')
             ->orderBy('customers.updated_at', 'DESC')
             ->select('customers.*', 'areas.name')
-            ->paginate(10);
+            ->paginate(200);
         }
 
         return view('index', compact('areas', 'customer', 'dataHistory', 'todayData'));
