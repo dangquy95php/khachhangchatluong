@@ -322,7 +322,7 @@
                                         <div class="row p-2">
                                             <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày bắt đầu:</b></label>
                                             <div class="col-md-7">
-                                                <input type="date" name="start_date" class="form-control">
+                                                <input type="date" name="start_date" value="{{ @$_GET['start_date']; }}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -330,7 +330,7 @@
                                         <div class="row p-2">
                                             <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày kết thúc:</b></label>
                                             <div class="col-md-7">
-                                                <input type="date" name="end_date" class="form-control">
+                                                <input type="date" name="end_date" value="{{ @$_GET['end_date']; }}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
