@@ -411,7 +411,7 @@
                                                 </td>
                                                 <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
                                                 <td class="updated_at">{{ $data->updated_at }}</td>
-                                                <td class="d-none" class="area_name">{{ $data->name }}</td>
+                                                <td class="d-none area_name">{{ $data->name }}</td>
                                             </tr>
                                             @php
                                             $j--;
@@ -588,11 +588,11 @@
                 $('#vpbank').val($($(el).find('.vpbank').get(0)).text());
                 $('#cv').val($($(el).find('.cv').get(0)).text());
                 $('#menh_gia').val($($(el).find('.menh_gia').get(0)).text());
-                $('#ten_kh').val($($(el).find('.ten_kh').get(0)).text());
+                $('#ten_kh').val($($(el).find('.ten_kh').get(0)).text().trim());
                 $('#dien_thoai').val($($(el).find('.dien_thoai').get(0)).text());
                 $('#dia_chi_cu_the').val($($(el).find('.dia_chi_cu_the').get(0)).text());
-                $('#tuoi').val($($(el).find('.tuoi').get(0)).text());
-                $('#data_area_id').val($($(el).find('.area_id').get(0)).text());
+                $('#tuoi').val($($(el).find('.tuoi').get(0)).text().trim());
+                $('#data_area_id').val($($(el).find('.area_id').get(0)).text().trim());
                 $('#comment').val($($(el).find('.comment').get(0)).text());
                 var id_result = $($(el).find('.type_result')).children().data('id');
 
