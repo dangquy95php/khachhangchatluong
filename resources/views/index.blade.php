@@ -388,7 +388,7 @@
                                                 <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
                                                 <td class="d-none vpbank">{{ $data->vpbank }}</td>
                                                 <td class="d-none cv">{{ $data->cv }}</td>
-                                                <td class="ten_kh">{{ $data->ten_kh }}</td>
+                                                <td class="ten_kh"><b>{{ $data->ten_kh }}</b></td>
                                                 <td class="tuoi">
                                                     <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
                                                 </td>
@@ -471,7 +471,7 @@
                                             <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
                                             <td class="d-none vpbank">{{ $data->vpbank }}</td>
                                             <td class="d-none cv">{{ $data->cv }}</td>
-                                            <td class="ten_kh">{{ $data->ten_kh }}</td>
+                                            <td class="ten_kh"><b>{{ $data->ten_kh }}</b></td>
                                             <td class="tuoi">
                                                 <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
                                             </td>
