@@ -126,7 +126,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                                <input type="text" class="form-control" value="{{ is_numeric(@$customer->menh_gia) ? number_format(@$customer->menh_gia) : @$customer->menh_gia }}" id="menh_gia" name="money">
+                                                <input type="text" class="form-control" value="{{ is_numeric(@$customer->menh_gia) ? number_format(@$customer->menh_gia + 50000000) : @$customer->menh_gia }}" id="menh_gia" name="money">
                                             </div>
 
                                             <div class="col-sm-4">
@@ -401,7 +401,7 @@
                                                 </td>
                                                 <td class="dien_thoai">{{ $data->dien_thoai }}</td>
                                                 <td class="comment">{{ $data->comment }}</td>
-                                                <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia) : @$data->menh_gia }}</td>
+                                                <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
                                                 <td style="width:200px;" class="type_result">
                                                     @foreach (\App\Models\Customer::getInforOption() as $key => $value)
                                                         @if ($key == $data->type_result)
@@ -484,7 +484,7 @@
                                             </td>
                                             <td class="dien_thoai">{{ $data->dien_thoai }}</td>
                                             <td class="comment">{{ $data->comment }}</td>
-                                            <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia) : @$data->menh_gia }}</td>
+                                            <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
                                             <td class="type_result">
                                                 @foreach (\App\Models\Customer::getInforOption() as $key => $value)
                                                 @if ($key == $data->type_result)
