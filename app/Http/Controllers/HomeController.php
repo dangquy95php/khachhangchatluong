@@ -61,7 +61,34 @@ class HomeController extends Controller
             }
         }
 
-        $dataHistory = \DB::table('areas_users')
+        $startDate = $request->get('start_date');
+        $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
+
+        $todayData = \DB::table('areas_users')
+            ->where('areas_users.id_user', Auth::user()->id)
+            ->join('areas', 'areas_users.id_area', '=', 'areas.id')
+            ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
+            ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+            ->where('customers.called', '<>', '')
+            ->whereDate('customers.updated_at', \Carbon\Carbon::today())
+            ->orderBy('customers.updated_at', 'DESC')
+            ->select('customers.*', 'areas.name')
+            ->get();
+
+        if ($startDate && $endDate) {
+            $dataHistory = \DB::table('areas_users')
+            ->where('areas_users.id_user', Auth::user()->id)
+            ->join('areas', 'areas_users.id_area', '=', 'areas.id')
+            ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
+            ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+            ->where('customers.called', '<>', '')
+            ->whereDate('customers.updated_at', '>=', $startDate)
+            ->whereDate('customers.updated_at', '<=', $endDate)
+            ->orderBy('customers.updated_at', 'DESC')
+            ->select('customers.*', 'areas.name')
+            ->paginate(100);
+        } else {
+            $dataHistory = \DB::table('areas_users')
             ->where('areas_users.id_user', Auth::user()->id)
             ->join('areas', 'areas_users.id_area', '=', 'areas.id')
             ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
@@ -69,24 +96,8 @@ class HomeController extends Controller
             ->where('customers.called', '<>', '')
             ->orderBy('customers.updated_at', 'DESC')
             ->select('customers.*', 'areas.name')
-            ->get();
-
-        $startDate = $request->get('start_date');
-        $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
-        if ($startDate && $endDate) {
-            $dataHistory = collect($dataHistory)->filter(function ($item) use ($startDate, $endDate) {
-                return (data_get($item, 'updated_at') >= $startDate) && (data_get($item, 'updated_at') <= $endDate);
-            });
+            ->paginate(10);
         }
-        $timeNow = \Carbon\Carbon::today();
-
-        $todayData = collect($dataHistory)->filter(function ($item) use ($timeNow) {
-            return (data_get($item, 'updated_at') >= $timeNow);
-        });
-
-        $dataToday = collect($dataHistory)->filter(function ($item) use ($startDate, $endDate) {
-            return (data_get($item, 'updated_at') >= $startDate) && (data_get($item, 'updated_at') <= $endDate);
-        });
 
         return view('index', compact('areas', 'customer', 'dataHistory', 'todayData'));
     }

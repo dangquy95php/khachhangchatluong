@@ -345,64 +345,83 @@
                                 <div class="card-body pt-3 table-responsive">
                                     {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                                     <!-- Table with hoverable rows -->
-                                    <table class="table table-hover" style="min-width: 1000px;">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Ngày Tham Gia</th>
-                                                <th scope="col">Năm Đáo Hạn</th>
+                                                <th class="d-none" scope="col">Ngày Tham Gia</th>
+                                                <th class="d-none" scope="col">Năm Đáo Hạn</th>
                                                 <th scope="col">Số Hợp Đồng</th>
-                                                <th scope="col">VP/Bank</th>
-                                                <th scope="col">CV</th>
-                                                <th scope="col">Tên</th>
+                                                <th class="d-none" scope="col">VP/Bank</th>
+                                                <th class="d-none" scope="col">CV</th>
+                                                <th style="min-width: 150px" scope="col">Tên</th>
                                                 <th scope="col">Tuổi</th>
-                                                <th scope="col">Số Điện Thoại</th>
-                                                <th scope="col">Ghi Chú</th>
-                                                <th scope="col">Mệnh Giá</th>
-                                                <th scope="col">Kết Quả Cuộc Gọi</th>
-                                                <th scope="col">Ngày Gọi</th>
-                                                <th scope="col">Địa Chỉ</th>
                                                 <th scope="col">Giới Tính</th>
-                                                <th scope="col">Nguồn Dữ Liệu</th>
+                                                <th scope="col">Số Điện Thoại</th>
+                                                <th style="min-width:200px;" scope="col">Ghi Chú</th>
+                                                <th scope="col">Mệnh Giá</th>
+                                                <th style="width:200px;" scope="col">Kết Quả Cuộc Gọi</th>
+                                                <th style="min-width: 250px" scope="col">Địa Chỉ</th>
+                                                <th style="width:100px;" scope="col">Ngày Gọi</th>
+                                                <th class="d-none" scope="col">Nguồn Dữ Liệu</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($dataHistory as $data)
+                                            @php
+                                            $j = $dataHistory->total();
+                                            if ($dataHistory->currentPage() >= 2) {
+                                                $j = $dataHistory->total() - (($dataHistory->currentPage() - 1) * $dataHistory->perPage());
+                                            }
+                                            @endphp
+
+                                            @foreach ($dataHistory as $key => $data)
                                             <tr role="button" class="is-item-customer">
-                                                <th class="id" scope="row">{{ @$data->id }}</th>
-                                                <td class="ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
-                                                <td class="nam_dao_han">{{ @$data->nam_dao_han }}</td>
-                                                <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
-                                                <td class="vpbank">{{ $data->vpbank }}</td>
-                                                <td class="cv">{{ $data->cv }}</td>
-                                                <td class="ten_kh">{{ $data->ten_kh }}</td>
-                                                <td class="tuoi">{{ $data->tuoi }}</td>
-                                                <td class="dien_thoai">{{ $data->dien_thoai }}</td>
-                                                <td class="comment">{{ $data->comment }}</td>
-                                                <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia) : @$data->menh_gia }}</td>
-                                                <td class="type_result">
-                                                    @foreach (\App\Models\Customer::getInforOption() as $key => $value)
-                                                    @if ($key == $data->type_result)
-                                                    <span data-id="{{ $key }}" class="badge bg-primary">{{ $value }}</span>
+                                                <th class="id" scope="row">
+                                                    @if ($key == 0 && $dataHistory->currentPage() < 2)
+                                                        <span class="badge rounded-pill bg-danger">{{ $j }}</span>
+                                                    @else
+                                                        {{ $j }}
                                                     @endif
-                                                    @endforeach
+                                                </th>
+                                                <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
+                                                <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
+                                                <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
+                                                <td class="d-none vpbank">{{ $data->vpbank }}</td>
+                                                <td class="d-none cv">{{ $data->cv }}</td>
+                                                <td class="ten_kh">{{ $data->ten_kh }}</td>
+                                                <td class="tuoi">
+                                                    <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
                                                 </td>
-                                                <td class="updated_at">{{ $data->updated_at }}</td>
-                                                <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
                                                 <td class="gioi_tinh">
-                                                    @if($data->gioi_tinh === 'M')
+                                                @if($data->gioi_tinh === 'M')
                                                     Nam
                                                     @elseif($data->gioi_tinh === 'F')
                                                     Nữ
                                                 @endif
                                                 </td>
-                                                <td class="area_name">{{ $data->name }}</td>
+                                                <td class="dien_thoai">{{ $data->dien_thoai }}</td>
+                                                <td class="comment">{{ $data->comment }}</td>
+                                                <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia) : @$data->menh_gia }}</td>
+                                                <td style="width:200px;" class="type_result">
+                                                    @foreach (\App\Models\Customer::getInforOption() as $key => $value)
+                                                        @if ($key == $data->type_result)
+                                                            <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
+                                                <td class="updated_at">{{ $data->updated_at }}</td>
+                                                <td class="d-none" class="area_name">{{ $data->name }}</td>
                                             </tr>
+                                            @php
+                                            $j--;
+                                            @endphp
                                             @endforeach
                                         </tbody>
                                     </table>
                                     <!-- End Table with hoverable rows -->
                                 </div>
+                                {!! $dataHistory->links('_partials.pagination') !!}
                             </div>
                         </div>
 
@@ -417,37 +436,52 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Ngày Tham Gia</th>
-                                            <th scope="col">Năm Đáo Hạn</th>
+                                            <th class="d-none" scope="col">Ngày Tham Gia</th>
+                                            <th class="d-none" scope="col">Năm Đáo Hạn</th>
                                             <th scope="col">Số Hợp Đồng</th>
-                                            <th scope="col">VP/Bank</th>
-                                            <th scope="col">CV</th>
-                                            <th scope="col">Tên</th>
+                                            <th class="d-none" scope="col">VP/Bank</th>
+                                            <th class="d-none" scope="col">CV</th>
+                                            <th style="min-width: 150px" scope="col">Tên</th>
                                             <th scope="col">Tuổi</th>
-                                            <th scope="col">Số Điện Thoại</th>
-                                            <th scope="col">Ghi Chú</th>
-                                            <th scope="col">Mệnh Giá</th>
-                                            <th scope="col">Kết Quả Cuộc Gọi</th>
-                                            <th scope="col">Ngày Gọi</th>
-                                            <th scope="col">Địa Chỉ</th>
                                             <th scope="col">Giới Tính</th>
-                                            <th scope="col">Nguồn Dữ Liệu</th>
+                                            <th scope="col">Số Điện Thoại</th>
+                                            <th style="min-width:200px;" scope="col">Ghi Chú</th>
+                                            <th scope="col">Mệnh Giá</th>
+                                            <th style="width:200px;" scope="col">Kết Quả Cuộc Gọi</th>
+                                            <th style="min-width: 250px" scope="col">Địa Chỉ</th>
+                                            <th style="width:150px;" scope="col">Ngày Gọi</th>
+                                            <th class="d-none" scope="col">Nguồn Dữ Liệu</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
-                                        $i = 1;
+                                        $i = count($todayData);
                                         @endphp
-                                        @foreach ($todayData as $data)
+                                        @foreach ($todayData as $key => $data)
                                         <tr role="button" class="is-item-customer">
-                                            <th scope="row">{{ $i }}</th>
-                                            <td class="ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
-                                            <td class="nam_dao_han">{{ @$data->nam_dao_han }}</td>
+                                            <th scope="row">
+                                                @if ($key == 0)
+                                                    <span class="badge rounded-pill bg-danger">{{ $i }}</span>
+                                                @else
+                                                    {{ $i }}
+                                                @endif
+                                            </th>
+                                            <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
+                                            <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
                                             <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
-                                            <td class="vpbank">{{ $data->vpbank }}</td>
-                                            <td class="cv">{{ $data->cv }}</td>
+                                            <td class="d-none vpbank">{{ $data->vpbank }}</td>
+                                            <td class="d-none cv">{{ $data->cv }}</td>
                                             <td class="ten_kh">{{ $data->ten_kh }}</td>
-                                            <td class="tuoi">{{ $data->tuoi }}</td>
+                                            <td class="tuoi">
+                                                <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
+                                            </td>
+                                            <td class="gioi_tinh">
+                                                @if($data->gioi_tinh === 'M')
+                                                Nam
+                                                @elseif($data->gioi_tinh === 'F')
+                                                Nữ
+                                               @endif
+                                            </td>
                                             <td class="dien_thoai">{{ $data->dien_thoai }}</td>
                                             <td class="comment">{{ $data->comment }}</td>
                                             <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia) : @$data->menh_gia }}</td>
@@ -458,19 +492,12 @@
                                                 @endif
                                                 @endforeach
                                             </td>
-                                            <td class="updated_at">{{ $data->updated_at }}</td>
                                             <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
-                                            <td class="gioi_tinh">
-                                                @if($data->gioi_tinh === 'M')
-                                                Nam
-                                                @elseif($data->gioi_tinh === 'F')
-                                                Nữ
-                                               @endif
-                                            </td>
-                                            <td class="area_name">{{ $data->name }}</td>
+                                            <td class="updated_at">{{ $data->updated_at }}</td>
+                                            <td class="d-none area_name">{{ $data->name }}</td>
                                         </tr>
                                         @php
-                                        $i++;
+                                        $i--;
                                         @endphp
                                         @endforeach
                                     </tbody>
