@@ -1106,7 +1106,7 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-#overlay{	
+#overlay{
   position: fixed;
   top: 0;
   left: 0;
@@ -1120,7 +1120,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 .spinner {
   width: 70px;
@@ -1131,10 +1131,17 @@ h1, h2, h3, h4, h5, h6 {
   animation: sp-anime 0.8s infinite linear;
 }
 @keyframes sp-anime {
-  100% { 
-    transform: rotate(360deg); 
+  100% {
+    transform: rotate(360deg);
   }
 }
 .is-hide{
   display:none;
+}
+.is-dot {
+    display: inline-block;
+    width: 180px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
 }
