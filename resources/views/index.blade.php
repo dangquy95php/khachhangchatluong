@@ -376,13 +376,14 @@
 
                                             @foreach ($dataHistory as $key => $data)
                                             <tr role="button" class="is-item-customer">
-                                                <th class="id" scope="row">
+                                                <th scope="row">
                                                     @if ($key == 0 && $dataHistory->currentPage() < 2)
                                                         <span class="badge rounded-pill bg-danger">{{ $j }}</span>
                                                     @else
                                                         {{ $j }}
                                                     @endif
                                                 </th>
+                                                <th class="d-none id" scope="row">{{ @$data->id }}</th>
                                                 <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
                                                 <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
                                                 <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
@@ -466,6 +467,7 @@
                                                     {{ $i }}
                                                 @endif
                                             </th>
+                                            <th class="d-none id" scope="row">{{ @$data->id }}</th>
                                             <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
                                             <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
                                             <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
