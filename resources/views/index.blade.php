@@ -488,7 +488,7 @@
                                             <td class="type_result">
                                                 @foreach (\App\Models\Customer::getInforOption() as $key => $value)
                                                 @if ($key == $data->type_result)
-                                                <span data-id="{{ $key }}" class="badge bg-primary">{{ $value }}</span>
+                                                <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
                                                 @endif
                                                 @endforeach
                                             </td>
