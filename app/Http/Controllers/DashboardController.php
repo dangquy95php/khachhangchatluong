@@ -27,7 +27,7 @@ class DashboardController extends Controller
                   ->join('areas_customers', 'customers.id', 'areas_customers.customer_id')
                   ->join('areas_users', 'areas_customers.area_id', 'areas_users.id_area')
                   ->join('users', 'areas_users.id_user', 'users.id')->orderBy('updated_at', 'desc')
-                  ->select('users.username', 'customers.type_result', 'customers.so_hop_dong', 'customers.ten_kh', 'customers.gioi_tinh', 'customers.dia_chi_cu_the', 'customers.tuoi', 'customers.updated_at')->paginate(20);
+                  ->select('users.username', 'customers.menh_gia', 'customers.type_result', 'customers.so_hop_dong', 'customers.ten_kh', 'customers.gioi_tinh', 'customers.dia_chi_cu_the', 'customers.tuoi', 'customers.updated_at')->paginate(20);
 
       $dataToday['turnover'] = collect($dataToday['data'])->where('called', self::CALLED)->where('type_result', self::APPOINTMENT)->sum(function ($item) {
          $item['menh_gia'] = (int)(str_replace(',', '', $item['menh_gia']));
