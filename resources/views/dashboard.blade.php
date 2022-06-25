@@ -94,6 +94,7 @@
                            <th scope="col">Số Hợp Đồng</th>
                            <th style="min-width: 150px;" scope="col">Tên Khách Hàng</th>
                            <th scope="col">Số Tiền</th>
+                           <th scope="col">Tài Khoản Gọi</th>
                            <th scope="col">Giới Tính</th>
                            <th scope="col">Tuổi</th>
                            <th style="min-width: 250px;" scope="col">Địa Chỉ</th>
@@ -114,6 +115,7 @@
                            <td>{{ $data->so_hop_dong }}</td>
                            <td>{{ $data->ten_kh }}</td>
                            <td>{{ is_numeric($data->menh_gia) ? number_format($data->menh_gia) : @$data->menh_gia }}</td>
+                           <td>{{ $data->username }}</td>
                            <td>
                               @if($data->gioi_tinh == 'M')
                               Nam

@@ -15,14 +15,20 @@ class DashboardController extends Controller
    public function dashboard(Request $request)
    {
       // Khách hàng hôm nay
-      $dataToday['data'] = Customer::whereDate('updated_at', Carbon::today())->select('id', 'called', 'menh_gia', 'type_result', 'so_hop_dong', 'ten_kh', 'gioi_tinh', 'dia_chi_cu_the', 'tuoi', 'updated_at')->orderBy('updated_at', 'desc')->get();
+      $dataToday['data'] = Customer::whereDate('updated_at', Carbon::today())->select('id', 'called', 'menh_gia')->get();
 
       $dataToday['called'] = collect($dataToday['data'])->where('called', self::CALLED)->count(function ($item) {
          return $item['called'];
       });
 
-      $dataToday['scheduled'] = collect($dataToday['data'])->where('called', self::CALLED)->where('type_result', self::APPOINTMENT)->paginate(20);
-      
+      $dataToday['scheduled'] = Customer::whereDate('customers.updated_at', Carbon::today())
+                  ->where('customers.called', self::CALLED)
+                  ->where('customers.type_result', self::APPOINTMENT)
+                  ->join('areas_customers', 'customers.id', 'areas_customers.customer_id')
+                  ->join('areas_users', 'areas_customers.area_id', 'areas_users.id_area')
+                  ->join('users', 'areas_users.id_user', 'users.id')->orderBy('updated_at', 'desc')
+                  ->select('users.username', 'customers.type_result', 'customers.so_hop_dong', 'customers.ten_kh', 'customers.gioi_tinh', 'customers.dia_chi_cu_the', 'customers.tuoi', 'customers.updated_at')->paginate(20);
+
       $dataToday['turnover'] = collect($dataToday['data'])->where('called', self::CALLED)->where('type_result', self::APPOINTMENT)->sum(function ($item) {
          $item['menh_gia'] = (int)(str_replace(',', '', $item['menh_gia']));
          return $item['menh_gia'];
