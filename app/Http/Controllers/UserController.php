@@ -17,11 +17,7 @@ class UserController extends Controller
 {
     const USER_ROLE = 1;
     const ADMIN_ROLE = 2;
-
-    public function admin(Request $request)
-    {
-        return view('dashboard');
-    }
+    const USER_ACTIVED = 1;
 
     public function login(Request $request)
     {
@@ -36,6 +32,7 @@ class UserController extends Controller
         $data = [
             'username' => $request->get('username'),
             'password' => urldecode($request->get('password')),
+            'status' => self::USER_ACTIVED,
         ];
 
         $remember_me = $request->has('remember') ? true : false;
@@ -45,7 +42,7 @@ class UserController extends Controller
             if (Auth::user()->role == self::USER_ROLE) {
                 return redirect()->route('home');
             } else {
-                return redirect()->route('admin');
+                return redirect()->route('dashboard');
             }
         } else {
             Toastr::error('Tên người dùng hoặc mật khẩu không chính xác!');
@@ -137,6 +134,3 @@ class UserController extends Controller
         return redirect()->route('list_account');
     }
 }
-// 20.58.164.83
-// root
-// Dtt@123456

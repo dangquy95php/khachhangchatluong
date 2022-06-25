@@ -43,8 +43,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-    Route::get('/', 'UserController@admin')->name('admin');
-    Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
+    Route::get('/', 'DashboardController@dashboard')->name('dashboard');
+    // Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
 
     Route::group(['prefix' => 'area'], function () {
         Route::get('/', 'AreaController@index')->name('index_area');
@@ -61,6 +61,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
     });
 
+    Route::group(['prefix' => 'statistical'], function () {
+        Route::get('/', 'StatisticalController@index')->name('index_statistical');
+    });
+    
     Route::group(['prefix' => 'account'], function () {
         Route::get('/', 'UserController@list')->name('list_account');
         Route::get('/create', 'UserController@create')->name('create_account');

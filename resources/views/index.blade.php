@@ -70,7 +70,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         @if (Auth::user()->role == 2)
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="{{ route('admin') }}">
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('dashboard') }}">
                                     <i class="ri-admin-line"></i>
                                     <span>Trang Quản Trị</span>
                                 </a>

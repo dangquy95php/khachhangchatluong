@@ -34,3 +34,8 @@ Breadcrumbs::for('customer_by_area', function ($trail) {
     $trail->parent('home');
     $trail->push('Chia đều data', route('customer_by_area'));
 });
+
+Breadcrumbs::for('statistical', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Thống kê khách liệu khách hàng của nhân viên', route('index_statistical'));
+});

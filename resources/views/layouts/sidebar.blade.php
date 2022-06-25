@@ -75,6 +75,19 @@
             </li>
          </ul>
       </li>
+
+      <!-- <li class="nav-item">
+         <a class="nav-link {{\Request()->route()->getPrefix() != '/statistical' ? 'collapsed' : '' }}" data-bs-target="#tables-statistical" data-bs-toggle="collapse" href="#">
+         <i class="bi bi-journal-text"></i><span>Thống Kê</span><i class="bi bi-chevron-down ms-auto"></i>
+         </a>
+         <ul id="tables-statistical" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/statistical' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <li>
+               <a href="{{route('index_statistical')}}" class="{{ \Request::route()->getName() == 'index_statistical' ? 'active' : ''}}">
+               <i class="bi bi-circle"></i><span>Dữ liệu khu vực - nhân viên</span>
+               </a>
+            </li>
+         </ul>
+      </li> -->
    </ul>
 </aside>
 
