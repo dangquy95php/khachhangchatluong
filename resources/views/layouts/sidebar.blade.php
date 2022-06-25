@@ -2,7 +2,7 @@
 <aside id="sidebar" class="sidebar">
    <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
-         <a class="nav-link {{ \Request::route()->getName() !== 'home' ? 'collapsed' : ''}}" href="{{ route('home') }}">
+         <a class="nav-link {{ \Request::route()->getName() !== 'dashboard' ? 'collapsed' : ''}}" href="{{ \Auth::user()->role == 2 ? route('dashboard') :  route('home') }}">
          <i class="bi bi-grid"></i>
          <span>Dashboard</span>
          </a>
