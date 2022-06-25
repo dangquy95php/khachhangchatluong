@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <a class="btn-import btn btn-primary me-2">Improt File</a>
-                        <a href="{{route('export_customer')}}" class="btn btn-success">Export File</a>
+                        <!-- <a href="{{route('export_customer')}}" class="btn btn-success">Export File</a> -->
                     </form>
                     <!-- End General Form Elements -->
                 </div>
