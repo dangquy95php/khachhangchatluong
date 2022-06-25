@@ -81,11 +81,11 @@
                     </thead>
                     <tbody>
                         @php
-                        $i = 1;
+                        $i = count($customers);
                         @endphp
                         @foreach($customers as $customer)
                         <tr>
-                            <th scope="row">{{ $customer->id }}</th>
+                            <th scope="row">{{ $i }}</th>
                             <th class="customer_choose">
                                 <div class="form-check d-flex justify-content-center">
                                     <input name="choose_customers[]" class="form-check-input" type="checkbox" value="{{ $customer->id }}" id="flexCheckDefault">
@@ -113,7 +113,7 @@
                             <td>{{ $customer->created_at }}</td>
                         </tr>
                         @php
-                        $i++;
+                        $i--;
                         @endphp
                         @endforeach
                     </tbody>
