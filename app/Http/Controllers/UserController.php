@@ -47,7 +47,7 @@ class UserController extends Controller
         } else {
             Toastr::error('Tên người dùng hoặc mật khẩu không chính xác!');
         }
-        return redirect()->back()->withInput();
+        return redirect()->route('home');
     }
 
     public function logout(Request $request)

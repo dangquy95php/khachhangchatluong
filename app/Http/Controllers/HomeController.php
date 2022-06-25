@@ -21,6 +21,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {   
+        
         // Lấy danh muc
         $areas = \DB::table('areas_users')
             ->join('areas', 'areas_users.id_area', 'areas.id')
