@@ -85,19 +85,19 @@
          <!-- Recent Sales -->
          <div class="col-12">
             <div class="card recent-sales overflow-auto">
-               <div class="card-body">
+               <div class="card-body table-responsive">
                   <h5 class="card-title">Khách Hàng Đã Hẹn <span>| Hôm nay</span></h5>
                   <table class="table table-borderless">
                      <thead>
                         <tr>
                            <th scope="col">#</th>
                            <th scope="col">Số Hợp Đồng</th>
-                           <th scope="col">Tên Khách Hàng</th>
+                           <th style="min-width: 150px;" scope="col">Tên Khách Hàng</th>
                            <th scope="col">Số Tiền</th>
                            <th scope="col">Giới Tính</th>
                            <th scope="col">Tuổi</th>
-                           <th scope="col">Địa Chỉ</th>
-                           <th scope="col">Thời Gian Gọi</th>
+                           <th style="min-width: 250px;" scope="col">Địa Chỉ</th>
+                           <th style="min-width: 100px;" scope="col">Thời Gian Gọi</th>
                         </tr>
                      </thead>
                      <tbody>
