@@ -105,6 +105,7 @@ class AreaController extends Controller
         $customers = \DB::table('areas_customers AS t1')
         ->select('t1.customer_id')
         ->rightJoin('customers AS t2', 't2.id','=', 't1.customer_id')
+        ->where('t2.called', '=', '')
         ->whereNull('t1.id')->select('t2.*')->get();
 
         return view('area.customer-by-area', ['areas' => $this->dataAreas, 'customers' => $customers]);
