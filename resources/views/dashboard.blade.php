@@ -20,7 +20,7 @@
             <div class="col-xxl-4 col-md-6">
                <div class="card info-card customers-card">
                   <div class="card-body">
-                     <h5 class="card-title">Khách Hàng <span>| Hôm Nay</span></h5>
+                     <h5 class="card-title">TỔNG KHÁCH HÀNG IMPORT <span>| Hôm Nay</span></h5>
                      <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                            <i class="bi bi-people"></i>
@@ -42,10 +42,10 @@
             <div class="col-xxl-3 col-md-6">
                <div class="card info-card sales-card">
                   <div class="card-body">
-                     <h5 class="card-title">Đã Hẹn <span>| Hôm Nay</span></h5>
+                     <h5 class="card-title">TỔNG KHÁCH ĐÃ GỌI <span>| Hôm Nay</span></h5>
                      <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                           <i class="bi bi-cart"></i>
+                           <i class="bi bi-headset"></i>
                         </div>
                         <div class="ps-3">
                            <h6>{{ $dataToday['called'] }}</h6>
@@ -63,7 +63,7 @@
             <div class="col-xxl-5 col-md-12">
                <div class="card info-card revenue-card">
                   <div class="card-body">
-                     <h5 class="card-title">Doanh Thu <span>| Hôm Nay</span></h5>
+                     <h5 class="card-title">TỔNG TIỀN ĐÃ HẸN KHÁCH <span>| Hôm Nay</span></h5>
                      <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                            <i class="bi bi-currency-dollar"></i>
