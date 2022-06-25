@@ -15,7 +15,7 @@ class DashboardController extends Controller
    public function dashboard(Request $request)
    {
       // Khách hàng hôm nay
-      $dataToday['data'] = Customer::whereDate('updated_at', Carbon::today())->select('id', 'called', 'menh_gia', 'type_result', 'so_hop_dong', 'ten_kh', 'gioi_tinh', 'dia_chi_cu_the', 'tuoi')->get();
+      $dataToday['data'] = Customer::whereDate('updated_at', Carbon::today())->select('id', 'called', 'menh_gia', 'type_result', 'so_hop_dong', 'ten_kh', 'gioi_tinh', 'dia_chi_cu_the', 'tuoi', 'updated_at')->get();
 
       $dataToday['called'] = collect($dataToday['data'])->where('called', self::CALLED)->count(function ($item) {
          return $item['called'];

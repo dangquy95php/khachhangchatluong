@@ -97,6 +97,7 @@
                            <th scope="col">Giới Tính</th>
                            <th scope="col">Tuổi</th>
                            <th scope="col">Địa Chỉ</th>
+                           <th scope="col">Thời Gian Gọi</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -123,6 +124,7 @@
                            </td>
                            <td>{{ $data->tuoi }}</td>
                            <td>{{ $data->dia_chi_cu_the }}</td>
+                           <td>{{ $data->updated_at }}</td>
                         </tr>
                      @php
                      $i--;
