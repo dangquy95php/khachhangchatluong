@@ -406,7 +406,8 @@
                                                 <td style="width:200px;" class="type_result">
                                                     @foreach (\App\Models\Customer::getInforOption() as $key => $value)
                                                         @if ($key == $data->type_result)
-                                                            <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
+                                                            <span data-id="{{ $key }}" class="is-dot badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
+                                                            <!-- http://jsfiddle.net/zA23k/215/ -->
                                                         @endif
                                                     @endforeach
                                                 </td>
@@ -577,12 +578,18 @@
 
     <script>
         $(document).ready(function() {
+            $(".more").toggle(function(){
+                $(this).text("less..").siblings(".complete").show();
+            }, function(){
+                $(this).text("more..").siblings(".complete").hide();
+            });
+
             if (!$('#id_contract').val()) {
                 $('.btn-alert').trigger('click');
             }
             $(".is-item-customer").click(function() {
                 var el= $(this).get(0);
-                
+
                 $('#customer_id').val($($(el).find('.id').get(0)).text());
                 $('#ngay_tham_gia').val($($(el).find('.ngay_tham_gia').get(0)).text());
                 $('#nam_dao_han').val($($(el).find('.nam_dao_han').get(0)).text());

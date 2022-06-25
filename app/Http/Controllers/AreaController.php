@@ -87,7 +87,9 @@ class AreaController extends Controller
         try {
             $areas = Area::find($id);
             $areas->delete();
+            $ids = AreaCustomer::where('area_id', $id)->pluck('customer_id')->toArray();
             AreaCustomer::where('area_id', $id)->delete();
+            Customer::whereIn('id', $ids)->delete();
             Toastr::success("Xoá khu vực ". $areas->name ." thành công!");
             DB::commit();
         } catch (\Exception $ex) {
