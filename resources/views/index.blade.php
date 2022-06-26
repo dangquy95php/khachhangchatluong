@@ -101,7 +101,7 @@
                     <div class="card-body p-md-2">
                         <!-- Vertical Form -->
                         <form method="POST" action="" class="row g-3" id="customerForm">
-                            <input type="text" class="d-none" id="customer_id" name="id" value="{{ $customer->id }}" />
+                            <input type="text" class="d-none" id="customer_id" name="id" value="{{ @$customer->id }}" />
                             @csrf
                             <div class="col-lg-12">
                                 <div class="row">
@@ -109,47 +109,47 @@
                                         <div class="row g-3">
                                             <div class="col-sm-4 pe-md-2">
                                                 <label for="inputPassword4" class="form-label text-danger"><b>Số Hợp Đồng</b></label>
-                                                <input type="text" disabled name="id_contract" value="{{ $customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
+                                                <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmail4" class="form-label"><b>Ngày Tham Gia</b></label>
-                                                <input type="text" class="form-control" value="{{ $customer->ngay_tham_gia }}" id="ngay_tham_gia" name="ngay_tham_gia">
+                                                <input type="text" class="form-control" value="{{ @$customer->ngay_tham_gia }}" id="ngay_tham_gia" name="ngay_tham_gia">
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputNanme4" class="form-label"><b>Năm Đáo Hạn</b></label>
-                                                <input id="nam_dao_han" name="nam_dao_han" class="form-control" type="text" value="{{ $customer->nam_dao_han }}" />
+                                                <input id="nam_dao_han" name="nam_dao_han" class="form-control" type="text" value="{{ @$customer->nam_dao_han }}" />
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmail4" class="form-label"><b>Số Tiền</b></label>
-                                                <input type="text" class="form-control" value="{{ is_numeric($customer->menh_gia) ? number_format($customer->menh_gia + 50000000) : $customer->menh_gia }}" id="menh_gia" name="money">
+                                                <input type="text" class="form-control" value="{{ is_numeric(@$customer->menh_gia) ? number_format(@$customer->menh_gia + 50000000) : @$customer->menh_gia }}" id="menh_gia" name="money">
                                             </div>
 
                                             <div class="col-sm-4">
                                                 <label class="form-label"><b>VP/Bank</b></label>
-                                                <input type="text" class="form-control" value="{{ $customer->vpbank }}" id="vpbank" name="vpbank">
+                                                <input type="text" class="form-control" value="{{ @$customer->vpbank }}" id="vpbank" name="vpbank">
                                             </div>
                                             <div class="col-sm-4">
                                                 <label class="form-label"><b>CV</b></label>
-                                                <input type="text" class="form-control" value="{{ $customer->cv }}" id="cv" name="cv">
+                                                <input type="text" class="form-control" value="{{ @$customer->cv }}" id="cv" name="cv">
                                             </div>
                                             <div class="col-md-8 col-sm-12">
                                             <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
-                                            <input type="text" value="{{ $customer->ten_kh }}" name="last_name"
+                                            <input type="text" value="{{ @$customer->ten_kh }}" name="last_name"
                                                 class="form-control" id="ten_kh">
                                             </div>
                                             <div class="col-md-4 col-sm-12">
                                                 <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
-                                                <input type="text" name="phone" value="{{ $customer->dien_thoai }}" class="form-control" id="dien_thoai">
+                                                <input type="text" name="phone" value="{{ @$customer->dien_thoai }}" class="form-control" id="dien_thoai">
                                             </div>
                                             <div class="col-12">
                                             <label for="inputPassword4" class="form-label"><b>Địa Chỉ</b></label>
-                                            <input type="text" value="{{ $customer->dia_chi_cu_the }}"
+                                            <input type="text" value="{{ @$customer->dia_chi_cu_the }}"
                                                 name="address_full" id="dia_chi_cu_the" class="form-control"
                                                 id="inputPassword4">
                                             </div>
                                             <div class="col-md-2 col-sm-6 pe-0">
                                             <label for="inputPassword4" class="form-label"><b>Tuổi</b></label>
-                                            <input type="number" value="{{ $customer->tuoi }}" name="age"
+                                            <input type="number" value="{{ @$customer->tuoi }}" name="age"
                                                 id="tuoi" min="1" max="200"
                                                 onkeyup="if(parseInt(this.value) > 200 || parseInt(this.value) < 1){ this.value = ''; return false; }"
                                                 class="form-control" id="inputPassword4">
@@ -158,9 +158,9 @@
                                             <label for="inputEmail4" class="form-label"><b>Giới Tính</b></label>
                                             <select name="sex" id="gioi_tinh" class="form-select">
                                                 <option selected="">Chọn giới tính...</option>
-                                                <option {{ $customer->gioi_tinh === 'M' ? 'selected' : '' }}
+                                                <option {{ @$customer->gioi_tinh === 'M' ? 'selected' : '' }}
                                                 value="M">Nam</option>
-                                                <option {{ $customer->gioi_tinh === 'F' ? 'selected' : '' }}
+                                                <option {{ @$customer->gioi_tinh === 'F' ? 'selected' : '' }}
                                                 value="F">Nữ</option>
                                             </select>
                                             </div>
@@ -188,7 +188,7 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_call" value="0" id="gridRadios0"
-                                                {{ old('type_call') !== null && old('type_call', $customer->type_call) == 0 ? 'checked' : '' }}>
+                                                {{ old('type_call') !== null && old('type_call', @$customer->type_call) == 0 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios0">
                                                 Đã hẹn
                                                 </label>
@@ -198,7 +198,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_call"
                                                 value="1" id="gridRadios1"
-                                                {{ old('type_call', $customer->type_call) == 1 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
@@ -208,7 +208,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_call"
                                                 value="2" id="gridRadios2"
-                                                {{ old('type_call', $customer->type_call) == 2 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 2 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios2">
                                                 Khách hàng ít tiền
                                                 </label>
@@ -218,7 +218,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_call"
                                                 value="3" id="gridRadios3"
-                                                {{ old('type_call', $customer->type_call) == 3 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 3 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios3">
                                                 Khách hàng suy nghĩ, gọi lại sau
                                                 </label>
@@ -227,7 +227,7 @@
                                             <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_call" value="4" id="gridRadios4"
-                                                {{ old('type_call', $customer->type_call) == 4 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 4 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios4">
                                                 KNM / Bận / Tắt máy / Sai số / Đổi số
                                                 </label>
@@ -237,7 +237,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_call"
                                                 value="5" id="gridRadios5"
-                                                {{ old('type_call', $customer->type_call) == 5 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 5 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios5">
                                                 Hợp đồng Hủy / Đáo hạn / Hoàn trả giá trị
                                                 </label>
@@ -247,7 +247,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_call"
                                                 value="6" id="gridRadios6"
-                                                {{ old('type_call', $customer->type_call) == 6 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 6 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios6">
                                                 Đã tham gia hợp đồng mới / Không tham gia
                                                 </label>
@@ -257,7 +257,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="type_call"
                                                 value="7" id="gridRadios7"
-                                                {{ old('type_call', $customer->type_call) == 7 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 7 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios7">
                                                 Khác
                                                 </label>
@@ -273,7 +273,7 @@
                                             <div class="card mb-2">
                                                 <div class="card-body">
                                                     <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
-                                                    <textarea name="comment" id="comment" value="{{ $customer->comment }}" class="form-control" rows="10">{{ old('comment', $customer->comment) }}</textarea>
+                                                    <textarea name="comment" id="comment" value="{{ @$customer->comment }}" class="form-control" rows="10">{{ old('comment', @$customer->comment) }}</textarea>
                                                     <!-- End Quill Editor default -->
                                                 </div>
                                             </div>
@@ -336,6 +336,90 @@
                                     </div>
                                 </div>
                             </form>
+                            <div class="card mb-2 mt-md-2 mt-sm-3">
+                                <div class="card-body pt-3 table-responsive">
+                                    {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                    <!-- Table with hoverable rows -->
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th class="d-none" scope="col">Ngày Tham Gia</th>
+                                                <th class="d-none" scope="col">Năm Đáo Hạn</th>
+                                                <th scope="col">Số Hợp Đồng</th>
+                                                <th class="d-none" scope="col">VP/Bank</th>
+                                                <th class="d-none" scope="col">CV</th>
+                                                <th style="min-width: 150px" scope="col">Tên</th>
+                                                <th scope="col">Tuổi</th>
+                                                <th scope="col">Giới Tính</th>
+                                                <th scope="col">Số Điện Thoại</th>
+                                                <th style="min-width:200px;" scope="col">Ghi Chú</th>
+                                                <th scope="col">Mệnh Giá</th>
+                                                <th style="width:200px;" scope="col">Kết Quả Cuộc Gọi</th>
+                                                <th style="min-width: 250px" scope="col">Địa Chỉ</th>
+                                                <th style="width:100px;" scope="col">Ngày Gọi</th>
+                                                <th class="d-none" scope="col">Nguồn Dữ Liệu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                            $j = $dataHistory->total();
+                                            if ($dataHistory->currentPage() >= 2) {
+                                                $j = $dataHistory->total() - (($dataHistory->currentPage() - 1) * $dataHistory->perPage());
+                                            }
+                                            @endphp
+
+                                            @foreach ($dataHistory as $key => $data)
+                                            <tr role="button" class="is-item-customer">
+                                                <th scope="row">
+                                                    @if ($key == 0 && $dataHistory->currentPage() < 2)
+                                                        <span class="badge rounded-pill bg-danger">{{ $j }}</span>
+                                                    @else
+                                                        {{ $j }}
+                                                    @endif
+                                                </th>
+                                                <th class="d-none id" scope="row">{{ @$data->id }}</th>
+                                                <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
+                                                <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
+                                                <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
+                                                <td class="d-none vpbank">{{ $data->vpbank }}</td>
+                                                <td class="d-none cv">{{ $data->cv }}</td>
+                                                <td class="ten_kh"><b>{{ $data->ten_kh }}</b></td>
+                                                <td class="tuoi">
+                                                    <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
+                                                </td>
+                                                <td class="gioi_tinh">
+                                                @if($data->gioi_tinh === 'M')
+                                                    Nam
+                                                    @elseif($data->gioi_tinh === 'F')
+                                                    Nữ
+                                                @endif
+                                                </td>
+                                                <td class="dien_thoai">{{ $data->dien_thoai }}</td>
+                                                <td class="comment">{{ $data->comment }}</td>
+                                                <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
+                                                <td style="width:200px;" class="type_result">
+                                                    @foreach (\App\Models\Customer::getInforOption() as $key => $value)
+                                                        @if ($key == $data->type_result)
+                                                            <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
+                                                            <!-- http://jsfiddle.net/zA23k/215/ -->
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
+                                                <td class="updated_at">{{ $data->updated_at }}</td>
+                                                <td class="d-none area_name">{{ $data->name }}</td>
+                                            </tr>
+                                            @php
+                                            $j--;
+                                            @endphp
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <!-- End Table with hoverable rows -->
+                                </div>
+                                {!! $dataHistory->links('_partials.pagination') !!}
+                            </div>
 
                             <!-- //data1 -->
                             
@@ -343,7 +427,88 @@
 
                     </div>
                     <!-- //data 2 -->
-                    
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                        <div class="card mb-2 mt-md-2 mt-sm-3">
+                            <div class="card-body pt-3 table-responsive">
+                                {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                <!-- Table with hoverable rows -->
+                                <table class="table table-hover" style="min-width: 1000px;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th class="d-none" scope="col">Ngày Tham Gia</th>
+                                            <th class="d-none" scope="col">Năm Đáo Hạn</th>
+                                            <th scope="col">Số Hợp Đồng</th>
+                                            <th class="d-none" scope="col">VP/Bank</th>
+                                            <th class="d-none" scope="col">CV</th>
+                                            <th style="min-width: 150px" scope="col">Tên</th>
+                                            <th scope="col">Tuổi</th>
+                                            <th scope="col">Giới Tính</th>
+                                            <th scope="col">Số Điện Thoại</th>
+                                            <th style="min-width:200px;" scope="col">Ghi Chú</th>
+                                            <th scope="col">Mệnh Giá</th>
+                                            <th style="width:200px;" scope="col">Kết Quả Cuộc Gọi</th>
+                                            <th style="min-width: 250px" scope="col">Địa Chỉ</th>
+                                            <th style="width:150px;" scope="col">Ngày Gọi</th>
+                                            <th class="d-none" scope="col">Nguồn Dữ Liệu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $i = count($todayData);
+                                        @endphp
+                                        @foreach ($todayData as $key => $data)
+                                        <tr role="button" class="is-item-customer">
+                                            <th scope="row">
+                                                @if ($key == 0)
+                                                    <span class="badge rounded-pill bg-danger">{{ $i }}</span>
+                                                @else
+                                                    {{ $i }}
+                                                @endif
+                                            </th>
+                                            <th class="d-none id" scope="row">{{ @$data->id }}</th>
+                                            <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
+                                            <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
+                                            <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
+                                            <td class="d-none vpbank">{{ $data->vpbank }}</td>
+                                            <td class="d-none cv">{{ $data->cv }}</td>
+                                            <td class="ten_kh"><b>{{ $data->ten_kh }}</b></td>
+                                            <td class="tuoi">
+                                                <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
+                                            </td>
+                                            <td class="gioi_tinh">
+                                                @if($data->gioi_tinh === 'M')
+                                                Nam
+                                                @elseif($data->gioi_tinh === 'F')
+                                                Nữ
+                                            @endif
+                                            </td>
+                                            <td class="dien_thoai">{{ $data->dien_thoai }}</td>
+                                            <td class="comment">{{ $data->comment }}</td>
+                                            <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
+                                            <td class="type_result">
+                                                @foreach (\App\Models\Customer::getInforOption() as $key => $value)
+                                                @if ($key == $data->type_result)
+                                                <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
+                                                @endif
+                                                @endforeach
+                                            </td>
+                                            <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
+                                            <td class="updated_at">{{ $data->updated_at }}</td>
+                                            <td class="d-none area_name">{{ $data->name }}</td>
+                                        </tr>
+                                        @php
+                                        $i--;
+                                        @endphp
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- End Table with hoverable rows -->
+                            </div>
+                        </div>
+                        </div><!-- End Default Tabs -->
+
                 </div>
             </div>
 
