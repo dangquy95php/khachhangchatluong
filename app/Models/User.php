@@ -20,6 +20,9 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
 
     protected static $orderByColumnDirection = 'desc';
 
+    const HAVENT_CALLED_YET = 0;
+    const CALLED = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -33,7 +36,6 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
         'role',
         'password',
         'status',
-        'id_user',
         'created_at',
         'updated_at'
     ];
@@ -65,6 +67,8 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     {
         return 'username';
     }
+
+    const AREA_ACTIVE = 1;
 
     const NOT_APPROVED_YET = 0;
     const ACTIVE = 1;
@@ -107,8 +111,28 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     /**
      * Get the comments for the blog post.
      */
+    // public function area()
+    // {
+    //     return $this->belongsToMany('App\Models\Area', 'areas_users', 'id_user', 'id_area');
+    // }
+    //---------------------
+    public function areas()
+    {
+        return $this->hasMany(Area::class)->where('status', self::AREA_ACTIVE);
+    }
+
     public function area()
     {
-        return $this->belongsToMany('App\Models\Area', 'areas_users', 'id_user', 'id_area');
+        return $this->hasOne(Area::class)->where('status', self::AREA_ACTIVE);
+    }
+
+    public function customer()
+    {
+        return $this->hasOneThrough(Customer::class, User::class, 'id', 'area_id', 'id')->where('customers.called', self::HAVENT_CALLED_YET);
+    }
+
+    public function customers()
+    {
+        return $this->hasManyThrough(Customer::class, User::class, 'id', 'area_id', 'id')->where('customers.called', self::CALLED);
     }
 }

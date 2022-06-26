@@ -24,7 +24,7 @@ class Admin
             return redirect('/login');
         } else {
             if (Auth::user()->role == self::USER_ROLE) {
-                return redirect('/');
+                return redirect('/call');
             } else {
                 return $next($request);
             }

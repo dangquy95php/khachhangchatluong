@@ -12,18 +12,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/login', 'UserController@login');
+Route::get('/', 'UserController@index');
+Route::get('/login', 'UserController@login')->name('login');
+Route::post('/login', 'UserController@postLogin')->name('post_login');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/call/{area_id?}', 'HomeController@index')->name('home');
     Route::post('/call', 'HomeController@updateCusomter');
+    
+    Route::get('/logout', 'UserController@logout')->name('logout');
 });
     
 
+Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+    Route::get('/create', 'UserController@create')->name('create_account');
+    Route::post('/create', 'UserController@postCreate')->name('post_create_account');
+
+    // Route::get('/', 'DashboardController@dashboard')->name('dashboard');
+    Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
+});
+
 // Route::get('/', 'UserController@login');
 // Route::get('/login', 'UserController@login')->name('login');
-// Route::post('/login', 'UserController@postLogin')->name('post_login');
+
 
 // Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
 //     Route::get('/call/{area_id?}', 'HomeController@index')->name('home');

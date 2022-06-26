@@ -9,98 +9,106 @@ use App\Models\Area;
 use App\Models\User;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
-use App\Models\AreaUser;
-use App\Models\AreaCustomer;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
-    private $_dataOrigin = '';
-    private $_dataHistory = '';
+    const HAVENT_CALLED_YET = 0;
+    const AREA_ACVITVE = 1;
 
     public function index(Request $request)
     {   
+        // Lấy thằng đầu tiên
+        // $areas = User::find(\Auth::user()->id)->with(['area', 'areas'])->first();
+        // $customer = $areas->area->with('customer')->first();
+        // $customer = $customer->customer;
         
+        // lịch sử cuộc gọi của nhân viên đó
+        $history = User::with('areas')->find(1);
+        $listIdAreas = $history->areas->pluck('id')->toArray();
+        $customerByAreas = Area::all()->with('customers');
+
+dd($customerByAreas);
+
         // Lấy danh muc
-        $areas = \DB::table('areas_users')
-            ->join('areas', 'areas_users.id_area', 'areas.id')
-            ->where('areas_users.id_user', Auth::user()->id)
-            ->select('areas.*')->get();
+        // $areas = \DB::table('areas_users')
+        //     ->join('areas', 'areas_users.id_area', 'areas.id')
+        //     ->where('areas_users.id_user', Auth::user()->id)
+        //     ->select('areas.*')->get();
 
-        $customer = new Customer();
-        if ($request->get('area_id')) {
-            $data_id = $request->get('area_id');
+        // $customer = new Customer();
+        // if ($request->get('area_id')) {
+        //     $data_id = $request->get('area_id');
 
-            //đếm số dòng chưa gọi -> mới hiển thị
-            if ($customer = AreaCustomer::where('area_id', $data_id)
-                ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                ->where('called', '=', '')->count() > 0
-            ) {
-                $customer = AreaCustomer::where('area_id', $data_id)
-                    ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                    ->where('called', '=', '')->first();
-            }
-        } else {
-            if (count($areas) > 0) {
-                for ($i = 0; $i < count($areas); $i++) {
-                    $data_id = $areas[$i]->id;
+        //     //đếm số dòng chưa gọi -> mới hiển thị
+        //     if ($customer = AreaCustomer::where('area_id', $data_id)
+        //         ->join('customers', 'areas_customers.customer_id', 'customers.id')
+        //         ->where('called', '=', '')->count() > 0
+        //     ) {
+        //         $customer = AreaCustomer::where('area_id', $data_id)
+        //             ->join('customers', 'areas_customers.customer_id', 'customers.id')
+        //             ->where('called', '=', '')->first();
+        //     }
+        // } else {
+        //     if (count($areas) > 0) {
+        //         for ($i = 0; $i < count($areas); $i++) {
+        //             $data_id = $areas[$i]->id;
     
-                    //đếm số dòng chưa gọi -> mới hiển thị
-                    if ($customer = AreaCustomer::where('area_id', $data_id)
-                        ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                        ->where('called', '')->count() > 0
-                    ) {
-                        $customer = AreaCustomer::where('area_id', $data_id)
-                                        ->join('customers', 'areas_customers.customer_id', 'customers.id')
-                                        ->where('called', '')->first();
-                        break;
-                    } else {
-                        continue;
-                    }
-                }
-            }
-        }
+        //             //đếm số dòng chưa gọi -> mới hiển thị
+        //             if ($customer = AreaCustomer::where('area_id', $data_id)
+        //                 ->join('customers', 'areas_customers.customer_id', 'customers.id')
+        //                 ->where('called', '')->count() > 0
+        //             ) {
+        //                 $customer = AreaCustomer::where('area_id', $data_id)
+        //                                 ->join('customers', 'areas_customers.customer_id', 'customers.id')
+        //                                 ->where('called', '')->first();
+        //                 break;
+        //             } else {
+        //                 continue;
+        //             }
+        //         }
+        //     }
+        // }
 
-        $startDate = $request->get('start_date');
-        $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
+        // $startDate = $request->get('start_date');
+        // $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
 
-        $todayData = \DB::table('areas_users')
-            ->where('areas_users.id_user', Auth::user()->id)
-            ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-            ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
-            ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-            ->where('customers.called', '<>', '')
-            ->whereDate('customers.updated_at', \Carbon\Carbon::today())
-            ->orderBy('customers.updated_at', 'DESC')
-            ->select('customers.*', 'areas.name')
-            ->get();
+        // $todayData = \DB::table('areas_users')
+        //     ->where('areas_users.id_user', Auth::user()->id)
+        //     ->join('areas', 'areas_users.id_area', '=', 'areas.id')
+        //     ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
+        //     ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+        //     ->where('customers.called', '<>', '')
+        //     ->whereDate('customers.updated_at', \Carbon\Carbon::today())
+        //     ->orderBy('customers.updated_at', 'DESC')
+        //     ->select('customers.*', 'areas.name')
+        //     ->get();
 
-        if ($startDate && $endDate) {
-            $dataHistory = \DB::table('areas_users')
-            ->where('areas_users.id_user', Auth::user()->id)
-            ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-            ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
-            ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-            ->where('customers.called', '<>', '')
-            ->whereDate('customers.updated_at', '>=', $startDate)
-            ->whereDate('customers.updated_at', '<=', $endDate)
-            ->orderBy('customers.updated_at', 'DESC')
-            ->select('customers.*', 'areas.name')
-            ->paginate(100);
-        } else {
-            $dataHistory = \DB::table('areas_users')
-            ->where('areas_users.id_user', Auth::user()->id)
-            ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-            ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
-            ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-            ->where('customers.called', '<>', '')
-            ->orderBy('customers.updated_at', 'DESC')
-            ->select('customers.*', 'areas.name')
-            ->paginate(200);
-        }
+        // if ($startDate && $endDate) {
+        //     $dataHistory = \DB::table('areas_users')
+        //     ->where('areas_users.id_user', Auth::user()->id)
+        //     ->join('areas', 'areas_users.id_area', '=', 'areas.id')
+        //     ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
+        //     ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+        //     ->where('customers.called', '<>', '')
+        //     ->whereDate('customers.updated_at', '>=', $startDate)
+        //     ->whereDate('customers.updated_at', '<=', $endDate)
+        //     ->orderBy('customers.updated_at', 'DESC')
+        //     ->select('customers.*', 'areas.name')
+        //     ->paginate(100);
+        // } else {
+        //     $dataHistory = \DB::table('areas_users')
+        //     ->where('areas_users.id_user', Auth::user()->id)
+        //     ->join('areas', 'areas_users.id_area', '=', 'areas.id')
+        //     ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
+        //     ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
+        //     ->where('customers.called', '<>', '')
+        //     ->orderBy('customers.updated_at', 'DESC')
+        //     ->select('customers.*', 'areas.name')
+        //     ->paginate(200);
+        // }
 
-        return view('index', compact('areas', 'customer', 'dataHistory', 'todayData'));
+        return view('index', compact('customer', 'areas'));
     }
 
     public function updateCusomter(Request $request)

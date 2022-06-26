@@ -81,5 +81,9 @@ class Customer extends Model
 
         return $query->where('info_option', '<>', '');
     }
-
+    //----------------
+    public function areas()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
 }
