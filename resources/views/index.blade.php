@@ -169,10 +169,10 @@
                                             Liệu</b></label>
                                             <select name="area_name" id="data_area_id" class="form-select">
                                                 <option value="">Chọn nguồn dữ liệu</option>
-                                                @foreach ($areas->areas as $item)
+                                                @foreach ($areas->areas as $area)
                                                 <option
-                                                {{ old('area_name', $item->id) == $areas->area->id ? 'selected' : '' }}
-                                                    value="{{ $item->id }}">{{ $item->name }}
+                                                {{ old('area_name', $area->id) == $customer->area_id ? 'selected' : '' }}
+                                                    value="{{ $area->id }}">{{ $area->name }}
                                                 </option>
                                                 @endforeach
                                             </select>
@@ -338,7 +338,7 @@
                             </form>
                             <div class="card mb-2 mt-md-2 mt-sm-3">
                                 <div class="card-body pt-3 table-responsive">
-                                    {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                    {{ count($history->customers) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                                     <!-- Table with hoverable rows -->
                                     <table class="table table-hover">
                                         <thead>
@@ -363,16 +363,16 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                            $j = $dataHistory->total();
-                                            if ($dataHistory->currentPage() >= 2) {
-                                                $j = $dataHistory->total() - (($dataHistory->currentPage() - 1) * $dataHistory->perPage());
+                                            $j = $history->customers->total();
+                                            if ($history->customers->currentPage() >= 2) {
+                                                $j = $history->customers->total() - (($history->customers->currentPage() - 1) * $history->customers->perPage());
                                             }
                                             @endphp
 
-                                            @foreach ($dataHistory as $key => $data)
+                                            @foreach ($history->customers as $key => $data)
                                             <tr role="button" class="is-item-customer">
                                                 <th scope="row">
-                                                    @if ($key == 0 && $dataHistory->currentPage() < 2)
+                                                    @if ($key == 0 && $history->customers->currentPage() < 2)
                                                         <span class="badge rounded-pill bg-danger">{{ $j }}</span>
                                                     @else
                                                         {{ $j }}
@@ -398,9 +398,9 @@
                                                 <td class="dien_thoai">{{ $data->dien_thoai }}</td>
                                                 <td class="comment">{{ $data->comment }}</td>
                                                 <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
-                                                <td style="width:200px;" class="type_result">
+                                                <td style="width:200px;" class="type_call">
                                                     @foreach (\App\Models\Customer::getInforOption() as $key => $value)
-                                                        @if ($key == $data->type_result)
+                                                        @if ($key == $data->type_call)
                                                             <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
                                                             <!-- http://jsfiddle.net/zA23k/215/ -->
                                                         @endif
@@ -418,7 +418,7 @@
                                     </table>
                                     <!-- End Table with hoverable rows -->
                                 </div>
-                                {!! $dataHistory->links('_partials.pagination') !!}
+                                {!! $history->customers->links('_partials.pagination') !!}
                             </div>
 
                             <!-- //data1 -->
@@ -431,7 +431,7 @@
 
                         <div class="card mb-2 mt-md-2 mt-sm-3">
                             <div class="card-body pt-3 table-responsive">
-                                {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                {{ count($history->customers) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                                 <!-- Table with hoverable rows -->
                                 <table class="table table-hover" style="min-width: 1000px;">
                                     <thead>
@@ -454,55 +454,7 @@
                                             <th class="d-none" scope="col">Nguồn Dữ Liệu</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @php
-                                        $i = count($todayData);
-                                        @endphp
-                                        @foreach ($todayData as $key => $data)
-                                        <tr role="button" class="is-item-customer">
-                                            <th scope="row">
-                                                @if ($key == 0)
-                                                    <span class="badge rounded-pill bg-danger">{{ $i }}</span>
-                                                @else
-                                                    {{ $i }}
-                                                @endif
-                                            </th>
-                                            <th class="d-none id" scope="row">{{ @$data->id }}</th>
-                                            <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
-                                            <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
-                                            <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
-                                            <td class="d-none vpbank">{{ $data->vpbank }}</td>
-                                            <td class="d-none cv">{{ $data->cv }}</td>
-                                            <td class="ten_kh"><b>{{ $data->ten_kh }}</b></td>
-                                            <td class="tuoi">
-                                                <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
-                                            </td>
-                                            <td class="gioi_tinh">
-                                                @if($data->gioi_tinh === 'M')
-                                                Nam
-                                                @elseif($data->gioi_tinh === 'F')
-                                                Nữ
-                                            @endif
-                                            </td>
-                                            <td class="dien_thoai">{{ $data->dien_thoai }}</td>
-                                            <td class="comment">{{ $data->comment }}</td>
-                                            <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
-                                            <td class="type_result">
-                                                @foreach (\App\Models\Customer::getInforOption() as $key => $value)
-                                                @if ($key == $data->type_result)
-                                                <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
-                                                @endif
-                                                @endforeach
-                                            </td>
-                                            <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
-                                            <td class="updated_at">{{ $data->updated_at }}</td>
-                                            <td class="d-none area_name">{{ $data->name }}</td>
-                                        </tr>
-                                        @php
-                                        $i--;
-                                        @endphp
-                                        @endforeach
-                                    </tbody>
+                                    
                                 </table>
                                 <!-- End Table with hoverable rows -->
                             </div>

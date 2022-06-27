@@ -121,18 +121,22 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
         return $this->hasMany(Area::class)->where('status', self::AREA_ACTIVE);
     }
 
-    public function area()
-    {
-        return $this->hasOne(Area::class)->where('status', self::AREA_ACTIVE);
-    }
+    // public function area()
+    // {
+    //     return $this->hasOne(Area::class)->where('status', self::AREA_ACTIVE);
+    // }
 
     public function customer()
     {
-        return $this->hasOneThrough(Customer::class, User::class, 'id', 'area_id', 'id')->where('customers.called', self::HAVENT_CALLED_YET);
+        return $this->hasOneThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id' )
+                    ->where('customers.called', self::HAVENT_CALLED_YET);
     }
 
     public function customers()
     {
-        return $this->hasManyThrough(Customer::class, User::class, 'id', 'area_id', 'id')->where('customers.called', self::CALLED);
+        return $this->hasManyThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id')
+                ->where('customers.called', self::CALLED)
+                ->where('areas.status', self::ACTIVE)
+                ->orderBy('customers.updated_at', 'DESC');
     }
 }

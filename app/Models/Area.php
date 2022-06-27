@@ -39,23 +39,18 @@ class Area extends Model
         return $query->where('status', self::OPENING);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id');
+    // }
 
-    public function users()
-    {
-        return $this->belongsTo(User::class, 'user_id')->where('id', 1);
-    }
+    // public function customers()
+    // {
+    //     return $this->hasMany(Customer::class)->where('called', self::HAVENT_CALLED_YET);
+    // }
 
-    public function customers()
-    {
-        return $this->hasMany(Customer::class)->where('called', self::HAVENT_CALLED_YET);
-    }
-
-    public function customer()
-    {
-        return $this->hasOne(Customer::class)->where('called', self::HAVENT_CALLED_YET);
-    }
+    // public function customer()
+    // {
+    //     return $this->hasOne(Customer::class)->where('called', self::HAVENT_CALLED_YET);
+    // }
 }

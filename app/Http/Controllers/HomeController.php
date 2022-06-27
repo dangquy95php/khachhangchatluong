@@ -15,100 +15,42 @@ class HomeController extends Controller
 {
     const HAVENT_CALLED_YET = 0;
     const AREA_ACVITVE = 1;
+    const CALLED = 1;
 
     public function index(Request $request)
     {   
-        // Lấy thằng đầu tiên
-        // $areas = User::find(\Auth::user()->id)->with(['area', 'areas'])->first();
-        // $customer = $areas->area->with('customer')->first();
-        // $customer = $customer->customer;
+        $areas = User::find(\Auth::id());
+        $areas->setRelation('areas', $areas->areas()->get());
         
-        // lịch sử cuộc gọi của nhân viên đó
-        $history = User::with('areas')->find(1);
-        $listIdAreas = $history->areas->pluck('id')->toArray();
-        $customerByAreas = Area::all()->with('customers');
+        // lay nguoi dung dau tien goi
+        $customer = User::with("customer")->find(\Auth::user()->id);
+        
+        if (!empty($customer->customer)) {
+            $id = $customer->customer->area_id;
 
-dd($customerByAreas);
+            $area = $areas->areas->first(function ($value, $key) use($id) {
+                return $value['id'] == $id;
+            });
 
-        // Lấy danh muc
-        // $areas = \DB::table('areas_users')
-        //     ->join('areas', 'areas_users.id_area', 'areas.id')
-        //     ->where('areas_users.id_user', Auth::user()->id)
-        //     ->select('areas.*')->get();
+            $customer->customer->area_name = $area->name;
+        }
 
-        // $customer = new Customer();
-        // if ($request->get('area_id')) {
-        //     $data_id = $request->get('area_id');
+        $history = User::find(\Auth::id());
+        $history->setRelation('customers', $history->customers()->paginate(1));
 
-        //     //đếm số dòng chưa gọi -> mới hiển thị
-        //     if ($customer = AreaCustomer::where('area_id', $data_id)
-        //         ->join('customers', 'areas_customers.customer_id', 'customers.id')
-        //         ->where('called', '=', '')->count() > 0
-        //     ) {
-        //         $customer = AreaCustomer::where('area_id', $data_id)
-        //             ->join('customers', 'areas_customers.customer_id', 'customers.id')
-        //             ->where('called', '=', '')->first();
-        //     }
-        // } else {
-        //     if (count($areas) > 0) {
-        //         for ($i = 0; $i < count($areas); $i++) {
-        //             $data_id = $areas[$i]->id;
-    
-        //             //đếm số dòng chưa gọi -> mới hiển thị
-        //             if ($customer = AreaCustomer::where('area_id', $data_id)
-        //                 ->join('customers', 'areas_customers.customer_id', 'customers.id')
-        //                 ->where('called', '')->count() > 0
-        //             ) {
-        //                 $customer = AreaCustomer::where('area_id', $data_id)
-        //                                 ->join('customers', 'areas_customers.customer_id', 'customers.id')
-        //                                 ->where('called', '')->first();
-        //                 break;
-        //             } else {
-        //                 continue;
-        //             }
-        //         }
-        //     }
-        // }
+        if(!empty($history)) {
+            foreach($areas->areas as $area) {
+                foreach($history->customers as &$item) {
+                    if ($area->id == $item->area_id) {
+                        $item->area_name = $area->name;
+                    }
+                }
+            }
+        }
 
-        // $startDate = $request->get('start_date');
-        // $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
+        $customer = $customer->customer;
 
-        // $todayData = \DB::table('areas_users')
-        //     ->where('areas_users.id_user', Auth::user()->id)
-        //     ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-        //     ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
-        //     ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-        //     ->where('customers.called', '<>', '')
-        //     ->whereDate('customers.updated_at', \Carbon\Carbon::today())
-        //     ->orderBy('customers.updated_at', 'DESC')
-        //     ->select('customers.*', 'areas.name')
-        //     ->get();
-
-        // if ($startDate && $endDate) {
-        //     $dataHistory = \DB::table('areas_users')
-        //     ->where('areas_users.id_user', Auth::user()->id)
-        //     ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-        //     ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
-        //     ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-        //     ->where('customers.called', '<>', '')
-        //     ->whereDate('customers.updated_at', '>=', $startDate)
-        //     ->whereDate('customers.updated_at', '<=', $endDate)
-        //     ->orderBy('customers.updated_at', 'DESC')
-        //     ->select('customers.*', 'areas.name')
-        //     ->paginate(100);
-        // } else {
-        //     $dataHistory = \DB::table('areas_users')
-        //     ->where('areas_users.id_user', Auth::user()->id)
-        //     ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-        //     ->join('areas_customers', 'areas.id', '=', 'areas_customers.area_id')
-        //     ->join('customers', 'areas_customers.customer_id', '=', 'customers.id')
-        //     ->where('customers.called', '<>', '')
-        //     ->orderBy('customers.updated_at', 'DESC')
-        //     ->select('customers.*', 'areas.name')
-        //     ->paginate(200);
-        // }
-
-        return view('index', compact('customer', 'areas'));
+        return view('index', compact('customer', 'history', 'areas'));
     }
 
     public function updateCusomter(Request $request)
@@ -116,10 +58,10 @@ dd($customerByAreas);
         if ($_POST['action'] == 'save') {
             if (!empty($request->get('id'))) {
                 $request->validate([
-                    'type_result' => 'required',
+                    'type_call' => 'required',
                     'area_name' => 'required'
                 ], [
-                    'type_result.required' => 'Vui lòng chọn kết quả gọi',
+                    'type_call.required' => 'Vui lòng chọn kết quả gọi',
                     'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
                 ]);
             }
@@ -132,7 +74,7 @@ dd($customerByAreas);
                 $customer->dia_chi_cu_the = $request->address_full;
                 $customer->tuoi = $request->age;
                 $customer->gioi_tinh = $request->sex;
-                $customer->type_result = $request->type_result;
+                $customer->type_call = $request->type_call;
                 $customer->comment = $request->comment;
 
                 $customer->save();
@@ -146,19 +88,19 @@ dd($customerByAreas);
         } else if ($_POST['action'] == 'next') {
             if($request->get('id')) {
                 $request->validate([
-                    'type_result' => 'required',
+                    'type_call' => 'required',
                     'area_name' => 'required'
                 ], [
-                    'type_result.required' => 'Vui lòng chọn kết quả gọi',
+                    'type_call.required' => 'Vui lòng chọn kết quả gọi',
                     'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
                 ]);
             }
-
+dd(123);
             try {
-                $customer = Customer::find($request->get('id'));
-                $customer->type_result = $request->get('type_result');
+                $customer = Customer::findOrFail($request->get('id'));
+                $customer->type_call = $request->get('type_call');
                 $customer->comment = $request->get('comment');
-                $customer->called = 1;
+                $customer->called = self::CALLED;
                 $customer->save();
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
             } catch (\Exception $ex) {
