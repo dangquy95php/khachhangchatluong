@@ -26,7 +26,7 @@
                            <i class="bi bi-people"></i>
                         </div>
                         <div class="ps-3">
-                           <h6>{{ count($dataToday['data']) }}</h6>
+                           <h6>Pending...</h6>
                            <span class="text-{{count($dataToday['data']) > count($dataYesterday['data']) ? 'success' : 'danger' }} small pt-1 fw-bold">
                             @if ( count($dataToday['data']) != 0 &&  count($dataYesterday['data']) != 0)
                            {{ number_format(( count($dataToday['data']) / count($dataYesterday['data'])) * 100 , 1) }}%
