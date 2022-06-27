@@ -2,11 +2,11 @@
 @extends('layouts.template')
 
 @section('breadcrumb')
-  
+
    <h1>TỔNG QUAN DASHBOARD</h1>
 
    {{ Breadcrumbs::render('home') }}
-    
+
 @endsection
 
 @section('content')
@@ -28,8 +28,8 @@
                         <div class="ps-3">
                            <h6>{{ count($dataToday['data']) }}</h6>
                            <span class="text-{{count($dataToday['data']) > count($dataYesterday['data']) ? 'success' : 'danger' }} small pt-1 fw-bold">
-                              
-                           {{ number_format((count($dataToday['data']) / count($dataYesterday['data'])) * 100 , 1) }}%
+
+                           {{ number_format(( 0 ? 0 : count($dataToday['data']) / count($dataYesterday['data'])) * 100 , 1) }}%
                            </span>
                            <span class="text-muted small pt-2 ps-1">{{count($dataToday['data']) < count($dataYesterday['data']) ? 'Giảm' : 'Tăng' }}</span>
                         </div>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="ps-3">
                            <h6>{{ number_format($dataToday['turnover']) }} VND</h6>
-                           <span class="text-{{$dataToday['turnover'] > $dataYesterday['turnover'] ? 'success' 
+                           <span class="text-{{$dataToday['turnover'] > $dataYesterday['turnover'] ? 'success'
                            : 'danger'}} small pt-1 fw-bold">
                            {{ number_format(($dataToday['turnover'] / $dataYesterday['turnover']) * 100, 1) }}%</span>
                            <span class="text-muted small pt-2 ps-1">{{ $dataToday['turnover'] < $dataYesterday['turnover'] ? 'Giảm' : 'Tăng' }}</span>
@@ -80,7 +80,7 @@
                </div>
             </div>
          </div>
-         
+
          </div>
          <!-- Recent Sales -->
          <div class="col-12">
