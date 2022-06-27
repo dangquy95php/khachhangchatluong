@@ -52,8 +52,10 @@
                            <h6>{{ $dataToday['called'] }}</h6>
 
                            <span class="text-{{$dataToday['called'] > $dataYesterday['called'] ? 'success' : 'danger' }} small pt-1 fw-bold">
+                            @if($dataToday['called'] != 0 &&  $dataYesterday['called'] != 0)
                            {{ number_format(($dataToday['called'] / $dataYesterday['called']) * 100, 1) }}%</span>
                               <span class="text-muted small pt-2 ps-1">{{ $dataToday['called'] < $dataYesterday['called'] ? 'Giảm' : 'Tăng' }}</span>
+                              @endif
                         </div>
                      </div>
                   </div>
@@ -73,8 +75,10 @@
                            <h6>{{ number_format($dataToday['turnover']) }} VND</h6>
                            <span class="text-{{$dataToday['turnover'] > $dataYesterday['turnover'] ? 'success'
                            : 'danger'}} small pt-1 fw-bold">
+                           @if($dataToday['turnover'] != 0 &&  $dataYesterday['turnover'] != 0)
                            {{ number_format(($dataToday['turnover'] / $dataYesterday['turnover']) * 100, 1) }}%</span>
                            <span class="text-muted small pt-2 ps-1">{{ $dataToday['turnover'] < $dataYesterday['turnover'] ? 'Giảm' : 'Tăng' }}</span>
+                           @endif
                         </div>
                      </div>
                   </div>
