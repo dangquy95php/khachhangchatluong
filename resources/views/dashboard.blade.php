@@ -28,8 +28,9 @@
                         <div class="ps-3">
                            <h6>{{ count($dataToday['data']) }}</h6>
                            <span class="text-{{count($dataToday['data']) > count($dataYesterday['data']) ? 'success' : 'danger' }} small pt-1 fw-bold">
-
-                           {{ number_format(( 0 ? 0 : count($dataToday['data']) / count($dataYesterday['data'])) * 100 , 1) }}%
+                            @if ( count($dataToday['data']) != 0 &&  count($dataYesterday['data']) != 0)
+                           {{ number_format(( count($dataToday['data']) / count($dataYesterday['data'])) * 100 , 1) }}%
+                           @endif
                            </span>
                            <span class="text-muted small pt-2 ps-1">{{count($dataToday['data']) < count($dataYesterday['data']) ? 'Giảm' : 'Tăng' }}</span>
                         </div>
