@@ -171,7 +171,7 @@
                                                 <option value="">Chọn nguồn dữ liệu</option>
                                                 @foreach ($areas->areas as $area)
                                                 <option
-                                                {{ old('area_name', $area->id) == $customer->area_id ? 'selected' : '' }}
+                                                {{ old('area_name', $area->id) == @$customer->area_id ? 'selected' : '' }}
                                                     value="{{ $area->id }}">{{ $area->name }}
                                                 </option>
                                                 @endforeach
