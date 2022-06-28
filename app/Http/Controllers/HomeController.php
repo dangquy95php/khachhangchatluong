@@ -43,10 +43,19 @@ class HomeController extends Controller
 
             $customer->customer->area_name = $area->name;
         }
-
         $history = User::find(\Auth::id());
-        $history->setRelation('customers', $history->customers()->paginate(20));
 
+        $start_date = $request->get('start_date');
+        $end_date =  Carbon::parse($request->get('end_date'))->addDay();
+        if ($start_date && $end_date) {
+            $history->setRelation('customers', $history->customers()
+                ->where('customers.updated_at', '>=' , $start_date)
+                ->where('customers.updated_at', '<=' , $end_date)
+                ->paginate(20));
+        } else {
+            $history->setRelation('customers', $history->customers()->paginate(20));
+        }
+        
         $todayData = User::find(\Auth::id());
         $todayData->setRelation('customers', $todayData->customers()->where('customers.updated_at', '>=' ,Carbon::today())->get());
 
