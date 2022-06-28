@@ -310,7 +310,7 @@
                     <div class="tab-pane fade active show" id="history" role="tabpanel" aria-labelledby="history-tab">
 
                         <div class="col-12">
-                            <form action="" method="GET">
+                            <form action="" id="form-search" method="GET">
                                 <div class="row">
                                     <div class="col-md-3 col-md-5 col-sm-5">
                                         <div class="row p-2">
@@ -330,7 +330,7 @@
                                     </div>
                                     <div class="col-md-2 col-sm-2">
                                         <div class="p-md-2 p-sm-0">
-                                            <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                            <a class="btn-search btn btn-success">Tìm kiếm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -572,12 +572,12 @@
 
     <script>
         $(document).ready(function() {
-            $(".more").toggle(function(){
-                $(this).text("less..").siblings(".complete").show();
-            }, function(){
-                $(this).text("more..").siblings(".complete").hide();
+            $('.btn-search').click(function() {
+                var area_id = $("#data_area_id").val();
+                $('#form-search').append(`<input type="hidden" name="area_id" value="${area_id}" />`);
+                $( "#form-search" ).submit();
             });
-
+           
             if (!$('#id_contract').val()) {
                 $('.btn-alert').trigger('click');
             }
