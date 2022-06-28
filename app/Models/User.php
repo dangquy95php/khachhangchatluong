@@ -129,7 +129,8 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     public function customer()
     {
         return $this->hasOneThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id' )
-                    ->where('customers.called', self::HAVENT_CALLED_YET);
+                    ->where('customers.called', self::HAVENT_CALLED_YET)
+                    ->where('areas.status', self::AREA_ACTIVE);
     }
 
     public function customers()
@@ -137,6 +138,7 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
         return $this->hasManyThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id')
                 ->where('customers.called', self::CALLED)
                 ->where('areas.status', self::ACTIVE)
-                ->orderBy('customers.updated_at', 'DESC');
+                ->orderBy('customers.updated_at', 'DESC')
+                ->select('customers.*', 'areas.name');
     }
 }

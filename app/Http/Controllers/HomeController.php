@@ -9,6 +9,7 @@ use App\Models\Area;
 use App\Models\User;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
 
 class HomeController extends Controller
@@ -21,10 +22,18 @@ class HomeController extends Controller
     {   
         $areas = User::find(\Auth::id());
         $areas->setRelation('areas', $areas->areas()->get());
-        
-        // lay nguoi dung dau tien goi
-        $customer = User::with("customer")->find(\Auth::user()->id);
-        
+
+        $area_id = $request->get('area_id');
+        if ($area_id) {
+            $area = Area::findOrFail($request->get('area_id'));
+
+            $customer = User::with(["customer" => function($query) use($area_id) {
+                $query->where(['customers.area_id' => $area_id]);
+            }])->find(\Auth::user()->id);
+        } else {
+            // lay nguoi dung dau tien goi
+            $customer = User::with("customer")->find(\Auth::user()->id);
+        }
         if (!empty($customer->customer)) {
             $id = $customer->customer->area_id;
 
@@ -36,21 +45,15 @@ class HomeController extends Controller
         }
 
         $history = User::find(\Auth::id());
-        $history->setRelation('customers', $history->customers()->paginate(1));
+        $history->setRelation('customers', $history->customers()->paginate(20));
 
-        if(!empty($history)) {
-            foreach($areas->areas as $area) {
-                foreach($history->customers as &$item) {
-                    if ($area->id == $item->area_id) {
-                        $item->area_name = $area->name;
-                    }
-                }
-            }
-        }
+        $todayData = User::find(\Auth::id());
+        $todayData->setRelation('customers', $todayData->customers()->where('customers.updated_at', '>=' ,Carbon::today())->get());
 
         $customer = $customer->customer;
+        $today = $todayData->customers;
 
-        return view('index', compact('customer', 'history', 'areas'));
+        return view('index', compact('customer', 'history', 'areas', 'today'));
     }
 
     public function updateCusomter(Request $request)
@@ -86,6 +89,7 @@ class HomeController extends Controller
             }
             return redirect()->back();
         } else if ($_POST['action'] == 'next') {
+
             if($request->get('id')) {
                 $request->validate([
                     'type_call' => 'required',
@@ -95,7 +99,7 @@ class HomeController extends Controller
                     'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
                 ]);
             }
-dd(123);
+
             try {
                 $customer = Customer::findOrFail($request->get('id'));
                 $customer->type_call = $request->get('type_call');

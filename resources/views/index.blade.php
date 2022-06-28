@@ -280,9 +280,8 @@
                                         </div>
                                         <div class="col-lg-12 col-sm-6">
                                             <!-- <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button> -->
-                                            <button type="submit" class="btn-save btn btn-success" name="action" value="save">
-                                                <i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ
-                                                    Liệu</span>
+                                            <button type="submit" class="d-none btn-save btn btn-success" name="action" value="save">
+                                                <i class="bi bi-check-circle"></i><span class="ps-2">Cập Nhật Dữ Liệu</span>
                                             </button>
 
                                             <button type="submit" class="btn-next btn btn-outline-primary" name="action"
@@ -420,18 +419,14 @@
                                 </div>
                                 {!! $history->customers->links('_partials.pagination') !!}
                             </div>
-
-                            <!-- //data1 -->
-                            
                         </div>
-
                     </div>
                     <!-- //data 2 -->
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
                         <div class="card mb-2 mt-md-2 mt-sm-3">
                             <div class="card-body pt-3 table-responsive">
-                                {{ count($history->customers) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                {{ count($today) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                                 <!-- Table with hoverable rows -->
                                 <table class="table table-hover" style="min-width: 1000px;">
                                     <thead>
@@ -454,13 +449,60 @@
                                             <th class="d-none" scope="col">Nguồn Dữ Liệu</th>
                                         </tr>
                                     </thead>
-                                    
+                                    <tbody>
+                                        @php
+                                        $i = count($today);
+                                        @endphp
+                                        @foreach ($today as $key => $data)
+                                        <tr role="button" class="is-item-customer">
+                                            <th scope="row">
+                                                @if ($key == 0)
+                                                    <span class="badge rounded-pill bg-danger">{{ $i }}</span>
+                                                @else
+                                                    {{ $i }}
+                                                @endif
+                                            </th>
+                                            <th class="d-none id" scope="row">{{ @$data->id }}</th>
+                                            <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
+                                            <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
+                                            <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
+                                            <td class="d-none vpbank">{{ $data->vpbank }}</td>
+                                            <td class="d-none cv">{{ $data->cv }}</td>
+                                            <td class="ten_kh"><b>{{ $data->ten_kh }}</b></td>
+                                            <td class="tuoi">
+                                                <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
+                                            </td>
+                                            <td class="gioi_tinh">
+                                                @if($data->gioi_tinh === 'M')
+                                                Nam
+                                                @elseif($data->gioi_tinh === 'F')
+                                                Nữ
+                                            @endif
+                                            </td>
+                                            <td class="dien_thoai">{{ $data->dien_thoai }}</td>
+                                            <td class="comment">{{ $data->comment }}</td>
+                                            <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
+                                            <td class="type_call">
+                                                @foreach (\App\Models\Customer::getInforOption() as $key => $value)
+                                                @if ($key == $data->type_call)
+                                                <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
+                                                @endif
+                                                @endforeach
+                                            </td>
+                                            <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
+                                            <td class="updated_at">{{ $data->updated_at }}</td>
+                                            <td class="d-none area_name">{{ $data->name }}</td>
+                                        </tr>
+                                        @php
+                                        $i--;
+                                        @endphp
+                                        @endforeach
+                                    </tbody>
                                 </table>
                                 <!-- End Table with hoverable rows -->
                             </div>
                         </div>
-                        </div><!-- End Default Tabs -->
-
+                    </div><!-- End Default Tabs -->
                 </div>
             </div>
 
@@ -540,6 +582,8 @@
                 $('.btn-alert').trigger('click');
             }
             $(".is-item-customer").click(function() {
+                $(".btn-save").removeClass('d-none');
+
                 var el= $(this).get(0);
 
                 $('#customer_id').val($($(el).find('.id').get(0)).text());
