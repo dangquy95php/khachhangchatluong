@@ -76,7 +76,7 @@
                            <th scope="col">Số Hợp Đồng</th>
                            <th style="min-width: 150px;" scope="col">Tên Khách Hàng</th>
                            <th scope="col">Số Tiền</th>
-                           <th scope="col">Ghi Chú</th>
+                           <th style="min-width: 250px;" scope="col">Ghi Chú</th>
                            <th scope="col">Tài Khoản Gọi</th>
                            <th scope="col">Giới Tính</th>
                            <th scope="col">Tuổi</th>
