@@ -34,15 +34,6 @@ class HomeController extends Controller
             // lay nguoi dung dau tien goi
             $customer = User::with("customer")->find(\Auth::user()->id);
         }
-        if (!empty($customer->customer)) {
-            $id = $customer->customer->area_id;
-
-            $area = $areas->areas->first(function ($value, $key) use($id) {
-                return $value['id'] == $id;
-            });
-
-            $customer->customer->area_name = $area->name;
-        }
         $history = User::find(\Auth::id());
 
         $start_date = $request->get('start_date');

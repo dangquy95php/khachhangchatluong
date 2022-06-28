@@ -170,10 +170,7 @@
                                             <select name="area_name" id="data_area_id" class="form-select">
                                                 <option value="">Chọn nguồn dữ liệu</option>
                                                 @foreach ($areas->areas as $area)
-                                                <option
-                                                {{ old('area_name', $area->id) == @$customer->area_id ? 'selected' : '' }}
-                                                    value="{{ $area->id }}">{{ $area->name }}
-                                                </option>
+                                                    <option {{ old('area_name', $area->id) == @$customer->area_id ? 'selected' : '' }} {{ Request::get('area_id') == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
                                                 @endforeach
                                             </select>
                                             </div>
@@ -401,7 +398,6 @@
                                                     @foreach (\App\Models\Customer::getInforOption() as $key => $value)
                                                         @if ($key == $data->type_call)
                                                             <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
-                                                            <!-- http://jsfiddle.net/zA23k/215/ -->
                                                         @endif
                                                     @endforeach
                                                 </td>

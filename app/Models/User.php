@@ -130,7 +130,9 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     {
         return $this->hasOneThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id' )
                     ->where('customers.called', self::HAVENT_CALLED_YET)
-                    ->where('areas.status', self::AREA_ACTIVE);
+                    ->where('areas.status', self::AREA_ACTIVE)
+                    ->orderBy('customers.updated_at', 'DESC')
+                    ->select('customers.*', 'areas.name');
     }
 
     public function customers()
