@@ -35,7 +35,8 @@ class CustomerSeeder extends Seeder
                     'called' => 1,
                     'area_id' => 1,
                     'comment' => 'comment1',
-                    'updated_at' => '2022-06-25 00:27:56'
+                    'updated_at' => '2022-06-25 00:27:56',
+                    'date_max' => 1
                 ],
                 [
                     'so_thu_tu' => '1',
@@ -57,7 +58,8 @@ class CustomerSeeder extends Seeder
                     'area_id' => 1,
                     'called' => 0,
                     'comment' => 'comment2',
-                    'updated_at' => '2022-06-26 00:27:56'
+                    'updated_at' => '2022-06-26 00:27:56',
+                    'date_max' => null
                 ],
                 [
                     'so_thu_tu' => '1',
@@ -79,7 +81,8 @@ class CustomerSeeder extends Seeder
                     'area_id' => 2,
                     'called' => 0,
                     'comment' => 'comment3',
-                    'updated_at' => '2022-06-27 00:27:56'
+                    'updated_at' => '2022-06-27 00:27:56',
+                    'date_max' => null
                 ]
                 ];
         \DB::table('customers')->insert($data);

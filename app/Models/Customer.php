@@ -38,8 +38,9 @@ class Customer extends Model
         'dien_thoai',
         'dia_chi_cu_the',
         'comment',
-        'type_result',
-        'called'
+        'type_call',
+        'called',
+        'date_max'
     ];
 
     const APPOINTMENT = 0;

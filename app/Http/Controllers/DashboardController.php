@@ -6,44 +6,32 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Carbon\Carbon;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
    const APPOINTMENT = 0;
    const CALLED = 1;
+   const DATE_MAX_TOTAL_CALLED = 1;
 
    public function dashboard(Request $request)
    {
-      // Khách hàng hôm nay
-      $dataToday['data'] = Customer::whereDate('updated_at', Carbon::today())->select('id', 'called', 'menh_gia', 'type_result')->get();
+      $todayData = User::with('get_data_today')->get();
+      $totalCallCurrent = 0;
+      $today = new \Illuminate\Database\Eloquent\Collection;
 
-      $dataToday['called'] = collect($dataToday['data'])->where('called', self::CALLED)->count(function ($item) {
-         return $item['called'];
-      });
+      foreach($todayData as $user) {
+         $totalCallCurrent += count($user->get_data_today->toArray());
+         foreach($user->get_data_today as &$item) {
+            $item->username = $user->username;
+         }
+         $today = $today->merge(collect($user->get_data_today));
+      }
 
-      $dataToday['scheduled'] = Customer::whereDate('customers.updated_at', Carbon::today())
-                  ->where('customers.called', self::CALLED)
-                  ->where('customers.type_result', self::APPOINTMENT)
-                  ->join('areas_customers', 'customers.id', 'areas_customers.customer_id')
-                  ->join('areas_users', 'areas_customers.area_id', 'areas_users.id_area')
-                  ->join('users', 'areas_users.id_user', 'users.id')->orderBy('updated_at', 'desc')
-                  ->select('users.username', 'customers.menh_gia', 'customers.type_result', 'customers.so_hop_dong', 'customers.ten_kh', 'customers.gioi_tinh', 'customers.dia_chi_cu_the', 'customers.tuoi', 'customers.updated_at')->paginate(20);
+      // Get max date
+      $findDate = Customer::where('date_max', self::DATE_MAX_TOTAL_CALLED)->select('updated_at')->first();
+      $totalCalledBefore = Customer::whereDate('updated_at', $findDate->updated_at->toDateString('Y-m-d'))->where('called', self::CALLED)->count();
 
-      $dataToday['turnover'] = collect($dataToday['data'])->where('called', self::CALLED)->where('type_result', self::APPOINTMENT)->sum(function ($item) {
-         $item['menh_gia'] = (int)(str_replace(',', '', $item['menh_gia']));
-         return $item['menh_gia'];
-      });
-
-      $dataYesterday['data'] = Customer::whereDate('updated_at', Carbon::yesterday())->select('id', 'called', 'menh_gia', 'type_result')->get();
-      $dataYesterday['called'] = collect($dataYesterday['data'])->where('called', self::CALLED)->count(function ($item) {
-         return $item['called'];
-      });
-
-      $dataYesterday['turnover'] = collect($dataYesterday['data'])->where('called', self::CALLED)->where('type_result', self::APPOINTMENT)->sum(function ($item) {
-         $item['menh_gia'] = (int)(str_replace(',', '', $item['menh_gia']));
-         return $item['menh_gia'];
-      });
-
-      return view('dashboard', compact('dataYesterday', 'dataToday'));
+      return view('dashboard', compact('today', 'totalCallCurrent', 'totalCalledBefore'));
    }
 }
