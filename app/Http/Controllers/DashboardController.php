@@ -15,7 +15,7 @@ class DashboardController extends Controller
    public function dashboard(Request $request)
    {
       // Khách hàng hôm nay
-      $dataToday['data'] = Customer::whereDate('updated_at', Carbon::today())->select('id', 'called', 'menh_gia', 'type_result')->get();
+      $dataToday['data'] = Customer::whereDate('updated_at', Carbon::today())->select('id', 'called', 'menh_gia', 'type_result','comment')->get();
 
       $dataToday['called'] = collect($dataToday['data'])->where('called', self::CALLED)->count(function ($item) {
          return $item['called'];
@@ -34,7 +34,7 @@ class DashboardController extends Controller
       //    return $item['menh_gia'];
       // });
 
-      $dataYesterday['data'] = Customer::whereDate('updated_at', Carbon::yesterday())->select('id', 'called', 'menh_gia', 'type_result')->get();
+      $dataYesterday['data'] = Customer::whereDate('updated_at', Carbon::yesterday())->select('id', 'called', 'menh_gia', 'type_result','comment')->get();
       $dataYesterday['called'] = collect($dataYesterday['data'])->where('called', self::CALLED)->count(function ($item) {
          return $item['called'];
       });
