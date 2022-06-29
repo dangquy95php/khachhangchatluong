@@ -123,53 +123,50 @@
                     ui.item.data('start_id_user', start_id_user);
                 },
                 stop: function(event, ui) {
-                    // var start_id_user = ui.item.data('start_id_user');
-                    // var stop_id_area = ui.item.data('start_area_id');
-                    // var stop_id_user = $(ui.item).closest('.accordion-item').children().data('id_user');
+                    var start_id_user = ui.item.data('start_id_user');
+                    var stop_id_area = ui.item.data('start_area_id');
+                    var stop_id_user = $(ui.item).closest('.accordion-item').children().data('id_user');
 
-                    // console.log('stop_id_user', stop_id_user);
-                    // console.log('start_id_user', start_id_user);
-                    // if (start_id_user != stop_id_user) {
-                    //     deleteArea(stop_id_area, stop_id_user);
-                    // }
+                    var is_move_to_left = $(ui.item).closest('#area_area_name');
+                    console.log(stop_id_area, start_id_user);
+                    if (is_move_to_left.length > 0) {
+                        deleteArea(stop_id_area, start_id_user);
+                    } else {
+                        if (start_id_user != stop_id_user) {
+                            updateChangeArea(stop_id_area, stop_id_user);
+                        }    
+                    }
                 },
                
                 connectWith: ".sortable"
             }).disableSelection();
 
-            $("#btn-submit-user").click(function() {
-                var list = $(".is-item");
-                // list.each(function(index) {
-                //     $(this).child
-                // })
-
-                $("#form-user-to-area .is-item").each(function() {
-                    let that = this;
-                    var id_user = $($(that).find('.accordion-header').get(0)).data('id_user') ;
-                    // group-area-user-id
-                    console.log(id_user);
-                    $(that).find(".btn-modify").each(function() {
-                        var area_id = $($(this).get(0)).data('id');
-                        var group_change_id_user_area = $($(this).get(0)).data('group-area-user-id');
-                        // if (group_change_id_user_area == undefined) {
-                        //     var id_user_move = $(this).closest('.accordion-item').children().data('id_user');
-                        //     group_change_id_user_area = id_user_move;
-                        // }
-
-                        // <input style="display:none;" value="" name="user_area[1][]">
-                        var tag_input =`<input class="d-none" value="${area_id}" name="user_area[${id_user}][]"/>`
-                        // var tag_input_change =`<input class="d-none" value="${area_id}" name="user_area[${id_user}][]"/>`
-                        $($(this).get(0)).append(tag_input);
-                        // $($(this).get(0)).append(tag_input_change);
-                    })
-                });
-
-                $("#form-user-to-area").submit();
-            })
-
             function deleteArea(id_area, id_user) {
-                console.log(id_area, id_user);
+                $("#overlay").show();
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('area_id', id_area);
+                formData.append('user_id', id_user);
 
+                $.ajax({
+                    url: "{{route('move_area_back')}}",
+                    data: formData,
+                    type: 'POST',
+                    async: true,
+                    processData: false,
+                    contentType: false,
+                    success:function(response) {
+                        toastr.success(response.message)
+                        $("#overlay").hide();
+                    },
+                    error: function(errors) {
+                        toastr.error('Cập nhật dữ liệu thất bại.'+ errors.responseJSON.message)
+                        $("#overlay").hide();
+                    }
+                });
+            }
+
+            function updateChangeArea(id_area, id_user) {
                 $("#overlay").show();
                 var formData = new FormData();
                 formData.append('_token', "{{ csrf_token() }}");

@@ -58,7 +58,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/add-area-to-user', 'AreaController@postAddAreaToUser')->name('post_add_area_to_user');
         Route::post('/permission/update', 'AreaController@deleteByArea')->name('permission_area');
         Route::get('/del-area-to-user/{id}', 'AreaController@delAreaToUser')->name('del_area_to_user');
-
+        Route::post('/move-area-back', 'AreaController@moveAreaBack')->name('move_area_back');
 
     });
 
