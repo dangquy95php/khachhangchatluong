@@ -35,7 +35,8 @@ class CreateTableCustomersTable extends Migration
             $table->integer('type_call')->nullable();
             $table->boolean('called')->default(0);
             $table->integer('area_id')->unsigned()->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
 
         Schema::table('customers', function($table) {

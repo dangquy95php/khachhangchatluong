@@ -47,9 +47,6 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
                     'tuoi'             => @$row['tuoi'],
                     'dien_thoai'       => @$row['dien_thoai'],
                     'dia_chi_cu_the'   => @$row['dia_chi_cu_the'],
-                    'called'           => ''
-                    // 'type_result'      => '',
-                    // 'comment'          => '',
                 ]);
 
                 return $customer;

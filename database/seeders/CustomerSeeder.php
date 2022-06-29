@@ -36,7 +36,7 @@ class CustomerSeeder extends Seeder
                     'area_id' => 1,
                     'comment' => 'comment1',
                     'updated_at' => '2022-06-25 00:27:56',
-                    'date_max' => 1
+                    'date_max' => null
                 ],
                 [
                     'so_thu_tu' => '1',

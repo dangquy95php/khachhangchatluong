@@ -43,7 +43,10 @@
                            <h6>{{ $totalCallCurrent }}</h6>
 
                            <span class="text-{{$totalCallCurrent > $totalCalledBefore ? 'success' : 'danger' }} small pt-1 fw-bold">
-                           {{ number_format(0 ? 0 : ($totalCallCurrent / $totalCalledBefore) * 100, 1) }}%</span>
+                              @if($totalCallCurrent != 0 && $totalCalledBefore != 0)
+                                 {{ number_format(($totalCallCurrent / $totalCalledBefore) * 100, 1) }}%
+                              @endif
+                           </span>
                            <span class="text-muted small pt-2 ps-1">{{ $totalCallCurrent < $totalCalledBefore ? 'Giảm' : 'Tăng' }}</span>
                         </div>
                      </div>

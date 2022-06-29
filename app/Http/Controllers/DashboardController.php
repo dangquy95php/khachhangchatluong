@@ -30,7 +30,20 @@ class DashboardController extends Controller
 
       // Get max date
       $findDate = Customer::where('date_max', self::DATE_MAX_TOTAL_CALLED)->select('updated_at')->first();
-      $totalCalledBefore = Customer::whereDate('updated_at', $findDate->updated_at->toDateString('Y-m-d'))->where('called', self::CALLED)->count();
+      if (empty($findDate)) {
+         $time = Carbon::today();
+      } else {
+         $time = $findDate->updated_at->toDateString('Y-m-d');
+      }
+      $totalCalledBefore = Customer::whereDate('updated_at', $time)->where('called', self::CALLED)->count();
+      
+      if ($totalCallCurrent > $totalCalledBefore) {
+         Customer::whereDate('updated_at', $time)
+            ->where('called', self::CALLED)
+            ->orderBy('updated_at', 'DESC')
+            ->first()
+            ->update(['date_max' => self::DATE_MAX_TOTAL_CALLED]);
+      }
 
       return view('dashboard', compact('today', 'totalCallCurrent', 'totalCalledBefore'));
    }

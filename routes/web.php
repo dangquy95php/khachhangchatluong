@@ -28,13 +28,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/create', 'UserController@create')->name('create_account');
     Route::post('/create', 'UserController@postCreate')->name('post_create_account');
 
-    // Route::get('/', 'DashboardController@dashboard')->name('dashboard');
     Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 });
-
-// Route::get('/', 'UserController@login');
-// Route::get('/login', 'UserController@login')->name('login');
-
 
 Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     Route::get('/call/{area_id?}', 'HomeController@index')->name('home');
@@ -62,8 +57,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-//     Route::get('/', 'DashboardController@dashboard')->name('dashboard');
-    // Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
 
     Route::group(['prefix' => 'area'], function () {
         Route::get('/', 'AreaController@index')->name('index_area');
@@ -76,7 +69,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::get('/add-area-to-user', 'AreaController@addAreaToUser')->name('add_area_to_user');
         Route::post('/add-area-to-user', 'AreaController@postAddAreaToUser')->name('post_add_area_to_user');
         Route::get('/del-area-to-user/{id}', 'AreaController@delAreaToUser')->name('del_area_to_user');
-
 
     });
 
@@ -96,7 +88,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::group(['prefix' => 'excel'], function () {
         Route::get('/import', 'ExcelController@import')->name('data_import');
         Route::post('/import', 'ExcelController@postImport')->name('post_data_import');
-        Route::get('/export', 'ExcelController@export')->name('export_customer');
 
         Route::get('/history', 'ExcelController@history')->name('data_import_history');
         Route::get('/customer/delete/{id}', 'ExcelController@deleteExcelCustomer')->name('delete_excel_import');
