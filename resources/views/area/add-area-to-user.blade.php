@@ -15,7 +15,11 @@
 
         <div class="row">
             <div class="col-12">
-
+                <div id="overlay">
+                    <div class="cv-spinner">
+                        <span class="spinner"></span>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card mb-2 full-height">
@@ -37,7 +41,7 @@
                                     @foreach ($lastAreas as $lastArea)
                                         @foreach ($areas as $area)
                                             @if($lastArea == $area->id)
-                                                <li data-id="{{ $area->id }}"
+                                            <li data-id="{{ $area->id }}"
                                                     class="btn-modify d-flex btn btn-secondary mb-2">{{ $area->name }}
                                                 </li>
                                             @else
@@ -73,9 +77,7 @@
                                                     <div id="collapseOne_{{ $user->id }}"
                                                         class="accordion-collapse collapse" aria-labelledby="headingOne"
                                                         data-bs-parent="#accordionExample{{ $user->id }}">
-                                                        <ul class="pb-4 mb-0 is-body-user accordion-body sortable"
-                                                            id_user="{{ $user->id }}">
-
+                                                        <ul class="pb-4 mb-0 is-body-user accordion-body sortable">
                                                             @foreach ($areas_users as $area_user)
                                                                 @if ($area_user->id_user == $user->id)
                                                                     <li data-id="{{$area_user->id_area}}"
@@ -99,7 +101,7 @@
                                 </div>
                             </div>
 
-                            <a id="btn-submit-user" class="btn btn-primary d-flex justify-content-center">Cấp Quyền</a>
+                            <!-- <a id="btn-submit-user" class="btn btn-primary d-flex justify-content-center">Cấp Quyền</a> -->
                         </form>
                     </div>
                 </div>
@@ -114,31 +116,26 @@
             var oldList, newList, item;
             $('.sortable').sortable({
                 start: function(event, ui) {
-                    item = ui.item;
-                    newList = oldList = ui.item.parent().parent();
+                    var start_area_id  = $(ui.item).data('id');
+                    var start_id_user = $(ui.item).closest('.accordion-item').children().data('id_user');
+
+                    ui.item.data('start_area_id', start_area_id);
+                    ui.item.data('start_id_user', start_id_user);
                 },
                 stop: function(event, ui) {
-                    if (item[0].parentElement.classList.contains('is-body-user')) {
-                        // var id_area = item[0].id;
-                        // var id_string = newList[0].id;
-                        // var id_userArray = id_string.split("_")[1];
+                    // var start_id_user = ui.item.data('start_id_user');
+                    // var stop_id_area = ui.item.data('start_area_id');
+                    // var stop_id_user = $(ui.item).closest('.accordion-item').children().data('id_user');
 
-                        // var tag_input =
-                        //     `<input style="display:none;" value="${id_area}" name="user_area[${id_userArray}][]"/>`
-                        // item[0].innerHTML += tag_input;
-                    } else {
-                        // var textInner = item[0].innerText;
-                        // item[0].innerHTML = "";
-                        // item[0].innerText = textInner;
-                    }
-                    // alert("Moved " + item.text() + " from " + oldList.attr('id') + " to " + newList.attr('id'));
+                    // console.log('stop_id_user', stop_id_user);
+                    // console.log('start_id_user', start_id_user);
+                    // if (start_id_user != stop_id_user) {
+                    //     deleteArea(stop_id_area, stop_id_user);
+                    // }
                 },
-                change: function(event, ui) {
-                    if (ui.sender) newList = ui.placeholder.parent().parent();
-                },
+               
                 connectWith: ".sortable"
             }).disableSelection();
-
 
             $("#btn-submit-user").click(function() {
                 var list = $(".is-item");
@@ -169,6 +166,33 @@
 
                 $("#form-user-to-area").submit();
             })
+
+            function deleteArea(id_area, id_user) {
+                console.log(id_area, id_user);
+
+                $("#overlay").show();
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('area_id', id_area);
+                formData.append('user_id', id_user);
+
+                $.ajax({
+                    url: "{{route('permission_area')}}",
+                    data: formData,
+                    type: 'POST',
+                    async: true,
+                    processData: false,
+                    contentType: false,
+                    success:function(response) {
+                        toastr.success(response.message)
+                        $("#overlay").hide();
+                    },
+                    error: function(errors) {
+                        toastr.error('Cập nhật dữ liệu thất bại.'+ errors.responseJSON.message)
+                        $("#overlay").hide();
+                    }
+                });
+            }
         });
     </script>
 @endpush

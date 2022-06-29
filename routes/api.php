@@ -18,7 +18,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-// Route::get('/customer/by-data-id', 'Api\HomeController@detail')->name('customer_detail');
+// Route::get('/area/delete', 'AreaController@deleteByArea');
 
 // Route::get('/', 'HomeController@index')->name('home');

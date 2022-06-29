@@ -81,6 +81,26 @@ class AreaController extends Controller
         return redirect()->route('index_area');
     }
 
+    public function deleteByArea(Request $request)
+    {
+        $area_id = $request->get('area_id');
+        $user_id = $request->get('user_id');
+
+        DB::beginTransaction();
+        try {
+            if (AreaUser::where('id_area', $area_id)->count() == 0) {
+                return \Response::json(['message' => 'Không tìm thấy khu vực.'], 400);
+            }
+
+            AreaUser::where('id_area', $area_id)->first()->update([ 'id_user' => $user_id ]);
+            \DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+            return \Response::json(['message' => $ex->getMessage()], 400);
+        }
+        return \Response::json(['message' => 'Cập nhật thành công!'], 200);
+    }
+
     public function delete($id, Request $request)
     {
         DB::beginTransaction();
