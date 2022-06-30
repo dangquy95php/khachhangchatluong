@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <form method="post" action="" id="form-user-to-area">
+                        <div id="form-user-to-area">
                             {{ csrf_field() }}
                             <div class="card mb-2">
                                 <div class="card-body pe-0">
@@ -102,7 +102,7 @@
                             </div>
 
                             <!-- <a id="btn-submit-user" class="btn btn-primary d-flex justify-content-center">Cấp Quyền</a> -->
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,6 +121,12 @@
 
                     ui.item.data('start_area_id', start_area_id);
                     ui.item.data('start_id_user', start_id_user);
+
+                    if ($(ui.item).closest('#area_area_name').length > 0) {
+                        ui.item.data('position_area', true);
+                    } else {
+                        ui.item.data('position_area', false);
+                    }
                 },
                 stop: function(event, ui) {
                     var start_id_user = ui.item.data('start_id_user');
@@ -128,16 +134,24 @@
                     var stop_id_user = $(ui.item).closest('.accordion-item').children().data('id_user');
 
                     var is_move_to_left = $(ui.item).closest('#area_area_name');
-                    console.log(stop_id_area, start_id_user);
-                    if (is_move_to_left.length > 0) {
-                        deleteArea(stop_id_area, start_id_user);
+
+                    var position_area = ui.item.data('position_area');
+                    // không di chuyển qua ô bên phải
+
+                    // TODO
+                    if (is_move_to_left.length > 0 && position_area == true) {
+
                     } else {
-                        if (start_id_user != stop_id_user) {
-                            updateChangeArea(stop_id_area, stop_id_user);
-                        }    
+                        if (is_move_to_left.length > 0) {
+                            deleteArea(stop_id_area, start_id_user);
+                        } else {
+                            if (start_id_user != stop_id_user) {
+                                updateChangeArea(stop_id_area, stop_id_user);
+                            }
+                        }
                     }
                 },
-               
+
                 connectWith: ".sortable"
             }).disableSelection();
 
