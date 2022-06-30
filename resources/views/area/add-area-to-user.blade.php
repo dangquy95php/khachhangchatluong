@@ -137,18 +137,12 @@
 
                     var position_area = ui.item.data('position_area');
                     // không di chuyển qua ô bên phải
+                    if (is_move_to_left.length > 0 && position_area == false) {
+                        deleteArea(stop_id_area, start_id_user);
+                    }
 
-                    // TODO
-                    if (is_move_to_left.length > 0 && position_area == true) {
-
-                    } else {
-                        if (is_move_to_left.length > 0) {
-                            deleteArea(stop_id_area, start_id_user);
-                        } else {
-                            if (start_id_user != stop_id_user) {
-                                updateChangeArea(stop_id_area, stop_id_user);
-                            }
-                        }
+                    if (stop_id_user != undefined && (start_id_user != stop_id_user)) {
+                        updateChangeArea(stop_id_area, stop_id_user);
                     }
                 },
 
