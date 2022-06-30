@@ -88,9 +88,39 @@
                         <td>{{ $customer->dia_chi_cu_the }}</td>
                         <td>{{ $customer->created_at }}</td>
                         <td>
-                            <a class="btn btn-warning" href="{{ route('delete_excel_import', $customer->id) }}">Xoá</a>
+                            <a class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#basicModal{{$i}}">Xoá</a>
                         </td>
                      </tr>
+                    <div class="modal fade" id="basicModal{{$i}}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title">Bạn Có Muốn Xóa Khách Hàng?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="text-center"><b> {{ $customer->ten_kh }}</b></h4>
+                                <p><b>Số hợp đồng:</b> {{ $customer->so_hop_dong }}</p>
+                                <p><b>Giới tính:</b>
+                                @if($customer->gioi_tinh == 'M')
+                                Nam
+                                @endif
+                                @if($customer->gioi_tinh == 'F')
+                                Nữ
+                                @endif
+                                </p>
+                                <p><b>Ngày sinh:</b> {{ $customer->ngay_sinh }}</p>
+                                <p><b>Số điện thoại:</b> {{ $customer->dien_thoai }}</p>
+                                <p><b>Địa chỉ cụ thể:</b> {{ $customer->dia_chi_cu_the }}</p>
+                                <p><b>Ngày tạo:</b> {{ $customer->created_at }}</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <a class="btn btn-primary" href="{{ route('delete_excel_import', $customer->id) }}">Đồng ý</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                      @php
                     $i++;
                     @endphp
