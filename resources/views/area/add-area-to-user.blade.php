@@ -26,7 +26,7 @@
                             <div class="card-body">
                                 <h5 class="card-title pb-0">Tên khu vực cần cấp quyền</h5>
                                 <hr />
-                                <ul class="list-group sortable is-scroll" id="area_area_name">
+                                <ul class="list-group sortable flex-row" id="area_area_name">
                                     @php
                                         $a = array();
                                         $b = array();
@@ -42,7 +42,7 @@
                                         @foreach ($areas as $area)
                                             @if($lastArea == $area->id)
                                             <li data-id="{{ $area->id }}"
-                                                    class="btn-modify d-flex btn btn-secondary mb-2">{{ $area->name }}
+                                                    class="btn-modify d-inline-flex btn btn-secondary me-1 mb-1">{{ $area->name }}
                                                 </li>
                                             @else
                                             @endif
@@ -77,17 +77,16 @@
                                                     <div id="collapseOne_{{ $user->id }}"
                                                         class="accordion-collapse collapse" aria-labelledby="headingOne"
                                                         data-bs-parent="#accordionExample{{ $user->id }}">
-                                                        <ul class="pb-4 mb-0 is-body-user accordion-body sortable">
+                                                        <ul class="pb-4 mb-0 is-body-user accordion-body sortable d-flex flex-wrap">
                                                             @foreach ($areas_users as $area_user)
                                                                 @if ($area_user->id_user == $user->id)
                                                                     <li data-id="{{$area_user->id_area}}"
-                                                                        class="btn-modify d-flex justify-content-between btn btn-secondary mb-2">
+                                                                        class="btn-modify btn d-inline-flex btn-secondary mb-1 me-1">
                                                                         {{ $area_user->name }}
                                                                         <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                            class="btn-close-area bg-danger link-light text-center"
-                                                                            style="width: 25px;"
+                                                                            class="btn-close-area text-danger link-light text-center"
                                                                             href="{{ route('del_area_to_user', ['id' => $area_user->id]) }}">
-                                                                            <strong>X</strong>
+                                                                            <i class="ms-2 ri-close-circle-fill"></i>
                                                                         </a>
                                                                     </li>
                                                                 @endif
