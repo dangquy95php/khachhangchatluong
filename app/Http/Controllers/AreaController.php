@@ -31,8 +31,12 @@ class AreaController extends Controller
     public function index(Request $request)
     {
         $areas = Area::all();
+        $dataAreas = AreaCustomer::join('customers', 'customers.id', 'areas_customers.customer_id')
+                            ->where('called', '=', '')
+                            ->get();
+        $data = $dataAreas->groupBy('area_id');
 
-        return view('area.list', ['areas' =>  $areas, 'area_status' => $this->_status]);
+        return view('area.list', ['areas' =>  $areas, 'area_status' => $this->_status, 'data' => $data]);
     }
 
     public function create(Request $request)

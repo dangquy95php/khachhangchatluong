@@ -24,6 +24,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Tên Nhân Viên</th>
                         <th scope="col">Trạng Thái</th>
+                        <th scope="col">Khách Chưa Gọi</th>
                         <th scope="col">Ghi Chú</th>
                         <th scope="col">Ngày Tạo</th>
                         <th scope="col" class="text-center">
@@ -37,10 +38,24 @@
                   </thead>
                   <tbody>
                     @foreach($areas as $item)
+                    @php
+                    $count = false;
+                    @endphp
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{!! $item->status == 1 ? '<span class="badge bg-success">Đang Mở</span>' : '<span class="badge bg-secondary">Chưa kích hoạt</span>' !!}</td>
+                        @foreach($data as $key => $item1)
+                            @if($item->id == $key)
+                            @php
+                            $count = true;
+                            @endphp
+                            <td><span class="badge bg-primary">{{ count($item1) }}</span></td>
+                            @endif
+                        @endforeach
+                        @if($count == false)
+                            <td><span class="badge bg-dark">0</span</td>
+                        @endif
                         <td>{{ $item->note }}</td>
                         <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                         <td class="text-center">
