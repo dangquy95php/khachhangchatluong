@@ -40,12 +40,13 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>{!! $item->status == 1 ? '<span class="badge bg-success">Đang Mở</span>' : '<span class="badge bg-secondary">Chưa kích hoạt</span>' !!}</td>
+                        <td>
+                            <span class="badge bg-{{$item->status == 1 ? 'success' : 'secondary' }}">{{ $item->status == 1 ? 'Đang Mở' : 'Chưa kích hoạt' }}</span>
+                        </td>
                         <td>{{ $item->note }}</td>
                         <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                         <td class="text-center">
                             <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal" class="btn btn-danger">Xoá</a>
-
                             <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary">Sửa</a>
                         </td>
                     </tr>
@@ -92,7 +93,7 @@
                         <label for="inputEmail4" class="form-label">Trạng Thái</label>
                         <select class="form-select" name="status" aria-label="Default select example">
                             <option selected="0">Vui lòng chọn trạng thái</option>
-                            @foreach($area_status as $item)
+                            @foreach($areaAtatus as $item)
                                 <option {{ @$area->status == $item ? 'selected' : ''; }} value="{{ $item }}">{{ $item == 0 ? 'Chưa kích hoạt' : 'Đang mở'; }}</option>
                             @endforeach
                         </select>

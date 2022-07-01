@@ -23,7 +23,6 @@ class AreaController extends Controller
 
     public function __construct()
     {
-        $this->_status = Area::getStatus();
         $this->dataAreas = Area::select('name', 'id', 'note', 'created_at')->opening()->get();
         $this->dataCustomers = Customer::select('*')->get();
     }
@@ -31,8 +30,9 @@ class AreaController extends Controller
     public function index(Request $request)
     {
         $areas = Area::all();
+        $areaAtatus = Area::getStatus();
 
-        return view('area.list', ['areas' =>  $areas, 'area_status' => $this->_status]);
+        return view('area.list', compact('areas', 'areaAtatus'));
     }
 
     public function create(Request $request)
@@ -60,8 +60,9 @@ class AreaController extends Controller
     {
         $area = Area::find($id);
         $areas = Area::all();
+        $areaAtatus = Area::getStatus();
 
-        return view('area.list', ['area' =>  $area, 'areas' =>  $areas, 'area_status' => $this->_status ]);
+        return view('area.list', compact('area', 'areas', 'areaAtatus'));
     }
 
     public function postEdit($id, Request $request)
@@ -85,16 +86,14 @@ class AreaController extends Controller
     {
         DB::beginTransaction();
         try {
-            $areas = Area::find($id);
-            $areas->delete();
-            $ids = AreaCustomer::where('area_id', $id)->pluck('customer_id')->toArray();
-            AreaCustomer::where('area_id', $id)->delete();
-            Customer::whereIn('id', $ids)->delete();
-            Toastr::success("Xoá khu vực ". $areas->name ." thành công!");
+            $area = Area::find($id);
+            $area->area()->delete();
+            $area->delete();
+            Toastr::success("Xoá khu vực ". $area->name ." thành công!");
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
-            Toastr::error("Xoá khu vực ". $areas->name ." thất bại!". $ex->getMessage());
+            Toastr::error("Xoá khu vực ". $area->name ." thất bại!". $ex->getMessage());
         }
 
         return redirect()->route('index_area');

@@ -28,7 +28,7 @@ class Area extends Model
         self::CLOSED,
         self::OPENING
     ];
-
+    
     public static function getStatus()
     {
         return self::STATUS;
@@ -39,18 +39,8 @@ class Area extends Model
         return $query->where('status', self::OPENING);
     }
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class, 'user_id');
-    // }
-
-    // public function customers()
-    // {
-    //     return $this->hasMany(Customer::class)->where('called', self::HAVENT_CALLED_YET);
-    // }
-
-    // public function customer()
-    // {
-    //     return $this->hasOne(Customer::class)->where('called', self::HAVENT_CALLED_YET);
-    // }
+    public function area()
+    {
+        return $this->hasMany(Customer::class, 'area_id', 'id');
+    }
 }
