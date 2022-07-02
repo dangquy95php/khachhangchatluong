@@ -28,7 +28,6 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::get('/logout', 'UserController@logout')->name('logout');
 });
-    
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/create', 'UserController@create')->name('create_account');

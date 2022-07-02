@@ -15,27 +15,27 @@ class UserTableSeeder extends Seeder
     {
         //
          $data = [
-            [
-                'username' => 'admin',
-                'role' => 2,
-                'status' => 1,
-                'name' => '',
-                'password' => bcrypt('admin!@#123'),
-            ],
-            [
-                'username' => 'username1',
-                'role' => 1,
-                'status' => 1,
-                'name' => '',
-                'password' => bcrypt('12345'),
-            ],
-            [
-                'username' => 'username2',
-                'role' => 1,
-                'status' => 1,
-                'name' => '',
-                'password' => bcrypt('12345'),
-            ],
+            // [
+            //     'username' => 'admin',
+            //     'role' => 2,
+            //     'status' => 1,
+            //     'name' => '',
+            //     'password' => bcrypt('admin!@#123'),
+            // ],
+            // [
+            //     'username' => 'username1',
+            //     'role' => 1,
+            //     'status' => 1,
+            //     'name' => '',
+            //     'password' => bcrypt('12345'),
+            // ],
+            // [
+            //     'username' => 'username2',
+            //     'role' => 1,
+            //     'status' => 1,
+            //     'name' => '',
+            //     'password' => bcrypt('12345'),
+            // ],
             
             // [
             //     'username' => 'PHANYEN',

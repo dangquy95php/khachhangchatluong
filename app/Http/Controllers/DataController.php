@@ -14,7 +14,23 @@ use DB;
 
 class DataController extends Controller
 {
-    //5
+    // SELECT count(id) from customers =>12431
+    // SELECT count(id) FROM `customers` WHERE called ='' => 5995
+    // SELECT count(id) FROM `customers` WHERE type_result = 0 => 2384   => 2459
+    // SELECT count(id) FROM customers WHERE type_result = '0' => 75
+    // SELECT * FROM `customers` WHERE id = 583 , 388
+    //4copy-data
+
+    // SELECT count(id) FROM customers WHERE type_call = 0 => 75
+    // SELECT count(id) FROM customers WHERE type_call = 1 =>  1628
+    // SELECT count(id) FROM customers WHERE type_call = 2 => 217
+    // SELECT count(id) FROM customers WHERE type_call = 3 => 293
+    // SELECT count(id) FROM customers WHERE type_call = 4 => 2268
+    // SELECT count(id) FROM customers WHERE type_call = 5 => 471
+    // SELECT count(id) FROM customers WHERE type_call = 6 => 920
+    // SELECT count(id) FROM customers WHERE type_call = 7 => 564
+
+
     public function index()
     {
         $dataOld = DB::connection('mysql2')->table('customers')->orderBy('created_at')
@@ -23,6 +39,7 @@ class DataController extends Controller
             
                 $modelNew = new Customer();
                 $modelNew->id = $item->id;
+
                 if (empty($item->so_thu_tu)) {
                     $item->so_thu_tu = null;
                 }
@@ -81,7 +98,10 @@ class DataController extends Controller
                     $item->comment = null;
                 }
                 $modelNew->comment = $item->comment;
-                if (empty($item->type_result)) {
+                
+                if ($item->type_result===0 || $item->type_result ==='0')
+                    $item->type_result = intval($item->type_result);
+                if (intval($item->type_result==='')) {
                     $item->type_result = null;
                 }
                 $modelNew->type_call = $item->type_result;
@@ -149,31 +169,34 @@ class DataController extends Controller
             }
         });
     }
-    //44
+    //5
     public function updateArea()
     {
         $dataOld = DB::connection('mysql2')->table('areas_customers')->orderBy('created_at')
         ->chunk(500, function($rows) {
             foreach($rows as $item) {
                 Customer::where('id', $item->customer_id)->update([
-                    'area_id' => $item->area_id
+                    'area_id' => $item->area_id,
+                    'created_at' => $item->created_at,
+                    'updated_at' => $item->updated_at
                 ]);
             }
         });
     }
-    //33
+    //33 update-user
     public function updateUser()
     {
         $dataOld = DB::connection('mysql2')->table('areas_users')->orderBy('created_at')
         ->chunk(500, function($rows) {
             foreach($rows as $item) {
                 Area::where('id', $item->id_area)->update([
-                    'user_id' => $item->id_user
+                    'user_id' => $item->id_user,
+                    'updated_at' => $item->updated_at
                 ]);
             }
         });
     }
-    //11
+    //11 add-user
     public function addUser()
     {
         $dataOld = DB::connection('mysql2')->table('users')->orderBy('created_at')
@@ -227,6 +250,7 @@ class DataController extends Controller
                 if (empty($item->updated_at)) {
                     $item->updated_at = null;
                 }
+                \Log::info($item->updated_at);
                 $modelNew->updated_at = $item->updated_at;
 
                 $modelNew->save();

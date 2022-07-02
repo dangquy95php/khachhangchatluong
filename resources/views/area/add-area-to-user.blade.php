@@ -104,6 +104,7 @@
                 start: function(event, ui) {
                     var start_area_id  = $(ui.item).data('id');
                     var start_id_user = $(ui.item).closest('.accordion-item').children().data('id_user');
+                    $(ui.item).addClass("btn-warning");
 
                     ui.item.data('start_area_id', start_area_id);
                     ui.item.data('start_id_user', start_id_user);
@@ -118,6 +119,7 @@
                     var start_id_user = ui.item.data('start_id_user');
                     var stop_id_area = ui.item.data('start_area_id');
                     var stop_id_user = $(ui.item).closest('.accordion-item').children().data('id_user');
+                    $(ui.item).removeClass("btn-warning");
 
                     var is_move_to_left = $(ui.item).closest('#area_area_name');
 

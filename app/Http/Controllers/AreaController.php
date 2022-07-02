@@ -135,7 +135,7 @@ class AreaController extends Controller
 
     public function doleCustomersToArea()
     {
-        $customers = Customer::whereNull('area_id')->paginate(20);
+        $customers = Customer::whereNull('area_id')->whereNull('called')->paginate(20);
 
         return view('area.list-dole', ['areas' => $this->dataAreas, 'customers' => $customers]);
     }
@@ -155,7 +155,7 @@ class AreaController extends Controller
             return redirect()->back();
         }
         $area = Area::findOrFail($request->input('area'));
-
+        
         DB::beginTransaction();
         try {
             Customer::whereIn('id', $request->get('choose_customers'))

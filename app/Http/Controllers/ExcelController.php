@@ -16,13 +16,12 @@ use Carbon\Carbon;
 class ExcelController extends Controller
 {
     const EXCEL_TYPE_FILE = '.xlsx';
-    const HAVENT_CALLED_YET = 0;
 
     public $dataCustomers = '';
 
     public function import(Request $request)
     {
-        $customers = Customer::whereDate('created_at', Carbon::today())->where('called',  self::HAVENT_CALLED_YET)->get();
+        $customers = Customer::whereDate('created_at', Carbon::today())->whereNull('called')->get();
 
         return view('excel.list', compact('customers'));
     }

@@ -22,6 +22,7 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
 
     const HAVENT_CALLED_YET = 0;
     const CALLED = 1;
+    const APPOINTMENT = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -129,7 +130,7 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     public function customer()
     {
         return $this->hasOneThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id' )
-                    ->where('customers.called', self::HAVENT_CALLED_YET)
+                    ->whereNull('customers.called')
                     ->where('areas.status', self::AREA_ACTIVE)
                     ->orderBy('customers.updated_at', 'DESC')
                     ->select('customers.*', 'areas.name');
@@ -147,8 +148,9 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     public function get_data_today()
     {
         return $this->hasManyThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id')
-                ->where('customers.updated_at', '>=' ,\Carbon\Carbon::today())
+                ->where('customers.updated_at', '>=', \Carbon\Carbon::today())
                 ->where('customers.called', self::CALLED)
+                ->where('customers.type_call', self::APPOINTMENT)
                 ->orderBy('customers.updated_at', 'DESC')
                 ->select('customers.*', 'areas.name');
     }

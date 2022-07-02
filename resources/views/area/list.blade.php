@@ -54,7 +54,7 @@
                         <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                         <td class="text-center">
                             <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal" class="btn btn-danger">Xoá</a>
-                            <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary mt-2">Sửa</a>
+                            <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary">Sửa</a>
                         </td>
                     </tr>
 

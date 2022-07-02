@@ -40,14 +40,7 @@
                            <i class="bi bi-headset"></i>
                         </div>
                         <div class="ps-3">
-                           <h6>{{ $totalCallCurrent }}</h6>
-
-                           <span class="text-{{$totalCallCurrent > $totalCalledBefore ? 'success' : 'danger' }} small pt-1 fw-bold">
-                              @if($totalCallCurrent != 0 && $totalCalledBefore != 0)
-                                 {{ number_format(($totalCallCurrent / $totalCalledBefore) * 100, 1) }}%
-                              @endif
-                           </span>
-                           <span class="text-muted small pt-2 ps-1">{{ $totalCallCurrent < $totalCalledBefore ? 'Giảm' : 'Tăng' }}</span>
+                           <h6>{{ count($result) }}</h6>
                         </div>
                      </div>
                   </div>
@@ -77,9 +70,9 @@
                   </thead>
                   <tbody>
                      @php
-                     $i = count($today);
+                     $i = count($result);
                      @endphp
-                     @foreach($today as $data)
+                     @foreach($result as $data)
                         <tr>
                            <th scope="row">{{$i}}</th>
                            <td>{{ $data->so_hop_dong }}</td>
@@ -99,9 +92,9 @@
                            <td>{{ $data->dia_chi_cu_the }}</td>
                            <td>{{ $data->updated_at }}</td>
                         </tr>
-                     @php
-                     $i--;
-                     @endphp
+                        @php
+                        $i--;
+                        @endphp
                      @endforeach
                   </tbody>
                </table>

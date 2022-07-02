@@ -15,24 +15,24 @@ class AreaSeeder extends Seeder
     {
         //
         $data = [
-            [
-                'name' => 'KV1',
-                'status' => 1,
-                'user_id' => 2,
-                'note' => ''
-            ],
-            [
-                'name' => 'KV2',
-                'status' => 1,
-                'user_id' => 1,
-                'note' => ''
-            ],
-            [
-                'name' => 'KV3',
-                'status' => 1,
-                'user_id' => 1,
-                'note' => ''
-            ],
+            // [
+            //     'name' => 'KV1',
+            //     'status' => 1,
+            //     'user_id' => 2,
+            //     'note' => ''
+            // ],
+            // [
+            //     'name' => 'KV2',
+            //     'status' => 1,
+            //     'user_id' => 1,
+            //     'note' => ''
+            // ],
+            // [
+            //     'name' => 'KV3',
+            //     'status' => 1,
+            //     'user_id' => 1,
+            //     'note' => ''
+            // ],
 
             // [
             //     'name' => 'MÙI',
