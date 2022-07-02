@@ -1122,7 +1122,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 70px;
   height: 70px;
   border: 5px #ddd solid;
-  border-top: 5px #2e93e6 solid;
+  border-top: 5px #0d6efd solid;
   border-radius: 50%;
   animation: sp-anime 0.8s infinite linear;
 }

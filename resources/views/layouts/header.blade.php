@@ -8,7 +8,7 @@
    </div>
    <!-- End Logo -->
    <!-- <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="GET" action="{{route('search_customer')}}">
+      <form class="search-form d-flex align-items-center" method="GET" action="">
          <input type="text" name="query" placeholder="Tìm kiếm khách khách hàng" title="Enter search keyword">
          <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>

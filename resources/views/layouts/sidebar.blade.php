@@ -63,7 +63,7 @@
                </a>
             </li>
             <li>
-               <a href="{{route('customer_by_area')}}" class="{{ \Request::route()->getName() == 'customer_by_area' ? 'active' : ''}}">
+               <a href="{{route('area.dole')}}" class="{{ \Request::route()->getName() == 'area.dole' ? 'active' : ''}}">
                <i class="bi bi-circle"></i><span>Chia đều data</span>
                </a>
             </li>

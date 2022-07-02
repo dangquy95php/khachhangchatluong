@@ -30,9 +30,9 @@ Breadcrumbs::for('area', function ($trail) {
     $trail->push('Cấp data cho nhân viên', route('index_area'));
 });
 
-Breadcrumbs::for('customer_by_area', function ($trail) {
+Breadcrumbs::for('area.dole', function ($trail) {
     $trail->parent('home');
-    $trail->push('Chia đều data', route('customer_by_area'));
+    $trail->push('Chia đều data', route('area.dole'));
 });
 
 Breadcrumbs::for('statistical', function ($trail) {

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
 
+    const HAVENT_CALLED_YET = 0;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -15,7 +17,8 @@ class Area extends Model
     protected $fillable = [
         'name',
         'status',
-        'note'
+        'note',
+        'user_id',
     ];
 
     const CLOSED = 0;
@@ -25,7 +28,7 @@ class Area extends Model
         self::CLOSED,
         self::OPENING
     ];
-
+    
     public static function getStatus()
     {
         return self::STATUS;
@@ -34,5 +37,10 @@ class Area extends Model
     public function scopeOpening($query)
     {
         return $query->where('status', self::OPENING);
+    }
+
+    public function area()
+    {
+        return $this->hasMany(Customer::class, 'area_id', 'id');
     }
 }

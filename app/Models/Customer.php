@@ -13,7 +13,7 @@ class Customer extends Model
     const BY_AREA_ACTIVE = 1; // đã update sau khi import. Tức là đã cho khách hàng vào khu vực
 
     const NEW_CUSTOMER = 0;
-
+    const AREA_ACTIVE = 1;
     /**
      * The attributes that are mass assignable.
      *
@@ -38,8 +38,9 @@ class Customer extends Model
         'dien_thoai',
         'dia_chi_cu_the',
         'comment',
-        'type_result',
-        'called'
+        'type_call',
+        'called',
+        'date_max'
     ];
 
     const APPOINTMENT = 0;
@@ -74,12 +75,6 @@ class Customer extends Model
 
     public function area()
     {
-        return $this->belongsTo('App\Models\Area', 'id' , 'by_area');
+        return $this->hasOne(Area::class, 'id');
     }
-
-    public function scopeNotNullOnly($query){
-
-        return $query->where('info_option', '<>', '');
-    }
-
 }

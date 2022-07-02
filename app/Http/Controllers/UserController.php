@@ -19,6 +19,14 @@ class UserController extends Controller
     const ADMIN_ROLE = 2;
     const USER_ACTIVED = 1;
 
+    public function index()
+    {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
+        return redirect()->route('login');
+    }
+
     public function login(Request $request)
     {
         if (Auth::check()) {
@@ -47,7 +55,7 @@ class UserController extends Controller
         } else {
             Toastr::error('Tên người dùng hoặc mật khẩu không chính xác!');
         }
-        return redirect()->back()->withInput();
+        return redirect()->route('home');
     }
 
     public function logout(Request $request)

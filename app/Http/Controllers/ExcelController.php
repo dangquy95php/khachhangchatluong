@@ -11,27 +11,20 @@ use Brian2694\Toastr\Facades\Toastr;
 use App\Exports\CustomerExport;
 use App\Imports\CustomerImport;
 use Cache;
+use Carbon\Carbon;
 
 class ExcelController extends Controller
 {
-
     const EXCEL_TYPE_FILE = '.xlsx';
+    const HAVENT_CALLED_YET = 0;
 
     public $dataCustomers = '';
 
-    public function __construct()
-    {
-        // $this->dataCustomers = Customer::paginate(20);
-    }
-
     public function import(Request $request)
     {
-        $customers = \DB::table('areas_customers AS t1')
-        ->select('t1.customer_id')
-        ->rightJoin('customers AS t2', 't2.id','=', 't1.customer_id')
-        ->whereNull('t1.id')->select('t2.*')->get();
+        $customers = Customer::whereDate('created_at', Carbon::today())->where('called',  self::HAVENT_CALLED_YET)->get();
 
-        return view('excel.list', [ 'customers' => $customers ]);
+        return view('excel.list', compact('customers'));
     }
 
     public function deleteExcelCustomer($id, Request $request)
@@ -98,18 +91,5 @@ class ExcelController extends Controller
         }
 
         return \Response::json(['message' => 'Import dữ liệu thành công!'], 200);
-    }
-
-    public function export(Request $request)
-    {
-        try {
-            $fileName = now()->format('Y-m-d-H-i-s');
-            Toastr::success('Export dữ liệu thành công!');
-            return Excel::download(new CustomerExport, 'customer_'. $fileName .self::EXCEL_TYPE_FILE);
-        } catch (\Exception $ex) {
-            Toastr::success('Export dữ liệu thất bại'. $ex->getMessage());
-        }
-
-        return redirect()->back();
     }
 }

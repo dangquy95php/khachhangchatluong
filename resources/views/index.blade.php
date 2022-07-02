@@ -45,12 +45,7 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
         <!-- End Logo -->
-        <!-- <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="GET" action="{{ route('search_customer') }}">
-                <input type="text" name="query" placeholder="Tìm kiếm khách khách hàng" title="Enter search keyword">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
-        </div> -->
+     
         <!-- End Search Bar -->
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -174,11 +169,8 @@
                                             Liệu</b></label>
                                             <select name="area_name" id="data_area_id" class="form-select">
                                                 <option value="">Chọn nguồn dữ liệu</option>
-                                                @foreach ($areas as $area)
-                                                <option
-                                                {{ old('area_name', @$customer->area_id) == $area->id ? 'selected' : '' }}
-                                                value="{{ $area->id }}">{{ $area->name }}
-                                                </option>
+                                                @foreach ($areas->areas as $area)
+                                                    <option {{ old('area_name', $area->id) == @$customer->area_id ? 'selected' : '' }} {{ Request::get('area_id') == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
                                                 @endforeach
                                             </select>
                                             </div>
@@ -192,8 +184,8 @@
                                         <ul class="list-group is-result">
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="0" id="gridRadios0"
-                                                {{ old('type_result') !== null && old('type_result', @$customer->type_result) == 0 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_call" value="0" id="gridRadios0"
+                                                {{ old('type_call') !== null && old('type_call', @$customer->type_call) == 0 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios0">
                                                 Đã hẹn
                                                 </label>
@@ -201,9 +193,9 @@
                                             </li>
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result"
+                                                <input class="form-check-input" type="radio" name="type_call"
                                                 value="1" id="gridRadios1"
-                                                {{ old('type_result', @$customer->type_result) == 1 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                 Đại lý vẫn chăm sóc
                                                 </label>
@@ -211,9 +203,9 @@
                                             </li>
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result"
+                                                <input class="form-check-input" type="radio" name="type_call"
                                                 value="2" id="gridRadios2"
-                                                {{ old('type_result', @$customer->type_result) == 2 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 2 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios2">
                                                 Khách hàng ít tiền
                                                 </label>
@@ -221,9 +213,9 @@
                                             </li>
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result"
+                                                <input class="form-check-input" type="radio" name="type_call"
                                                 value="3" id="gridRadios3"
-                                                {{ old('type_result', @$customer->type_result) == 3 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 3 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios3">
                                                 Khách hàng suy nghĩ, gọi lại sau
                                                 </label>
@@ -231,8 +223,8 @@
                                             </li>
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result" value="4" id="gridRadios4"
-                                                {{ old('type_result', @$customer->type_result) == 4 ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="type_call" value="4" id="gridRadios4"
+                                                {{ old('type_call', @$customer->type_call) == 4 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios4">
                                                 KNM / Bận / Tắt máy / Sai số / Đổi số
                                                 </label>
@@ -240,9 +232,9 @@
                                             </li>
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result"
+                                                <input class="form-check-input" type="radio" name="type_call"
                                                 value="5" id="gridRadios5"
-                                                {{ old('type_result', @$customer->type_result) == 5 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 5 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios5">
                                                 Hợp đồng Hủy / Đáo hạn / Hoàn trả giá trị
                                                 </label>
@@ -250,9 +242,9 @@
                                             </li>
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result"
+                                                <input class="form-check-input" type="radio" name="type_call"
                                                 value="6" id="gridRadios6"
-                                                {{ old('type_result', @$customer->type_result) == 6 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 6 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios6">
                                                 Đã tham gia hợp đồng mới / Không tham gia
                                                 </label>
@@ -260,16 +252,16 @@
                                             </li>
                                             <li class="list-group-item">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type_result"
+                                                <input class="form-check-input" type="radio" name="type_call"
                                                 value="7" id="gridRadios7"
-                                                {{ old('type_result', @$customer->type_result) == 7 ? 'checked' : '' }}>
+                                                {{ old('type_call', @$customer->type_call) == 7 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios7">
                                                 Khác
                                                 </label>
                                             </div>
                                             </li>
                                         </ul>
-                                        @include('_partials.alert', ['field' => 'type_result'])
+                                        @include('_partials.alert', ['field' => 'type_call'])
                                     </div>
 
                                     <div class="col-lg-4 col-md-12 col-sm-6 mt-lg-0 mt-md-4 mt-sm-3 px-md-1">
@@ -285,9 +277,8 @@
                                         </div>
                                         <div class="col-lg-12 col-sm-6">
                                             <!-- <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i><span class="ps-2">Reset Dữ liệu</span></button> -->
-                                            <button type="submit" class="btn-save btn btn-success" name="action" value="save">
-                                                <i class="bi bi-check-circle"></i><span class="ps-2">Lưu Dữ
-                                                    Liệu</span>
+                                            <button type="submit" class="d-none btn-save btn btn-success" name="action" value="save">
+                                                <i class="bi bi-check-circle"></i><span class="ps-2">Cập Nhật Dữ Liệu</span>
                                             </button>
 
                                             <button type="submit" class="btn-next btn btn-outline-primary" name="action"
@@ -316,7 +307,7 @@
                     <div class="tab-pane fade active show" id="history" role="tabpanel" aria-labelledby="history-tab">
 
                         <div class="col-12">
-                            <form action="" method="GET">
+                            <form action="" id="form-search" method="GET">
                                 <div class="row">
                                     <div class="col-md-3 col-md-5 col-sm-5">
                                         <div class="row p-2">
@@ -336,14 +327,14 @@
                                     </div>
                                     <div class="col-md-2 col-sm-2">
                                         <div class="p-md-2 p-sm-0">
-                                            <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                            <a class="btn-search btn btn-success">Tìm kiếm</a>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                             <div class="card mb-2 mt-md-2 mt-sm-3">
                                 <div class="card-body pt-3 table-responsive">
-                                    {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                    {{ count($history->customers) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                                     <!-- Table with hoverable rows -->
                                     <table class="table table-hover">
                                         <thead>
@@ -368,16 +359,16 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                            $j = $dataHistory->total();
-                                            if ($dataHistory->currentPage() >= 2) {
-                                                $j = $dataHistory->total() - (($dataHistory->currentPage() - 1) * $dataHistory->perPage());
+                                            $j = $history->customers->total();
+                                            if ($history->customers->currentPage() >= 2) {
+                                                $j = $history->customers->total() - (($history->customers->currentPage() - 1) * $history->customers->perPage());
                                             }
                                             @endphp
 
-                                            @foreach ($dataHistory as $key => $data)
+                                            @foreach ($history->customers as $key => $data)
                                             <tr role="button" class="is-item-customer">
                                                 <th scope="row">
-                                                    @if ($key == 0 && $dataHistory->currentPage() < 2)
+                                                    @if ($key == 0 && $history->customers->currentPage() < 2)
                                                         <span class="badge rounded-pill bg-danger">{{ $j }}</span>
                                                     @else
                                                         {{ $j }}
@@ -403,11 +394,10 @@
                                                 <td class="dien_thoai">{{ $data->dien_thoai }}</td>
                                                 <td class="comment">{{ $data->comment }}</td>
                                                 <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
-                                                <td style="width:200px;" class="type_result">
+                                                <td style="width:200px;" class="type_call">
                                                     @foreach (\App\Models\Customer::getInforOption() as $key => $value)
-                                                        @if ($key == $data->type_result)
+                                                        @if ($key == $data->type_call)
                                                             <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
-                                                            <!-- http://jsfiddle.net/zA23k/215/ -->
                                                         @endif
                                                     @endforeach
                                                 </td>
@@ -423,16 +413,16 @@
                                     </table>
                                     <!-- End Table with hoverable rows -->
                                 </div>
-                                {!! $dataHistory->links('_partials.pagination') !!}
+                                {!! $history->customers->links('_partials.pagination') !!}
                             </div>
                         </div>
-
                     </div>
+                    <!-- //data 2 -->
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
                         <div class="card mb-2 mt-md-2 mt-sm-3">
                             <div class="card-body pt-3 table-responsive">
-                                {{ count($dataHistory) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                {{ count($today) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                                 <!-- Table with hoverable rows -->
                                 <table class="table table-hover" style="min-width: 1000px;">
                                     <thead>
@@ -457,9 +447,9 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                        $i = count($todayData);
+                                        $i = count($today);
                                         @endphp
-                                        @foreach ($todayData as $key => $data)
+                                        @foreach ($today as $key => $data)
                                         <tr role="button" class="is-item-customer">
                                             <th scope="row">
                                                 @if ($key == 0)
@@ -483,14 +473,14 @@
                                                 Nam
                                                 @elseif($data->gioi_tinh === 'F')
                                                 Nữ
-                                               @endif
+                                            @endif
                                             </td>
                                             <td class="dien_thoai">{{ $data->dien_thoai }}</td>
                                             <td class="comment">{{ $data->comment }}</td>
                                             <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
-                                            <td class="type_result">
+                                            <td class="type_call">
                                                 @foreach (\App\Models\Customer::getInforOption() as $key => $value)
-                                                @if ($key == $data->type_result)
+                                                @if ($key == $data->type_call)
                                                 <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
                                                 @endif
                                                 @endforeach
@@ -578,16 +568,18 @@
 
     <script>
         $(document).ready(function() {
-            $(".more").toggle(function(){
-                $(this).text("less..").siblings(".complete").show();
-            }, function(){
-                $(this).text("more..").siblings(".complete").hide();
+            $('.btn-search').click(function() {
+                var area_id = $("#data_area_id").val();
+                $('#form-search').append(`<input type="hidden" name="area_id" value="${area_id}" />`);
+                $( "#form-search" ).submit();
             });
-
+           
             if (!$('#id_contract').val()) {
                 $('.btn-alert').trigger('click');
             }
             $(".is-item-customer").click(function() {
+                $(".btn-save").removeClass('d-none');
+
                 var el= $(this).get(0);
 
                 $('#customer_id').val($($(el).find('.id').get(0)).text());
@@ -603,7 +595,7 @@
                 $('#tuoi').val($($(el).find('.tuoi').get(0)).text().trim());
                 $('#data_area_id').val($($(el).find('.area_id').get(0)).text().trim());
                 $('#comment').val($($(el).find('.comment').get(0)).text());
-                var id_result = $($(el).find('.type_result')).children().data('id');
+                var id_result = $($(el).find('.type_call')).children().data('id');
 
                 var sex = $($(el).find('.gioi_tinh').get(0)).text().trim();
                 $("#gioi_tinh option").each(function() {

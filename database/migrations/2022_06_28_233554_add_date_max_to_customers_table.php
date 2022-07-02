@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAreasUsersTable extends Migration
+class AddDateMaxToCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateAreasUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas_users', function (Blueprint $table) {
-            $table->id();
-            $table->string('id_area')->nullable();
-            $table->string('id_user')->nullable();
-            $table->timestamps();
+        Schema::table('customers', function (Blueprint $table) {
+            $table->integer('date_max')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateAreasUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas_users');
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('date_max');
+        });
     }
 }

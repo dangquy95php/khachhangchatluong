@@ -36,7 +36,7 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
                     'msdl'             => @$row['msdl'],
                     'cv'               => @$row['cv'],
                     'so_hop_dong'      => @$row['so_hop_dong'],
-                    'ngay_tham_gia'      => @$row['ngay_tham_gia'],
+                    'ngay_tham_gia'    => @$row['ngay_tham_gia'],
                     'menh_gia'         => @$row['menh_gia'],
                     'nam_dao_han'      => @$row['nam_dao_han'],
                     'ho'               => @$row['ho'],
@@ -47,9 +47,6 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
                     'tuoi'             => @$row['tuoi'],
                     'dien_thoai'       => @$row['dien_thoai'],
                     'dia_chi_cu_the'   => @$row['dia_chi_cu_the'],
-                    'called'           => ''
-                    // 'type_result'      => '',
-                    // 'comment'          => '',
                 ]);
 
                 return $customer;

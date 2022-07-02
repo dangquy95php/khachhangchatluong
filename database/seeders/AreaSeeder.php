@@ -15,21 +15,24 @@ class AreaSeeder extends Seeder
     {
         //
         $data = [
-            // [
-            //     'name' => 'THIỆN',
-            //     'status' => 1,
-            //     'note' => ''
-            // ],
-            // [
-            //     'name' => 'YẾN',
-            //     'status' => 1,
-            //     'note' => ''
-            // ],
-            // [
-            //     'name' => 'TRÚC LINH',
-            //     'status' => 1,
-            //     'note' => ''
-            // ],
+            [
+                'name' => 'KV1',
+                'status' => 1,
+                'user_id' => 2,
+                'note' => ''
+            ],
+            [
+                'name' => 'KV2',
+                'status' => 1,
+                'user_id' => 1,
+                'note' => ''
+            ],
+            [
+                'name' => 'KV3',
+                'status' => 1,
+                'user_id' => 1,
+                'note' => ''
+            ],
 
             // [
             //     'name' => 'MÙI',
@@ -91,16 +94,16 @@ class AreaSeeder extends Seeder
             //     'status' => 1,
             //     'note' => ''
             // ],
-            [
-                'name' => 'KV1',
-                'status' => 1,
-                'note' => '',
-            ],
-            [
-                'name' => 'KV2',
-                'status' => 1,
-                'note' => '',
-            ]
+            // [
+            //     'name' => 'KV1',
+            //     'status' => 1,
+            //     'note' => '',
+            // ],
+            // [
+            //     'name' => 'KV2',
+            //     'status' => 1,
+            //     'note' => '',
+            // ]
         ];
 
         \DB::table('areas')->insert($data);

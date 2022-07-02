@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/excel/import', 'ExcelController@postImport');
 
-// Route::get('/area/delete', 'AreaController@deleteByArea');
+// Route::get('/customer/by-data-id', 'Api\HomeController@detail')->name('customer_detail');
 
 // Route::get('/', 'HomeController@index')->name('home');

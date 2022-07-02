@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAreasCustomersTable extends Migration
+class AddNgayThamGiaToCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateAreasCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas_customers', function (Blueprint $table) {
-            $table->id();
-            $table->string('area_id')->nullable();
-            $table->string('customer_id')->nullable();
-            $table->timestamps();
+        Schema::table('customers', function (Blueprint $table) {
+            $table->integer('ngay_tham_gia')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateAreasCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas_customers');
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('ngay_tham_gia');
+        });
     }
 }

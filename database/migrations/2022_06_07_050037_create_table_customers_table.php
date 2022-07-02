@@ -13,8 +13,9 @@ class CreateTableCustomersTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('customers');
         Schema::create('customers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id', true);
             $table->string('so_thu_tu')->nullable();
             $table->string('vpbank')->nullable();
             $table->string('msdl')->nullable();
@@ -30,10 +31,16 @@ class CreateTableCustomersTable extends Migration
             $table->string('tuoi')->nullable();
             $table->string('dien_thoai')->nullable();
             $table->string('dia_chi_cu_the')->nullable();
-            $table->string('comment')->nullable();
-            $table->integer('type_result')->nullable();
-            $table->string('called')->default('');
-            $table->timestamps();
+            $table->text('comment')->nullable();
+            $table->integer('type_call')->nullable();
+            $table->boolean('called')->default(0);
+            $table->integer('area_id')->unsigned()->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+        });
+
+        Schema::table('customers', function($table) {
+            $table->foreign('area_id')->references('id')->on('areas');
         });
     }
 

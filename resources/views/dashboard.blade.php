@@ -25,22 +25,13 @@
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                            <i class="bi bi-people"></i>
                         </div>
-                        <div class="ps-3">
-                           <h6>Pending...</h6>
-                           <span class="text-{{count($dataToday['data']) > count($dataYesterday['data']) ? 'success' : 'danger' }} small pt-1 fw-bold">
-                            @if ( count($dataToday['data']) != 0 &&  count($dataYesterday['data']) != 0)
-                           {{ number_format(( count($dataToday['data']) / count($dataYesterday['data'])) * 100 , 1) }}%
-                           @endif
-                           </span>
-                           <span class="text-muted small pt-2 ps-1">{{count($dataToday['data']) < count($dataYesterday['data']) ? 'Giảm' : 'Tăng' }}</span>
-                        </div>
                      </div>
                   </div>
                </div>
             </div> -->
             <!-- End Customers Card -->
             <!-- Sales Card -->
-            <div class="col-xxl-12 col-md-12">
+            <div class="col-xxl-6 col-md-6">
                <div class="card info-card sales-card">
                   <div class="card-body">
                      <h5 class="card-title">TỔNG KHÁCH ĐÃ GỌI <span>| Hôm Nay</span></h5>
@@ -49,50 +40,46 @@
                            <i class="bi bi-headset"></i>
                         </div>
                         <div class="ps-3">
-                           <h6>{{ $dataToday['called'] }}</h6>
+                           <h6>{{ $totalCallCurrent }}</h6>
 
-                           <span class="text-{{$dataToday['called'] > $dataYesterday['called'] ? 'success' : 'danger' }} small pt-1 fw-bold">
-                            @if($dataToday['called'] != 0 &&  $dataYesterday['called'] != 0)
-                           {{ number_format(($dataToday['called'] / $dataYesterday['called']) * 100, 1) }}%</span>
-                              <span class="text-muted small pt-2 ps-1">{{ $dataToday['called'] < $dataYesterday['called'] ? 'Giảm' : 'Tăng' }}</span>
+                           <span class="text-{{$totalCallCurrent > $totalCalledBefore ? 'success' : 'danger' }} small pt-1 fw-bold">
+                              @if($totalCallCurrent != 0 && $totalCalledBefore != 0)
+                                 {{ number_format(($totalCallCurrent / $totalCalledBefore) * 100, 1) }}%
                               @endif
+                           </span>
+                           <span class="text-muted small pt-2 ps-1">{{ $totalCallCurrent < $totalCalledBefore ? 'Giảm' : 'Tăng' }}</span>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
-
-         </div>
-         <!-- Recent Sales -->
-         <div class="col-12">
-            <div class="card recent-sales overflow-auto">
-               <div class="card-body table-responsive">
-                  <h5 class="card-title">Khách Hàng Đã Hẹn <span>| Hôm nay</span></h5>
-                  <table class="table">
-                     <thead>
-                        <tr>
-                           <th scope="col">#</th>
-                           <th scope="col">Số Hợp Đồng</th>
-                           <th style="min-width: 150px;" scope="col">Tên Khách Hàng</th>
-                           <th scope="col">Số Tiền</th>
-                           <th style="min-width: 250px;" scope="col">Ghi Chú</th>
-                           <th scope="col">Tài Khoản Gọi</th>
-                           <th scope="col">Giới Tính</th>
-                           <th scope="col">Tuổi</th>
-                           <th style="min-width: 250px;" scope="col">Địa Chỉ</th>
-                           <th style="min-width: 100px;" scope="col">Thời Gian Gọi</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-
+      </div>
+      <!-- Recent Sales -->
+      <div class="col-12">
+         <div class="card recent-sales overflow-auto">
+            <div class="card-body table-responsive">
+               <h5 class="card-title">Khách Hàng Đã Hẹn <span>| Hôm nay</span></h5>
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Số Hợp Đồng</th>
+                        <th style="min-width: 150px;" scope="col">Tên Khách Hàng</th>
+                        <th scope="col">Số Tiền</th>
+                        <th style="min-width: 200px;" scope="col">Ghi Chú</th>
+                        <th scope="col">Tài Khoản Gọi</th>
+                        <th scope="col">Giới Tính</th>
+                        <th scope="col">Tuổi</th>
+                        <th style="min-width: 250px;" scope="col">Địa Chỉ</th>
+                        <th style="min-width: 100px;" scope="col">Thời Gian Gọi</th>
+                     </tr>
+                  </thead>
+                  <tbody>
                      @php
-                     $i = $dataToday['scheduled']->total();
-                     if ($dataToday['scheduled']->currentPage() >= 2) {
-                        $i = $dataToday['scheduled']->total() - (($dataToday['scheduled']->currentPage() - 1) * $dataToday['scheduled']->perPage());
-                     }
+                     $i = count($today);
                      @endphp
-                     @foreach($dataToday['scheduled'] as $data)
+                     @foreach($today as $data)
                         <tr>
                            <th scope="row">{{$i}}</th>
                            <td>{{ $data->so_hop_dong }}</td>
@@ -116,13 +103,11 @@
                      $i--;
                      @endphp
                      @endforeach
-                     </tbody>
-                  </table>
-                  {!! $dataToday['scheduled']->links('_partials.pagination') !!}
-               </div>
+                  </tbody>
+               </table>
             </div>
          </div>
-         <!-- End Recent Sales -->
+      </div>
       <!-- End Left side columns -->
    </div>
 </section>

@@ -16,27 +16,21 @@ class AreaController extends Controller
 {
     public $_status = '';
     public $dataAreas = '';
-    public $dataCustomers = '';
 
     const CUSTOMER_ACTIVE = 1;
     const USER_ACTIVE = 1;
 
     public function __construct()
     {
-        $this->_status = Area::getStatus();
         $this->dataAreas = Area::select('name', 'id', 'note', 'created_at')->opening()->get();
-        $this->dataCustomers = Customer::select('*')->get();
     }
 
     public function index(Request $request)
     {
         $areas = Area::all();
-        $dataAreas = AreaCustomer::join('customers', 'customers.id', 'areas_customers.customer_id')
-                            ->where('called', '=', '')
-                            ->get();
-        $data = $dataAreas->groupBy('area_id');
+        $areaAtatus = Area::getStatus();
 
-        return view('area.list', ['areas' =>  $areas, 'area_status' => $this->_status, 'data' => $data]);
+        return view('area.list', compact('areas', 'areaAtatus'));
     }
 
     public function create(Request $request)
@@ -64,8 +58,9 @@ class AreaController extends Controller
     {
         $area = Area::find($id);
         $areas = Area::all();
+        $areaAtatus = Area::getStatus();
 
-        return view('area.list', ['area' =>  $area, 'areas' =>  $areas, 'area_status' => $this->_status ]);
+        return view('area.list', compact('area', 'areas', 'areaAtatus'));
     }
 
     public function postEdit($id, Request $request)
@@ -127,33 +122,27 @@ class AreaController extends Controller
     {
         DB::beginTransaction();
         try {
-            $areas = Area::find($id);
-            $areas->delete();
-            $ids = AreaCustomer::where('area_id', $id)->pluck('customer_id')->toArray();
-            AreaCustomer::where('area_id', $id)->delete();
-            Customer::whereIn('id', $ids)->delete();
-            Toastr::success("Xoá khu vực ". $areas->name ." thành công!");
+            $area = Area::find($id);
+            $area->area()->delete();
+            $area->delete();
+            Toastr::success("Xoá khu vực ". $area->name ." thành công!");
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
-            Toastr::error("Xoá khu vực ". $areas->name ." thất bại!". $ex->getMessage());
+            Toastr::error("Xoá khu vực ". $area->name ." thất bại!". $ex->getMessage());
         }
 
         return redirect()->route('index_area');
     }
 
-    public function customerByArea(Request $request)
+    public function doleCustomersToArea()
     {
-        $customers = \DB::table('areas_customers AS t1')
-        ->select('t1.customer_id')
-        ->rightJoin('customers AS t2', 't2.id','=', 't1.customer_id')
-        ->where('t2.called', '=', '')
-        ->whereNull('t1.id')->select('t2.*')->get();
+        $customers = Customer::whereNull('area_id')->paginate(20);
 
-        return view('area.customer-by-area', ['areas' => $this->dataAreas, 'customers' => $customers]);
+        return view('area.list-dole', ['areas' => $this->dataAreas, 'customers' => $customers]);
     }
 
-    public function postCustomerByArea(Request $request)
+    public function postDoleCustomersToArea(Request $request)
     {
         $request->validate([
             'area' => 'required',
@@ -167,20 +156,14 @@ class AreaController extends Controller
             Toastr::error("Khách hàng chưa được chọn! ");
             return redirect()->back();
         }
-        $data = explode('_', $request->input('area'));
+        $area = Area::findOrFail($request->input('area'));
 
         DB::beginTransaction();
         try {
-            $dataSet = [];
-            foreach ($ids as $custtomer) {
-                $model = new AreaCustomer();
-                $model->area_id = $data[0];
-                $model->customer_id = $custtomer;
-                $model->save();
-            }
-
+            Customer::whereIn('id', $request->get('choose_customers'))
+                    ->update(['area_id' => $request->input('area')]);
             DB::commit();
-            Toastr::success("Đã thêm một số khách hàng vào khu vực ". $data[1]);
+            Toastr::success("Đã thêm một số khách hàng vào khu vực ". $area->name);
         } catch (\Exception $ex) {
             DB::rollback();
             Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
