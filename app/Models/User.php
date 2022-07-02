@@ -152,4 +152,9 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
                 ->orderBy('customers.updated_at', 'DESC')
                 ->select('customers.*', 'areas.name');
     }
+
+    public function customers_area_has_users()
+    {
+        return $this->hasMany(Area::class)->whereNotNull('user_id')->where('status', self::AREA_ACTIVE);
+    }
 }

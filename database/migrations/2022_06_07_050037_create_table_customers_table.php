@@ -33,7 +33,7 @@ class CreateTableCustomersTable extends Migration
             $table->string('dia_chi_cu_the')->nullable();
             $table->text('comment')->nullable();
             $table->integer('type_call')->nullable();
-            $table->boolean('called')->default(0);
+            $table->boolean('called')->nullable();
             $table->integer('area_id')->unsigned()->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

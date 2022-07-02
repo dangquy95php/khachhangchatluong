@@ -24,7 +24,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Tên Nhân Viên</th>
                         <th scope="col">Trạng Thái</th>
-                        <th scope="col">Khách Chưa Gọi</th>
                         <th scope="col">Ghi Chú</th>
                         <th scope="col">Ngày Tạo</th>
                         <th scope="col" class="text-center">
@@ -43,7 +42,11 @@
                     @endphp
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary pe-1">
+                                {{ $item->name }} <span class="ms-2 badge bg-{{ count($item->customers) > 0 ? 'white' : 'danger' }} text-{{ count($item->customers) > 0 ? 'primary' : 'white' }}">{{count($item->customers)}}</span>
+                            </button>
+                        </td>
                         <td>
                             <span class="badge bg-{{$item->status == 1 ? 'success' : 'secondary' }}">{{ $item->status == 1 ? 'Đang Mở' : 'Chưa kích hoạt' }}</span>
                         </td>
@@ -51,7 +54,7 @@
                         <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                         <td class="text-center">
                             <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal" class="btn btn-danger">Xoá</a>
-                            <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary">Sửa</a>
+                            <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary mt-2">Sửa</a>
                         </td>
                     </tr>
 

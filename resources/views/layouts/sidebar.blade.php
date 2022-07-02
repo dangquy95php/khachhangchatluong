@@ -69,7 +69,7 @@
             </li>
 
             <li>
-               <a href="{{route('add_area_to_user')}}" class="{{ \Request::route()->getName() == 'add_area_to_user' ? 'active' : ''}}">
+               <a href="{{route('add_to_user')}}" class="{{ \Request::route()->getName() == 'add_to_user' ? 'active' : ''}}">
                <i class="bi bi-circle"></i><span>Cấp data cho nhân viên</span>
                </a>
             </li>

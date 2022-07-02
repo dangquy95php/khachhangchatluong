@@ -47,6 +47,7 @@ class UserController extends Controller
 
         if (Auth::attempt($data, $remember_me)) {
             Toastr::success('Đăng nhập vào hệ thống thành công!');
+
             if (Auth::user()->role == self::USER_ROLE) {
                 return redirect()->route('home');
             } else {
@@ -54,6 +55,7 @@ class UserController extends Controller
             }
         } else {
             Toastr::error('Tên người dùng hoặc mật khẩu không chính xác!');
+            return redirect()->route('login');
         }
         return redirect()->route('home');
     }

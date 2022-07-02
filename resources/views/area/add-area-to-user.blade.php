@@ -27,26 +27,11 @@
                                 <h5 class="card-title pb-0">Tên khu vực cần cấp quyền</h5>
                                 <hr />
                                 <ul class="list-group sortable flex-row" id="area_area_name">
-                                    @php
-                                        $a = array();
-                                        $b = array();
-                                        foreach ($areas as $area) {
-                                            array_push($a, $area->id);
-                                        }
-                                        foreach ($areas_users as $area) {
-                                            array_push($b, $area->id_area);
-                                        }
-                                        $lastAreas = array_diff($a, $b);
-                                    @endphp
-                                    @foreach ($lastAreas as $lastArea)
-                                        @foreach ($areas as $area)
-                                            @if($lastArea == $area->id)
-                                            <li data-id="{{ $area->id }}"
-                                                    class="btn-modify d-inline-flex btn btn-secondary me-1 mb-1">{{ $area->name }}
-                                                </li>
-                                            @else
-                                            @endif
-                                        @endforeach
+                                    @foreach ($areas as $area)
+                                        <li data-id="{{ $area->id }}"
+                                            class="btn-modify d-inline-flex btn {{count($area->customers) > 0 ? 'btn-secondary' : 'btn-danger'}} pe-1 me-1 mb-1">{{ $area->name }}
+                                            <span class="ms-2 badge bg-white  {{count($area->customers) > 0 ? 'text-secondary' : 'text-danger'}}">{{ count($area->customers) }}</span>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -61,7 +46,7 @@
                                     <h5 class="card-title">Nhân viên cấp quyền khu vực</h5>
                                     <!-- Default Accordion -->
                                     <div class="is-scroll">
-                                        @foreach ($users as $user)
+                                        @foreach ($areaUsers as $user)
                                             <div class="accordion is-item" id="accordionExample{{ $user->id }}">
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" data-id_user="{{ $user->id }}" id="headingOne{{ $user->id }}">
@@ -78,18 +63,20 @@
                                                         class="accordion-collapse collapse" aria-labelledby="headingOne"
                                                         data-bs-parent="#accordionExample{{ $user->id }}">
                                                         <ul class="pb-4 mb-0 is-body-user accordion-body sortable d-flex flex-wrap">
-                                                            @foreach ($areas_users as $area_user)
-                                                                @if ($area_user->id_user == $user->id)
-                                                                    <li data-id="{{$area_user->id_area}}"
-                                                                        class="btn-modify btn d-inline-flex btn-secondary mb-1 me-1">
-                                                                        {{ $area_user->name }}
-                                                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                            class="btn-close-area text-danger link-light text-center"
-                                                                            href="{{ route('del_area_to_user', ['id' => $area_user->id]) }}">
-                                                                            <i class="ms-2 ri-close-circle-fill"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                @endif
+                                                            @foreach ($user->areas as $area)
+                                                                <li data-id="{{$area->id}}" class="pe-1 btn-modify btn d-inline-flex btn-secondary mb-1 me-1">
+                                                                    {{ $area->name }}
+                                                                    @foreach ($numberCustomerArea as $item)
+                                                                        @if($area->id == $item->id)
+                                                                            <span class="ms-2 badge {{ count($item->customers) > 0 ? 'bg-white text-danger' : 'bg-danger text-white'}}">{{ count($item->customers) }}</span>
+                                                                        @endif
+                                                                    @endforeach
+                                                                    {{-- <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+                                                                        class="btn-close-area text-danger link-light text-center"
+                                                                        href="{{ route('del_area_to_user', ['id' => $area->id]) }}">
+                                                                        <i class="ms-2 ri-close-circle-fill"></i>
+                                                                    </a> --}}
+                                                                </li>
                                                             @endforeach
                                                         </ul>
                                                     </div>
@@ -141,6 +128,7 @@
                     }
 
                     if (stop_id_user != undefined && (start_id_user != stop_id_user)) {
+                        console.log(stop_id_area, stop_id_user);
                         updateChangeArea(stop_id_area, stop_id_user);
                     }
                 },
@@ -169,6 +157,7 @@
                     error: function(errors) {
                         toastr.error('Cập nhật dữ liệu thất bại.'+ errors.responseJSON.message)
                         $("#overlay").hide();
+                        location.reload();
                     }
                 });
             }
@@ -194,6 +183,7 @@
                     error: function(errors) {
                         toastr.error('Cập nhật dữ liệu thất bại.'+ errors.responseJSON.message)
                         $("#overlay").hide();
+                        location.reload();
                     }
                 });
             }

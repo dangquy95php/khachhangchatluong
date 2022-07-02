@@ -14,7 +14,7 @@ class AddNgayThamGiaToCustomersTable extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->integer('ngay_tham_gia')->nullable();
+            $table->string('ngay_tham_gia')->nullable();
         });
     }
 

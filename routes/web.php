@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/copy-data', 'DataController@index');
+Route::get('/update-area', 'DataController@updateArea');
+Route::get('/add-area', 'DataController@addArea');
+Route::get('/update-user', 'DataController@updateUser');
+Route::get('/add-user', 'DataController@addUser');
+
 Route::get('/', 'UserController@index');
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
@@ -66,9 +72,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::get('/delete/{id}', 'AreaController@delete')->name('delete_area');
         Route::get('/dole', 'AreaController@doleCustomersToArea')->name('area.dole');
         Route::post('/dole', 'AreaController@postDoleCustomersToArea')->name('post.area.dole');
-        Route::get('/add-area-to-user', 'AreaController@addAreaToUser')->name('add_area_to_user');
-        Route::post('/add-area-to-user', 'AreaController@postAddAreaToUser')->name('post_add_area_to_user');
-        Route::post('/permission/update', 'AreaController@deleteByArea')->name('permission_area');
+        Route::get('/to-user', 'AreaController@addAreaToUser')->name('add_to_user');
+        Route::post('/to-user', 'AreaController@postAddAreaToUser')->name('post_add_to_user');
+        Route::post('/permission/update', 'AreaController@permissionArea')->name('permission_area');
         Route::get('/del-area-to-user/{id}', 'AreaController@delAreaToUser')->name('del_area_to_user');
         Route::post('/move-area-back', 'AreaController@moveAreaBack')->name('move_area_back');
 
