@@ -2,6 +2,13 @@
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-end">
         <!-- Pagination Elements -->
+        @if (!$paginator->onFirstPage())
+         <li class="page-item">
+            <a class="page-link" href="{{ $paginator->previousPageUrl() }}" aria-label="Previous">
+                <span aria-hidden="true">«</span>
+            </a>
+        </li>
+        @endif
         @foreach ($elements as $element)
             <!-- Array Of Links -->
             @if (is_array($element))
@@ -25,6 +32,13 @@
                 @endforeach
             @endif
         @endforeach
+        @if ($paginator->hasMorePages())
+        <li class="page-item">
+            <a class="page-link" href="{{ $paginator->nextPageUrl() }}" aria-label="Next">
+                <span aria-hidden="true">»</span>
+            </a>
+        </li>
+        @endif
     </ul>
 </nav>
 @endif

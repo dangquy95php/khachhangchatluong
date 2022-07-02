@@ -16,7 +16,6 @@ class AreaController extends Controller
 {
     public $_status = '';
     public $dataAreas = '';
-    public $dataCustomers = '';
 
     const CUSTOMER_ACTIVE = 1;
     const USER_ACTIVE = 1;
@@ -24,7 +23,6 @@ class AreaController extends Controller
     public function __construct()
     {
         $this->dataAreas = Area::select('name', 'id', 'note', 'created_at')->opening()->get();
-        $this->dataCustomers = Customer::select('*')->get();
     }
 
     public function index(Request $request)
@@ -99,18 +97,14 @@ class AreaController extends Controller
         return redirect()->route('index_area');
     }
 
-    public function customerByArea(Request $request)
+    public function doleCustomersToArea(Request $request)
     {
-        $customers = \DB::table('areas_customers AS t1')
-        ->select('t1.customer_id')
-        ->rightJoin('customers AS t2', 't2.id','=', 't1.customer_id')
-        ->where('t2.called', '=', '')
-        ->whereNull('t1.id')->select('t2.*')->get();
+        $customers = Customer::whereNull('area_id')->paginate(20);
 
-        return view('area.customer-by-area', ['areas' => $this->dataAreas, 'customers' => $customers]);
+        return view('area.list-dole', ['areas' => $this->dataAreas, 'customers' => $customers]);
     }
 
-    public function postCustomerByArea(Request $request)
+    public function postDoleCustomersToArea(Request $request)
     {
         $request->validate([
             'area' => 'required',

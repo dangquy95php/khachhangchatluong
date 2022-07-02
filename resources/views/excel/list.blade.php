@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <!-- General Form Elements -->
-                    <form id="form_import_excel" enctype="multipart/form-data">
+                    <form id="form_import_excel" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-12">
@@ -145,7 +145,9 @@
             $("#overlay").show();
 
             var formData = new FormData();
-            formData.append('file', $('#formFile')[0].files[0]);
+            if ($('#formFile').get(0).files.length !== 0) {
+                formData.append('file', $('#formFile')[0].files[0]);
+            }
             formData.append('_token', "{{ csrf_token() }}");
 
             $.ajax({
@@ -160,6 +162,7 @@
                     location.reload();
                 },
                 error: function(errors) {
+                    console.log(errors);
                     toastr.error('Import dữ liệu thất bại!')
                     $("#overlay").hide();
                     if (errors.status == 422) {

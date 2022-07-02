@@ -32,8 +32,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
-    Route::get('/call/{area_id?}', 'HomeController@index')->name('home');
-    Route::post('/call', 'HomeController@updateCusomter');
+    // Route::get('/call/{area_id?}', 'HomeController@index')->name('home');
+    // Route::post('/call', 'HomeController@updateCusomter');
     
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     Route::post('/update', 'HomeController@update')->name('customer_update');
     Route::post('/save', 'HomeController@save')->name('customer_save');
 
-    Route::get('/logout', 'UserController@logout')->name('logout');
+    // Route::get('/logout', 'UserController@logout')->name('logout');
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
@@ -64,8 +64,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/edit/{id}', 'AreaController@postEdit')->name('post_edit_area');
         Route::post('/create', 'AreaController@create')->name('create_area');
         Route::get('/delete/{id}', 'AreaController@delete')->name('delete_area');
-        Route::get('/customer', 'AreaController@customerByArea')->name('customer_by_area');
-        Route::post('/customer', 'AreaController@postCustomerByArea')->name('post_customer_by_area');
+        Route::get('/dole', 'AreaController@doleCustomersToArea')->name('area.dole');
+        Route::post('/dole', 'AreaController@postDoleCustomersToArea')->name('post.area.dole');
         Route::get('/add-area-to-user', 'AreaController@addAreaToUser')->name('add_area_to_user');
         Route::post('/add-area-to-user', 'AreaController@postAddAreaToUser')->name('post_add_area_to_user');
         Route::get('/del-area-to-user/{id}', 'AreaController@delAreaToUser')->name('del_area_to_user');
@@ -78,8 +78,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     
     Route::group(['prefix' => 'account'], function () {
         Route::get('/', 'UserController@list')->name('list_account');
-        Route::get('/create', 'UserController@create')->name('create_account');
-        Route::post('/create', 'UserController@postCreate')->name('post_create_account');
+        // Route::get('/create', 'UserController@create')->name('create_account');
+        // Route::post('/create', 'UserController@postCreate')->name('post_create_account');
         Route::get('/edit/{id}', 'UserController@edit')->name('edit_account');
         Route::post('/edit/{id}', 'UserController@postEdit')->name('post_edit_account');
         Route::get('/delete/{id}', 'UserController@delete')->name('delete_account');

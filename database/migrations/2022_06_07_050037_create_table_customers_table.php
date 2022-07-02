@@ -15,7 +15,7 @@ class CreateTableCustomersTable extends Migration
     {
         Schema::dropIfExists('customers');
         Schema::create('customers', function (Blueprint $table) {
-            $table->increments('id', true);
+            $table->bigIncrements('id', true);
             $table->string('so_thu_tu')->nullable();
             $table->string('vpbank')->nullable();
             $table->string('msdl')->nullable();

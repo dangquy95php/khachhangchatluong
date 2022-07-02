@@ -5,7 +5,7 @@
 
    <h1>QUẢNG LÝ KHÁCH HÀNG THEO TỪNG KHU VỰC</h1>
 
-    {{ Breadcrumbs::render('customer_by_area') }}
+    {{ Breadcrumbs::render('area.dole') }}
 
 @endsection
 
@@ -118,6 +118,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {!! $customers->links('_partials.pagination') !!}
 
                 {!! count($customers) == 0 ? '<h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>' : '' !!}
                 <!-- End Table with stripped rows -->
