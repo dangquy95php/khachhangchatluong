@@ -97,7 +97,7 @@ class AreaController extends Controller
         return redirect()->route('index_area');
     }
 
-    public function doleCustomersToArea(Request $request)
+    public function doleCustomersToArea()
     {
         $customers = Customer::whereNull('area_id')->paginate(20);
 
@@ -118,20 +118,14 @@ class AreaController extends Controller
             Toastr::error("Khách hàng chưa được chọn! ");
             return redirect()->back();
         }
-        $data = explode('_', $request->input('area'));
+        $area = Area::findOrFail($request->input('area'));
 
         DB::beginTransaction();
         try {
-            $dataSet = [];
-            foreach ($ids as $custtomer) {
-                $model = new AreaCustomer();
-                $model->area_id = $data[0];
-                $model->customer_id = $custtomer;
-                $model->save();
-            }
-
+            Customer::whereIn('id', $request->get('choose_customers'))
+                    ->update(['area_id' => $request->input('area')]);
             DB::commit();
-            Toastr::success("Đã thêm một số khách hàng vào khu vực ". $data[1]);
+            Toastr::success("Đã thêm một số khách hàng vào khu vực ". $area->name);
         } catch (\Exception $ex) {
             DB::rollback();
             Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
