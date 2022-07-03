@@ -66,7 +66,7 @@
                   </thead>
                   <tbody>
                     @php
-                    $i = 1;
+                    $i = count($customers);
                     @endphp
                     @foreach($customers as $customer)
                      <tr>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                      @php
-                    $i++;
+                    $i--;
                     @endphp
                     @endforeach
                   </tbody>
