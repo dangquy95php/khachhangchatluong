@@ -11,7 +11,7 @@ use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
-
+use \Cache;
 class HomeController extends Controller
 {
     const HAVENT_CALLED_YET = 0;
@@ -24,9 +24,16 @@ class HomeController extends Controller
         $areas->setRelation('areas', $areas->areas()->get());
 
         $area_id = $request->get('area_id');
-        if ($area_id) {
-            $area = Area::findOrFail($request->get('area_id'));
+        if ($area_id || Cache::has('area_id')) {
+            if ($area_id) {
+                Cache::forget('area_id');
+                Cache::forever('area_id', $request->get('area_id'));
+                $area_id = Cache::get('area_id');
+            } else {
+                $area_id = Cache::get('area_id');
+            }
 
+            $area = Area::findOrFail($area_id);
             $customer = User::with(["customer" => function($query) use($area_id) {
                 $query->where(['customers.area_id' => $area_id]);
             }])->find(\Auth::user()->id);

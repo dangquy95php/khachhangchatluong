@@ -170,7 +170,11 @@
                                             <select name="area_name" id="data_area_id" class="form-select">
                                                 <option value="">Chọn nguồn dữ liệu</option>
                                                 @foreach ($areas->areas as $area)
-                                                    <option {{ old('area_name', $area->id) == @$customer->area_id ? 'selected' : '' }} {{ Request::get('area_id') == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                    @if (!empty(old('area_name')))
+                                                        <option {{ old('area_name') == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                    @else
+                                                        <option {{ $area->id == $customer->area_id ? 'selected' : ''}} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             </div>
