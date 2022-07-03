@@ -16,7 +16,7 @@
         @csrf
             <div class="row">
                 <div class="card mb-3">
-                    <div class="card-body">
+                    <div class="card-body pb-2">
                       <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item">
                             <h5 class="accordion-button card-title pb-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
@@ -31,7 +31,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <div class="row">
+                                <div class="row pb-2">
                                     <div class="col-3">
                                         <input type="number" name="from_row" onkeyup="if(parseInt(this.value) > 2000 || parseInt(this.value) < 1){ this.value = ''; return false; }"  class="from_row form-control" value="{{ old('from_row') }}" placeholder="Từ dòng số">
                                     </div>
