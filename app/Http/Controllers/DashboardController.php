@@ -24,7 +24,7 @@ class DashboardController extends Controller
             $result[] = $item;
          }
       }
-      $totalCallCustomer = Customer::where('customers.updated_at', '>=', \Carbon\Carbon::today())->count();
+      $totalCallCustomer = Customer::where('updated_at', '>=', \Carbon\Carbon::today())->where('called', '=', self::CALLED)->count();
 
       return view('dashboard', compact('result','totalCallCustomer'));
    }
