@@ -82,9 +82,7 @@
                         </thead>
                         <tbody>
                             @php
-                            $i = $customers->total();
-                            if ($customers->currentPage() >= 2)
-                                $i = $customers->total() - (($customers->currentPage() - 1) * $customers->perPage());
+                            $i = count($customers);
                             @endphp
                             @foreach($customers as $customer)
                             <tr>
@@ -122,8 +120,6 @@
                         </tbody>
                     </table>
                     
-                    {!! $customers->links('_partials.pagination') !!}
-
                     {!! count($customers) == 0 ? '<h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>' : '' !!}
                     <!-- End Table with stripped rows -->
                 </div>
