@@ -17,3 +17,5 @@ Xử lý dữ liệu khách hàng
 - Lưu dữ liệu khi sau khi thao tác với khách hàng
 
 Thời gian bàn giao sản phẩm giai đoạn 1: 10/6/2022 - 11/6/2022
+
+GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on khachangchatluong1.* TO 'khachhangchatluong'@'localhost' WITH GRANT OPTION;

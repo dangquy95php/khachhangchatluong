@@ -33,7 +33,7 @@ class DataController extends Controller
 
     public function index()
     {
-        $dataOld = DB::connection('mysql2')->table('customers')->orderBy('created_at')
+        $dataOld = DB::connection('mysql2')->table('customers')->orderBy('updated_at')
         ->chunk(500, function($rows) {
             foreach($rows as $item) {
             
@@ -134,7 +134,7 @@ class DataController extends Controller
     //22
     public function addArea()
     {
-        $dataOld = DB::connection('mysql2')->table('areas')->orderBy('created_at')
+        $dataOld = DB::connection('mysql2')->table('areas')->orderBy('updated_at')
         ->chunk(500, function($rows) {
             foreach($rows as $item) {
                 $modelNew = new Area();
@@ -172,21 +172,32 @@ class DataController extends Controller
     //5
     public function updateArea()
     {
-        $dataOld = DB::connection('mysql2')->table('areas_customers')->orderBy('created_at')
+        $dataOld = DB::connection('mysql2')->table('areas_customers')->orderBy('updated_at')
         ->chunk(500, function($rows) {
             foreach($rows as $item) {
-                Customer::where('id', $item->customer_id)->update([
-                    'area_id' => $item->area_id,
-                    'created_at' => $item->created_at,
-                    'updated_at' => $item->updated_at
-                ]);
+                // $customer = Customer::where('id', $item->customer_id)->first();
+                try {
+                    $customer =  DB::connection('mysql2')->table('customers')->find($item->customer_id);
+                    if (empty($customer)) {
+                        \Log::info(print_r($item, true));
+                    } else {
+                        Customer::where('id', $item->customer_id)->update([
+                            'area_id' => $item->area_id,
+                            'created_at' => $customer->created_at,
+                            'updated_at' => $customer->updated_at,
+                        ]);
+                    }
+                } catch (\Exception $th) {
+                    dd($th);
+                    \Log::info($th->getMessage());
+                }
             }
         });
     }
     //33 update-user
     public function updateUser()
     {
-        $dataOld = DB::connection('mysql2')->table('areas_users')->orderBy('created_at')
+        $dataOld = DB::connection('mysql2')->table('areas_users')->orderBy('updated_at')
         ->chunk(500, function($rows) {
             foreach($rows as $item) {
                 Area::where('id', $item->id_area)->update([
@@ -256,5 +267,8 @@ class DataController extends Controller
                 $modelNew->save();
             }
         });
+
+        $this->addArea();
+        $this->updateUser();
     }
 }
