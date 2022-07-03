@@ -40,7 +40,7 @@
                            <i class="bi bi-headset"></i>
                         </div>
                         <div class="ps-3">
-                           <h6>{{ $totalCallCustomer }}</h6>
+                           <h6>0</h6>
                         </div>
                      </div>
                   </div>
