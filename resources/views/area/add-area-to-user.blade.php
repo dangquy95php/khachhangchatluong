@@ -122,15 +122,16 @@
                     $(ui.item).removeClass("btn-warning");
 
                     var is_move_to_left = $(ui.item).closest('#area_area_name');
-
                     var position_area = ui.item.data('position_area');
+
                     // không di chuyển qua ô bên phải
                     if (is_move_to_left.length > 0 && position_area == false) {
                         deleteArea(stop_id_area, start_id_user);
                     }
 
-                    if (stop_id_user != undefined && (start_id_user != stop_id_user)) {
-                        console.log(stop_id_area, stop_id_user);
+                    if (stop_id_user != undefined && (start_id_user != stop_id_user)
+                    || ((start_id_user == stop_id_user) && position_area && $(ui.item).closest('.accordion-item').length > 0)
+                    ) {
                         updateChangeArea(stop_id_area, stop_id_user);
                     }
                 },
