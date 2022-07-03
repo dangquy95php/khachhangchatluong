@@ -1134,3 +1134,8 @@ h1, h2, h3, h4, h5, h6 {
 .is-hide{
   display:none;
 }
+
+.is-disabled {
+  pointer-events:none;
+  opacity:0.6;
+}

@@ -135,9 +135,10 @@ class AreaController extends Controller
 
     public function doleCustomersToArea()
     {
+        $areas = Area::with('customers')->get();
         $customers = Customer::whereNull('area_id')->whereNull('called')->paginate(20);
 
-        return view('area.list-dole', ['areas' => $this->dataAreas, 'customers' => $customers]);
+        return view('area.list-dole', compact('areas', 'customers'));
     }
 
     public function postDoleCustomersToArea(Request $request)
