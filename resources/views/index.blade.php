@@ -45,7 +45,7 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
         <!-- End Logo -->
-     
+
         <!-- End Search Bar -->
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -171,9 +171,9 @@
                                                 <option value="">Chọn nguồn dữ liệu</option>
                                                 @foreach ($areas->areas as $area)
                                                     @if (!empty(old('area_name')))
-                                                        <option {{ old('area_name') == $area->id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                        <option {{ old('area_name') == @$area->id ? 'selected' : '' }} value="{{ @$area->id }}">{{ @$area->name }}</option>
                                                     @else
-                                                        <option {{ $area->id == $customer->area_id ? 'selected' : ''}} value="{{ $area->id }}">{{ $area->name }}</option>
+                                                        <option {{ @$area->id == @$customer->area_id ? 'selected' : ''}} value="{{ @$area->id }}">{{ @$area->name }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -577,7 +577,7 @@
                 $('#form-search').append(`<input type="hidden" name="area_id" value="${area_id}" />`);
                 $( "#form-search" ).submit();
             });
-           
+
             if (!$('#id_contract').val()) {
                 $('.btn-alert').trigger('click');
             }
