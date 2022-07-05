@@ -135,7 +135,7 @@ class AreaController extends Controller
 
     public function doleCustomersToArea()
     {
-        $areas = Area::with('customers')->get();
+        $areas = Area::with('customers')->orderBy('name', 'ASC')->get();
         $customers = Customer::whereNull('area_id')->whereNull('called')->get();
 
         return view('area.list-dole', compact('areas', 'customers'));
@@ -156,7 +156,7 @@ class AreaController extends Controller
             return redirect()->back();
         }
         $area = Area::findOrFail($request->input('area'));
-        
+
         DB::beginTransaction();
         try {
             Customer::whereIn('id', $request->get('choose_customers'))
@@ -172,7 +172,7 @@ class AreaController extends Controller
 
     public function addAreaToUser(Request $request)
     {
-        $areas = Area::whereNull('user_id')->where('status', self::AREA_ACTIVE)->get();
+        $areas = Area::whereNull('user_id')->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
         $areaUsers = User::with('customers_area_has_users')->get();
         $numberCustomerArea = Area::with('customers')->whereNotNull('areas.user_id')->get();
 
@@ -184,7 +184,7 @@ class AreaController extends Controller
         $userArea = \DB::table('users')->leftJoin('areas_users', 'users.id', '=', 'areas_users.id_user')
                     ->join('areas', 'areas_users.id_area', '=', 'areas.id')
                     ->select('users.*', 'areas.id as area_id', 'areas.name')->get();
-                    
+
         $data = $request->get('user_area');
         AreaUser::truncate();
 
