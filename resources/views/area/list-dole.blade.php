@@ -24,9 +24,9 @@
                             </h5>
                             <hr class="mt-1"/>
                             <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
-                                <ul id="sortable_dole" class="ps-0">
+                                <ul id="sortable_dole" class="ps-0 d-flex flex-wrap">
                                     @foreach($areas as $area)
-                                        <li data-value="{{$area->id}}" class="d-inline-block me-1 mb-1 btn btn-{{ count($area->customers) > 0 ? 'primary' : 'secondary' }}">
+                                        <li data-value="{{$area->id}}" class="d-inline-block me-1 mb-1 pe-1 btn btn-{{ count($area->customers) > 0 ? 'primary' : 'secondary' }}">
                                             {{$area->name}} <span class="badge bg-{{ count($area->customers) > 0 ? 'white' : 'danger' }} text-{{ count($area->customers) > 0 ? 'primary' : 'white' }}">{{ count($area->customers) }}</span>
                                         </li>
                                     @endforeach
@@ -119,7 +119,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    
+
                     {!! count($customers) == 0 ? '<h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>' : '' !!}
                     <!-- End Table with stripped rows -->
                 </div>
