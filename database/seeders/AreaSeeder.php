@@ -94,16 +94,16 @@ class AreaSeeder extends Seeder
             //     'status' => 1,
             //     'note' => ''
             // ],
-            // [
-            //     'name' => 'KV1',
-            //     'status' => 1,
-            //     'note' => '',
-            // ],
-            // [
-            //     'name' => 'KV2',
-            //     'status' => 1,
-            //     'note' => '',
-            // ]
+            [
+                'name' => 'KV1',
+                'status' => 1,
+                'note' => null,
+            ],
+            [
+                'name' => 'KV2',
+                'status' => 1,
+                'note' => null,
+            ]
         ];
 
         \DB::table('areas')->insert($data);

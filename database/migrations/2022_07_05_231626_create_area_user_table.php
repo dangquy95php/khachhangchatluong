@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableAreasTable extends Migration
+class CreateAreaUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,18 @@ class CreateTableAreasTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('areas');
-        Schema::create('areas', function (Blueprint $table) {
+        Schema::dropIfExists('area_users');
+        Schema::create('area_users', function (Blueprint $table) {
             $table->bigIncrements('id', true);
-            $table->string('name');
-            $table->boolean('status')->default(0);
-            $table->string('note')->nullable();
+            $table->bigInteger('area_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+        });
+
+        Schema::table('area_users', function($table) {
+            $table->foreign('area_id')->references('id')->on('areas');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,8 +35,6 @@ class CreateTableAreasTable extends Migration
      */
     public function down()
     {
-        \DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        Schema::dropIfExists('areas');
-        \DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        Schema::dropIfExists('area_users');
     }
 }

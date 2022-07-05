@@ -31,16 +31,8 @@ class CreateTableCustomersTable extends Migration
             $table->string('tuoi')->nullable();
             $table->string('dien_thoai')->nullable();
             $table->string('dia_chi_cu_the')->nullable();
-            $table->text('comment')->nullable();
-            $table->integer('type_call')->nullable();
-            $table->boolean('called')->nullable();
-            $table->integer('area_id')->unsigned()->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-        });
-
-        Schema::table('customers', function($table) {
-            $table->foreign('area_id')->references('id')->on('areas');
         });
     }
 
@@ -51,6 +43,8 @@ class CreateTableCustomersTable extends Migration
      */
     public function down()
     {
+        \DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('customers');
+        \DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
