@@ -19,18 +19,18 @@ class HomeController extends Controller
     const CALLED = 1;
 
     public function index(Request $request)
-    {   
+    {
         $areas = User::find(\Auth::id());
         $areas->setRelation('areas', $areas->areas()->get());
 
         $area_id = $request->get('area_id');
-        if ($area_id || Cache::has('area_id')) {
+        if ($area_id || Cache::has('area_id'.\Auth::user()->id)) {
             if ($area_id) {
-                Cache::forget('area_id');
-                Cache::forever('area_id', $request->get('area_id'));
-                $area_id = Cache::get('area_id');
+                Cache::forget('area_id'.\Auth::user()->id);
+                Cache::forever('area_id'.\Auth::user()->id, $request->get('area_id'));
+                $area_id = Cache::get('area_id'.\Auth::user()->id);
             } else {
-                $area_id = Cache::get('area_id');
+                $area_id = Cache::get('area_id'. \Auth::user()->id);
             }
 
             $area = Area::findOrFail($area_id);
@@ -53,7 +53,7 @@ class HomeController extends Controller
         } else {
             $history->setRelation('customers', $history->customers()->paginate(20));
         }
-        
+
         $todayData = User::find(\Auth::id());
         $todayData->setRelation('customers', $todayData->customers()->where('customers.updated_at', '>=' ,Carbon::today())->get());
 
