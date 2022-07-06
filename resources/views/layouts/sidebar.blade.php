@@ -76,18 +76,18 @@
          </ul>
       </li>
 
-      <!-- <li class="nav-item">
-         <a class="nav-link {{\Request()->route()->getPrefix() != '/statistical' ? 'collapsed' : '' }}" data-bs-target="#tables-statistical" data-bs-toggle="collapse" href="#">
+      <li class="nav-item">
+         <a class="nav-link {{\Request()->route()->getPrefix() != '/report' ? 'collapsed' : '' }}" data-bs-target="#tables-report" data-bs-toggle="collapse" href="#">
          <i class="bi bi-journal-text"></i><span>Thống Kê</span><i class="bi bi-chevron-down ms-auto"></i>
          </a>
-         <ul id="tables-statistical" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/statistical' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+         <ul id="tables-report" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/report' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
-               <a href="{{route('index_statistical')}}" class="{{ \Request::route()->getName() == 'index_statistical' ? 'active' : ''}}">
-               <i class="bi bi-circle"></i><span>Dữ liệu khu vực - nhân viên</span>
+               <a href="{{route('index_report')}}" class="{{ \Request::route()->getName() == 'report' ? 'active' : ''}}">
+               <i class="bi bi-circle"></i><span>Report</span>
                </a>
             </li>
          </ul>
-      </li> -->
+      </li>
    </ul>
 </aside>
 

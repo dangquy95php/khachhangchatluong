@@ -94,7 +94,8 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $data = User::select('id', 'name', 'email', 'username', 'role', 'status', 'created_at')->get();
+        $data = User::select('id', 'name', 'email', 'username', 'role', 'status', 'created_at')
+                        ->orderBy('username', 'asc')->get();
 
         return view('account.list', compact('data'));
     }

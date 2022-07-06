@@ -32,9 +32,9 @@
                      </tr>
                   </thead>
                   <tbody>
-                     @foreach($data as $item)
+                     @foreach($data as $key => $item)
                      <tr>
-                        <th scope="row">{{ $item->id }}</th>
+                        <th scope="row">{{ ++$key }}</th>
                         <td>{{$item->name}}</td>
                         <td>{{$item->username}}</td>
                         <td>{{ $item->email }}</td>

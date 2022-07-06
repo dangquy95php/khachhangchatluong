@@ -159,4 +159,14 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     {
         return $this->hasMany(Area::class)->whereNotNull('user_id')->where('status', self::AREA_ACTIVE);
     }
+
+    public function customers_today_called()
+    {
+        return $this->hasManyThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id')
+                ->where('customers.updated_at', '>=', \Carbon\Carbon::today())
+                ->where('customers.called', self::CALLED)
+                ->where('areas.status', self::ACTIVE)
+                ->orderBy('customers.updated_at', 'DESC')
+                ->select('customers.*', 'areas.name');
+    }
 }
