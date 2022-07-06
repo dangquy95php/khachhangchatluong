@@ -173,7 +173,7 @@ class AreaController extends Controller
     public function addAreaToUser(Request $request)
     {
         $areas = Area::whereNull('user_id')->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
-        $areaUsers = User::with('customers_area_has_users')->get();
+        $areaUsers = User::with('customers_area_has_users')->orderBy('username', 'ASC')->get();
         $numberCustomerArea = Area::with('customers')->whereNotNull('areas.user_id')->get();
 
         return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'areaUsers' => $areaUsers, 'areas' => $areas, 'numberCustomerArea' => $numberCustomerArea ]);
