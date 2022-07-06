@@ -79,8 +79,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
     });
 
-    Route::group(['prefix' => 'statistical'], function () {
-        Route::get('/', 'StatisticalController@index')->name('index_statistical');
+    Route::group(['prefix' => 'report'], function () {
+        Route::get('/', 'ReportController@index')->name('index_report');
     });
     
     Route::group(['prefix' => 'account'], function () {

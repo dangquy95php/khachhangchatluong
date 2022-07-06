@@ -35,6 +35,11 @@ Breadcrumbs::for('area.dole', function ($trail) {
     $trail->push('Chia đều data', route('area.dole'));
 });
 
+Breadcrumbs::for('report', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Báo cáo cuộc gọi nhân viên', route('index_report'));
+});
+
 Breadcrumbs::for('statistical', function ($trail) {
     $trail->parent('home');
     $trail->push('Thống kê khách liệu khách hàng của nhân viên', route('index_statistical'));
