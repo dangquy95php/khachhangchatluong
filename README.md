@@ -31,3 +31,12 @@ GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on
 
 ### Cấp quyền user cho database
 `GRANT ALL ON *.* TO 'user'@'localhost';`
+
+### Chạy lệnh FLUSH 
+`FLUSH PRIVILEGES;`
+
+### Restart the mysqld service:
+`sudo service mysqld restart`
+
+### Confirm that the server has successfully restarted:
+`sudo service mysqld status`
