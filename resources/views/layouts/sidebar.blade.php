@@ -82,7 +82,7 @@
          </a>
          <ul id="tables-report" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/report' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
-               <a href="{{route('index_report')}}" class="{{ \Request::route()->getName() == 'report' ? 'active' : ''}}">
+               <a href="{{route('index_report')}}" class="{{ \Request::route()->getName() == 'index_report' ? 'active' : ''}}">
                <i class="bi bi-circle"></i><span>Report</span>
                </a>
             </li>
