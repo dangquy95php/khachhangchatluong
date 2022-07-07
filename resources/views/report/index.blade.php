@@ -39,7 +39,7 @@
                                 <span class="badge bg-{{ count($user->customers_today_called) > 0 ? 'success' : 'secondary' }}">{{ count($user->customers_today_called) }}</span>
                                 </td>
                             <td class="text-center">
-                                    <span class="badge bg-{{ $user->customers_today_called->where('type_call', 0)->count() > 0 ? 'success' : 'secondary' }}">{{ $user->customers_today_called->where('type_call', 0)->count() }}</span>
+                                    <span class="badge bg-{{ $user->customers_today_called->where('type_call', 0)->count() > 0 ? 'primary' : 'secondary' }}">{{ $user->customers_today_called->where('type_call', 0)->count() }}</span>
 
                                 </td>
                             </tr>
