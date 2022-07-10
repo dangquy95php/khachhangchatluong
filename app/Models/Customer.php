@@ -40,7 +40,8 @@ class Customer extends Model
         'comment',
         'type_call',
         'called',
-        'date_max'
+        'date_max',
+        'cccd',
     ];
 
     const APPOINTMENT = 0;
