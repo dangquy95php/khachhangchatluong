@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        App\Providers\DataBaseQueryServiceProvider::class,
     ],
 
     /*

@@ -19,5 +19,6 @@ class AreaUser extends Model
     protected $fillable = [
         'area_id',
         'user_id',
+        'area_called',
     ];
 }

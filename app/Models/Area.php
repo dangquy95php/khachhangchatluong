@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Area extends Model
 {
 
-    const HAVENT_CALLED_YET = 0;
-
+    const HAVENT_CALLED_YET = null;
+    const CALLED = 1;
     /**
      * The attributes that are mass assignable.
      *
@@ -38,14 +39,34 @@ class Area extends Model
     {
         return $query->where('status', self::OPENING);
     }
-    // ko ro
-    public function area()
-    {
-        return $this->hasMany(Customer::class, 'area_id', 'id');
+
+    public function customers_today() {
+        return $this->belongsToMany(Customer::class, 'areas_customers', 'area_id', 'customer_id')
+                    ->where('areas_customers.called', self::CALLED)
+                    ->where('user_id', \Auth::user()->id)
+                    ->where('areas_customers.updated_at', '>=' , Carbon::today())
+                    ->orderBy('areas_customers.updated_at', 'desc')
+                    ->withPivot('id', 'updated_at');
     }
 
-    public function customers()
+    public function customers_history() {
+        return $this->belongsToMany(Customer::class, 'areas_customers', 'area_id', 'customer_id')
+                    ->where('areas_customers.called', self::CALLED)
+                    ->where('user_id', \Auth::user()->id)
+                    ->orderBy('areas_customers.updated_at', 'desc');
+    }
+
+    // public function customers1()
+    // {
+    //     return $this->belongsToMany(Area::class, 'areas_customers', 'area_id', 'customer_id');
+    // }
+
+
+    public function area_customer()
     {
-        return $this->hasMany(Customer::class, 'area_id', 'id')->whereNull('called');
+        return $this->hasOne(AreaCustomer::class, 'area_id', 'id')
+                    ->where('called', self::HAVENT_CALLED_YET)
+                    ->where('user_id', \Auth::user()->id)
+                    ->select(['customer_id', 'area_id', 'id']);
     }
 }

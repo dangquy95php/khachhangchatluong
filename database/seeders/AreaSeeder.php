@@ -103,6 +103,11 @@ class AreaSeeder extends Seeder
                 'name' => 'KV2',
                 'status' => 1,
                 'note' => null,
+            ],
+            [
+                'name' => 'KV3',
+                'status' => 1,
+                'note' => null,
             ]
         ];
 

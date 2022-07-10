@@ -50,7 +50,6 @@ class CustomerSeeder extends Seeder
                     'tuoi' => '20',
                     'dien_thoai' => '0973733',
                     'dia_chi_cu_the' => 'dia_chi_cu_the2',
-                    'comment' => 'comment2',
                     'updated_at' => '2022-06-26 00:27:56',
                     'date_max' => null
                 ],
@@ -70,11 +69,10 @@ class CustomerSeeder extends Seeder
                     'tuoi' => '12',
                     'dien_thoai' => '098723212',
                     'dia_chi_cu_the' => 'dia_chi_cu_the3',
-                    'comment' => 'comment3',
                     'updated_at' => '2022-06-27 00:27:56',
                     'date_max' => null
                 ]
-            ];
+                ];
         \DB::table('customers')->insert($data);
     }
 }

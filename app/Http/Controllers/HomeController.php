@@ -6,10 +6,10 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\AreaCustomer;
 use App\Models\User;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
-use Carbon\Carbon;
 use Illuminate\Http\Response;
 use \Cache;
 class HomeController extends Controller
@@ -20,45 +20,70 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $areas = User::find(\Auth::id());
-        $areas->setRelation('areas', $areas->areas()->get());
+        // $customers = Area::with('customer')->where('status', self::AREA_ACVITVE)->first();
+        // $customer = User::where('users.id', 1)
+        //                     ->join('areas_customers', 'users.id', '=', 'areas_customers.user_id')
+        //                     ->join('areas', 'areas.id', '=', 'areas_customers.area_id')
+        //                     ->where('areas.status', 1)->latest()->orderBy('areas.created_at', 'desc')->select('*')->first();
+        $customer = [];
 
         $area_id = $request->get('area_id');
-        if ($area_id || Cache::has('area_id'.\Auth::user()->id)) {
-            if ($area_id) {
-                Cache::forget('area_id'.\Auth::user()->id);
-                Cache::forever('area_id'.\Auth::user()->id, $request->get('area_id'));
-                $area_id = Cache::get('area_id'.\Auth::user()->id);
-            } else {
-                $area_id = Cache::get('area_id'. \Auth::user()->id);
-            }
-
-            $area = Area::findOrFail($area_id);
-            $customer = User::with(["customer" => function($query) use($area_id) {
-                $query->where(['customers.area_id' => $area_id]);
-            }])->find(\Auth::user()->id);
+        if ($area_id)
+        {
+            $pivot_customer = Area::with('area_customer')->where('id', $area_id)->where('status', self::AREA_ACVITVE)->first()->area_customer ?? null;
         } else {
-            // lay nguoi dung dau tien goi
-            $customer = User::with("customer")->find(\Auth::user()->id);
+            $pivot_customer = Area::with('area_customer')->where('status', self::AREA_ACVITVE)->first()->area_customer ?? null;
         }
-        $history = User::find(\Auth::id());
-
-        $start_date = $request->get('start_date');
-        $end_date =  Carbon::parse($request->get('end_date'))->addDay();
-        if ($start_date && $end_date) {
-            $history->setRelation('customers', $history->customers()
-                ->where('customers.updated_at', '>=' , $start_date)
-                ->where('customers.updated_at', '<=' , $end_date)
-                ->paginate(20));
-        } else {
-            $history->setRelation('customers', $history->customers()->paginate(20));
+        if ($pivot_customer) {
+            $customer = Customer::find($pivot_customer->customer_id);
+            $customer->area_id = $pivot_customer->area_id;
         }
+        
+        $areas = User::with('areas')->find(\Auth::id());
 
-        $todayData = User::find(\Auth::id());
-        $todayData->setRelation('customers', $todayData->customers()->where('customers.updated_at', '>=' ,Carbon::today())->get());
+        // $area_id = $request->get('area_id');
+        // if ($area_id || Cache::has('area_id'.\Auth::user()->id)) {
+        //     if ($area_id) {
+        //         Cache::forget('area_id'.\Auth::user()->id);
+        //         Cache::forever('area_id'.\Auth::user()->id, $request->get('area_id'));
+        //         $area_id = Cache::get('area_id'.\Auth::user()->id);
+        //     } else {
+        //         $area_id = Cache::get('area_id'. \Auth::user()->id);
+        //     }
 
-        $customer = $customer->customer;
-        $today = $todayData->customers;
+        //     $area = Area::findOrFail($area_id);
+        //     $customer = User::with(["customer" => function($query) use($area_id) {
+        //         $query->where(['customers.area_id' => $area_id]);
+        //     }])->find(\Auth::user()->id);
+        // } else {
+        //     // lay nguoi dung dau tien goi
+        //     $customer = User::with("customer")->find(\Auth::user()->id);
+        // }
+
+        // $history = User::find(\Auth::id());
+
+        // $start_date = $request->get('start_date');
+        // $end_date =  Carbon::parse($request->get('end_date'))->addDay();
+        // if ($start_date && $end_date) {
+        //     $history->setRelation('customers', $history->customers()
+        //         ->where('customers.updated_at', '>=' , $start_date)
+        //         ->where('customers.updated_at', '<=' , $end_date)
+        //         ->paginate(20));
+        // } else {
+        //     $history->setRelation('customers', $history->customers()->paginate(20));
+        // }
+
+        $today = Area::with('customers_today')->where('status', self::AREA_ACVITVE)->get();
+        $history = Customer::with('customers_history')->paginate(4);
+dd($history);
+        // $history = new Collection();
+
+        // foreach($historyData as $areas) {
+        //     foreach($areas as &$customer) {
+        //         $customer->area_name = $areas->name;
+        //         $history = $history->merge($customer);
+        //     }
+        // }
 
         return view('index', compact('customer', 'history', 'areas', 'today'));
     }

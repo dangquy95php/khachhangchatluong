@@ -13,9 +13,10 @@ class CreateAreaCustomerTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('area_customer');
-        Schema::create('area_customer', function (Blueprint $table) {
+        Schema::dropIfExists('areas_customers');
+        Schema::create('areas_customers', function (Blueprint $table) {
             $table->bigIncrements('id', true);
+            $table->integer('user_id')->unsigned()->nullable();
             $table->bigInteger('area_id')->unsigned()->nullable();
             $table->bigInteger('customer_id')->unsigned()->nullable();
             $table->string('type_call')->nullable();
@@ -25,9 +26,10 @@ class CreateAreaCustomerTable extends Migration
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
 
-        Schema::table('area_customer', function($table) {
+        Schema::table('areas_customers', function($table) {
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('area_id')->references('id')->on('areas');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -38,6 +40,6 @@ class CreateAreaCustomerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('area_customer');
+        Schema::dropIfExists('areas_customers');
     }
 }

@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\UserTableSeeder;
 use Database\Seeders\AreaSeeder;
 use Database\Seeders\AreaCustomerSeeder;
-use Database\Seeders\AreaUserSeeder;
 use Database\Seeders\CustomerSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,15 +27,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            AreaUserSeeder::class,
+            CustomerSeeder::class,
         ]);
 
         $this->call([
             AreaCustomerSeeder::class,
-        ]);
-
-        $this->call([
-            CustomerSeeder::class,
         ]);
     }
 }
