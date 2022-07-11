@@ -15,75 +15,29 @@ use \Cache;
 class HomeController extends Controller
 {
     const HAVENT_CALLED_YET = 0;
-    const AREA_ACVITVE = 1;
+    const AREA_ACTIVE = 1;
     const CALLED = 1;
 
     public function index(Request $request)
     {
-        // $customers = Area::with('customer')->where('status', self::AREA_ACVITVE)->first();
-        // $customer = User::where('users.id', 1)
-        //                     ->join('areas_customers', 'users.id', '=', 'areas_customers.user_id')
-        //                     ->join('areas', 'areas.id', '=', 'areas_customers.area_id')
-        //                     ->where('areas.status', 1)->latest()->orderBy('areas.created_at', 'desc')->select('*')->first();
-        $customer = [];
+        $area_id  = $request->get('area_id');
+        $areas    = User::with('areas')->find(\Auth::id());
 
-        $area_id = $request->get('area_id');
-        if ($area_id)
-        {
-            $pivot_customer = Area::with('area_customer')->where('id', $area_id)->where('status', self::AREA_ACVITVE)->first()->area_customer ?? null;
+        if ($area_id) {
+            $customer = Area::with(['customer' => function($query) use($area_id) {
+                $query->where('area_id', '=', $area_id)->first();
+            }])->where([
+                'id' => $area_id,
+                'status' => self::AREA_ACTIVE
+            ])->first();
         } else {
-            $pivot_customer = Area::with('area_customer')->where('status', self::AREA_ACVITVE)->first()->area_customer ?? null;
-        }
-        if ($pivot_customer) {
-            $customer = Customer::find($pivot_customer->customer_id);
-            $customer->area_id = $pivot_customer->area_id;
+            $customer = Area::with(['customer' => function($query) {
+                $query->first();
+            }])->first();
         }
         
-        $areas = User::with('areas')->find(\Auth::id());
-
-        // $area_id = $request->get('area_id');
-        // if ($area_id || Cache::has('area_id'.\Auth::user()->id)) {
-        //     if ($area_id) {
-        //         Cache::forget('area_id'.\Auth::user()->id);
-        //         Cache::forever('area_id'.\Auth::user()->id, $request->get('area_id'));
-        //         $area_id = Cache::get('area_id'.\Auth::user()->id);
-        //     } else {
-        //         $area_id = Cache::get('area_id'. \Auth::user()->id);
-        //     }
-
-        //     $area = Area::findOrFail($area_id);
-        //     $customer = User::with(["customer" => function($query) use($area_id) {
-        //         $query->where(['customers.area_id' => $area_id]);
-        //     }])->find(\Auth::user()->id);
-        // } else {
-        //     // lay nguoi dung dau tien goi
-        //     $customer = User::with("customer")->find(\Auth::user()->id);
-        // }
-
-        // $history = User::find(\Auth::id());
-
-        // $start_date = $request->get('start_date');
-        // $end_date =  Carbon::parse($request->get('end_date'))->addDay();
-        // if ($start_date && $end_date) {
-        //     $history->setRelation('customers', $history->customers()
-        //         ->where('customers.updated_at', '>=' , $start_date)
-        //         ->where('customers.updated_at', '<=' , $end_date)
-        //         ->paginate(20));
-        // } else {
-        //     $history->setRelation('customers', $history->customers()->paginate(20));
-        // }
-
-        $today = Area::with('customers_today')->where('status', self::AREA_ACVITVE)->get();
-        $history = Customer::with('customers_history')->paginate(4);
-dd($history);
-        // $history = new Collection();
-
-        // foreach($historyData as $areas) {
-        //     foreach($areas as &$customer) {
-        //         $customer->area_name = $areas->name;
-        //         $history = $history->merge($customer);
-        //     }
-        // }
+        $today    = Customer::with('customers_today')->paginate(20);
+        $history  = Customer::with('customers_history')->paginate(20);
 
         return view('index', compact('customer', 'history', 'areas', 'today'));
     }

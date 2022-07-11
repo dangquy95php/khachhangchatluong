@@ -40,6 +40,8 @@ class CreateAreaCustomerTable extends Migration
      */
     public function down()
     {
+        \DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('areas_customers');
+        \DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

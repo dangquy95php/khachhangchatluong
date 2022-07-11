@@ -33,7 +33,7 @@ class AreaCustomerSeeder extends Seeder
             [
                 'area_id' => 2,
                 'user_id' => 1,
-                'customer_id' => 1,
+                'customer_id' => 3,
                 'type_call' => null,
                 'called' => null,
                 'comment' => null,

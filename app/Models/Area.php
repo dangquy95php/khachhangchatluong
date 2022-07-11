@@ -10,6 +10,8 @@ class Area extends Model
 
     const HAVENT_CALLED_YET = null;
     const CALLED = 1;
+    const AREA_ACTIVE = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,33 +42,10 @@ class Area extends Model
         return $query->where('status', self::OPENING);
     }
 
-    public function customers_today() {
+    public function customer() {
         return $this->belongsToMany(Customer::class, 'areas_customers', 'area_id', 'customer_id')
-                    ->where('areas_customers.called', self::CALLED)
-                    ->where('user_id', \Auth::user()->id)
-                    ->where('areas_customers.updated_at', '>=' , Carbon::today())
-                    ->orderBy('areas_customers.updated_at', 'desc')
-                    ->withPivot('id', 'updated_at');
-    }
-
-    public function customers_history() {
-        return $this->belongsToMany(Customer::class, 'areas_customers', 'area_id', 'customer_id')
-                    ->where('areas_customers.called', self::CALLED)
-                    ->where('user_id', \Auth::user()->id)
-                    ->orderBy('areas_customers.updated_at', 'desc');
-    }
-
-    // public function customers1()
-    // {
-    //     return $this->belongsToMany(Area::class, 'areas_customers', 'area_id', 'customer_id');
-    // }
-
-
-    public function area_customer()
-    {
-        return $this->hasOne(AreaCustomer::class, 'area_id', 'id')
-                    ->where('called', self::HAVENT_CALLED_YET)
-                    ->where('user_id', \Auth::user()->id)
-                    ->select(['customer_id', 'area_id', 'id']);
+                ->where('user_id', \Auth::id())
+                ->where('areas_customers.called', self::HAVENT_CALLED_YET)
+                ->withPivot('type_call', 'comment', 'updated_at', 'called', 'created_at', 'id');
     }
 }

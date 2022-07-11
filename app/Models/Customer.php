@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class Customer extends Model
 {
     protected static $orderByColumn = 'created_at';
@@ -15,6 +15,7 @@ class Customer extends Model
     const NEW_CUSTOMER = 0;
     const AREA_ACTIVE = 1;
     const CALLED = 1;
+    const HAVENT_CALLED_YET = null;
     
     /**
      * The attributes that are mass assignable.
@@ -75,13 +76,20 @@ class Customer extends Model
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function users(){
-        return $this->belongsToMany('App\Models\User','areas_customers')->withPivot('area_id');
-    }
 
     public function customers_history() {
         return $this->belongsToMany(Area::class, 'areas_customers', 'customer_id', 'area_id')
                 ->where('status', self::AREA_ACTIVE)
+                ->where('user_id', \Auth::id())
+                ->withPivot('type_call', 'comment', 'updated_at', 'called')
+                ->where('areas_customers.called', self::CALLED);
+
+    }
+
+    public function customers_today() {
+        return $this->belongsToMany(Area::class, 'areas_customers', 'customer_id', 'area_id')
+                ->where('status', self::AREA_ACTIVE)
+                ->where('areas_customers.updated_at', '>=' , Carbon::today())
                 ->where('user_id', \Auth::id())
                 ->withPivot('type_call', 'comment', 'updated_at', 'called')
                 ->where('areas_customers.called', self::CALLED);
