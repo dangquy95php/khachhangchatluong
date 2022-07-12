@@ -15,7 +15,7 @@ class CreateTableCustomersTable extends Migration
     {
         Schema::dropIfExists('customers');
         Schema::create('customers', function (Blueprint $table) {
-            $table->bigIncrements('id', true);
+            $table->bigIncrements('id', true)->index();
             $table->string('so_thu_tu')->nullable();
             $table->string('vpbank')->nullable();
             $table->string('msdl')->nullable();
@@ -33,7 +33,7 @@ class CreateTableCustomersTable extends Migration
             $table->text('comment')->nullable();
             $table->string('dia_chi_cu_the')->nullable();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

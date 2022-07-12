@@ -20,7 +20,7 @@ class CreateTableAreasTable extends Migration
             $table->boolean('status')->default(0);
             $table->string('note')->nullable();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

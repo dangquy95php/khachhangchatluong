@@ -367,45 +367,41 @@
                                             if ($history->currentPage() >= 2) {
                                                 $j = $history->total() - (($history->currentPage() - 1) * $history->perPage());
                                             }
-                                            $item = null;
                                             @endphp
 
                                             @foreach ($history as $key => $data)
-                                            @php
-                                            $item = $data->customers_history[0];
-                                            @endphp
                                             <tr role="button" class="is-item-customer">
                                                 <th scope="row">{{ $j }}</th>
                                                 <th class="d-none id" scope="row">{{ @$data->id }}</th>
-                                                <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
-                                                <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
-                                                <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
-                                                <td class="d-none vpbank">{{ $data->vpbank }}</td>
-                                                <td class="d-none cv">{{ $data->cv }}</td>
-                                                <td class="ten_kh"><b>{{ $data->ten_kh }}</b></td>
+                                                <td class="d-none ngay_tham_gia">{{ @$data->customer->ngay_tham_gia }}</td>
+                                                <td class="d-none nam_dao_han">{{ @$data->customer->nam_dao_han }}</td>
+                                                <td class="so_hop_dong">{{ $data->customer->so_hop_dong }}</td>
+                                                <td class="d-none vpbank">{{ $data->customer->vpbank }}</td>
+                                                <td class="d-none cv">{{ $data->customer->cv }}</td>
+                                                <td class="ten_kh"><b>{{ $data->customer->ten_kh }}</b></td>
                                                 <td class="tuoi">
                                                     <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
                                                 </td>
                                                 <td class="gioi_tinh">
-                                                @if($data->gioi_tinh === 'M')
+                                                @if($data->customer->gioi_tinh === 'M')
                                                     Nam
-                                                    @elseif($data->gioi_tinh === 'F')
+                                                    @elseif($data->customer->gioi_tinh === 'F')
                                                     Nữ
                                                 @endif
                                                 </td>
-                                                <td class="dien_thoai">{{ $data->dien_thoai }}</td>
-                                                <td class="comment">{{ @$item->pivot->comment }}</td>
-                                                <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
+                                                <td class="dien_thoai">{{ $data->customer->dien_thoai }}</td>
+                                                <td class="comment">{{ @$data->customer->comment }}</td>
+                                                <td class="menh_gia">{{ is_numeric(@$data->customer->menh_gia) ? number_format(@$data->customer->menh_gia + 50000000) : @$data->customer->menh_gia }}</td>
                                                 <td style="width:200px;" class="type_call">
                                                     @foreach (\App\Models\Customer::getInforOption() as $key => $value)
-                                                        @if ($key == @$item->pivot->type_call )
+                                                        @if ($key == @$data->customer->type_call )
                                                             <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
                                                         @endif
                                                     @endforeach
                                                 </td>
-                                                <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
+                                                <td class="dia_chi_cu_the">{{ $data->customer->dia_chi_cu_the }}</td>
                                                 <td class="updated_at">{{ $data->updated_at }}</td>
-                                                <td class="d-none area_name">{{ $item->name }}</td>
+                                                <td class="d-none area_name">{{ $data->name }}</td>
                                             </tr>
                                             @php
                                             $j--;
@@ -452,41 +448,38 @@
                                         $item = null;
                                         @endphp
                                         @foreach ($today as $key => $data)
-                                        @php
-                                        $item = $data->customers_history[0];
-                                        @endphp
                                         <tr role="button" class="is-item-customer">
                                             <th scope="row">{{ $i }}</th>
                                             <th class="d-none id" scope="row">{{ @$data->id }}</th>
-                                            <td class="d-none ngay_tham_gia">{{ @$data->ngay_tham_gia }}</td>
-                                            <td class="d-none nam_dao_han">{{ @$data->nam_dao_han }}</td>
-                                            <td class="so_hop_dong">{{ $data->so_hop_dong }}</td>
-                                            <td class="d-none vpbank">{{ $data->vpbank }}</td>
-                                            <td class="d-none cv">{{ $data->cv }}</td>
-                                            <td class="ten_kh"><b>{{ $data->ten_kh }}</b></td>
+                                            <td class="d-none ngay_tham_gia">{{ @$data->customer->ngay_tham_gia }}</td>
+                                            <td class="d-none nam_dao_han">{{ @$data->customer->nam_dao_han }}</td>
+                                            <td class="so_hop_dong">{{ $data->customer->so_hop_dong }}</td>
+                                            <td class="d-none vpbank">{{ $data->customer->vpbank }}</td>
+                                            <td class="d-none cv">{{ $data->customer->cv }}</td>
+                                            <td class="ten_kh"><b>{{ $data->customer->ten_kh }}</b></td>
                                             <td class="tuoi">
-                                                <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
+                                                <span class="{{ ($data->customer->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->customer->tuoi }}</span>
                                             </td>
                                             <td class="gioi_tinh">
-                                                @if($data->gioi_tinh === 'M')
+                                                @if($data->customer->gioi_tinh === 'M')
                                                 Nam
-                                                @elseif($data->gioi_tinh === 'F')
+                                                @elseif($data->customer->gioi_tinh === 'F')
                                                 Nữ
                                             @endif
                                             </td>
-                                            <td class="dien_thoai">{{ $data->dien_thoai }}</td>
-                                            <td class="comment">{{ @$item->pivot->comment }}</td>
-                                            <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
+                                            <td class="dien_thoai">{{ $data->customer->dien_thoai }}</td>
+                                            <td class="comment">{{ @$data->customer->comment }}</td>
+                                            <td class="menh_gia">{{ is_numeric(@$data->customer->menh_gia) ? number_format(@$data->customer->menh_gia + 50000000) : @$data->customer->menh_gia }}</td>
                                             <td class="type_call">
                                                 @foreach (\App\Models\Customer::getInforOption() as $key => $value)
-                                                @if ($key == @$item->pivot->type_call)
+                                                @if ($key == @$data->customer->type_call)
                                                 <span data-id="{{ $key }}" class="badge {{ $key == 0 ? 'bg-danger' : 'bg-primary' }} ">{{ $value }}</span>
                                                 @endif
                                                 @endforeach
                                             </td>
-                                            <td class="dia_chi_cu_the">{{ $data->dia_chi_cu_the }}</td>
+                                            <td class="dia_chi_cu_the">{{ $data->customer->dia_chi_cu_the }}</td>
                                             <td class="updated_at">{{ $data->updated_at }}</td>
-                                            <td class="d-none area_name">{{ $item->name }}</td>
+                                            <td class="d-none area_name">{{ $data->name }}</td>
                                         </tr>
                                         @php
                                         $i--;

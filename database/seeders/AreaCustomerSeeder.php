@@ -21,6 +21,7 @@ class AreaCustomerSeeder extends Seeder
                 'type_call' => null,
                 'called' => null,
                 'comment' => null,
+                'so_hop_dong' => 1235,
             ],
             [
                 'area_id' => 1,
@@ -29,6 +30,7 @@ class AreaCustomerSeeder extends Seeder
                 'type_call' => null,
                 'called' => null,
                 'comment' => null,
+                'so_hop_dong' => 23122,
             ],
             [
                 'area_id' => 2,
@@ -37,6 +39,7 @@ class AreaCustomerSeeder extends Seeder
                 'type_call' => null,
                 'called' => null,
                 'comment' => null,
+                'so_hop_dong' => 23145,
             ],
             [
                 'area_id' => 2,
@@ -45,6 +48,7 @@ class AreaCustomerSeeder extends Seeder
                 'type_call' => null,
                 'called' => null,
                 'comment' => null,
+                'so_hop_dong' => 45673,
             ],
             [
                 'area_id' => 2,
@@ -53,6 +57,7 @@ class AreaCustomerSeeder extends Seeder
                 'type_call' => null,
                 'called' => null,
                 'comment' => null,
+                'so_hop_dong' => 54672,
             ],
         ];
 
