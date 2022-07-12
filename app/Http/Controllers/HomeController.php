@@ -38,10 +38,13 @@ class HomeController extends Controller
                         ->where('areas.status', self::AREA_ACTIVE)->with('customer')
                         ->orderBy('areas_customers.updated_at', 'DESC')->paginate(20);
 
-        $history  = AreaCustomer::userId()->called()
-                                ->leftJoin('areas', 'areas_customers.area_id', '=', 'areas.id')
-                                ->where('areas.status', self::AREA_ACTIVE)->with('customer')
-                                ->orderBy('areas_customers.updated_at', 'DESC')->paginate(20);
+        $history  = AreaCustomer::with('customer')->get();
+                                // ->leftJoin('areas', 'areas_customers.area_id', '=', 'areas.id')
+                                // ->where('areas.status', self::AREA_ACTIVE)->with('customer')
+                                // ->orderBy('areas_customers.updated_at', 'DESC')->paginate(20);
+
+        dd($history);
+
         $customer = new Customer();
         if ($areaCustomer) {
             $customer = $areaCustomer->customer_have_called_yet;

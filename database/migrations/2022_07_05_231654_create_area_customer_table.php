@@ -19,24 +19,7 @@ class CreateAreaCustomerTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->bigInteger('area_id')->unsigned()->nullable();
             $table->bigInteger('customer_id')->unsigned()->nullable();
-            $table->string('type_call')->nullable();
             $table->string('called')->nullable();
-            $table->string('so_thu_tu')->nullable();
-            $table->string('vpbank')->nullable();
-            $table->string('msdl')->nullable();
-            $table->string('cv')->nullable();
-            $table->string('so_hop_dong')->unique();
-            $table->string('menh_gia')->nullable();
-            $table->string('nam_dao_han')->nullable();
-            $table->string('ho')->nullable();
-            $table->string('ten')->nullable();
-            $table->string('ten_kh')->nullable();
-            $table->string('gioi_tinh')->nullable();
-            $table->string('ngay_sinh')->nullable();
-            $table->string('tuoi')->nullable();
-            $table->string('dien_thoai')->nullable();
-            $table->text('comment')->nullable();
-            $table->string('dia_chi_cu_the')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
@@ -48,7 +31,7 @@ class CreateAreaCustomerTable extends Migration
         });
 
         Schema::table('areas_customers', function(Blueprint $table) {
-            $table->index(['user_id', 'area_id', 'so_hop_dong']);
+            $table->index(['user_id', 'area_id']);
         });
     }
 

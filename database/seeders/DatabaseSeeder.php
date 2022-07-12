@@ -7,7 +7,7 @@ use Database\Seeders\UserTableSeeder;
 use Database\Seeders\AreaSeeder;
 use Database\Seeders\AreaCustomerSeeder;
 use Database\Seeders\CustomerSeeder;
-
+use Database\Seeders\HistoryCalledSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -32,6 +32,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AreaCustomerSeeder::class,
+        ]);
+
+        $this->call([
+            HistoryCalledSeeder::class,
         ]);
     }
 }

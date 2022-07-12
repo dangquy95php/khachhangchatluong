@@ -25,29 +25,11 @@ class AreaCustomer extends Pivot
         'area_id',
         'user_id',
         'customer_id',
-        'so_thu_tu',
-        'vpbank',
-        'ngay_tham_gia',
-        'msdl',
-        'cv',
-        'so_hop_dong',
-        'menh_gia',
-        'nam_dao_han',
-        'ho',
-        'ten',
-        'ten_kh',
-        'gioi_tinh',
-        'ngay_sinh',
-        'tuoi',
-        'dien_thoai',
-        'dia_chi_cu_the',
-        'comment',
-        'type_call',
         'called'
     ];
 
     public function customer() {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id')->select('id');
+        return $this->belongsTo(HistoryCalled::class, 'id', 'area_customer_id');
     }
 
     public function customer_have_called_yet() {
