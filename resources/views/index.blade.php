@@ -380,7 +380,7 @@
                                                 <td class="d-none cv">{{ $data->customer->cv }}</td>
                                                 <td class="ten_kh"><b>{{ $data->customer->ten_kh }}</b></td>
                                                 <td class="tuoi">
-                                                    <span class="{{ ($data->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->tuoi }}</span>
+                                                    <span class="{{ ($data->customer->tuoi > 50) ? 'badge bg-dark' : '' }}">{{ $data->customer->tuoi }}</span>
                                                 </td>
                                                 <td class="gioi_tinh">
                                                 @if($data->customer->gioi_tinh === 'M')
@@ -400,7 +400,7 @@
                                                     @endforeach
                                                 </td>
                                                 <td class="dia_chi_cu_the">{{ $data->customer->dia_chi_cu_the }}</td>
-                                                <td class="updated_at">{{ $data->updated_at }}</td>
+                                                <td class="updated_at">{{ $data->customer->updated_at }}</td>
                                                 <td class="d-none area_name">{{ $data->name }}</td>
                                             </tr>
                                             @php
@@ -478,7 +478,7 @@
                                                 @endforeach
                                             </td>
                                             <td class="dia_chi_cu_the">{{ $data->customer->dia_chi_cu_the }}</td>
-                                            <td class="updated_at">{{ $data->updated_at }}</td>
+                                            <td class="updated_at">{{ $data->customer->updated_at }}</td>
                                             <td class="d-none area_name">{{ $data->name }}</td>
                                         </tr>
                                         @php

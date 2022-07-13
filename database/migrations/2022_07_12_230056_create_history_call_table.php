@@ -43,7 +43,7 @@ class CreateHistoryCallTable extends Migration
         });
 
         Schema::table('history_called', function(Blueprint $table) {
-            $table->index(['so_hop_dong']);
+            $table->index(['so_hop_dong', 'area_customer_id']);
         });
     }
 

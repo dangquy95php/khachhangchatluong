@@ -33,7 +33,7 @@ class AreaCustomer extends Pivot
     }
 
     public function customer_have_called_yet() {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+        return $this->belongsTo(HistoryCalled::class, 'id', 'area_customer_id');
     }
 
     public function scopeUserId($query)

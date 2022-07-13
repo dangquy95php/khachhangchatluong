@@ -9,9 +9,11 @@ use App\Models\Area;
 use App\Models\AreaCustomer;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\HistoryCalled;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Response;
 use \Cache;
+use DB;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -29,25 +31,28 @@ class HomeController extends Controller
         if ($area_id)
             $areaCustomer = $areaCustomer->areaId($area_id);
 
-        $areaCustomer = $areaCustomer->leftJoin('areas', 'areas_customers.area_id', '=', 'areas.id')
+        $areaCustomer = $areaCustomer->join('areas', 'areas_customers.area_id', '=', 'areas.id')
                             ->where('areas.status', self::AREA_ACTIVE)->with('customer_have_called_yet')
-                            ->orderBy('areas_customers.updated_at', 'DESC')->first();
+                            ->orderBy('areas_customers.updated_at', 'DESC')->select('areas_customers.id','areas_customers.user_id','areas_customers.user_id', 'areas_customers.area_id', 'areas.name')->first();
 
         $today =  AreaCustomer::userId()->called()->today()
-                        ->leftJoin('areas', 'areas_customers.area_id', '=', 'areas.id')
+                        ->join('areas', 'areas_customers.area_id', '=', 'areas.id')
                         ->where('areas.status', self::AREA_ACTIVE)->with('customer')
-                        ->orderBy('areas_customers.updated_at', 'DESC')->paginate(20);
+                        ->orderBy('areas_customers.updated_at', 'DESC')
+                        ->select('areas_customers.id','areas_customers.user_id','areas_customers.user_id', 'areas_customers.area_id', 'areas.name')->paginate(20);
 
         $history  = AreaCustomer::userId()->called()
-                                ->leftJoin('areas', 'areas_customers.area_id', '=', 'areas.id')
+                                ->join('areas', 'areas_customers.area_id', '=', 'areas.id')
+                                ->select('areas.*')
                                 ->where('areas.status', self::AREA_ACTIVE)->with('customer')
-                                ->orderBy('areas_customers.updated_at', 'DESC')->paginate(20);
-
+                                ->orderBy('areas_customers.updated_at', 'DESC')
+                                ->select('areas_customers.id','areas_customers.user_id','areas_customers.user_id', 'areas_customers.area_id', 'areas.name')->paginate(20);
+                              
         $customer = new Customer();
         if ($areaCustomer) {
             $customer = $areaCustomer->customer_have_called_yet;
             $customer->area_name = $areaCustomer->name;
-            $customer->area_id = $areaCustomer->id;
+            $customer->area_id = $areaCustomer->area_id;
         }
 
         return view('index', compact('customer', 'history', 'areas', 'today'));
@@ -65,21 +70,30 @@ class HomeController extends Controller
                     'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
                 ]);
             }
+            DB::beginTransaction();
             try {
-                $areaCustomer = AreaCustomer::findOrFail($request->id);
-                $areaCustomer->nam_dao_han = $request->nam_dao_han;
-                $areaCustomer->menh_gia = $request->money;
-                $areaCustomer->ten_kh = $request->last_name;
-                $areaCustomer->dien_thoai = $request->phone;
-                $areaCustomer->dia_chi_cu_the = $request->address_full;
-                $areaCustomer->tuoi = $request->age;
-                $areaCustomer->gioi_tinh = $request->sex;
-                $areaCustomer->type_call = $request->type_call;
-                $areaCustomer->comment = $request->comment;
-
+                $now = Carbon::now();
+                $areaCustomer = AreaCustomer::findOrFail($request->get('id'));
+                $areaCustomer->called = self::CALLED;
+                $areaCustomer->updated_at = $now;
                 $areaCustomer->save();
+
+                $historyCalled = HistoryCalled::where('area_customer_id', $request->get('id'))->firstOrFail();
+                $historyCalled->nam_dao_han = $request->nam_dao_han;
+                $historyCalled->menh_gia = $request->money;
+                $historyCalled->ten_kh = $request->last_name;
+                $historyCalled->dien_thoai = $request->phone;
+                $historyCalled->dia_chi_cu_the = $request->address_full;
+                $historyCalled->tuoi = $request->age;
+                $historyCalled->gioi_tinh = $request->sex;
+                $historyCalled->type_call = $request->type_call;
+                $historyCalled->comment = $request->comment;
+                $historyCalled->updated_at = $now;
+                $historyCalled->save();
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
+                DB::commit();
             } catch (\Exception $ex) {
+                DB::rollBack();
                 if (!empty($request->get('id'))) {
                     Toastr::error('Có lỗi khi cập nhật thông tin người dùng.' . $ex->getMessage());
                 }
@@ -96,16 +110,23 @@ class HomeController extends Controller
                     'area_name.required' => 'Vui lòng chọn nguồn dữ liệu'
                 ]);
             }
-
+            DB::beginTransaction();
             try {
+                $now = Carbon::now();
                 $areaCustomer = AreaCustomer::findOrFail($request->get('id'));
-                $areaCustomer->type_call = $request->get('type_call');
-                $areaCustomer->comment = $request->get('comment');
                 $areaCustomer->called = self::CALLED;
-                $areaCustomer->updated_at = Carbon::now();
+                $areaCustomer->updated_at = $now;
                 $areaCustomer->save();
+
+                $historyCalled = HistoryCalled::where('area_customer_id', $request->get('id'))->first();
+                $historyCalled->comment = $request->get('comment');
+                $historyCalled->type_call = $request->get('type_call');
+                $historyCalled->updated_at = $now;
+                $historyCalled->save();
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
+                DB::commit();
             } catch (\Exception $ex) {
+                DB::rollBack();
                 if (!empty($request->get('id'))) {
                     Toastr::error('Có lỗi khi cập nhật thông tin người dùng.' . $ex->getMessage());
                 }
