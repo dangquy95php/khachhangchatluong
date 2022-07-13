@@ -42,10 +42,8 @@ class Area extends Model
         return $query->where('status', self::OPENING);
     }
 
-    public function customer() {
-        return $this->belongsToMany(Customer::class, 'areas_customers', 'area_id', 'customer_id')
-                ->where('user_id', \Auth::id())
-                ->where('areas_customers.called', self::HAVENT_CALLED_YET)
-                ->withPivot('type_call', 'comment', 'updated_at', 'called', 'created_at', 'id');
+    public function areas_customers()
+    {
+        return $this->hasMany(AreaCustomer::class, 'area_id', 'id');
     }
 }

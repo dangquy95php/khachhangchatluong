@@ -420,7 +420,7 @@
     'imports' => 
     array (
       'read_only' => true,
-      'ignore_empty' => true,
+      'ignore_empty' => false,
       'heading_row' => 
       array (
         'formatter' => 'slug',

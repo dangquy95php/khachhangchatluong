@@ -28,7 +28,15 @@ class AreaController extends Controller
 
     public function index(Request $request)
     {
-        $areas = Area::with('customers')->get();
+        $areas = Area::withCount([
+                    'areas_customers as havent_yet_call' => function($query) {
+                        $query->whereNull('called');
+                    },
+                    'areas_customers as count_called' => function($query) {
+                        $query->whereNotNull('called');
+                    }
+                ])->get();
+
         $areaAtatus = Area::getStatus();
 
         return view('area.list', compact('areas', 'areaAtatus'));

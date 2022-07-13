@@ -25,6 +25,7 @@
                         <th scope="col">Tên Nhân Viên</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ghi Chú</th>
+                        <th scope="col">Tổng số đã gọi</th>
                         <th scope="col">Ngày Tạo</th>
                         <th scope="col" class="text-center">
                             @if(\Request::route()->getName() == 'edit_area')
@@ -44,13 +45,14 @@
                         <td>{{ $item->id }}</td>
                         <td>
                             <button type="button" class="btn btn-primary pe-1">
-                                {{ $item->name }} <span class="ms-2 badge bg-{{ count($item->customers) > 0 ? 'white' : 'danger' }} text-{{ count($item->customers) > 0 ? 'primary' : 'white' }}">{{count($item->customers)}}</span>
+                                {{ $item->name }} <span class="ms-2 badge bg-{{$item->count_called > 0 ? 'white' : 'danger'; }} {{$item->count_called > 0 ? 'text-primary' : ''; }} }}"> {{ $item->count_called }}</span>
                             </button>
                         </td>
                         <td>
                             <span class="badge bg-{{$item->status == 1 ? 'success' : 'secondary' }}">{{ $item->status == 1 ? 'Đang Mở' : 'Chưa kích hoạt' }}</span>
                         </td>
                         <td>{{ $item->note }}</td>
+                        <td class="text-center"><span class="badge rounded-pill bg-{{ ($item->count_called > 0) ? 'primary' : 'danger' }}">{{ $item->count_called }}</span></td>
                         <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                         <td class="text-center">
                             <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal" class="btn btn-danger">Xoá</a>
