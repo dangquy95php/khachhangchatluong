@@ -42,8 +42,7 @@ class Customer extends Model
         'dia_chi_cu_the',
         'comment',
         'type_call',
-        'called',
-        'date_max'
+        'cccd'
     ];
 
     const APPOINTMENT = 0;

@@ -30,6 +30,7 @@ class CreateTableCustomersTable extends Migration
             $table->string('ngay_sinh')->nullable();
             $table->string('tuoi')->nullable();
             $table->string('dien_thoai')->nullable();
+            $table->string('cccd')->nullable();
             $table->text('comment')->nullable();
             $table->string('dia_chi_cu_the')->nullable();
             $table->timestamp('created_at')->useCurrent();

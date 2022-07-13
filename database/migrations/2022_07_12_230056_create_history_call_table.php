@@ -31,6 +31,7 @@ class CreateHistoryCallTable extends Migration
             $table->string('gioi_tinh')->nullable();
             $table->string('ngay_sinh')->nullable();
             $table->string('tuoi')->nullable();
+            $table->string('cccd')->nullable();
             $table->string('dien_thoai')->nullable();
             $table->text('comment')->nullable();
             $table->string('dia_chi_cu_the')->nullable();

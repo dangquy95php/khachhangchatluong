@@ -36,5 +36,6 @@ class HistoryCalled extends Model
         'dia_chi_cu_the',
         'comment',
         'type_call',
+        'cccd',
     ];
 }

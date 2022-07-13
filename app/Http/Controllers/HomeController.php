@@ -28,21 +28,27 @@ class HomeController extends Controller
         $areas    = User::with('areas')->findOrFail(\Auth::id());
 
         $areaCustomer = AreaCustomer::userId()->haveCalledYet();
-        if ($area_id)
+        if ($area_id) {
+            Cache::forget('area_id'.\Auth::user()->id);
+            Cache::forever('area_id'.\Auth::user()->id, $area_id);
+            $area_id = Cache::get('area_id'.\Auth::user()->id);
             $areaCustomer = $areaCustomer->areaId($area_id);
+        } else {
+            $area_id = Cache::get('area_id'. \Auth::user()->id);
+        }
 
         $areaCustomer = $areaCustomer->join('areas', 'areas_customers.area_id', '=', 'areas.id')
                             ->where('areas.status', self::AREA_ACTIVE)->with('customer_have_called_yet')
                             ->orderBy('areas_customers.updated_at', 'DESC')
                             ->select('areas_customers.*', 'areas.name')->first();
 
-        $today =  AreaCustomer::userId()->called()->today()
+        $today = AreaCustomer::userId()->called()->today()
                         ->join('areas', 'areas_customers.area_id', '=', 'areas.id')
                         ->where('areas.status', self::AREA_ACTIVE)->with('customer')
                         ->orderBy('areas_customers.updated_at', 'DESC')
                         ->select('areas_customers.*', 'areas.name')->paginate(20);
 
-        $history  = AreaCustomer::userId()->called()->join('areas', 'areas_customers.area_id', '=', 'areas.id');
+        $history = AreaCustomer::userId()->called()->join('areas', 'areas_customers.area_id', '=', 'areas.id');
 
         $start_date = $request->get('start_date');
         $end_date =  Carbon::parse($request->get('end_date'))->addDay();

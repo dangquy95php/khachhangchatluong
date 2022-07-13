@@ -21,7 +21,12 @@ class ExcelController extends Controller
 
     public function import(Request $request)
     {
-        $customers = Customer::whereDate('created_at', Carbon::today())->orderBy('created_at', "DESC")->whereNull('called')->get();
+        $customers = Customer::leftJoin('areas_customers', function($join) {
+            $join->on('customers.id', '=', 'areas_customers.customer_id');
+        })->orderBy('areas_customers.created_at', "DESC")->whereNull('areas_customers.id')
+        ->select([
+            'customers.*',
+        ])->get();
 
         return view('excel.list', compact('customers'));
     }
