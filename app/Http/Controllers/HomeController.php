@@ -33,21 +33,28 @@ class HomeController extends Controller
 
         $areaCustomer = $areaCustomer->join('areas', 'areas_customers.area_id', '=', 'areas.id')
                             ->where('areas.status', self::AREA_ACTIVE)->with('customer_have_called_yet')
-                            ->orderBy('areas_customers.updated_at', 'DESC')->select('areas_customers.id','areas_customers.user_id','areas_customers.user_id', 'areas_customers.area_id', 'areas.name')->first();
+                            ->orderBy('areas_customers.updated_at', 'DESC')
+                            ->select('areas_customers.*', 'areas.name')->first();
 
         $today =  AreaCustomer::userId()->called()->today()
                         ->join('areas', 'areas_customers.area_id', '=', 'areas.id')
                         ->where('areas.status', self::AREA_ACTIVE)->with('customer')
                         ->orderBy('areas_customers.updated_at', 'DESC')
-                        ->select('areas_customers.id','areas_customers.user_id','areas_customers.user_id', 'areas_customers.area_id', 'areas.name')->paginate(20);
+                        ->select('areas_customers.*', 'areas.name')->paginate(20);
 
-        $history  = AreaCustomer::userId()->called()
-                                ->join('areas', 'areas_customers.area_id', '=', 'areas.id')
-                                ->select('areas.*')
-                                ->where('areas.status', self::AREA_ACTIVE)->with('customer')
-                                ->orderBy('areas_customers.updated_at', 'DESC')
-                                ->select('areas_customers.id','areas_customers.user_id','areas_customers.user_id', 'areas_customers.area_id', 'areas.name')->paginate(20);
-                              
+        $history  = AreaCustomer::userId()->called()->join('areas', 'areas_customers.area_id', '=', 'areas.id');
+
+        $start_date = $request->get('start_date');
+        $end_date =  Carbon::parse($request->get('end_date'))->addDay();
+        if ($start_date && $end_date) {
+            $history = $history->searchToday($start_date, $end_date);
+        }
+
+        $history = $history->select('areas.*')
+                            ->where('areas.status', self::AREA_ACTIVE)->with('customer')
+                            ->orderBy('areas_customers.updated_at', 'DESC')
+                            ->select('areas_customers.*', 'areas.name')->paginate(20);
+
         $customer = new Customer();
         if ($areaCustomer) {
             $customer = $areaCustomer->customer_have_called_yet;

@@ -60,4 +60,10 @@ class AreaCustomer extends Pivot
     {
         return $query->where('called', self::HAVENT_CALLED_YET);
     }
+
+    public function scopeSearchToday($query, $start_date, $end_date)
+    {
+        return $query->where('areas_customers.updated_at', '>=' , $start_date)
+                ->where('areas_customers.updated_at', '<=' , $end_date);
+    }
 }
