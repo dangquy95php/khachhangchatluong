@@ -29,8 +29,8 @@
                                 <ul class="list-group sortable flex-row" id="area_area_name">
                                     @foreach ($areas as $area)
                                         <li data-id="{{ $area->id }}"
-                                            class="btn-modify d-inline-flex btn {{count($area->customers) > 0 ? 'btn-secondary' : 'btn-danger'}} pe-1 me-1 mb-1">{{ $area->name }}
-                                            <span class="ms-2 badge bg-white  {{count($area->customers) > 0 ? 'text-secondary' : 'text-danger'}}">{{ count($area->customers) }}</span>
+                                            class="btn-modify d-inline-flex btn {{ $area->havent_yet_call > 0 ? 'btn-secondary' : 'btn-danger'}} pe-1 me-1 mb-1">{{ $area->name }}
+                                            <span class="ms-2 badge bg-white  {{ $area->havent_yet_call > 0 ? 'text-secondary' : 'text-danger'}}">{{  $area->havent_yet_call }}</span>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -64,18 +64,9 @@
                                                         data-bs-parent="#accordionExample{{ $user->id }}">
                                                         <ul class="pb-4 mb-0 is-body-user accordion-body sortable d-flex flex-wrap">
                                                             @foreach ($user->areas as $area)
-                                                                <li data-id="{{$area->id}}" class="pe-1 btn-modify btn d-inline-flex btn-secondary mb-1 me-1">
+                                                                <li data-id="{{$area->area_id}}" class="pe-1 btn-modify btn d-inline-flex btn-secondary mb-1 me-1">
                                                                     {{ $area->name }}
-                                                                    @foreach ($numberCustomerArea as $item)
-                                                                        @if($area->id == $item->id)
-                                                                            <span class="ms-2 badge {{ count($item->customers) > 0 ? 'bg-white text-danger' : 'bg-danger text-white'}}">{{ count($item->customers) }}</span>
-                                                                        @endif
-                                                                    @endforeach
-                                                                    {{-- <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                        class="btn-close-area text-danger link-light text-center"
-                                                                        href="{{ route('del_area_to_user', ['id' => $area->id]) }}">
-                                                                        <i class="ms-2 ri-close-circle-fill"></i>
-                                                                    </a> --}}
+                                                                    <span class="ms-2 badge {{ $area->count > 0 ? 'bg-white text-danger' : 'bg-danger text-white'}}">{{ $area->count }}</span>
                                                                 </li>
                                                             @endforeach
                                                         </ul>

@@ -191,11 +191,11 @@ class AreaController extends Controller
 
     public function addAreaToUser(Request $request)
     {
-        // $areas = Area::withCount([
-        //     'areas_havent_yet_assign as havent_yet_call' => function($query) {
-        //         $query->whereNull('called');
-        //     }
-        // ])->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
+        $areas = Area::withCount([
+            'areas_havent_yet_assign as havent_yet_call' => function($query) {
+                $query->whereNull('called');
+            }
+        ])->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
 
         $areaUsers = User::with('areas_users')->where('status', self::USER_ACTIVE)->orderBy('name', 'ASC')->get();
         
@@ -203,16 +203,21 @@ class AreaController extends Controller
             if (count($item->areas_users) > 0) {
                 $collection = $item->areas_users;
                 $grouped = $collection->groupBy('area_id');
-                $item->group = $grouped;
+                $data = [];
 
+                $dataAreas = $this->dataAreas;
+                collect($grouped)->contains(function ($value, $key) use(&$data, $dataAreas) {
+                    foreach($dataAreas as $item) {
+                        if($key == $item->id) {
+                            array_push($data, (object)['area_id' => $key, 'count' => count($value), 'name' => $item->name ]);
+                        }
+                    }
+                });
+                $item->areas = $data;
             }
         }
 
-        dd($areaUsers);
-
-        // $numberCustomerArea = Area::with('customers')->whereNotNull('areas.user_id')->get();
-
-        return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'areaUsers' => $areaUsers, 'areas' => $areas, 'numberCustomerArea' => $numberCustomerArea ]);
+        return view('area.add-area-to-user', compact('areaUsers', 'areas'));
     }
 
     public function postAddAreaToUser(Request $request)
