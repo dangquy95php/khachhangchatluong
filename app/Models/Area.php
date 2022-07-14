@@ -46,4 +46,14 @@ class Area extends Model
     {
         return $this->hasMany(AreaCustomer::class, 'area_id', 'id');
     }
+
+    public function areas_havent_yet_assign()
+    {
+        return $this->hasMany(AreaCustomer::class, 'area_id', 'id')->whereNull('user_id');
+    }
+
+    public function customers()
+    {
+        return $this->hasMany(AreaCustomer::class, 'area_id', 'id')->whereNull('called');
+    }
 }

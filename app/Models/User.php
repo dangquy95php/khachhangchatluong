@@ -27,6 +27,8 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
     const AREA_HAVENT_CALLED_YET = null;
     const APPOINTMENT = 0;
 
+    protected $table = 'users';
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -117,5 +119,10 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
         return $this->belongsToMany(Area::class, 'areas_customers', 'user_id', 'area_id', 'id')
                     ->where('status', self::AREA_ACTIVE)
                     ->groupBy('pivot_area_id');
+    }
+
+    public function areas_users()
+    {
+        return $this->hasMany(AreaCustomer::class, 'user_id', 'id')->where('called', self::CALLED);
     }
 }

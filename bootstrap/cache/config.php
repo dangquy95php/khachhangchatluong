@@ -812,6 +812,27 @@
     'http_only' => true,
     'same_site' => 'lax',
   ),
+  'toastr' => 
+  array (
+    'options' => 
+    array (
+      'closeButton' => true,
+      'debug' => false,
+      'newestOnTop' => false,
+      'progressBar' => true,
+      'positionClass' => 'toast-top-right',
+      'preventDuplicates' => false,
+      'onclick' => NULL,
+      'showDuration' => '300',
+      'hideDuration' => '1000',
+      'timeOut' => '5000',
+      'extendedTimeOut' => '1000',
+      'showEasing' => 'swing',
+      'hideEasing' => 'linear',
+      'showMethod' => 'fadeIn',
+      'hideMethod' => 'fadeOut',
+    ),
+  ),
   'view' => 
   array (
     'paths' => 

@@ -143,8 +143,14 @@ class AreaController extends Controller
 
     public function doleCustomersToArea()
     {
-        $areas = Area::with('customers')->orderBy('name', 'ASC')->get();
-        $customers = Customer::whereNull('area_id')->whereNull('called')->get();
+        $customers = Customer::leftJoin('areas_customers', function($join) {
+            $join->on('customers.id', '=', 'areas_customers.customer_id');
+        })->orderBy('areas_customers.created_at', "DESC")->whereNull('areas_customers.id')
+        ->select([
+            'customers.*',
+        ])->get();
+        
+        $areas = Area::withCount('customers as count_customers_in_area')->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
 
         return view('area.list-dole', compact('areas', 'customers'));
     }
@@ -167,22 +173,44 @@ class AreaController extends Controller
 
         DB::beginTransaction();
         try {
-            Customer::whereIn('id', $request->get('choose_customers'))
-                    ->update(['area_id' => $request->input('area')]);
+            foreach($request->get('choose_customers') as $customer) {
+                $model = new AreaCustomer();
+                $model->area_id = $request->input('area');
+                $model->customer_id = $customer;
+                $model->save();
+            }
             DB::commit();
-            Toastr::success("Đã thêm một số khách hàng vào khu vực ". $area->name);
+            Toastr::success("Đã thêm ". count($request->get('choose_customers')) ." khách hàng vào khu vực ". $area->name);
         } catch (\Exception $ex) {
+            \Log::info($ex->getMessage());
             DB::rollback();
-            Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
+            Toastr::error("Thêm dữ liệu cho khu vực bị thất bại! ". $ex->getMessage());
         }
         return redirect()->back();
     }
 
     public function addAreaToUser(Request $request)
     {
-        $areas = Area::whereNull('user_id')->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
-        $areaUsers = User::with('customers_area_has_users')->get();
-        $numberCustomerArea = Area::with('customers')->whereNotNull('areas.user_id')->get();
+        // $areas = Area::withCount([
+        //     'areas_havent_yet_assign as havent_yet_call' => function($query) {
+        //         $query->whereNull('called');
+        //     }
+        // ])->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
+
+        $areaUsers = User::with('areas_users')->where('status', self::USER_ACTIVE)->orderBy('name', 'ASC')->get();
+        
+        foreach($areaUsers as &$item) {
+            if (count($item->areas_users) > 0) {
+                $collection = $item->areas_users;
+                $grouped = $collection->groupBy('area_id');
+                $item->group = $grouped;
+
+            }
+        }
+
+        dd($areaUsers);
+
+        // $numberCustomerArea = Area::with('customers')->whereNotNull('areas.user_id')->get();
 
         return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'areaUsers' => $areaUsers, 'areas' => $areas, 'numberCustomerArea' => $numberCustomerArea ]);
     }
