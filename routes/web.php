@@ -71,8 +71,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::get('/delete/{id}', 'AreaController@delete')->name('delete_area');
         Route::get('/dole', 'AreaController@doleCustomersToArea')->name('area.dole');
         Route::post('/dole', 'AreaController@postDoleCustomersToArea')->name('post.area.dole');
-        Route::get('/to-user', 'AreaController@addAreaToUser')->name('add_to_user');
-        Route::post('/to-user', 'AreaController@postAddAreaToUser')->name('post_add_to_user');
+        Route::get('/to-user', 'AreaController@indexAreaToUser')->name('add_to_user');
+        Route::post('/to-user', 'AreaController@addAreaToUser')->name('post_add_to_user');
         Route::post('/permission/update', 'AreaController@permissionArea')->name('permission_area');
         Route::get('/del-area-to-user/{id}', 'AreaController@delAreaToUser')->name('del_area_to_user');
         Route::post('/move-area-back', 'AreaController@moveAreaBack')->name('move_area_back');

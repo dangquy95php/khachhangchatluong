@@ -28,10 +28,23 @@
                                 <hr />
                                 <ul class="list-group sortable flex-row" id="area_area_name">
                                     @foreach ($areas as $area)
-                                        <li data-id="{{ $area->id }}"
-                                            class="btn-modify d-inline-flex btn {{ $area->havent_yet_call > 0 ? 'btn-secondary' : 'btn-danger'}} pe-1 me-1 mb-1">{{ $area->name }}
-                                            <span class="ms-2 badge bg-white  {{ $area->havent_yet_call > 0 ? 'text-secondary' : 'text-danger'}}">{{  $area->havent_yet_call }}</span>
-                                        </li>
+                                    @php
+                                    $count = 0;
+                                    @endphp
+                                        @foreach($areaAssignToUser as $item)
+                                            @if($item->area_id == $area->id)
+                                                @php
+                                                $count ++;
+                                                @endphp
+                                                @break;
+                                            @endif
+                                        @endforeach
+                                        @if ($count == 0)
+                                            <li data-id="{{ $area->id }}"
+                                                class="btn-modify d-inline-flex btn {{ $area->havent_yet_call > 0 ? 'btn-secondary' : 'btn-danger'}} pe-1 me-1 mb-1">{{ $area->name }}
+                                                <span class="ms-2 badge bg-white  {{ $area->havent_yet_call > 0 ? 'text-secondary' : 'text-danger'}}">{{  $area->havent_yet_call }}</span>
+                                            </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>
@@ -123,7 +136,10 @@
                     if (stop_id_user != undefined && (start_id_user != stop_id_user)
                     || ((start_id_user == stop_id_user) && position_area && $(ui.item).closest('.accordion-item').length > 0)
                     ) {
-                        updateChangeArea(stop_id_area, stop_id_user);
+                        console.log('stop_id_area',stop_id_area);
+                        console.log('stop_id_user',stop_id_user);
+                        console.log('start_id_user',start_id_user);
+                        updateChangeArea(stop_id_area, stop_id_userr);
                     }
                 },
 
@@ -156,12 +172,13 @@
                 });
             }
 
-            function updateChangeArea(id_area, id_user) {
+            function updateChangeArea(id_area, id_user, user_id_old = null) {
                 $("#overlay").show();
                 var formData = new FormData();
                 formData.append('_token', "{{ csrf_token() }}");
                 formData.append('area_id', id_area);
                 formData.append('user_id', id_user);
+                formData.append('user_id_old', user_id_old);
 
                 $.ajax({
                     url: "{{route('permission_area')}}",
@@ -171,10 +188,12 @@
                     processData: false,
                     contentType: false,
                     success:function(response) {
+                        console.log(response);
                         toastr.success(response.message)
                         $("#overlay").hide();
                     },
                     error: function(errors) {
+                        console.log('errors',errors);
                         toastr.error('Cập nhật dữ liệu thất bại.'+ errors.responseJSON.message)
                         $("#overlay").hide();
                         location.reload();

@@ -123,6 +123,6 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
 
     public function areas_users()
     {
-        return $this->hasMany(AreaCustomer::class, 'user_id', 'id')->where('called', self::CALLED);
+        return $this->hasMany(AreaCustomer::class, 'user_id', 'id')->whereNotNull('user_id');
     }
 }

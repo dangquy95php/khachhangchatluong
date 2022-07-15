@@ -52,7 +52,7 @@ class ExcelController extends Controller
     public function postImport(Request $request)
     {
         $request->validate([
-            'file' => 'required|max:10000|mimes:xlsx,xls',
+            'file' => 'required|max:2048|mimes:xlsx,xls',
         ],[
             'file.required' => 'Vui lòng chọn file Excel để import dữ liệu.',
             'file.max' => 'Tập tin quá lớn.',

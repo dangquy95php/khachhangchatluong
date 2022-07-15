@@ -20,6 +20,7 @@ class AreaController extends Controller
     const CUSTOMER_ACTIVE = 1;
     const USER_ACTIVE = 1;
     const AREA_ACTIVE = 1;
+    const HAVENT_CALLED_YET = null;
 
     public function __construct()
     {
@@ -93,11 +94,11 @@ class AreaController extends Controller
     {
         $area_id = $request->get('area_id');
         $user_id = $request->get('user_id');
-
         try {
-            Area::where([
+            AreaCustomer::where([
                 'user_id' => $user_id,
-                'id' => $area_id,
+                'area_id' => $area_id,
+                'called' => null,
             ])->update([
                 'user_id' => null
             ]);
@@ -111,11 +112,19 @@ class AreaController extends Controller
     {
         $area_id = $request->get('area_id');
         $user_id = $request->get('user_id');
+        $user_id_old = $request->get('user_id_old');
+
         DB::beginTransaction();
         try {
-            if (Area::where('id', $area_id)->count() > 0) {
-                Area::where('id', $area_id)->update([ 'user_id' => $user_id ]);
+            \Log::info(AreaCustomer::where('area_id', $area_id)->whereNull('user_id')->whereNull('called')->count());
+            \Log::info($user_id);
+            \Log::info($area_id);
+            \Log::info($user_id_old);
+            
+            if (AreaCustomer::where('area_id', $area_id)->whereNull('user_id')->whereNull('called')->count() > 0) {
+                AreaCustomer::where('area_id', $area_id)->whereNull('user_id')->whereNull('called')->update([ 'user_id' => $user_id ]);
             }
+            
             \DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
@@ -189,7 +198,7 @@ class AreaController extends Controller
         return redirect()->back();
     }
 
-    public function addAreaToUser(Request $request)
+    public function indexAreaToUser(Request $request)
     {
         $areas = Area::withCount([
             'areas_havent_yet_assign as havent_yet_call' => function($query) {
@@ -198,7 +207,7 @@ class AreaController extends Controller
         ])->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
 
         $areaUsers = User::with('areas_users')->where('status', self::USER_ACTIVE)->orderBy('name', 'ASC')->get();
-        
+        $areaAssignToUser = [];
         foreach($areaUsers as &$item) {
             if (count($item->areas_users) > 0) {
                 $collection = $item->areas_users;
@@ -206,62 +215,18 @@ class AreaController extends Controller
                 $data = [];
 
                 $dataAreas = $this->dataAreas;
-                collect($grouped)->contains(function ($value, $key) use(&$data, $dataAreas) {
+                collect($grouped)->contains(function ($value, $key) use(&$data, $dataAreas, &$areaAssignToUser) {
                     foreach($dataAreas as $item) {
                         if($key == $item->id) {
                             array_push($data, (object)['area_id' => $key, 'count' => count($value), 'name' => $item->name ]);
+                            array_push($areaAssignToUser, (object)['area_id' => $key, 'count' => count($value), 'name' => $item->name ]);
                         }
                     }
                 });
                 $item->areas = $data;
             }
         }
-
-        return view('area.add-area-to-user', compact('areaUsers', 'areas'));
-    }
-
-    public function postAddAreaToUser(Request $request)
-    {
-        $userArea = \DB::table('users')->leftJoin('areas_users', 'users.id', '=', 'areas_users.id_user')
-                    ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-                    ->select('users.*', 'areas.id as area_id', 'areas.name')->get();
-
-        $data = $request->get('user_area');
-        AreaUser::truncate();
-
-        collect($data)->contains(function ($value, $key) use($userArea) {
-
-            \DB::beginTransaction();
-            try {
-                foreach($value as $item) {
-                    $model = new AreaUser();
-                    $model->id_area = $item;
-                    $model->id_user = $key;
-                    $model->save();
-                }
-                \DB::commit();
-            } catch (\Exception $ex) {
-                Toastr::error("Cấp quyền cho khu vực thất bại! ". $ex->getMessage());
-                \DB::rollback();
-
-                return redirect()->route('index_area');
-            }
-        });
-
-        Toastr::success("Cấp quyền khu vực cho nhân viên thành công!");
-
-        return redirect()->back();
-    }
-
-    public function delAreaToUser($id) {
-        try {
-            $area_user = AreaUser::find($id);
-            Toastr::success("Xóa quyền khu vực cho nhân viên thành công");
-            $area_user->delete();
-            return redirect()->route('add_to_user');
-        } catch (\Exception $ex) {
-            Toastr::error("Xóa quyền cho khu vực thất bại! ". $ex->getMessage());
-            return redirect()->route('add_to_user');
-        }
+        
+        return view('area.add-area-to-user', compact('areaUsers', 'areas', 'areaAssignToUser'));
     }
 }

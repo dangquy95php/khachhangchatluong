@@ -45,7 +45,7 @@
                         <td>{{ $item->id }}</td>
                         <td>
                             <button type="button" class="btn btn-primary pe-1">
-                                {{ $item->name }} <span class="ms-2 badge bg-{{$item->count_called > 0 ? 'white' : 'danger'; }} {{$item->count_called > 0 ? 'text-primary' : ''; }} }}"> {{ $item->count_called }}</span>
+                                {{ $item->name }} <span class="ms-2 badge bg-{{$item->havent_yet_call > 0 ? 'white' : 'danger'; }} {{$item->havent_yet_call > 0 ? 'text-primary' : ''; }} }}"> {{ $item->havent_yet_call }}</span>
                             </button>
                         </td>
                         <td>
