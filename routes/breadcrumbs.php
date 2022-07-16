@@ -44,3 +44,9 @@ Breadcrumbs::for('statistical', function ($trail) {
     $trail->parent('home');
     $trail->push('Thống kê khách liệu khách hàng của nhân viên', route('index_statistical'));
 });
+
+Breadcrumbs::for('history_area', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Lịch sử khu vực', route('history_area'));
+});
+

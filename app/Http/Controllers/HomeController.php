@@ -22,17 +22,9 @@ class HomeController extends Controller
     {
         $areas = User::find(\Auth::id());
         $areas->setRelation('areas', $areas->areas()->get());
-
         $area_id = $request->get('area_id');
-        if ($area_id || Cache::has('area_id'.\Auth::user()->id)) {
-            if ($area_id) {
-                Cache::forget('area_id'.\Auth::user()->id);
-                Cache::forever('area_id'.\Auth::user()->id, $request->get('area_id'));
-                $area_id = Cache::get('area_id'.\Auth::user()->id);
-            } else {
-                $area_id = Cache::get('area_id'. \Auth::user()->id);
-            }
 
+        if ($area_id) {
             $area = Area::findOrFail($area_id);
             $customer = User::with(["customer" => function($query) use($area_id) {
                 $query->where(['customers.area_id' => $area_id]);

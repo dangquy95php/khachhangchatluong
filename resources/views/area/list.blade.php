@@ -16,9 +16,9 @@
    <div class="row">
       <div class="col-lg-8 pe-2">
          <div class="card">
-            <div class="card-body pt-2">
+            <div class="card-body pt-2 table-responsive">
                <!-- Table with stripped rows -->
-               <table class="table">
+               <table class="table" style="min-width:695px;">
                   <thead>
                      <tr>
                         <th scope="col">#</th>
@@ -51,11 +51,11 @@
                             <span class="badge bg-{{$item->status == 1 ? 'success' : 'secondary' }}">{{ $item->status == 1 ? 'Đang Mở' : 'Chưa kích hoạt' }}</span>
                         </td>
                         {{-- <td>{{ $item->note }}</td> --}}
-                        <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
+                        <td>{{ date('d-m-Y', strtotime($item->updated_at)) }}</td>
                         <td class="text-center">
                             <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal" class="btn btn-danger">Xoá</a>
                             <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary">Sửa</a>
-                            <a href="{{route('reopen_area', $item->id)}}" class="btn btn-warning">Reopen</a>
+                            <a onclick="return confirm('Bạn có muốn khôi phục lại dữ liệu cho khu vực {{ $item->name }} không?');" href="{{route('reopen_area', $item->id)}}" class="text-white btn btn-warning ps-1"><i class="bi bi-back"></i> Khôi Phục</a>
                         </td>
                     </tr>
 

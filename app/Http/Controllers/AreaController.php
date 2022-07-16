@@ -10,7 +10,9 @@ use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\AreaUser;
 use App\Models\AreaCustomer;
+use App\Models\HistoryArea;
 use DB;
+use \Cache;
 
 class AreaController extends Controller
 {
@@ -30,7 +32,7 @@ class AreaController extends Controller
 
     public function index(Request $request)
     {
-        $areas = Area::with('customers')->get();
+        $areas = Area::with('customers')->orderBy('updated_at', 'desc')->get();
         $areaAtatus = Area::getStatus();
 
         return view('area.list', compact('areas', 'areaAtatus'));
@@ -230,18 +232,32 @@ class AreaController extends Controller
     {
         DB::beginTransaction();
         try {
-            $dataCalled = Customer::where('area_id', $id)->where('called', self::CALLED)
+             $numberRecord = Customer::where('area_id', $id)->where('called', self::CALLED)
                 ->whereNotNull('type_call')
+                ->where('updated_at', '>=', \Config::get('config.DATE_REOPEN'))
                 ->where('type_call', '<>', self::APPOINTMENT)
                 ->update(['type_call' => null, 'called' => null, 'comment' => null]);
-
+            
             $area = Area::find($id);
-            $area->user_id = null;
-            Toastr::success("Reopen thành công khu vực ". $area->name);
-            DB::commit();
+            if ($numberRecord === 0) {
+                Toastr::warning("Dữ liệu reopen đã hết trong khu vực ". $area->name);
+            } else {
+                $area->user_id = null;
+                $area->updated_at = \Carbon\Carbon::now();
+                $area->save();
+                Toastr::success("Reopen thành công ". $numberRecord ." khách hàng trong khu vực ". $area->name);
+
+                // history
+                HistoryArea::create([
+                    'area_id' => $id,
+                    'user_id' => \Auth::id(),
+                    'count_record' => $numberRecord
+                ]);
+            }
+            DB::commit();    
         } catch (\Exception $ex) {
             DB::rollback();
-            Toastr::error("Reopen khu vực có lỗi xảy ra! ". $ex->getMessage());
+            Toastr::error("Reopen khu vực có lỗi xảy ra! Liên hệ SUPPORT(0964944719)". $ex->getMessage());
         }
                             
         return redirect()->back();

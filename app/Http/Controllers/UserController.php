@@ -42,6 +42,7 @@ class UserController extends Controller
             'password' => urldecode($request->get('password')),
             'status' => self::USER_ACTIVED,
         ];
+        \Log::info($data);
 
         $remember_me = $request->has('remember') ? true : false;
 
@@ -131,7 +132,10 @@ class UserController extends Controller
 
         return redirect()->route('list_account');
     }
+    // sudo nano /var/www/html/khachhangchatluong/app/Http/Controllers/HomeController.php 
+    // /var/www/html/khachhangchatluong/
 
+    // sudo nano /var/www/html/khachhangchatluong/storage/logs/laravel.log
     public function delete($id, Request $request)
     {
         try {

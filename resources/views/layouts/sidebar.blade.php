@@ -83,7 +83,20 @@
          <ul id="tables-report" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/report' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
                <a href="{{route('index_report')}}" class="{{ \Request::route()->getName() == 'index_report' ? 'active' : ''}}">
-               <i class="bi bi-circle"></i><span>Report</span>
+               <i class="bi bi-circle"></i><span>Nhân viên gọi khách</span>
+               </a>
+            </li>
+         </ul>
+      </li>
+
+      <li class="nav-item">
+         <a class="nav-link {{\Request()->route()->getPrefix() != '/history' ? 'collapsed' : '' }}" data-bs-target="#tables-history" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-clock-history"></i><span>Lịch sử</span><i class="bi bi-chevron-down ms-auto"></i>
+         </a>
+         <ul id="tables-history" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/history' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <li>
+               <a href="{{route('history_area')}}" class="{{ \Request::route()->getName() == 'history_area' ? 'active' : ''}}">
+               <i class="bi bi-circle"></i><span>Khôi phục khu vực</span>
                </a>
             </li>
          </ul>
