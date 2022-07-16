@@ -20,7 +20,6 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        Cache::flush();
         $areas = User::find(\Auth::id());
         $areas->setRelation('areas', $areas->areas()->get());
         $area_id = $request->get('area_id');
