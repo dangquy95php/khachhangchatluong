@@ -34,7 +34,7 @@ class HomeController extends Controller
                 $area_id =  $_COOKIE['area_id'];
             }
 
-            $area = Area::find($area_id);
+            $area = Area::findOrFail($area_id);
             $customer = User::with(["customer" => function($query) use($area_id) {
                 $query->where(['customers.area_id' => $area_id]);
             }])->find(\Auth::user()->id);

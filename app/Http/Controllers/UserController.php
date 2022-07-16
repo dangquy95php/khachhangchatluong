@@ -132,10 +132,7 @@ class UserController extends Controller
 
         return redirect()->route('list_account');
     }
-    // sudo nano /var/www/html/khachhangchatluong/app/Http/Controllers/HomeController.php 
-    // /var/www/html/khachhangchatluong/
 
-    // sudo nano /var/www/html/khachhangchatluong/storage/logs/laravel.log
     public function delete($id, Request $request)
     {
         try {
@@ -143,7 +140,7 @@ class UserController extends Controller
             $user->delete();
             Toastr::success("Xóa nhân viên ". $user->username ." thành công!");
         } catch (\Exception $ex) {
-            Toastr::error("Xóa nhân viên ". $user->username ." thất bại!". $ex->getMessage());
+            Toastr::error("Vui lòng bỏ cấp quyền. Xóa nhân viên ". $user->username ." thất bại!". $ex->getMessage());
         }
 
         return redirect()->route('list_account');
