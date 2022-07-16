@@ -42,7 +42,7 @@
                 <img src="{{ asset('assets/img/logo.png') }}" alt="">
                 <span class="d-none d-lg-block">Nhân Viên Sales</span>
             </a>
-            <i class="bi bi-list toggle-sidebar-btn"></i>
+            {{\Request()->route()->getPrefix() == 'admin' ? '<i class="bi bi-list toggle-sidebar-btn"></i>' : '' }}
         </div>
         <!-- End Logo -->
 
@@ -376,7 +376,7 @@
                                             <tr role="button" class="is-item-customer">
                                                 <th scope="row">
                                                     @if ($key == 0 && $history->customers->currentPage() < 2)
-                                                        <span class="badge rounded-pill bg-danger">{{ $j }}</span>
+                                                        {{ $j }}
                                                     @else
                                                         {{ $j }}
                                                     @endif
@@ -461,7 +461,7 @@
                                         <tr role="button" class="is-item-customer">
                                             <th scope="row">
                                                 @if ($key == 0)
-                                                    <span class="badge rounded-pill bg-danger">{{ $i }}</span>
+                                                    {{ $i }}
                                                 @else
                                                     {{ $i }}
                                                 @endif

@@ -21,7 +21,7 @@ class ExcelController extends Controller
 
     public function import(Request $request)
     {
-        $customers = Customer::whereDate('created_at', Carbon::today())->orderBy('created_at', "DESC")->whereNull('called')->get();
+        $customers = Customer::whereDate('created_at', Carbon::today())->orderBy('created_at', "DESC")->whereNull('called')->paginate(50);
 
         return view('excel.list', compact('customers'));
     }
@@ -47,7 +47,7 @@ class ExcelController extends Controller
     public function postImport(Request $request)
     {
         $request->validate([
-            'file' => 'required|max:10000|mimes:xlsx,xls',
+            'file' => 'required|max:2048|mimes:xlsx,xls',
         ],[
             'file.required' => 'Vui lòng chọn file Excel để import dữ liệu.',
             'file.max' => 'Tập tin quá lớn.',

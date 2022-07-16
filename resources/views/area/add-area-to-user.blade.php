@@ -71,11 +71,6 @@
                                                                             <span class="ms-2 badge {{ count($item->customers) > 0 ? 'bg-white text-danger' : 'bg-danger text-white'}}">{{ count($item->customers) }}</span>
                                                                         @endif
                                                                     @endforeach
-                                                                    {{-- <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                        class="btn-close-area text-danger link-light text-center"
-                                                                        href="{{ route('del_area_to_user', ['id' => $area->id]) }}">
-                                                                        <i class="ms-2 ri-close-circle-fill"></i>
-                                                                    </a> --}}
                                                                 </li>
                                                             @endforeach
                                                         </ul>
@@ -154,10 +149,14 @@
                     processData: false,
                     contentType: false,
                     success:function(response) {
+                        toastr.options.progressBar = true;
+                        toastr.options.closeButton = true;
                         toastr.success(response.message)
                         $("#overlay").hide();
                     },
                     error: function(errors) {
+                        toastr.options.progressBar = true;
+                        toastr.options.closeButton = true;
                         toastr.error('Cập nhật dữ liệu thất bại.'+ errors.responseJSON.message)
                         $("#overlay").hide();
                         location.reload();
@@ -180,10 +179,14 @@
                     processData: false,
                     contentType: false,
                     success:function(response) {
+                        toastr.options.progressBar = true;
+                        toastr.options.closeButton = true;
                         toastr.success(response.message)
                         $("#overlay").hide();
                     },
                     error: function(errors) {
+                        toastr.options.progressBar = true;
+                        toastr.options.closeButton = true;
                         toastr.error('Cập nhật dữ liệu thất bại.'+ errors.responseJSON.message)
                         $("#overlay").hide();
                         location.reload();

@@ -12,7 +12,7 @@
 @section('content')
 <section class="section">
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-md-8">
             <div class="card overflow-auto">
                 <div class="card-body table-responsive-md">
                     <h5 class="card-title">Qúa trình khôi phục dữ liệu của khu vực.</h5>
@@ -22,8 +22,8 @@
                         <tr>
                         <th scope="col">#</th>
                         <th style="min-width:115px;" scope="col">Tên khu vực</th>
-                        <th scope="col">Số lượng khách hàng khôi phục</th>
                         <th scope="col">Người khôi phục</th>
+                        <th scope="col">Người đã gọi</th>
                         <th scope="col">Ngày khôi phục</th>
                         </tr>
                     </thead>
@@ -34,9 +34,13 @@
                         @foreach($data as $area)
                         <tr>
                             <th scope="row">{{ $i }}</th>
-                            <td>{{ $area->area->name }}</td>
-                            <td class="text-center">{{$area->count_record}}</td>
-                            <td>{{$area->user->username}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary mb-2 ps-1 pe-1">
+                                    {{ $area->area->name }} <span class="badge bg-white text-primary ms-2">{{$area->count_record}}</span>
+                              </button>
+                            </td>
+                            <td class="text-center"><span class="badge bg-success">{{$area->author->username}}</span></td>
+                            <td class="text-center"><span class="badge bg-danger">{{$area->user->username ?? 'Rỗng'}}</span></td>
                             <td>{{ $area->created_at }}</td>
                         </tr>
                         @php

@@ -20,6 +20,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+        Cache::flush();
         $areas = User::find(\Auth::id());
         $areas->setRelation('areas', $areas->areas()->get());
         $area_id = $request->get('area_id');
@@ -52,7 +53,7 @@ class HomeController extends Controller
                 ->where('customers.updated_at', '<=' , $end_date)
                 ->paginate(20));
         } else {
-            $history->setRelation('customers', $history->customers()->paginate(20));
+            $history->setRelation('customers', $history->customers()->paginate(1000));
         }
 
         $todayData = User::find(\Auth::id());
@@ -87,6 +88,7 @@ class HomeController extends Controller
                 $customer->gioi_tinh = $request->sex;
                 $customer->type_call = $request->type_call;
                 $customer->comment = $request->comment;
+                $customer->updated_at = \Carbon\Carbon::now();
 
                 $customer->save();
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
@@ -113,6 +115,8 @@ class HomeController extends Controller
                 $customer->type_call = $request->get('type_call');
                 $customer->comment = $request->get('comment');
                 $customer->called = self::CALLED;
+                $customer->updated_at = \Carbon\Carbon::now();
+
                 $customer->save();
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
             } catch (\Exception $ex) {

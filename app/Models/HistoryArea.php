@@ -20,11 +20,17 @@ class HistoryArea extends Model
         'area_id',
         'user_id',
         'count_record',
+        'author_reopen',
     ];
 
     public function area()
     {
         return $this->hasOne(Area::class, 'id', 'area_id');
+    }
+
+    public function author()
+    {
+        return $this->hasOne(User::class, 'id', 'author_reopen');
     }
 
     public function user()

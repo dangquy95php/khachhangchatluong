@@ -9,10 +9,8 @@ use App\Models\User;
 use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\AreaUser;
-use App\Models\AreaCustomer;
 use App\Models\HistoryArea;
 use DB;
-use \Cache;
 
 class AreaController extends Controller
 {
@@ -122,6 +120,10 @@ class AreaController extends Controller
 
     public function delete($id, Request $request)
     {
+        if (isset($_COOKIE['area_id'])) {
+            unset($_COOKIE['area_id']); 
+            setcookie('area_id', null, -1, '/'); 
+        }
         DB::beginTransaction();
         try {
             $area = Area::find($id);
@@ -131,9 +133,9 @@ class AreaController extends Controller
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
-            Toastr::error("Xoá khu vực ". $area->name ." thất bại!". $ex->getMessage());
+            Toastr::error("Vui lòng mở cấp quyền! Rồi hãy xoá khu vực ". $area->name ." thất bại!". $ex->getMessage());
         }
-
+       
         return redirect()->route('index_area');
     }
 
@@ -183,51 +185,6 @@ class AreaController extends Controller
         return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'areaUsers' => $areaUsers, 'areas' => $areas, 'numberCustomerArea' => $numberCustomerArea ]);
     }
 
-    public function postAddAreaToUser(Request $request)
-    {
-        $userArea = \DB::table('users')->leftJoin('areas_users', 'users.id', '=', 'areas_users.id_user')
-                    ->join('areas', 'areas_users.id_area', '=', 'areas.id')
-                    ->select('users.*', 'areas.id as area_id', 'areas.name')->get();
-
-        $data = $request->get('user_area');
-        AreaUser::truncate();
-
-        collect($data)->contains(function ($value, $key) use($userArea) {
-
-            \DB::beginTransaction();
-            try {
-                foreach($value as $item) {
-                    $model = new AreaUser();
-                    $model->id_area = $item;
-                    $model->id_user = $key;
-                    $model->save();
-                }
-                \DB::commit();
-            } catch (\Exception $ex) {
-                Toastr::error("Cấp quyền cho khu vực thất bại! ". $ex->getMessage());
-                \DB::rollback();
-
-                return redirect()->route('index_area');
-            }
-        });
-
-        Toastr::success("Cấp quyền khu vực cho nhân viên thành công!");
-
-        return redirect()->back();
-    }
-
-    public function delAreaToUser($id) {
-        try {
-            $area_user = AreaUser::find($id);
-            Toastr::success("Xóa quyền khu vực cho nhân viên thành công");
-            $area_user->delete();
-            return redirect()->route('add_to_user');
-        } catch (\Exception $ex) {
-            Toastr::error("Xóa quyền cho khu vực thất bại! ". $ex->getMessage());
-            return redirect()->route('add_to_user');
-        }
-    }
-
     public function reopenArea($id)
     {
         DB::beginTransaction();
@@ -240,24 +197,27 @@ class AreaController extends Controller
             
             $area = Area::find($id);
             if ($numberRecord === 0) {
-                Toastr::warning("Dữ liệu reopen đã hết trong khu vực ". $area->name);
+                Toastr::warning("Dữ liệu cần khôi phục đã hết trong khu vực ". $area->name);
             } else {
+                $userID = $area->user_id;
                 $area->user_id = null;
                 $area->updated_at = \Carbon\Carbon::now();
                 $area->save();
-                Toastr::success("Reopen thành công ". $numberRecord ." khách hàng trong khu vực ". $area->name);
 
                 // history
                 HistoryArea::create([
                     'area_id' => $id,
-                    'user_id' => \Auth::id(),
-                    'count_record' => $numberRecord
+                    'author_reopen' => \Auth::id(),
+                    'count_record' => $numberRecord,
+                    'user_id' => $userID
                 ]);
+
+                Toastr::success("Khôi phục thành công ". $numberRecord ." khách hàng trong khu vực ". $area->name);
             }
             DB::commit();    
         } catch (\Exception $ex) {
             DB::rollback();
-            Toastr::error("Reopen khu vực có lỗi xảy ra! Liên hệ SUPPORT(0964944719)". $ex->getMessage());
+            Toastr::error("Khôi phục khu vực có lỗi xảy ra! Liên hệ SUPPORT ZALO(0964944719)". $ex->getMessage());
         }
                             
         return redirect()->back();
