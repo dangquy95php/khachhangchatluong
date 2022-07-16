@@ -40,3 +40,13 @@ GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on
 
 ### Confirm that the server has successfully restarted:
 `sudo service mysqld status`
+
+### Thay đổi time-zone mysql trên server UTC+07:00
+`sudo nano /etc/mysql/my.cnf`
+`[mysqld]
+default-time-zone = "+07:00"`
+`sudo service mysql restart`
+
+### Kiểm tra time-zone hiện tại
+`sudo mysql –e "SELECT @@global.time_zone;"`
+`sudo mysql –e "SELECT NOW();"`
