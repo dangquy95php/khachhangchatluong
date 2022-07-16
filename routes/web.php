@@ -76,7 +76,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::post('/permission/update', 'AreaController@permissionArea')->name('permission_area');
         Route::get('/del-area-to-user/{id}', 'AreaController@delAreaToUser')->name('del_area_to_user');
         Route::post('/move-area-back', 'AreaController@moveAreaBack')->name('move_area_back');
-
+        Route::get('/reopen/{id}', 'AreaController@reopenArea')->name('reopen_area');
     });
 
     Route::group(['prefix' => 'report'], function () {

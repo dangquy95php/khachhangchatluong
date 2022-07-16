@@ -17,9 +17,11 @@ class AreaController extends Controller
     public $_status = '';
     public $dataAreas = '';
 
+    const APPOINTMENT = 0;
     const CUSTOMER_ACTIVE = 1;
     const USER_ACTIVE = 1;
     const AREA_ACTIVE = 1;
+    const CALLED = 1;
 
     public function __construct()
     {
@@ -222,5 +224,15 @@ class AreaController extends Controller
             Toastr::error("Xóa quyền cho khu vực thất bại! ". $ex->getMessage());
             return redirect()->route('add_to_user');
         }
+    }
+
+    public function reopenArea($id)
+    {
+        $dataCalled = Customer::where('area_id', $id)->where('called', self::CALLED)
+                                ->whereNotNull('type_call')
+                                ->where('type_call', '<>', self::APPOINTMENT)
+                                ->update(['type_call' => null, 'called' => null, 'area_id' => null, 'comment' => null]);
+
+        dd($dataCalled);
     }
 }

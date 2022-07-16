@@ -14,7 +14,7 @@
 <section class="section">
 
    <div class="row">
-      <div class="col-lg-7">
+      <div class="col-lg-8 pe-2">
          <div class="card">
             <div class="card-body pt-2">
                <!-- Table with stripped rows -->
@@ -22,9 +22,9 @@
                   <thead>
                      <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Tên Nhân Viên</th>
+                        <th style="width:210px;" scope="col">Tên Nhân Viên</th>
                         <th scope="col">Trạng Thái</th>
-                        <th scope="col">Ghi Chú</th>
+                        {{-- <th scope="col">Ghi Chú</th> --}}
                         <th scope="col">Ngày Tạo</th>
                         <th scope="col" class="text-center">
                             @if(\Request::route()->getName() == 'edit_area')
@@ -50,11 +50,12 @@
                         <td>
                             <span class="badge bg-{{$item->status == 1 ? 'success' : 'secondary' }}">{{ $item->status == 1 ? 'Đang Mở' : 'Chưa kích hoạt' }}</span>
                         </td>
-                        <td>{{ $item->note }}</td>
+                        {{-- <td>{{ $item->note }}</td> --}}
                         <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                         <td class="text-center">
                             <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal" class="btn btn-danger">Xoá</a>
                             <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary">Sửa</a>
+                            <a href="{{route('reopen_area', $item->id)}}" class="btn btn-warning">Reopen</a>
                         </td>
                     </tr>
 
@@ -84,7 +85,7 @@
             </div>
          </div>
       </div>
-      <div class="col-lg-5">
+      <div class="col-lg-4 ps-0">
         <div class="card">
             <div class="card-body">
             <h5 class="card-title text-center mb-0"><b>{{ \Request::route()->getName() == 'index_area' ? 'THÊM KHU VỰC' : 'CHỈNH SỬA KHU VỰC' }}</b></h5>
