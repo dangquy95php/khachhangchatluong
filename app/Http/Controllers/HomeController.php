@@ -24,8 +24,17 @@ class HomeController extends Controller
         $areas->setRelation('areas', $areas->areas()->get());
         $area_id = $request->get('area_id');
 
-        if ($area_id) {
-            $area = Area::findOrFail($area_id);
+        if ($area_id || isset($_COOKIE['area_id'])) {
+            if ($area_id) {
+                setcookie('area_id', $area_id, time() + (864000 * 30), "/");
+                if(isset($_COOKIE['area_id']) && $_COOKIE['area_id'] == $area_id) {
+                    $area_id = $_COOKIE['area_id'];
+                }
+            } else {
+                $area_id =  $_COOKIE['area_id'];
+            }
+
+            $area = Area::find($area_id);
             $customer = User::with(["customer" => function($query) use($area_id) {
                 $query->where(['customers.area_id' => $area_id]);
             }])->find(\Auth::user()->id);
@@ -33,8 +42,8 @@ class HomeController extends Controller
             // lay nguoi dung dau tien goi
             $customer = User::with("customer")->find(\Auth::user()->id);
         }
-        $history = User::find(\Auth::id());
 
+        $history = User::find(\Auth::id());
         $start_date = $request->get('start_date');
         $end_date =  Carbon::parse($request->get('end_date'))->addDay();
         if ($start_date && $end_date) {
