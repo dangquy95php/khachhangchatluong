@@ -36,12 +36,13 @@
                      </tr>
                   </thead>
                   <tbody>
-                    @foreach($areas as $item)
                     @php
-                    $count = false;
+                    $i = count($areas);
                     @endphp
+
+                    @foreach($areas as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
+                        <td>{{ $i }}</td>
                         <td>
                             <button type="button" class="btn btn-primary pe-1">
                                 {{ $item->name }} <span class="ms-2 badge bg-{{ count($item->customers) > 0 ? 'white' : 'danger' }} text-{{ count($item->customers) > 0 ? 'primary' : 'white' }}">{{count($item->customers)}}</span>
@@ -78,6 +79,9 @@
                             </div>
                         </div>
                     </div>
+                    @php
+                    $i--;
+                    @endphp
                     @endforeach
                   </tbody>
                </table>
