@@ -228,11 +228,22 @@ class AreaController extends Controller
 
     public function reopenArea($id)
     {
-        $dataCalled = Customer::where('area_id', $id)->where('called', self::CALLED)
-                                ->whereNotNull('type_call')
-                                ->where('type_call', '<>', self::APPOINTMENT)
-                                ->update(['type_call' => null, 'called' => null, 'area_id' => null, 'comment' => null]);
+        DB::beginTransaction();
+        try {
+            $dataCalled = Customer::where('area_id', $id)->where('called', self::CALLED)
+                ->whereNotNull('type_call')
+                ->where('type_call', '<>', self::APPOINTMENT)
+                ->update(['type_call' => null, 'called' => null, 'comment' => null]);
 
-        dd($dataCalled);
+            $area = Area::find($id);
+            $area->user_id = null;
+            Toastr::success("Reopen thành công khu vực ". $area->name);
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+            Toastr::error("Reopen khu vực có lỗi xảy ra! ". $ex->getMessage());
+        }
+                            
+        return redirect()->back();
     }
 }
