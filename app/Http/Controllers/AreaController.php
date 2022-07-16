@@ -124,6 +124,9 @@ class AreaController extends Controller
             if (AreaCustomer::where('area_id', $area_id)->whereNull('user_id')->whereNull('called')->count() > 0) {
                 AreaCustomer::where('area_id', $area_id)->whereNull('user_id')->whereNull('called')->update([ 'user_id' => $user_id ]);
             }
+            if (!empty($user_id_old)) {
+                AreaCustomer::where('area_id', $area_id)->where('user_id', $user_id_old)->whereNull('called')->update([ 'user_id' => $user_id ]);
+            }
             
             \DB::commit();
         } catch (\Exception $ex) {

@@ -113,6 +113,8 @@
                     ui.item.data('start_area_id', start_area_id);
                     ui.item.data('start_id_user', start_id_user);
 
+                    $(this).attr('data-id_start', start_id_user);
+
                     if ($(ui.item).closest('#area_area_name').length > 0) {
                         ui.item.data('position_area', true);
                     } else {
@@ -120,6 +122,8 @@
                     }
                 },
                 stop: function(event, ui) {
+                    var oldData = $(this).attr('data-id_start');
+
                     var start_id_user = ui.item.data('start_id_user');
                     var stop_id_area = ui.item.data('start_area_id');
                     var stop_id_user = $(ui.item).closest('.accordion-item').children().data('id_user');
@@ -136,11 +140,14 @@
                     if (stop_id_user != undefined && (start_id_user != stop_id_user)
                     || ((start_id_user == stop_id_user) && position_area && $(ui.item).closest('.accordion-item').length > 0)
                     ) {
-                        console.log('stop_id_area',stop_id_area);
-                        console.log('stop_id_user',stop_id_user);
-                        console.log('start_id_user',start_id_user);
-                        updateChangeArea(stop_id_area, stop_id_userr);
+                        if (start_id_user != undefined && stop_id_user != undefined && $(this).attr('data-id_start') != undefined) {
+                            updateChangeArea(stop_id_area, stop_id_user, start_id_user);
+                        } else {
+                            updateChangeArea(stop_id_area, stop_id_user);
+                        }
                     }
+
+                    $(this).removeAttr('data-id_start');
                 },
 
                 connectWith: ".sortable"
@@ -188,8 +195,8 @@
                     processData: false,
                     contentType: false,
                     success:function(response) {
-                        console.log(response);
-                        toastr.success(response.message)
+                        // console.log(response);
+                        // toastr.success(response.message)
                         $("#overlay").hide();
                     },
                     error: function(errors) {

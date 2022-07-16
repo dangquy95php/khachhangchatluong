@@ -62,6 +62,7 @@ class HomeController extends Controller
                             ->select('areas_customers.*', 'areas.name')->paginate(20);
 
         $customer = new Customer();
+        
         if ($areaCustomer) {
             $customer = $areaCustomer->customer_have_called_yet;
             $customer->area_name = $areaCustomer->name;
