@@ -11,7 +11,7 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
-        $listCallOfStaff = User::with('customers_today_called')->get();
+        $listCallOfStaff = User::with('customers_today_called')->orderBy('username', 'asc')->get();
 
         return view('report.index', compact('listCallOfStaff'));
     }

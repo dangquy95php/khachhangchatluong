@@ -132,12 +132,15 @@
                                                 <label class="form-label"><b>CV</b></label>
                                                 <input type="text" class="form-control" value="{{ @$customer->cv }}" id="cv" name="cv">
                                             </div>
-                                            <div class="col-md-8 col-sm-12">
-                                            <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
-                                            <input type="text" value="{{ @$customer->ten_kh }}" name="last_name"
-                                                class="form-control" id="ten_kh">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="inputNanme4" class="form-label"><b>Họ Và Tên</b></label>
+                                                <input type="text" value="{{ @$customer->ten_kh }}" name="last_name" class="form-control" id="ten_kh">
                                             </div>
-                                            <div class="col-md-4 col-sm-12">
+                                            <div class="col-md-7 col-sm-12">
+                                                <label for="inputNanme4" class="form-label"><b>CCCD</b></label>
+                                                <input type="text" name="cccd" value="{{ @$customer->cccd }}" class="form-control" id="cccd">
+                                            </div>
+                                            <div class="col-md-5 col-sm-12">
                                                 <label for="inputNanme4" class="form-label"><b>Số Điện Thoại</b></label>
                                                 <input type="text" name="phone" value="{{ @$customer->dien_thoai }}" class="form-control" id="dien_thoai">
                                             </div>
@@ -396,6 +399,7 @@
                                                 @endif
                                                 </td>
                                                 <td class="dien_thoai">{{ $data->dien_thoai }}</td>
+                                                <td class="d-none cccd">{{ $data->cccd }}</td>
                                                 <td class="comment">{{ $data->comment }}</td>
                                                 <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
                                                 <td style="width:200px;" class="type_call">
@@ -480,6 +484,7 @@
                                             @endif
                                             </td>
                                             <td class="dien_thoai">{{ $data->dien_thoai }}</td>
+                                            <td class="d-none cccd">{{ $data->cccd }}</td>
                                             <td class="comment">{{ $data->comment }}</td>
                                             <td class="menh_gia">{{ is_numeric(@$data->menh_gia) ? number_format(@$data->menh_gia + 50000000) : @$data->menh_gia }}</td>
                                             <td class="type_call">
@@ -595,6 +600,7 @@
                 $('#menh_gia').val($($(el).find('.menh_gia').get(0)).text());
                 $('#ten_kh').val($($(el).find('.ten_kh').get(0)).text().trim());
                 $('#dien_thoai').val($($(el).find('.dien_thoai').get(0)).text());
+                $('#cccd').val($($(el).find('.cccd').get(0)).text());
                 $('#dia_chi_cu_the').val($($(el).find('.dia_chi_cu_the').get(0)).text());
                 $('#tuoi').val($($(el).find('.tuoi').get(0)).text().trim());
                 $('#data_area_id').val($($(el).find('.area_id').get(0)).text().trim());

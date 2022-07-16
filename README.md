@@ -19,3 +19,24 @@ Xử lý dữ liệu khách hàng
 Thời gian bàn giao sản phẩm giai đoạn 1: 10/6/2022 - 11/6/2022
 
 GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on khachangchatluong1.* TO 'khachhangchatluong'@'localhost' WITH GRANT OPTION;
+
+### Hiển thị databases;
+`show databases`
+
+### Show user trong mysql
+`SELECT user FROM mysql.user;`
+
+### Tạo databases
+`create database db_test`
+
+### Cấp quyền user cho database
+`GRANT ALL ON *.* TO 'user'@'localhost';`
+
+### Chạy lệnh FLUSH 
+`FLUSH PRIVILEGES;`
+
+### Restart the mysqld service:
+`sudo service mysqld restart`
+
+### Confirm that the server has successfully restarted:
+`sudo service mysqld status`
