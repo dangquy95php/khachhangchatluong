@@ -34,7 +34,14 @@ class HomeController extends Controller
                 $area_id =  $_COOKIE['area_id'];
             }
 
-            $area = Area::findOrFail($area_id);
+            $area = Area::find($area_id);
+            if(empty($area)) {
+                if (isset($_COOKIE['area_id'])) {
+                    unset($_COOKIE['area_id']); 
+                    setcookie('area_id', null, -1, '/'); 
+                }
+                return redirect()->to('/call'); 
+            }
             $customer = User::with(["customer" => function($query) use($area_id) {
                 $query->where(['customers.area_id' => $area_id]);
             }])->find(\Auth::user()->id);
@@ -47,12 +54,12 @@ class HomeController extends Controller
         $start_date = $request->get('start_date');
         $end_date =  Carbon::parse($request->get('end_date'))->addDay();
         if ($start_date && $end_date) {
-            $history->setRelation('customers', $history->customers()
-                ->where('customers.updated_at', '>=' , $start_date)
-                ->where('customers.updated_at', '<=' , $end_date)
+            $history->setRelation('histories', $history->histories()
+                ->where('histories.updated_at', '>=' , $start_date)
+                ->where('histories.updated_at', '<=' , $end_date)
                 ->paginate(20));
         } else {
-            $history->setRelation('customers', $history->customers()->paginate(1000));
+            $history->setRelation('histories', $history->histories()->paginate(100));
         }
 
         $todayData = User::find(\Auth::id());

@@ -341,7 +341,7 @@
                             </form>
                             <div class="card mb-2 mt-md-2 mt-sm-3">
                                 <div class="card-body pt-3 table-responsive">
-                                    {{ count($history->customers) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
+                                    {{ count($history->histories) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
                                     <!-- Table with hoverable rows -->
                                     <table class="table table-hover">
                                         <thead>
@@ -366,16 +366,16 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                            $j = $history->customers->total();
-                                            if ($history->customers->currentPage() >= 2) {
-                                                $j = $history->customers->total() - (($history->customers->currentPage() - 1) * $history->customers->perPage());
+                                            $j = $history->histories->total();
+                                            if ($history->histories->currentPage() >= 2) {
+                                                $j = $history->histories->total() - (($history->histories->currentPage() - 1) * $history->histories->perPage());
                                             }
                                             @endphp
 
-                                            @foreach ($history->customers as $key => $data)
+                                            @foreach ($history->histories as $key => $data)
                                             <tr role="button" class="is-item-customer">
                                                 <th scope="row">
-                                                    @if ($key == 0 && $history->customers->currentPage() < 2)
+                                                    @if ($key == 0 && $history->histories->currentPage() < 2)
                                                         {{ $j }}
                                                     @else
                                                         {{ $j }}
@@ -421,7 +421,7 @@
                                     </table>
                                     <!-- End Table with hoverable rows -->
                                 </div>
-                                {!! $history->customers->links('_partials.pagination') !!}
+                                {!! $history->histories->links('_partials.pagination') !!}
                             </div>
                         </div>
                     </div>

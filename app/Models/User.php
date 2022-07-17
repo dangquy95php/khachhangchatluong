@@ -145,6 +145,16 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
                 ->select('customers.*', 'areas.name');
     }
 
+    public function histories()
+    {
+        return $this->hasManyThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id')
+                ->where('customers.called', self::CALLED)
+                ->where('areas.status', self::ACTIVE)
+                ->where('customers.updated_at', '<', \Carbon\Carbon::today())
+                ->orderBy('customers.updated_at', 'DESC')
+                ->select('customers.*', 'areas.name');
+    }
+
     public function get_data_today()
     {
         return $this->hasManyThrough(Customer::class, Area::class, 'user_id', 'area_id', 'id', 'id')
