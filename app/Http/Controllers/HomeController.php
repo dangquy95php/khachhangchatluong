@@ -34,14 +34,15 @@ class HomeController extends Controller
                 $area_id =  $_COOKIE['area_id'];
             }
 
-            $area = Area::find($area_id);
-            if(empty($area)) {
+            if ($areas->areas->where('id', $area_id)->count() == 0) {
                 if (isset($_COOKIE['area_id'])) {
                     unset($_COOKIE['area_id']); 
                     setcookie('area_id', null, -1, '/'); 
                 }
                 return redirect()->to('/call'); 
             }
+            $area = Area::findOrFail($area_id);
+            
             $customer = User::with(["customer" => function($query) use($area_id) {
                 $query->where(['customers.area_id' => $area_id]);
             }])->find(\Auth::user()->id);
