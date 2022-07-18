@@ -95,7 +95,7 @@ class HomeController extends Controller
                 $customer->gioi_tinh = $request->sex;
                 $customer->type_call = $request->type_call;
                 $customer->comment = $request->comment;
-                // $customer->updated_at = \Carbon\Carbon::now();
+                $customer->updated_at = \Carbon\Carbon::now();
 
                 $customer->save();
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
