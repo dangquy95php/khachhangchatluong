@@ -38,10 +38,23 @@ class Area extends Model
     {
         return $query->where('status', self::OPENING);
     }
-    // ko ro
+
     public function area()
     {
         return $this->hasMany(Customer::class, 'area_id', 'id');
+    }
+
+    public function history_area()
+    {
+        return $this->hasMany(HistoryArea::class, 'area_id', 'id');
+    }
+
+    public static function boot() {
+        parent::boot();
+ 
+        static::deleting(function($area) {
+            $area->history_area()->delete();
+        });
     }
 
     public function customers()

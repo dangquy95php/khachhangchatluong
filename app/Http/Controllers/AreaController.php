@@ -127,7 +127,6 @@ class AreaController extends Controller
         DB::beginTransaction();
         try {
             $area = Area::find($id);
-            $area->area()->delete();
             $area->delete();
             Toastr::success("Xoá khu vực ". $area->name ." thành công!");
             DB::commit();

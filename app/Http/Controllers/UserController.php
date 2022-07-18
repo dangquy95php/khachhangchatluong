@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Models\Area;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Hash;
@@ -137,6 +138,7 @@ class UserController extends Controller
     {
         try {
             $user = User::find($id);
+            Area::where(['user_id' => $user->id])->update([ 'user_id' => null ]);
             $user->delete();
             Toastr::success("Xóa nhân viên ". $user->username ." thành công!");
         } catch (\Exception $ex) {
