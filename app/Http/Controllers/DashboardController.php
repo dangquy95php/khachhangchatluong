@@ -24,7 +24,7 @@ class DashboardController extends Controller
             $result[] = $item;
          }
       }
-      $result = collect($result)->sortBy('updated_at', 'desc');
+      $result = collect($result)->sortByDesc('updated_at');
       $totalCallCustomer = Customer::where('updated_at', '>=', \Carbon\Carbon::today())->where('called', '=', self::CALLED)->count();
 
       return view('dashboard', compact('result','totalCallCustomer'));
