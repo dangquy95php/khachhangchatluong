@@ -63,9 +63,15 @@
                      </tr>
                   </thead>
                   <tbody>
+                     @php
+                     $j = $customers->total();
+                     if ($customers->currentPage() >= 2) {
+                        $j = $customers->total() - (($customers->currentPage() - 1) * $customers->perPage());
+                     }
+                     @endphp
                     @foreach($customers as $customer)
                      <tr>
-                        <th scope="row">{{ $customer->id }}</th>
+                        <th scope="row">{{ $j }}</th>
                            <td>{{ $customer->so_hop_dong }}</td>
                            <td>{{ $customer->ngay_tham_gia }}</td>
                            <td>{{ is_numeric(@$customer->menh_gia) ? number_format(@$customer->menh_gia) : @$customer->menh_gia }}</td>
@@ -88,6 +94,9 @@
                               <a class="btn btn-danger" href="{{ route('customer.delete.byId', $customer->id) }}">Xoá</a>
                            </td>
                         </tr>
+                        @php
+                        $j--;
+                        @endphp
                      @endforeach
                   </tbody>
                </table>
