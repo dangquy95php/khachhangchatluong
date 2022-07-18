@@ -41,7 +41,7 @@
                   <div class="card mb-3">
                      <div class="card-body pb-4">
                         <div class="pt-4 pb-2">
-                           <h5 class="card-title text-center pb-0 fs-4">Đăng Nhập Tài Khoản Của Bạn</h5>
+                           <h5 class="card-title text-center pb-0 fs-4">Đăng Nhập</h5>
                            <p class="text-center small">Nhập tên người dùng và mật khẩu để đăng nhập</p>
                         </div>
                         <form action="{{route('post_login')}}" class="row g-3 needs-validation" method="POST" novalidate>
