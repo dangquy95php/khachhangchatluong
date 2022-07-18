@@ -36,7 +36,7 @@
       <!-- End Forms Nav -->
       <li class="nav-item">
          <a class="nav-link {{\Request()->route()->getPrefix() != '/excel' ? 'collapsed' : '' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-         <i class="bi bi-file-earmark-excel"></i><span>Dữ liệu Excel</span><i class="bi bi-chevron-down ms-auto"></i>
+         <i class="bi bi-file-earmark-excel"></i><span>Quản Lý Excel</span><i class="bi bi-chevron-down ms-auto"></i>
          </a>
          <ul id="tables-nav" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/excel' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>
@@ -91,7 +91,7 @@
 
       <li class="nav-item">
          <a class="nav-link {{\Request()->route()->getPrefix() != '/history' ? 'collapsed' : '' }}" data-bs-target="#tables-history" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-clock-history"></i><span>Lịch sử</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="bi bi-clock-history"></i><span>Quản Lý Lịch Sử</span><i class="bi bi-chevron-down ms-auto"></i>
          </a>
          <ul id="tables-history" class="nav-content collapse {{\Request()->route()->getPrefix() == 'admin/history' ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             <li>

@@ -509,27 +509,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Disabled Backdrop Modal -->
-            <button type="button" class="btn-alert p-0 d-none" data-bs-toggle="modal" data-bs-target="#disablebackdrop"></button>
-            <div class="modal fade" id="disablebackdrop" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">THÔNG BÁO</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Bạn đã sử dụng hết dữ liệu. Vui lòng chuyển đổi nguồn dữ liệu hoặc liên hệ với quản trị viên để cấp dữ liệu thêm.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đã Hiểu</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Disabled Backdrop Modal-->
     </main>
 
     <footer class="footer">
@@ -583,7 +562,9 @@
             });
 
             if (!$('#id_contract').val()) {
-                $('.btn-alert').trigger('click');
+                toastr.options.progressBar = true;
+                toastr.options.closeButton = true;
+                toastr.info('Bạn đã sử dụng hết dữ liệu. Vui lòng chuyển đổi nguồn dữ liệu hoặc liên hệ với quản trị viên để cấp dữ liệu thêm.', 'Thông Báo');
             }
             $(".is-item-customer").click(function() {
                 $(".btn-save").removeClass('d-none');
