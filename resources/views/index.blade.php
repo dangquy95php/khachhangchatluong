@@ -32,6 +32,14 @@
         .ql-editor {
             min-height: 100px;
         }
+        .is-copy {
+            right: 5px;
+            top: 7px;
+            cursor: pointer;
+        }
+        .is-clipboad {
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -109,7 +117,10 @@
                                         <div class="row g-3">
                                             <div class="col-sm-4 pe-md-2">
                                                 <label for="inputPassword4" class="form-label text-danger"><b>Số Hợp Đồng</b></label>
-                                                <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
+                                                <div class="position-relative is-copy-wrap">
+                                                    <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
+                                                    <span class="position-absolute is-copy"><span class="is-clipboad">{{ @$customer->so_hop_dong }}</span><i class="bi bi-clipboard is-status-clip"></i></span>
+                                                </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmail4" class="form-label"><b>Ngày Tham Gia</b></label>
@@ -555,6 +566,20 @@
 
     <script>
         $(document).ready(function() {
+            document.querySelector(".is-copy").onclick = (e) => {
+                navigator.clipboard.writeText($(e.currentTarget)[0].outerText);
+                if($(e.currentTarget)[0].outerText) {
+                    if($('.is-status-clip').hasClass('bi bi-clipboard')) {
+                        $('.is-status-clip').removeClass('bi bi-clipboard');
+                        $('.is-status-clip').addClass('bi bi-clipboard-check');
+                    }
+                    setTimeout(() => {
+                        $('.is-status-clip').removeClass('bi bi-clipboard-check');
+                        $('.is-status-clip').addClass('bi bi-clipboard');
+                    }, 2000);
+                }
+            }
+
             $('.btn-search').click(function() {
                 var area_id = $("#data_area_id").val();
                 $('#form-search').append(`<input type="hidden" name="area_id" value="${area_id}" />`);
