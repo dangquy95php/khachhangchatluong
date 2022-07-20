@@ -871,7 +871,7 @@
 					footer: !1,
 					labels: {
 						placeholder: "Search...",
-						perPage: "{select} trên mỗi trang",
+						perPage: "{select}<span id='perPageText'> trên mỗi trang</span>",
 						noRows: "No entries found",
 						noResults: "No results match your search query",
 						info: "Showing {start} to {end} of {rows} entries"
