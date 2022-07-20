@@ -53,7 +53,7 @@
          <div class="card recent-sales overflow-auto">
             <div class="card-body table-responsive">
                <h5 class="card-title">Khách Hàng Đã Hẹn <span>| Hôm nay</span></h5>
-               <table class="table">
+               <table class="table datatable">
                   <thead>
                      <tr>
                         <th scope="col">#</th>

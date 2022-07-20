@@ -15,9 +15,9 @@
    <div class="row">
       <div class="col-lg-8">
          <div class="card">
-            <div class="card-body table-responsive">
+            <div class="card-body table-responsive pt-3">
                <!-- Table with stripped rows -->
-               <table class="table table-striped">
+               <table data-toggle="table" class="table table-striped datatable">
                   <thead>
                      <tr>
                      <th scope="col">#</th>
