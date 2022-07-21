@@ -53,7 +53,7 @@
                                                         <button class="accordion-button collapsed" type="button"
                                                             data-bs-toggle="collapse"
                                                             data-bs-target="#collapseOne_{{ $user->id }}"
-                                                            aria-expanded="false"
+                                                            aria-expanded="true"
                                                             aria-controls="collapseOne_{{ $user->id }}">
                                                             <b> {{ $user->username }}</b>
                                                         </button>
