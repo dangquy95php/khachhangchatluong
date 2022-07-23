@@ -352,12 +352,17 @@ h1, h2, h3, h4, h5, h6 {
 .header {
   transition: all 0.5s;
   z-index: 997;
-  height: 60px;
+  min-height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
   background-color: #fff;
   padding-left: 20px;
   /* Toggle Sidebar Button */
   /* Search Bar */
+}
+@media only screen and (max-width: 400px) {
+  .header-nav {
+    padding-left: 10px;
+  }
 }
 .header .toggle-sidebar-btn {
   font-size: 32px;

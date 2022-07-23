@@ -67,6 +67,9 @@
                            <div class="col-12">
                               <button class="btn btn-primary w-100" type="submit">Đăng Nhập</button>
                            </div>
+                           <div class="col-12">
+                              <p class="small mb-0">Người tạo phần mềm: <b>Đặng Quý (0964.944.719)</b></p>
+                            </div>
                            <!-- <div class="col-12">
                               <p class="small mb-0">Tôi chưa có tài khoản? <a href="{{route('create_account')}}">Tạo tài khoản mới!</a></p>
                            </div> -->
