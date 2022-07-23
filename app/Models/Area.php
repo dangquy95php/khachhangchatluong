@@ -53,8 +53,17 @@ class Area extends Model
         parent::boot();
  
         static::deleting(function($area) {
+            $area->history_area(function($history) {
+                $history->delete();
+            });
+            $area->customersDelete()->delete();
             $area->history_area()->delete();
         });
+    }
+
+    public function customersDelete()
+    {
+        return $this->hasMany(Customer::class, 'area_id', 'id');
     }
 
     public function customers()
