@@ -56,7 +56,7 @@
                         <td class="text-center">
                             <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal" class="btn btn-danger">Xoá</a>
                             <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary">Sửa</a>
-                            <a onclick="return confirm('Bạn có muốn khôi phục lại dữ liệu cho khu vực {{ $item->name }} không?');" href="{{route('reopen_area', $item->id)}}" class="text-white btn btn-warning ps-1"><i class="bi bi-back"></i> Khôi Phục</a>
+                            <a onclick="return confirm('Bạn có muốn khôi phục lại dữ liệu cho khu vực {{ $item->name }} không?');" href="{{route('reopen_area', $item->id)}}" class="text-white btn ps-1 {{empty($item->user_id) ? 'btn-dark disabled': 'btn-warning'}}"><i class="bi bi-back"></i>{{empty($item->user_id) ? 'Không Thể': 'Khôi Phục'}}</a>
                         </td>
                     </tr>
 
