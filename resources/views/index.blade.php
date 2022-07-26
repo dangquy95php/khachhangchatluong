@@ -522,9 +522,9 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    {!! $history->histories->links('_partials.pagination') !!}
                                     <!-- End Table with hoverable rows -->
                                 </div>
-                                {!! $history->histories->links('_partials.pagination') !!}
                             </div>
                         </div>
                     </div>
