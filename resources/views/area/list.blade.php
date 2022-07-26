@@ -18,7 +18,7 @@
          <div class="card">
             <div class="card-body pt-2 table-responsive">
                <!-- Table with stripped rows -->
-               <table class="table" style="min-width:695px;">
+               <table class="table datatable" style="min-width:695px;">
                   <thead>
                      <tr>
                         <th scope="col">#</th>
