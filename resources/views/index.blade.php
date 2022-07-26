@@ -207,7 +207,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 px-md-1 mt-md-0 mt-sm-3">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 px-md-1 mt-md-0 mt-sm-3">
                                         <label for="inputEmail4" class="form-label"><b>Kết Quả Gọi</b></label>
                                         <ul class="list-group is-result">
                                             <li class="list-group-item">
@@ -292,7 +292,7 @@
                                         @include('_partials.alert', ['field' => 'type_call'])
                                     </div>
 
-                                    <div class="col-lg-4 col-md-12 col-sm-6 mt-lg-0 mt-md-4 mt-sm-3 px-md-1">
+                                    <div class="col-lg-3 col-md-12 col-sm-6 mt-lg-0 mt-md-4 mt-sm-3 px-md-1">
                                         <div class="col-12 col-sm-12">
                                             <!-- <textarea class="form-control" placeholder="Ghi chú cụ thể thông tin khách hàng" id="floatingTextarea" rows="5"></textarea> -->
                                             <div class="card mb-2">

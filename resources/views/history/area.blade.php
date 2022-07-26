@@ -10,28 +10,6 @@
 @endsection
 
 @section('content')
-<section class="timeline-wrapper">
-        <div class="middle-line"></div>
-
-        <div class="box box-top">
-            <div class="date">
-                <p>2022-06-21</p>
-            </div>
-            <div class="box-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-            </div>
-        </div>
-
-        <div class="box box-bottom">
-            <div class="date">
-                <p>2022-06-21</p>
-            </div>
-            <div class="box-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-            </div>
-        </div>
-
-    </section>
 
 <section class="section">
     <div class="row">
