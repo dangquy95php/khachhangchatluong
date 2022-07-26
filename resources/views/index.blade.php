@@ -32,6 +32,14 @@
         .ql-editor {
             min-height: 100px;
         }
+        .is-copy {
+            right: 5px;
+            top: 7px;
+            cursor: pointer;
+        }
+        .is-clipboad {
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -49,13 +57,23 @@
         <!-- End Search Bar -->
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-                <li class="nav-item d-block d-lg-none">
+                <li class="nav-item d-block d-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
                         <i class="bi bi-search"></i>
                     </a>
                 </li>
                 <!-- End Search Icon-->
 
+                <li class="nav-item d-flex flex-column">
+                    <div class="d-flex">
+                        <i class="bi bi-person-circle"></i>
+                        <label>&nbsp; Người tạo phần mềm: <b>Đặng Quý</b></label>
+                    </div>
+                    <div class="d-block">
+                        <i class="bi bi-telephone-fill"></i><label>: <b>0964.944.719</b></label>
+                    </div>
+                </li>
+                
                 <!-- End Messages Nav -->
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -109,7 +127,10 @@
                                         <div class="row g-3">
                                             <div class="col-sm-4 pe-md-2">
                                                 <label for="inputPassword4" class="form-label text-danger"><b>Số Hợp Đồng</b></label>
-                                                <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
+                                                <div class="position-relative is-copy-wrap">
+                                                    <input type="text" disabled name="id_contract" value="{{ @$customer->so_hop_dong }}" id="id_contract" class="form-control" id="inputPassword4">
+                                                    <span class="position-absolute is-copy"><span class="is-clipboad">{{ @$customer->so_hop_dong }}</span><i class="bi bi-clipboard is-status-clip"></i></span>
+                                                </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="inputEmail4" class="form-label"><b>Ngày Tham Gia</b></label>
@@ -509,27 +530,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Disabled Backdrop Modal -->
-            <button type="button" class="btn-alert p-0 d-none" data-bs-toggle="modal" data-bs-target="#disablebackdrop"></button>
-            <div class="modal fade" id="disablebackdrop" tabindex="-1" data-bs-backdrop="false" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">THÔNG BÁO</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Bạn đã sử dụng hết dữ liệu. Vui lòng chuyển đổi nguồn dữ liệu hoặc liên hệ với quản trị viên để cấp dữ liệu thêm.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đã Hiểu</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Disabled Backdrop Modal-->
     </main>
 
     <footer class="footer">
@@ -576,6 +576,20 @@
 
     <script>
         $(document).ready(function() {
+            document.querySelector(".is-copy").onclick = (e) => {
+                navigator.clipboard.writeText($(e.currentTarget)[0].outerText);
+                if($(e.currentTarget)[0].outerText) {
+                    if($('.is-status-clip').hasClass('bi bi-clipboard')) {
+                        $('.is-status-clip').removeClass('bi bi-clipboard');
+                        $('.is-status-clip').addClass('bi bi-clipboard-check');
+                    }
+                    setTimeout(() => {
+                        $('.is-status-clip').removeClass('bi bi-clipboard-check');
+                        $('.is-status-clip').addClass('bi bi-clipboard');
+                    }, 2000);
+                }
+            }
+
             $('.btn-search').click(function() {
                 var area_id = $("#data_area_id").val();
                 $('#form-search').append(`<input type="hidden" name="area_id" value="${area_id}" />`);
@@ -583,7 +597,9 @@
             });
 
             if (!$('#id_contract').val()) {
-                $('.btn-alert').trigger('click');
+                toastr.options.progressBar = true;
+                toastr.options.closeButton = true;
+                toastr.info('Bạn đã sử dụng hết dữ liệu. Vui lòng chuyển đổi nguồn dữ liệu hoặc liên hệ với quản trị viên để cấp dữ liệu thêm.', 'Thông Báo');
             }
             $(".is-item-customer").click(function() {
                 $(".btn-save").removeClass('d-none');

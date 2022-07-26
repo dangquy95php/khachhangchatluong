@@ -179,4 +179,17 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
                 ->orderBy('customers.updated_at', 'DESC')
                 ->select('customers.*', 'areas.name');
     }
+
+    public function history_area()
+    {
+        return $this->hasMany(HistoryArea::class, 'user_id', 'id');
+    }
+
+    public static function boot() {
+        parent::boot();
+ 
+        static::deleting(function($user) {
+            $user->history_area()->delete();
+        });
+    }
 }

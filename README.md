@@ -26,6 +26,11 @@ GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on
 ### Show user trong mysql
 `SELECT user FROM mysql.user;`
 
+### Tạo user
+`CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';`
+### Xoá user
+`DROP USER 'newuser'@'localhost';`
+
 ### Tạo databases
 `create database db_test`
 

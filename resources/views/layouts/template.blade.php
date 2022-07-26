@@ -24,6 +24,8 @@
     <link href="{{ asset('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet" type="text/css" >
 
+    @stack('css')
+
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
 </head>

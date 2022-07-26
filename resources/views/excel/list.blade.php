@@ -28,7 +28,7 @@
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label for="inputText" class="col-sm-2 col-form-label"><b>Chọn file Excel Import</b></label>
-
+                                <span class="badge rounded-pill bg-success instro" role="button" data-bs-toggle="modal" data-bs-target="#fullscreenModal">Hướng dẫn sử dụng</span>
                                 <div class="is-show-error"></div>
 
                                 <input class="form-control" name="file" type="file" id="formFile">
@@ -37,6 +37,24 @@
                         <a class="btn-import btn btn-primary me-2">Improt File</a>
                         <!-- <a href="{{route('export_customer')}}" class="btn btn-success">Export File</a> -->
                     </form>
+                    
+                    <div class="modal fade" id="fullscreenModal" tabindex="-1">
+                        <div class="modal-dialog modal-fullscreen">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title"><b>Hướng Dẫn import Excel</b></h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p class="mb-1"><b>Trường số hợp đồng là trường bắt buộc phải có</b></p>
+                              <p class="mb-1"><b>Điền thêm một số trường giống hình mẫu excel sẽ đầy đủ dữ liệu để nhân viên gọi dễ dàng hơn.</b></p>
+                              <p for=""><b>Dòng đầu tiên không được để trống</b></p>
+                              <img style="width:100%;" src="{{ asset('assets/img/intro.png') }}" alt="">
+                            </div>
+                          </div>
+                        </div>
+                    </div><!-- End Full Screen Modal-->
+        
                     <!-- End General Form Elements -->
                 </div>
             </div>
@@ -140,6 +158,10 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+        $(".instro").hover(function() {
+            $(this).trigger('click');
+        });
+
         var formImport = $('#form_import_excel');
         $(".btn-import").click(function(event){
             event.preventDefault();

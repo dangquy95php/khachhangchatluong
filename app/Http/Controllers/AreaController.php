@@ -120,14 +120,14 @@ class AreaController extends Controller
 
     public function delete($id, Request $request)
     {
-        if (isset($_COOKIE['area_id'])) {
+        if (isset($_COOKIE['area_id']) && $id == $_COOKIE['area_id']) {
             unset($_COOKIE['area_id']); 
             setcookie('area_id', null, -1, '/'); 
         }
+      
         DB::beginTransaction();
         try {
             $area = Area::find($id);
-            $area->area()->delete();
             $area->delete();
             Toastr::success("Xoá khu vực ". $area->name ." thành công!");
             DB::commit();
