@@ -599,7 +599,7 @@
             if (!$('#id_contract').val()) {
                 toastr.options.progressBar = true;
                 toastr.options.closeButton = true;
-                toastr.info('Bạn đã sử dụng hết dữ liệu. Vui lòng chuyển đổi nguồn dữ liệu hoặc liên hệ với quản trị viên để cấp dữ liệu thêm.', 'Thông Báo');
+                toastr.info('Vui lòng chuyển đổi nguồn dữ liệu hoặc liên hệ với quản trị viên để cấp dữ liệu thêm.', 'Thông Báo');
             }
             $(".is-item-customer").click(function() {
                 $(".btn-save").removeClass('d-none');
