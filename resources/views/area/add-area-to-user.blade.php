@@ -47,36 +47,38 @@
                                     <!-- Default Accordion -->
                                     <div class="is-scroll">
                                         @foreach ($areaUsers as $user)
-                                            <div class="accordion is-item" id="accordionExample{{ $user->id }}">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" data-id_user="{{ $user->id }}" id="headingOne{{ $user->id }}">
-                                                        <button class="accordion-button collapsed" type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseOne_{{ $user->id }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="collapseOne_{{ $user->id }}">
-                                                            <b> {{ $user->username }}</b>
-                                                        </button>
-                                                    </h2>
+                                            @if($user->username != 'admin')
+                                                <div class="accordion is-item" id="accordionExample{{ $user->id }}">
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" data-id_user="{{ $user->id }}" id="headingOne{{ $user->id }}">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseOne_{{ $user->id }}"
+                                                                aria-expanded="false"
+                                                                aria-controls="collapseOne_{{ $user->id }}">
+                                                                <b> {{ $user->username }}</b>
+                                                            </button>
+                                                        </h2>
 
-                                                    <div id="collapseOne_{{ $user->id }}"
-                                                        class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                                        data-bs-parent="#accordionExample{{ $user->id }}">
-                                                        <ul class="pb-4 mb-0 is-body-user accordion-body sortable d-flex flex-wrap">
-                                                            @foreach ($user->areas as $area)
-                                                                <li data-id="{{$area->id}}" class="pe-1 btn-modify btn d-inline-flex btn-secondary mb-1 me-1">
-                                                                    {{ $area->name }}
-                                                                    @foreach ($numberCustomerArea as $item)
-                                                                        @if($area->id == $item->id)
-                                                                            <span class="ms-2 badge {{ count($item->customers) > 0 ? 'bg-white text-danger' : 'bg-danger text-white'}}">{{ count($item->customers) }}</span>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
+                                                        <div id="collapseOne_{{ $user->id }}"
+                                                            class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                                            data-bs-parent="#accordionExample{{ $user->id }}">
+                                                            <ul class="pb-4 mb-0 is-body-user accordion-body sortable d-flex flex-wrap">
+                                                                @foreach ($user->areas as $area)
+                                                                    <li data-id="{{$area->id}}" class="pe-1 btn-modify btn d-inline-flex btn-secondary mb-1 me-1">
+                                                                        {{ $area->name }}
+                                                                        @foreach ($numberCustomerArea as $item)
+                                                                            @if($area->id == $item->id)
+                                                                                <span class="ms-2 badge {{ count($item->customers) > 0 ? 'bg-white text-danger' : 'bg-danger text-white'}}">{{ count($item->customers) }}</span>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>
