@@ -158,7 +158,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        $(".instro").hover(function() {
+        $(".instro").click(function() {
             $(this).trigger('click');
         });
 
