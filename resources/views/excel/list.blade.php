@@ -84,11 +84,14 @@
                   </thead>
                   <tbody>
                     @php
-                    $i = count($customers);
+                    $j = $customers->total();
+                    if ($customers->currentPage() >= 2) {
+                       $j = $customers->total() - (($customers->currentPage() - 1) * $customers->perPage());
+                    }
                     @endphp
                     @foreach($customers as $customer)
                      <tr>
-                        <th scope="row">{{ $i }}</th>
+                        <th scope="row">{{ $j }}</th>
                         <td>{{ $customer->so_hop_dong }}</td>
                         <td>{{ is_numeric(@$customer->menh_gia) ? number_format(@$customer->menh_gia) : '' }}</td>
                         <td>{{ $customer->nam_dao_han }}</td>
@@ -106,10 +109,10 @@
                         <td>{{ $customer->dia_chi_cu_the }}</td>
                         <td>{{ $customer->created_at }}</td>
                         <td>
-                            <a class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#basicModal{{$i}}">Xoá</a>
+                            <a class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#basicModal{{$j}}">Xoá</a>
                         </td>
                      </tr>
-                    <div class="modal fade" id="basicModal{{$i}}" tabindex="-1" aria-hidden="true">
+                    <div class="modal fade" id="basicModal{{$j}}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -140,7 +143,7 @@
                         </div>
                     </div>
                      @php
-                    $i--;
+                    $j--;
                     @endphp
                     @endforeach
                   </tbody>
