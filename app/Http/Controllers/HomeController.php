@@ -20,6 +20,10 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+        $feedback = $request->cookie('feedback');
+        if(empty($feedback)) {
+            return redirect()->route('feedback');
+        }
         $areas = User::find(\Auth::id());
         $areas->setRelation('areas', $areas->areas()->get());
         $area_id = $request->get('area_id');

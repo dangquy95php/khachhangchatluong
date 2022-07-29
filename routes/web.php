@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/copy-data', 'DataController@index');
-Route::get('/update-area', 'DataController@updateArea');
-Route::get('/add-area', 'DataController@addArea');
-Route::get('/update-user', 'DataController@updateUser');
-Route::get('/add-user', 'DataController@addUser');
 
 Route::get('/', 'UserController@index');
 Route::get('/login', 'UserController@login')->name('login');
@@ -25,8 +20,10 @@ Route::post('/login', 'UserController@postLogin')->name('post_login');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/call/{area_id?}', 'HomeController@index')->name('home');
     Route::post('/call', 'HomeController@updateCusomter');
-    
     Route::get('/logout', 'UserController@logout')->name('logout');
+    Route::get('/feedback', 'FeedbackController@feedback')->name('feedback');
+    Route::post('/feedback', 'FeedbackController@postFeedback');
+    Route::get('/feedback-list', 'FeedbackController@listFeedback');
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
@@ -57,8 +54,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     Route::get('/detail/{id}', 'HomeController@detail')->name('customer_detail');
     Route::post('/update', 'HomeController@update')->name('customer_update');
     Route::post('/save', 'HomeController@save')->name('customer_save');
-
-    // Route::get('/logout', 'UserController@logout')->name('logout');
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {

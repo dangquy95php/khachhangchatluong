@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\UserTableSeeder;
 use Database\Seeders\AreaSeeder;
 use Database\Seeders\CustomerSeeder;
+use Database\Seeders\FeedbackSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,6 +32,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CustomerSeeder::class,
+        ]);
+        $this->call([
+            FeedbackSeeder::class,
         ]);
     }
 }
