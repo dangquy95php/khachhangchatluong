@@ -16,6 +16,10 @@ class DashboardController extends Controller
 
    public function dashboard(Request $request)
    {
+      $feedback = $request->cookie('feedback');
+      if(empty($feedback)) {
+          return redirect()->route('feedback');
+      }
       $result = [];
       $todayData = User::with('get_data_today')->get();
       foreach($todayData as $data) {
