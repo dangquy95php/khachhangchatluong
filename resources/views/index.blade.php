@@ -299,7 +299,7 @@
                                             <div class="card mb-2">
                                                 <div class="card-body">
                                                     <h5 class="card-title pt-3 pb-0"><b>Ghi Chú</b></h5>
-                                                    <textarea name="comment" id="comment" value="{{ @$customer->comment }}" class="form-control" rows="10">{{ old('comment', @$customer->comment) }}</textarea>
+                                                    <textarea name="comment" autofocus id="comment" value="{{ @$customer->comment }}" class="form-control" rows="10">{{ old('comment', @$customer->comment) }}</textarea>
                                                     <!-- End Quill Editor default -->
                                                 </div>
                                             </div>
