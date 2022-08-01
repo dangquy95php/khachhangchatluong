@@ -54,6 +54,18 @@ class ExcelController extends Controller
             'file.mimes' => 'File không được cài mật khẩu, định dạng file không đúng. Chỉ cho phép import file Excel(xlsx,xls) thôi.'
         ]);
 
+        $time = date('Y-m-d H:i:s');
+        $time = str_replace(':', '_', $time); 
+        $time = str_replace(' ', '_', $time); 
+
+        $uploadedFile = $request->file('file');
+        $filename = $time.$uploadedFile->getClientOriginalName();
+        \Storage::disk('local')->putFileAs(
+            'files/',
+            $uploadedFile,
+            $filename
+        );
+
         \DB::beginTransaction();
 
         try {
