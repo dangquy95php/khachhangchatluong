@@ -32,13 +32,13 @@
                                     @endforeach
                                 </ul>
                                 <div class="row pb-2">
-                                    <div class="col-3">
+                                    <div class="col-md-3">
                                         <input type="number" name="from_row" onkeyup="if(parseInt(this.value) > 2000 || parseInt(this.value) < 1){ this.value = ''; return false; }"  class="from_row form-control" value="{{ old('from_row') }}" placeholder="Từ dòng số">
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-md-3 mt-sm-2 mt-md-0">
                                         <input type="number" name="to_row" value="{{ old('to_row') }}" onkeyup="if(parseInt(this.value) > 2000 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="to_row form-control" placeholder="Đến số dòng">
                                     </div>
-                                    <div class="col-2 ps-0">
+                                    <div class="col-md-2 ps-md-0 mt-sm-2 mt-md-0">
                                         <a href="#" id="btn-submit-customer" class="btn btn-success">Đăng Ký</a>
                                     </div>
                                 </div>

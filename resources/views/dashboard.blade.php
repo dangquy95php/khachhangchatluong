@@ -106,14 +106,3 @@
 </section>
 
 @endsection
-
-@push('css')
-<style>
-   @media only screen and (max-width: 470px) {
-      #perPageText {
-         display: none;
-      }
-   }
-</style>
-
-@endpush
