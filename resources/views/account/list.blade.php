@@ -60,9 +60,9 @@
                            @endif
                         </td>
                         <td class="text-center">
-                            @if($item->username != \Auth::user()->username)
-                                <a class="btn btn-warning text-white" href="{{route('edit_account', $item->id) }}">Sửa</a>
-                                <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal"  href="{{route('delete_account', $item->id) }}" class="btn btn-danger">Xoá</button>
+                           <a class="btn btn-warning text-white" href="{{route('edit_account', $item->id) }}">Sửa</a>
+                           @if($item->username != \Auth::user()->username)
+                              <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal"  href="{{route('delete_account', $item->id) }}" class="btn btn-danger">Xoá</button>
                             @endif
                         </td>
                      </tr>
