@@ -26,7 +26,7 @@
                         <th scope="col">Trạng Thái</th>
                         {{-- <th scope="col">Ghi Chú</th> --}}
                         <th scope="col">Ngày Tạo</th>
-                        <th scope="col" class="text-center">
+                        <th scope="col" class="text-center" style="min-width:250px;">
                             @if(\Request::route()->getName() == 'edit_area')
                                 <a class="btn btn-success" href="{{route('index_area')}}">Tạo mới</a>
                             @else

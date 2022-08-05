@@ -33,7 +33,7 @@
                   </thead>
                   <tbody>
                      @foreach($data as $key => $item)
-                     <tr>
+                     <tr class="{{$item->username == \Auth::user()->username ? 'bg-danger text-white' : '' }}">
                         <th scope="row">{{ ++$key }}</th>
                         <td>{{$item->name}}</td>
                         <td>{{$item->username}}</td>
@@ -60,8 +60,10 @@
                            @endif
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-warning text-white" href="{{route('edit_account', $item->id) }}">Sửa</a>
-                            <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal"  href="{{route('delete_account', $item->id) }}" class="btn btn-danger">Xoá</button>
+                            @if($item->username != \Auth::user()->username)
+                                <a class="btn btn-warning text-white" href="{{route('edit_account', $item->id) }}">Sửa</a>
+                                <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal"  href="{{route('delete_account', $item->id) }}" class="btn btn-danger">Xoá</button>
+                            @endif
                         </td>
                      </tr>
                      <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
