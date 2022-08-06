@@ -21,8 +21,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/call/{area_id?}', 'HomeController@index')->name('home');
     Route::post('/call', 'HomeController@updateCusomter');
     Route::get('/logout', 'UserController@logout')->name('logout');
-    Route::get('/feedback', 'FeedbackController@feedback')->name('feedback');
-    Route::post('/feedback', 'FeedbackController@postFeedback');
     Route::get('/feedback-list', 'FeedbackController@listFeedback');
 });
 
