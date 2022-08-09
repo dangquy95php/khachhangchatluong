@@ -34,7 +34,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     // Route::get('/call/{area_id?}', 'HomeController@index')->name('home');
     // Route::post('/call', 'HomeController@updateCusomter');
-    
+
     Route::get('/', 'CustomerController@index')->name('list_customer');
     Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
     Route::post('{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     Route::get('/delete', 'CustomerController@delete')->name('customer.delete');
     Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
     Route::post('/{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
-    
+
 
     Route::get('/export/', 'CustomerController@export')->name('export_customer');
     Route::post('/import/', 'CustomerController@import')->name('import_customer');
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::group(['prefix' => 'report'], function () {
         Route::get('/', 'ReportController@index')->name('index_report');
     });
-    
+
     Route::group(['prefix' => 'account'], function () {
         Route::get('/', 'UserController@list')->name('list_account');
         // Route::get('/create', 'UserController@create')->name('create_account');
@@ -89,7 +89,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
         Route::get('/history', 'ExcelController@history')->name('data_import_history');
         Route::get('/customer/delete/{id}', 'ExcelController@deleteExcelCustomer')->name('delete_excel_import');
-        
+
+        Route::get('/appointment', 'ExcelController@appointmentExport')->name('appointment_excel');
     });
     Route::group(['prefix' => 'history'], function () {
         Route::get('/area', 'HistoryController@indexArea')->name('history_area');

@@ -73,7 +73,7 @@ class ExcelController extends Controller
                 }
                 $errormessage = $errormessage."\n Dòng số ".$failure->row().", ".$errormess."<br>";
             }
-            
+
             return \Response::json(['message' => $errormessage], 400);
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
@@ -90,8 +90,8 @@ class ExcelController extends Controller
         }
 
         $time = date('Y-m-d H:i:s');
-        $time = str_replace(':', '_', $time); 
-        $time = str_replace(' ', '_', $time); 
+        $time = str_replace(':', '_', $time);
+        $time = str_replace(' ', '_', $time);
 
         $uploadedFile = $request->file('file');
         $filename = $time.$uploadedFile->getClientOriginalName();
@@ -100,7 +100,16 @@ class ExcelController extends Controller
             $uploadedFile,
             $filename
         );
-        
+
         return \Response::json(['message' => 'Import dữ liệu thành công!'], 200);
+    }
+
+    public function appointmentExport()
+    {
+        $time = date('Y-m-d H:i:s');
+        $time = str_replace(':', '_', $time);
+        $time = str_replace(' ', '_', $time);
+
+        return Excel::download(new CustomerExport, $time . 'danh-sach-da-hen.xlsx');
     }
 }
