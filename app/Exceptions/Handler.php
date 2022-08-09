@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Log;
 class Handler extends ExceptionHandler
 {
     /**
@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            Log::channel('slack')->critical(\Auth::user()->username . "\n" . \URL::full() . "\n" . $e->getFile() . ':' . $e->getLine() . "\n" . $e->getMessage());
         });
     }
 }

@@ -13,7 +13,7 @@
 
 <section class="section">
     <div class="row">
-        <div class="col-md-8 col-sm-12">
+        <div class="col-lg-9 col-md-12">
             <div class="card overflow-auto">
                 <div class="card-body table-responsive-md">
                     <h5 class="card-title">Qúa trình khôi phục dữ liệu của khu vực.</h5>
