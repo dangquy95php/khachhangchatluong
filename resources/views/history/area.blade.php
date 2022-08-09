@@ -13,12 +13,12 @@
 
 <section class="section">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-12">
             <div class="card overflow-auto">
                 <div class="card-body table-responsive-md">
                     <h5 class="card-title">Qúa trình khôi phục dữ liệu của khu vực.</h5>
                     <!-- Small tables -->
-                    <table class="table">
+                    <table class="table datatable">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
