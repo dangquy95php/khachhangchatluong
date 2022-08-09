@@ -55,3 +55,11 @@ default-time-zone = "+07:00"`
 ### Kiểm tra time-zone hiện tại
 `sudo mysql –e "SELECT @@global.time_zone;"`
 `sudo mysql –e "SELECT NOW();"`
+
+
+### Mở thêm thời gian tải cho apache
+`max_execution_time = 360      ; Maximum execution time of each script, in seconds (I CHANGED THIS VALUE)
+max_input_time = 120          ; Maximum amount of time each script may spend parsing request data
+;max_input_nesting_level = 64 ; Maximum input variable nesting level
+memory_limit = 128M           ; Maximum amount of memory a script may consume (128MB by default)
+`
