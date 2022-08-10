@@ -418,7 +418,7 @@
                     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
 
                         <div class="col-12">
-                            <form action="" id="form-search" method="GET">
+                            {{-- <form action="" id="form-search" method="GET">
                                 <div class="row">
                                     <div class="col-md-3 col-md-5 col-sm-5">
                                         <div class="row p-2">
@@ -442,7 +442,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </form> --}}
                             <div class="card mb-2 mt-md-2 mt-sm-3">
                                 <div class="card-body pt-3 table-responsive">
                                     {{ count($history->histories) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
