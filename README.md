@@ -63,3 +63,11 @@ max_input_time = 120          ; Maximum amount of time each script may spend par
 ;max_input_nesting_level = 64 ; Maximum input variable nesting level
 memory_limit = 128M           ; Maximum amount of memory a script may consume (128MB by default)
 `
+
+### Xóa một số cache và config cache
+`php artisan view:clear`
+`php artisan view:cache`
+`php artisan route:clear`
+`php artisan route:cache`
+`php artisan config:clear`
+`php artisan config:cache`
