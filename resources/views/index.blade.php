@@ -74,7 +74,7 @@
                         <i class="bi bi-telephone-fill"></i><label>: <b>0964.944.719</b></label>
                     </div>
                 </li>
-                
+
                 <!-- End Messages Nav -->
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -418,31 +418,7 @@
                     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
 
                         <div class="col-12">
-                            {{-- <form action="" id="form-search" method="GET">
-                                <div class="row">
-                                    <div class="col-md-3 col-md-5 col-sm-5">
-                                        <div class="row p-2">
-                                            <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày bắt đầu:</b></label>
-                                            <div class="col-md-7">
-                                                <input type="date" name="start_date" value="{{ @$_GET['start_date']; }}" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-md-5 col-sm-5">
-                                        <div class="row p-2">
-                                            <label for="inputTime" class="col-md-5 col-form-label text-md-end text-sm-start"><b>Ngày kết thúc:</b></label>
-                                            <div class="col-md-7">
-                                                <input type="date" name="end_date" value="{{ @$_GET['end_date']; }}" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-sm-2">
-                                        <div class="p-md-2 p-sm-0">
-                                            <a class="btn-search btn btn-success">Tìm kiếm</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form> --}}
+
                             <div class="card mb-2 mt-md-2 mt-sm-3">
                                 <div class="card-body pt-3 table-responsive">
                                     {{ count($history->histories) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}

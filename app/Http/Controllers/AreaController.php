@@ -11,6 +11,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use App\Models\AreaUser;
 use App\Models\HistoryArea;
 use DB;
+use App\Http\Traits\Pagination;
 
 class AreaController extends Controller
 {
@@ -87,6 +88,8 @@ class AreaController extends Controller
     {
         $area_id = $request->get('area_id');
         $user_id = $request->get('user_id');
+
+        Pagination::clearCache($user_id);
 
         try {
             Area::where([

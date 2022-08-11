@@ -12,6 +12,8 @@ use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use \Cache;
+use App\Http\Traits\Pagination;
+
 class HomeController extends Controller
 {
     const HAVENT_CALLED_YET = 0;
@@ -21,6 +23,9 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $areas = User::find(\Auth::id());
+        $history = $areas;
+        $todayData = $areas;
+
         $areas->setRelation('areas', $areas->areas()->get());
         $area_id = $request->get('area_id');
 
@@ -36,13 +41,13 @@ class HomeController extends Controller
 
             if ($areas->areas->where('id', $area_id)->count() == 0) {
                 if (isset($_COOKIE['area_id'])) {
-                    unset($_COOKIE['area_id']); 
-                    setcookie('area_id', null, -1, '/'); 
+                    unset($_COOKIE['area_id']);
+                    setcookie('area_id', null, -1, '/');
                 }
-                return redirect()->to('/call'); 
+                return redirect()->to('/call');
             }
             $area = Area::findOrFail($area_id);
-            
+
             $customer = User::with(["customer" => function($query) use($area_id) {
                 $query->where(['customers.area_id' => $area_id]);
             }])->find(\Auth::user()->id);
@@ -51,19 +56,15 @@ class HomeController extends Controller
             $customer = User::with("customer")->find(\Auth::user()->id);
         }
 
-        $history = User::find(\Auth::id());
-        $start_date = $request->get('start_date');
-        $end_date =  Carbon::parse($request->get('end_date'))->addDay();
-        if ($start_date && $end_date) {
-            $history->setRelation('histories', $history->histories()
-                ->where('histories.updated_at', '>=' , $start_date)
-                ->where('histories.updated_at', '<=' , $end_date)
-                ->paginate(20));
+        $currentPage = request()->get('page', 1);
+        if (!Cache::has((Auth::id() . $currentPage))) {
+            $history = Cache::remember(Auth::id() . $currentPage, 60*60*12, function() use($history) {
+                return $history->setRelation('histories', $history->histories()->paginate(100));
+            });
         } else {
-            $history->setRelation('histories', $history->histories()->paginate(100));
+            $history = Cache::get(Auth::id() . $currentPage);
         }
 
-        $todayData = User::find(\Auth::id());
         $todayData->setRelation('customers', $todayData->customers()->where('customers.updated_at', '>=' ,Carbon::today())->get());
 
         $customer = $customer->customer;
@@ -98,6 +99,7 @@ class HomeController extends Controller
                 $customer->updated_at = \Carbon\Carbon::now();
 
                 $customer->save();
+                Pagination::clearCache(Auth::id());
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
             } catch (\Exception $ex) {
                 if (!empty($request->get('id'))) {
