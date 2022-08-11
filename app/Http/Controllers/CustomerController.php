@@ -41,7 +41,7 @@ class CustomerController extends Controller
     {
         $startDate = $request->get('start_date');
         $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
-        
+
         try {
             $count = Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->count();
             Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->delete();
@@ -59,6 +59,8 @@ class CustomerController extends Controller
     public function deleteById($id, Request $request)
     {
         Customer::findOrFail($id)->delete();
+        Toastr::success("Xoá dữ liệu thành công");
+
         return redirect()->back();
     }
 }

@@ -36,7 +36,7 @@
                   </div>
                   <div class="col-md-2 col-sm-2">
                      <div class="p-md-2 p-sm-0">
-                        <button type="submit" class="btn btn-success">Xoá</button>
+                        <button onclick="return confirm('Dữ liệu xóa sẽ không khôi phục được. Bạn có muốn xóa không?');" type="submit" class="btn btn-success">Xoá</button>
                      </div>
                   </div>
                </div>
@@ -91,7 +91,7 @@
                            <td>{{ $customer->dia_chi_cu_the }}</td>
                            <td>{{ $customer->created_at }}</td>
                            <td>
-                              <a class="btn btn-danger" href="{{ route('customer.delete.byId', $customer->id) }}">Xoá</a>
+                              <a class="btn btn-danger" onclick="return confirm('Dữ liệu xóa sẽ không khôi phục được. Bạn có muốn xóa không?');" href="{{ route('customer.delete.byId', $customer->id) }}">Xoá</a>
                            </td>
                         </tr>
                         @php

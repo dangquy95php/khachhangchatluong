@@ -109,7 +109,7 @@
                         <td>{{ $customer->dia_chi_cu_the }}</td>
                         <td>{{ $customer->created_at }}</td>
                         <td>
-                            <a class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#basicModal{{$j}}">Xoá</a>
+                            <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#basicModal{{$j}}">Xoá</a>
                         </td>
                      </tr>
                     <div class="modal fade" id="basicModal{{$j}}" tabindex="-1" aria-hidden="true">
