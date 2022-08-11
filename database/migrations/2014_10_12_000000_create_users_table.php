@@ -16,14 +16,7 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('users');
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id', true);
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('username')->unique();
-            $table->string('role')->default(1);// 1 là nhân viên 2// là admin
-            $table->boolean('status')->default(0);//0 khong hoat dong
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
