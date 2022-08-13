@@ -66,6 +66,8 @@
          <div class="card">
             <div class="card-body table-responsive">
                <!-- Table with stripped rows -->
+               <h3 class="card-title pb-0">LỊCH SỬ IMPORTED DỮ LIỆU</h3>
+               <hr class="mt-0">
                <table class="table table-striped">
                   <thead>
                      <tr>
