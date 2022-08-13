@@ -71,3 +71,6 @@ php artisan route:clear
 php artisan route:cache
 php artisan config:clear
 php artisan config:cache`
+
+### Run migrate
+`php artisan migrate --path="/database/migrations/2022_08_13_153044_create_history_excel_table.php"`

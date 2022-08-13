@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            Log::channel('slack')->critical(\Auth::user()->username . "\n" . \URL::full() . "\n" . $e->getFile() . ':' . $e->getLine() . "\n" . $e->getMessage());
+            Log::channel('slack')->critical(@\Auth::user()->username . "\n" . \URL::full() . "\n" . $e->getFile() . ':' . $e->getLine() . "\n" . $e->getMessage());
         });
     }
 }
