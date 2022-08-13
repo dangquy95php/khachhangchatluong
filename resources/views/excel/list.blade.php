@@ -70,78 +70,27 @@
                   <thead>
                      <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Số hợp đồng</th>
-                        <th scope="col">Mệnh Giá</th>
-                        <th scope="col">Năm Đáo Hạn</th>
-                        <th scope="col">Họ Và Tên</th>
-                        <th scope="col">Giới Tính</th>
-                        <th scope="col">Ngày Sinh</th>
-                        <th scope="col">Điện Thoại</th>
-                        <th scope="col text-center">Địa chỉ</th>
+                        <th scope="col">Người Import</th>
+                        <th scope="col">Số dòng import thành công</th>
+                        <th scope="col">Thông tin</th>
                         <th scope="col">Ngày Tạo</th>
-                        <th scope="col"></th>
                      </tr>
                   </thead>
                   <tbody>
                     @php
-                    $j = $customers->total();
-                    if ($customers->currentPage() >= 2) {
-                       $j = $customers->total() - (($customers->currentPage() - 1) * $customers->perPage());
+                    $j = $importHistory->total();
+                    if ($importHistory->currentPage() >= 2) {
+                       $j = $importHistory->total() - (($importHistory->currentPage() - 1) * $importHistory->perPage());
                     }
                     @endphp
-                    @foreach($customers as $customer)
+                    @foreach($importHistory as $import)
                      <tr>
                         <th scope="row">{{ $j }}</th>
-                        <td>{{ $customer->so_hop_dong }}</td>
-                        <td>{{ is_numeric(@$customer->menh_gia) ? number_format(@$customer->menh_gia) : '' }}</td>
-                        <td>{{ $customer->nam_dao_han }}</td>
-                        <td>{{ $customer->ten_kh }}</td>
-                        <td>
-                            @if($customer->gioi_tinh == 'M')
-                            Nam
-                            @endif
-                            @if($customer->gioi_tinh == 'F')
-                            Nữ
-                            @endif
-                        </td>
-                        <td>{{ $customer->ngay_sinh }}</td>
-                        <td>{{ $customer->dien_thoai }}</td>
-                        <td>{{ $customer->dia_chi_cu_the }}</td>
-                        <td>{{ $customer->created_at }}</td>
-                        <td>
-                            <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#basicModal{{$j}}">Xoá</a>
-                        </td>
+                        <td>{{ $import->user->username }}</td>
+                        <td><span class="badge rounded-pill {{ $import->number != 0 ? 'bg-success' : 'bg-warning' }} ">{{ $import->number }}</span></td>
+                        <td><span class="badge rounded-pill {{ $import->status == 'Thành Công' ? 'bg-success' : ($import->status == 'Trùng Lặp' ? 'bg-warning' : 'bg-danger' ) }} ">{{ $import->status }}</span></td>
+                        <td>{{ $import->created_at }}</td>
                      </tr>
-                    <div class="modal fade" id="basicModal{{$j}}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title">Bạn Có Muốn Xóa Khách Hàng?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h4 class="text-center"><b> {{ $customer->ten_kh }}</b></h4>
-                                <p><b>Số hợp đồng:</b> {{ $customer->so_hop_dong }}</p>
-                                <p><b>Giới tính:</b>
-                                @if($customer->gioi_tinh == 'M')
-                                Nam
-                                @endif
-                                @if($customer->gioi_tinh == 'F')
-                                Nữ
-                                @endif
-                                </p>
-                                <p><b>Ngày sinh:</b> {{ $customer->ngay_sinh }}</p>
-                                <p><b>Số điện thoại:</b> {{ $customer->dien_thoai }}</p>
-                                <p><b>Địa chỉ cụ thể:</b> {{ $customer->dia_chi_cu_the }}</p>
-                                <p><b>Ngày tạo:</b> {{ $customer->created_at }}</p>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <a class="btn btn-primary" href="{{ route('delete_excel_import', $customer->id) }}">Đồng ý</a>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
                      @php
                     $j--;
                     @endphp
@@ -149,7 +98,7 @@
                   </tbody>
                </table>
                <!-- End Table with stripped rows -->
-               {!! $customers->links('_partials.pagination') !!}
+               {!! $importHistory->links('_partials.pagination') !!}
             </div>
          </div>
       </div>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Area;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,7 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Exports\CustomerExport;
 use App\Imports\CustomerImport;
-use Cache;
+use App\Models\HistoryExcel;
 use Carbon\Carbon;
 
 class ExcelController extends Controller
@@ -21,9 +20,10 @@ class ExcelController extends Controller
 
     public function import(Request $request)
     {
-        $customers = Customer::whereDate('created_at', Carbon::today())->orderBy('created_at', "DESC")->whereNull('called')->paginate(50);
+        $importHistory = HistoryExcel::with('user')->paginate(20);
 
-        return view('excel.list', compact('customers'));
+
+        return view('excel.list', compact('importHistory'));
     }
 
     public function deleteExcelCustomer($id, Request $request)
@@ -54,17 +54,20 @@ class ExcelController extends Controller
             'file.mimes' => 'File không được cài mật khẩu, định dạng file không đúng. Chỉ cho phép import file Excel(xlsx,xls) thôi.'
         ]);
 
+        $import = new HistoryExcel();
+        $import->user_id = \Auth::id();
+
         \DB::beginTransaction();
 
         try {
             $numberRows = Customer::count();
-
             Excel::queueImport(new CustomerImport, request()->file('file'));
 
             \DB::commit();
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             $errormessage = "";
+          
 
             foreach ($failures as $failure) {
                 $errormess = "";
@@ -73,20 +76,28 @@ class ExcelController extends Controller
                 }
                 $errormessage = $errormessage."\n Dòng số ".$failure->row().", ".$errormess."<br>";
             }
-
+            $import->status = $errormessage;
+            $import->save();
             return \Response::json(['message' => $errormessage], 400);
         } catch (\Illuminate\Database\QueryException $e) {
+            $import->status = $e->getMessage();
+            $import->save();
             $errorCode = $e->errorInfo[1];
             if($errorCode == 1062)
                 \DB::rollback();
             return \Response::json(['message' => 'Dữ liệu thêm vào database đã có lỗi xảy ra.'. $e->getMessage()], 500);
         }
         $numberRows1 = Customer::count();
-
+        $countImported = $numberRows1 - $numberRows;
         if ($numberRows == $numberRows1) {
+            $import->status = "Trùng Lặp";
+            $import->save();
             Toastr::warning('Vui lòng kiểm tra lại dữ liệu đã bị trùng lặp!');
         } else {
-            Toastr::success('Import dữ liệu thành công!');
+            $import->number = $countImported;
+            $import->status = "Thành Công";
+            $import->save();
+            Toastr::success("Import thành công! ". $countImported ." dòng dữ liệu ");
         }
 
         $time = date('Y-m-d H:i:s');
@@ -101,7 +112,7 @@ class ExcelController extends Controller
             $filename
         );
 
-        return \Response::json(['message' => 'Import dữ liệu thành công!'], 200);
+        return \Response::json(['message' => "Import thành công! ". $countImported ." dòng dữ liệu "], 200);
     }
 
     public function appointmentExport()
