@@ -65,9 +65,9 @@ memory_limit = 128M           ; Maximum amount of memory a script may consume (1
 `
 
 ### Xóa một số cache và config cache
-`php artisan view:clear`
-`php artisan view:cache`
-`php artisan route:clear`
-`php artisan route:cache`
-`php artisan config:clear`
-`php artisan config:cache`
+`php artisan view:clear
+php artisan view:cache
+php artisan route:clear
+php artisan route:cache
+php artisan config:clear
+php artisan config:cache`
