@@ -24,7 +24,7 @@ class CreateHistoryExcelTable extends Migration
         });
 
         Schema::table('history_excel', function($table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
