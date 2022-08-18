@@ -185,11 +185,23 @@ class User extends AuthenticatableModel implements AuthenticatableContract, Auth
         return $this->hasMany(HistoryArea::class, 'user_id', 'id');
     }
 
+    public function history_excel()
+    {
+        return $this->hasMany(HistoryExcel::class, 'user_id', 'id');
+    }
+
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class, 'user_id', 'id');
+    }
+
     public static function boot() {
         parent::boot();
  
         static::deleting(function($user) {
             $user->history_area()->delete();
+            $user->history_excel()->delete();
+            $user->feedback()->delete();
         });
     }
 }
