@@ -20,7 +20,7 @@ class ExcelController extends Controller
 
     public function import(Request $request)
     {
-        $importHistory = HistoryExcel::with('user')->paginate(20);
+        $importHistory = HistoryExcel::with('user')->orderBy('created_at', 'desc')->paginate(20);
 
 
         return view('excel.list', compact('importHistory'));
