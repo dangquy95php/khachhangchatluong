@@ -60,31 +60,11 @@
                         {{-- <td>{{ $item->note }}</td> --}}
                         <td>{{ date('d-m-Y', strtotime($item->updated_at)) }}</td>
                         <td class="text-center">
-                            <a data-bs-target="#deleteModal{{ $item->id }}" data-bs-toggle="modal" class="btn btn-danger">Xoá</a>
+                            <a onclick="return confirm(`Bạn có muốn xoá khu vực {{ $item->name }} không?`);" href="{{route('delete_area', $item->id)}}"  class="btn btn-danger">Xoá</a>
                             <a href="{{route('edit_area', $item->id)}}" class="btn btn-primary">Sửa</a>
                             <a onclick="return confirm('Bạn có muốn khôi phục lại dữ liệu cho khu vực {{ $item->name }} không?');" href="{{route('reopen_area', $item->id)}}" class="text-white btn ps-1 {{empty($item->user_id) ? 'btn-dark disabled': 'btn-warning'}}"><i class="bi bi-back"></i>{{empty($item->user_id) ? 'Không Thể': 'Khôi Phục'}}</a>
                         </td>
                     </tr>
-
-                    <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Bạn Có Muốn Xoá Không?</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Tên Khu Vực: <b>{{ $item->name }}</b></p>
-                                <p>Trạng Thái: {!! $item->status == 1 ? '<span class="badge bg-success">Đang Mở</span>' : '<span class="badge bg-secondary">Chưa kích hoạt</span>' !!}</p>
-                                <p>Ghi Chú: {{ $item->note }}</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <a type="button" href="{{route('delete_area', $item->id)}}" class="btn btn-primary">Đồng Ý</a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
                     @php
                     $i--;
                     @endphp
