@@ -37,6 +37,21 @@ class AreaController extends Controller
         return view('area.list', compact('areas', 'areaAtatus'));
     }
 
+    public function deleteAll() {
+        DB::beginTransaction();
+        try {
+            foreach(Area::all() as $item) {
+                $item->delete();
+            }
+            DB::commit();
+            Toastr::success("Xoá khu vực thành công");
+        } catch(\Exception $ex) {
+            DB::rollback();
+            Toastr::error("Xoá khu vực thất bại". $ex->getMessage());
+        }
+        return redirect()->route('index_area');
+    }
+
     public function create(Request $request)
     {
         $validator = $request->validate([

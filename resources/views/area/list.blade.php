@@ -28,9 +28,15 @@
                         <th scope="col">Ngày Tạo</th>
                         <th scope="col" class="text-center" style="min-width:250px;">
                             @if(\Request::route()->getName() == 'edit_area')
-                                <a class="btn btn-success" href="{{route('index_area')}}">Tạo mới</a>
+                                <a class="btn btn-success text-white" href="{{route('index_area')}}">Tạo mới</a>
+                                @if(count($areas) > 0)
+                                <a class="btn btn-danger text-white" onclick="return confirm('Bạn có muốn tất cả các khu vực không?');" href="{{route('delete_area_all')}}">Xoá Tất Cả</a>
+                                @endif
                             @else
                                 <span>Hành Động</span>
+                                @if(count($areas) > 0)
+                                <a class="btn btn-danger text-white" onclick="return confirm('Bạn có muốn tất cả các khu vực không?');"  href="{{route('delete_area_all')}}">Xoá Tất Cả</a>
+                                @endif
                             @endif
                         </th>
                      </tr>
