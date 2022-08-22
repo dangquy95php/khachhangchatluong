@@ -66,7 +66,7 @@
                             @endif
                         </td>
                      </tr>
-                     <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                     <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="{{$item->id}}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
