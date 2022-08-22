@@ -54,8 +54,10 @@ class ExcelController extends Controller
             'file.mimes' => 'File không được cài mật khẩu, định dạng file không đúng. Chỉ cho phép import file Excel(xlsx,xls) thôi.'
         ]);
 
+        $fileNameOrigin = $request->file('file')->getClientOriginalName();
         $import = new HistoryExcel();
         $import->user_id = \Auth::id();
+        $import->file_name = $fileNameOrigin;
 
         \DB::beginTransaction();
 
@@ -67,7 +69,6 @@ class ExcelController extends Controller
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             $errormessage = "";
-          
 
             foreach ($failures as $failure) {
                 $errormess = "";
