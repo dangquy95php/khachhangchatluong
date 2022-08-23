@@ -42,7 +42,12 @@ class ReportController extends Controller
                 return \Response::json(['data' => 'Có lỗi xảy ra'. $ex->getMessage()], 500);
             }
 
-            $result = collect($result)->sortByDesc('appointment');
+            $result = collect($result)->sortByDesc( function($item) {
+                return [
+                    $item->appointment, - $item->appointment_not_yet
+                ];
+            });
+
             return \Response::json(['data' => $result->values()->all()], 200);
         }
 
