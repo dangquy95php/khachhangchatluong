@@ -43,9 +43,15 @@ class ReportController extends Controller
             }
 
             $result = collect($result)->sortByDesc( function($item) {
-                return [
-                    $item->appointment, - $item->appointment_not_yet
-                ];
+                if ($item->appointment != 0) {
+                    return [
+                        $item->appointment, - $item->appointment_not_yet
+                    ];
+                } else {
+                    return [
+                        -$item->appointment, $item->appointment_not_yet
+                    ];
+                }
             });
 
             return \Response::json(['data' => $result->values()->all()], 200);
