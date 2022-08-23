@@ -604,9 +604,9 @@
                                 let xep_loai = '';
 
                                 if (item.appointment == 5) {
-                                    xep_loai = 'Quá Đỉnh! Chốt Đơn Liên Tục.';
+                                    xep_loai = 'Bạn Quá Đỉnh! Chốt Đơn Liên Tục.';
                                 } else if(item.appointment == 4) {
-                                    xep_loai = 'Tuyệt Vời Lắm Luôn Ý.';
+                                    xep_loai = 'Bạn Tuyệt Vời Lắm Luôn Ý.';
                                 } else if(item.appointment == 3) {
                                     xep_loai = 'Bạn Đã Không Ngừng Gọi Khách Chốt Đơn.';
                                 } else if(item.appointment == 2) {
