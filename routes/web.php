@@ -73,6 +73,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
 
     Route::group(['prefix' => 'report'], function () {
         Route::get('/', 'ReportController@index')->name('index_report');
+        Route::post('/ratings', 'ReportController@ratings')->name('ratings');
     });
 
     Route::group(['prefix' => 'account'], function () {

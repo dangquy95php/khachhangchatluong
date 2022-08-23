@@ -507,6 +507,32 @@
                     </div>
                 </div>
             </div>
+            <button type="button" class="btn btn-primary d-none" id="ratings" data-bs-toggle="modal" data-bs-target="#largeModal"></button>
+
+            <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title"><b class="text-danger">XẾP HẠNG NHÂN VIÊN GỌI TỐT NHẤT TRONG NGÀY HÔM NAY.</b></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped is-ratings">
+                            <thead>
+                            <tr>
+                                <th scope="col">Xếp Hạng</th>
+                                <th scope="col">Tên Nhân Viên</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
     </main>
 
     <footer class="footer">
@@ -553,6 +579,46 @@
 
     <script>
         $(document).ready(function() {
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+
+            setInterval(function() {
+                var d = new Date();
+                var t = d.toLocaleTimeString();
+
+                if (t == '17:00:00') {
+                    $.ajax({
+                        url: "{{route('ratings')}}",
+                        data: formData,
+                        type: 'post',
+                        async: true,
+                        processData: false,
+                        contentType: false,
+                        success:function(response) {
+                            $("#ratings").trigger('click');
+
+                            response.data.forEach(function(item, index) {
+                                let class_color = (index == 0) ? 'table-danger' : (index == 1 ? 'table-success' : (index == 2 ? 'table-info' : ''));
+                                $(".is-ratings tbody").append(`
+                                <tr class="${class_color}">
+                                    <th scope="row"> ${index + 1}</th>
+                                    <td>${item.name}</td>
+                                </tr>
+                                `);
+                            });
+                            if(response.data.length == 0) {
+                                setTimeout(() => {
+                                    $('#largeModal .btn-close').trigger('click');
+                                }, 1000);
+                            }
+                        },
+                        error: function(errors) {
+                            console.log(errors);
+                        }
+                    });
+                }
+            }, 1000)
+
             document.querySelector(".is-copy").onclick = (e) => {
                 navigator.clipboard.writeText($(e.currentTarget)[0].outerText);
                 if($(e.currentTarget)[0].outerText) {
