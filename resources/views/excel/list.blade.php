@@ -89,7 +89,7 @@
                     @foreach($importHistory as $import)
                      <tr>
                         <th scope="row">{{ $j }}</th>
-                        <td>{{ $import->user->username }}</td>
+                        <td>{{ $import->user->name }}</td>
                         <td><span class="badge rounded-pill {{ $import->number != 0 ? 'bg-success' : 'bg-warning' }} ">{{ $import->number }}</span></td>
                         <td><span class="badge rounded-pill {{ $import->status == 'Thành Công' ? 'bg-success' : ($import->status == 'Trùng Lặp' ? 'bg-warning' : 'bg-danger' ) }} ">{{ $import->status }}</span></td>
                         <td class="text-danger"><b>{{ $import->file_name }}</b></td>
