@@ -36,7 +36,9 @@ class ReportController extends Controller
                     $object->name = $datas->name;
                     $object->appointment = $appointment;
                     $object->appointment_not_yet = count($datas->customers_today_called) - $appointment;
-                    $result[] = $object;
+                    if ($object->appointment != 0 || $object->appointment_not_yet != 0) {
+                        $result[] = $object;
+                    }
                 }
             } catch (\Exception $ex) {
                 return \Response::json(['data' => 'Có lỗi xảy ra'. $ex->getMessage()], 500);
