@@ -513,7 +513,7 @@
                 <div class="modal-dialog modal-xl">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title"><b class="text-danger">BẢNG XẾP HẠNG NHÂN VIÊN GỌI TỐT NHẤT TRONG NGÀY HÔM NAY.</b></h5>
+                      <h5 class="modal-title"><b class="text-danger">BẢNG XẾP HẠNG NHÂN VIÊN GỌI KHÁCH HÀNG TRONG NGÀY HÔM NAY.</b></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -638,31 +638,16 @@
                         success:function(response) {
                             if(response.data.length > 0) {
                                 response.data.forEach(function(item, index) {
-                                    let class_color = (index == 0) ? 'table-danger' : (index == 1 ? 'table-success' : (index == 2 ? 'table-info' : ''));
-                                    let xep_loai = '';
-
-                                    if (item.appointment == 5) {
-                                        xep_loai = 'Bạn Quá Đỉnh! Chốt Đơn Liên Tục.';
-                                    } else if(item.appointment == 4) {
-                                        xep_loai = 'Bạn Tuyệt Vời Lắm Luôn Ý.';
-                                    } else if(item.appointment == 3) {
-                                        xep_loai = 'Bạn Đã Không Ngừng Gọi Khách Chốt Đơn.';
-                                    } else if(item.appointment == 2) {
-                                        xep_loai = 'Bạn Chốt Đơn Hơi Hơi Ít.';
-                                    } else if(item.appointment == 1) {
-                                        xep_loai = 'Bạn Cần Nổ Lực Thêm Khi Chốt Đơn.';
-                                    } else if(item.appointment == 0) {
-                                        xep_loai = 'Bạn Không Có Đơn Nào Để Chốt. Chúng Tôi Cần Sự <span class="text-danger">HÀI HƯỚC</span> Của Bạn Và Sự <span class="text-danger">Cố Gắng</span> Của Bạn Hơn!';
-                                    } else {
-                                        xep_loai = 'CẢM ƠN SỰ CỐNG HIẾN CỦA BẠN. BẠN ĐÃ VƯỢT QUÁ MỨC SỰ KÌ VỌNG! QUÁ ĐỈNH.';
-                                    }
+                                    let class_color = (index == 0) ? 'danger' : (index == 1 ? 'success' : (index == 2 ? 'primary' : ''));
 
                                     $(".is-ratings tbody").append(`
-                                    <tr class="${class_color}">
-                                        <th scope="row"> ${index + 1}</th>
-                                        <td>${item.name}</td>
-                                        <td>${xep_loai}</td>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <span class="${index <= 2 ? 'badge' : '' }  rounded-pill bg-${class_color}"> ${index + 1}</span>
+                                            </th>
+                                            <td>${item.name}</td>
+                                            <td>${item.message}</td>
+                                        </tr>
                                     `);
                                 });
                             }
