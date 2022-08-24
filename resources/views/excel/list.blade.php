@@ -27,8 +27,8 @@
                         @csrf
                         <div class="row mb-3">
                             <div class="col-12">
-                                <label for="inputText" class="col-sm-2 col-form-label"><b>Chọn file Excel Import</b></label>
-                                <span class="badge rounded-pill bg-success instro" role="button" data-bs-toggle="modal" data-bs-target="#fullscreenModal">Hướng dẫn sử dụng</span>
+                                <label for="inputText" class="col-sm-2 col-form-label"><b>Chọn file Excel Import:</b></label>
+                                <span class="badge rounded-pill bg-warning instro" role="button" data-bs-toggle="modal" data-bs-target="#fullscreenModal">Hướng dẫn sử dụng</span>
                                 <div class="is-show-error"></div>
 
                                 <input class="form-control" name="file" type="file" id="formFile">
@@ -75,7 +75,7 @@
                         <th scope="col">Người Import</th>
                         <th scope="col">Số dòng import thành công</th>
                         <th scope="col">Thông tin</th>
-                        <th scope="col">Tên File</th>
+                        <th scope="col">Tên File<i class="bi bi-file-earmark-excel text-success"></i></th>
                         <th scope="col">Ngày Tạo</th>
                      </tr>
                   </thead>
@@ -92,7 +92,7 @@
                         <td>{{ $import->user->name }}</td>
                         <td><span class="badge rounded-pill {{ $import->number != 0 ? 'bg-success' : 'bg-warning' }} ">{{ $import->number }}</span></td>
                         <td><span class="badge rounded-pill {{ $import->status == 'Thành Công' ? 'bg-success' : ($import->status == 'Trùng Lặp' ? 'bg-warning' : 'bg-danger' ) }} ">{{ $import->status }}</span></td>
-                        <td class="text-danger"><b>{{ $import->file_name }}</b></td>
+                        <td class="text-danger"><i class="bi bi-file-earmark-excel text-success"></i> {{ $import->file_name }}</td>
                         <td>{{ $import->created_at }}</td>
                      </tr>
                      @php

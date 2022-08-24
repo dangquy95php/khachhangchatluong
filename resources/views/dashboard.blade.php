@@ -54,7 +54,8 @@
             <div class="card-body table-responsive">
                 <div class="d-flex align-items-center">
                     <h5 class="card-title">Khách Hàng Đã Hẹn <span>| Hôm nay</span></h5>
-                    <a href="{{route('appointment_excel')}}" class="btn btn-success ms-3 ps-1"><i class="bi bi-file-earmark-excel"></i> Xuất Excel</a>
+                    <a href="{{route('appointment_excel')}}" class="btn btn-outline-success pt-1 pb-1 ms-3 ps-1">
+                     <i class="bi bi-file-earmark-excel"></i> Xuất Excel</a>
                 </div>
                <table class="table datatable">
                   <thead>
