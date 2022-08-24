@@ -36,8 +36,8 @@ class ReportController extends Controller
             'Đỉnh Lắm Bạn Ơi! Chốt Đơn Mệt Nghỉ',
             'Điều Gì Khiến Bạn Chốt Đơn Nhanh Vậy. Cảm Ơn Sự Cống Hiến Của Bạn'
         ] , [
-            'CẢM ƠN SỰ CỐNG HIẾN CỦA BẠN. BẠN ĐÃ VƯỢT QUÁ MỨC SỰ KÌ VỌNG! QUÁ ĐỈNH.',
             'CẢM ƠN BẠN RẤT NHIỀU. BẠN CHỐT ĐƠN QUÁ ĐỈNH, ĐỀ XUẤT BẠN LÊN LÀM QUẢN LÝ :D',
+            'CẢM ƠN SỰ CỐNG HIẾN CỦA BẠN. BẠN ĐÃ VƯỢT QUÁ MỨC SỰ KÌ VỌNG! QUÁ ĐỈNH.',
             'TẠI SAO BẠN GIỎI ĐẾN VẬY. BẠN CÓ BÍ QUYẾT GÌ ĐỀ CHỐT ĐƠN LIÊN TỤC KHÔNG',
             'BẠN XỨNG ĐÁNG ĐƯỢC TUYÊN DƯƠNG, CẢM ƠN NGÀY LÀM VIỆC CỦA BẠN'
         ]
@@ -73,12 +73,12 @@ class ReportController extends Controller
 
                     foreach(self::$dataMessage as $key => $data) {
                         if($key == $object->appointment) {
-                            $object->message = $data[array_rand($data)];
+                            $object->message = $data[1];
                         }
                     }
 
                     if(count(self::$dataMessage) < $object->appointment) {
-                        $object->message = self::$dataMessage[6][array_rand(self::$dataMessage[6])];
+                        $object->message = self::$dataMessage[6][1];
                     }
 
                     if ($object->appointment != 0 || $object->appointment_not_yet != 0) {
