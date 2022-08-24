@@ -37,7 +37,7 @@ class ReportController extends Controller
             'Điều Gì Khiến Bạn Chốt Đơn Nhanh Vậy. Cảm Ơn Sự Cống Hiến Của Bạn'
         ] , [
             'CẢM ƠN SỰ CỐNG HIẾN CỦA BẠN. BẠN ĐÃ VƯỢT QUÁ MỨC SỰ KÌ VỌNG! QUÁ ĐỈNH.',
-            'CẢM ƠN BẠN RIẾT NHIỀU. BẠN CHỐT ĐƠN QUÁ ĐỈNH, ĐỀ XUẤT BẠN LÊN LÀM QUẢN LÝ :D',
+            'CẢM ƠN BẠN RẤT NHIỀU. BẠN CHỐT ĐƠN QUÁ ĐỈNH, ĐỀ XUẤT BẠN LÊN LÀM QUẢN LÝ :D',
             'TẠI SAO BẠN GIỎI ĐẾN VẬY. BẠN CÓ BÍ QUYẾT GÌ ĐỀ CHỐT ĐƠN LIÊN TỤC KHÔNG',
             'BẠN XỨNG ĐÁNG LÊN LƯƠNG, CẢM ƠN NGÀY LÀM VIỆC CỦA BẠN'
         ]
