@@ -334,7 +334,7 @@
                 </ul>
                 <div class="tab-content pt-2" id="myTabContent">
                       <!-- //data 2 -->
-                      <div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="card mb-2 mt-md-2 mt-sm-3">
                             <div class="card-body pt-3 table-responsive">
                                 {{ count($today) == 0 ? `<h5 class="text-center"><b>Dữ Liệu Chưa Có</b></h5>` : '' }}
@@ -414,7 +414,7 @@
                                 <!-- End Table with hoverable rows -->
                             </div>
                         </div>
-                        </div><!-- End Default Tabs -->
+                    </div><!-- End Default Tabs -->
                     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
 
                         <div class="col-12">
@@ -529,12 +529,13 @@
                         </table>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <p class="text-left text-success">CẢM ƠN SỰ CỐNG HIẾN VÀ LÀM VIỆC NGHIÊM TỨC CỦA CÁC BẠN TRONG NGÀY HÔM NAY.</p>
+                        <p class="text-left text-success">CẢM ƠN SỰ CỐNG HIẾN VÀ LÀM VIỆC NGHIÊM TÚC CỦA CÁC BẠN TRONG NGÀY HÔM NAY.</p>
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     </div>
                   </div>
                 </div>
-            </div>
+        </div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -564,7 +565,6 @@
 
     <!-- Jquery Slim JS -->
     <script src="{{ asset('js/jquery.min.js') }} "></script>
-
     <script src="{{ asset('js/jquery-ui.min.js') }} "></script>
 
     <svg id="SvgjsSvg1145" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -589,48 +589,82 @@
                 var t = d.toLocaleTimeString();
 
                 if (t == '17:00:00') {
+
+                    $('body').append(`<div id="film-container">
+                        <div class="animated-flicker">
+                            <svg id="film-mask" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+                                width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 400 225">
+                                <rect class="rectangle01" width="400" height="225"/>
+                                <line id="line-h" class="line01" x1="0" y1="112.5" x2="400" y2="112.5"/>
+                                <line id="line-v" class="line02" x1="200" y1="0" x2="200" y2="225"/>
+                                </svg>
+                                <svg id="film-countdown" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+                                width="100%" height="100%" viewBox="0 0 400 225">
+                                <circle id="circle-outer" class="circle01" cx="200" cy="112.5" r="95"/>
+                                <circle id="circle-inner" class="circle01" cx="200" cy="112.5" r="85"/>
+                                <circle class="circle02 animated-rotate" cx="200" cy="112.5" r="494.5"/>
+                                    <g id="numbers" text-anchor="middle" class="no-select">
+                                        <text id="animated-text1" x="200.5" y="155">10</text>
+                                        <text id="animated-text2" x="200.5" y="155">9</text>
+                                        <text id="animated-text3" x="200.5" y="155">8</text>
+                                        <text id="animated-text4" x="200.5" y="155">7</text>
+                                        <text id="animated-text5" x="200.5" y="155">6</text>
+                                        <text id="animated-text6" x="200.5" y="155">5</text>
+                                        <text id="animated-text7" x="200.5" y="155">4</text>
+                                        <text id="animated-text8" x="200.5" y="155">3</text>
+                                        <text id="animated-text9" x="200.5" y="155">2</text>
+                                        <text id="animated-text10" x="200.5" y="155">1</text>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    `);
+                    setTimeout(() => {
+                        $('#film-container').addClass('d-none');
+                        if ($(".is-ratings tbody tr").length > 0) {
+                            $("#ratings").trigger('click');
+                        }
+                    }, 10500);
+
                     $.ajax({
                         url: "{{route('ratings')}}",
                         data: formData,
                         type: 'post',
-                        async: true,
+                        async: false,
                         processData: false,
                         contentType: false,
                         success:function(response) {
-                            $("#ratings").trigger('click');
+                            if(response.data.length > 0) {
+                                response.data.forEach(function(item, index) {
+                                    let class_color = (index == 0) ? 'table-danger' : (index == 1 ? 'table-success' : (index == 2 ? 'table-info' : ''));
+                                    let xep_loai = '';
 
-                            response.data.forEach(function(item, index) {
-                                let class_color = (index == 0) ? 'table-danger' : (index == 1 ? 'table-success' : (index == 2 ? 'table-info' : ''));
-                                let xep_loai = '';
+                                    if (item.appointment == 5) {
+                                        xep_loai = 'Bạn Quá Đỉnh! Chốt Đơn Liên Tục.';
+                                    } else if(item.appointment == 4) {
+                                        xep_loai = 'Bạn Tuyệt Vời Lắm Luôn Ý.';
+                                    } else if(item.appointment == 3) {
+                                        xep_loai = 'Bạn Đã Không Ngừng Gọi Khách Chốt Đơn.';
+                                    } else if(item.appointment == 2) {
+                                        xep_loai = 'Bạn Chốt Đơn Hơi Hơi Ít.';
+                                    } else if(item.appointment == 1) {
+                                        xep_loai = 'Bạn Cần Nổ Lực Thêm Khi Chốt Đơn.';
+                                    } else if(item.appointment == 0) {
+                                        xep_loai = 'Bạn Không Có Đơn Nào Để Chốt. Chúng Tôi Cần Sự <span class="text-danger">HÀI HƯỚC</span> Của Bạn Và Sự <span class="text-danger">Cố Gắng</span> Của Bạn Hơn!';
+                                    } else {
+                                        xep_loai = 'CẢM ƠN SỰ CỐNG HIẾN CỦA BẠN. BẠN ĐÃ VƯỢT QUÁ MỨC SỰ KÌ VỌNG! QUÁ ĐỈNH.';
+                                    }
 
-                                if (item.appointment == 5) {
-                                    xep_loai = 'Bạn Quá Đỉnh! Chốt Đơn Liên Tục.';
-                                } else if(item.appointment == 4) {
-                                    xep_loai = 'Bạn Tuyệt Vời Lắm Luôn Ý.';
-                                } else if(item.appointment == 3) {
-                                    xep_loai = 'Bạn Đã Không Ngừng Gọi Khách Chốt Đơn.';
-                                } else if(item.appointment == 2) {
-                                    xep_loai = 'Bạn Chốt Đơn Hơi Hơi Ít.';
-                                } else if(item.appointment == 1) {
-                                    xep_loai = 'Bạn Cần Nổ Lực Thêm Khi Chốt Đơn.';
-                                } else if(item.appointment == 0) {
-                                    xep_loai = 'Bạn Không Có Đơn Nào Để Chốt. Chúng Tôi Cần Sự <span class="text-danger">HÀI HƯỚC</span> Của Bạn Và Sự <span class="text-danger">Cố Gắng</span> Của Bạn Hơn!';
-                                } else {
-                                    xep_loai = 'CẢM ƠN SỰ CỐNG HIẾN CỦA BẠN. BẠN ĐÃ VƯỢT QUÁ MỨC SỰ KÌ VỌNG! QUÁ ĐỈNH.';
-                                }
-
-                                $(".is-ratings tbody").append(`
-                                <tr class="${class_color}">
-                                    <th scope="row"> ${index + 1}</th>
-                                    <td>${item.name}</td>
-                                    <td>${xep_loai}</td>
-                                </tr>
-                                `);
-                            });
-                            if(response.data.length == 0) {
-                                setTimeout(() => {
-                                    $('#largeModal .btn-close').trigger('click');
-                                }, 1000);
+                                    $(".is-ratings tbody").append(`
+                                    <tr class="${class_color}">
+                                        <th scope="row"> ${index + 1}</th>
+                                        <td>${item.name}</td>
+                                        <td>${xep_loai}</td>
+                                    </tr>
+                                    `);
+                                });
                             }
                         },
                         error: function(errors) {
