@@ -73,12 +73,12 @@ class ReportController extends Controller
 
                     foreach(self::$dataMessage as $key => $data) {
                         if($key == $object->appointment) {
-                            $object->message = $data[1];
+                            $object->message = $data[array_rand($data)];
                         }
                     }
 
                     if(count(self::$dataMessage) < $object->appointment) {
-                        $object->message = self::$dataMessage[6][1];
+                        $object->message = self::$dataMessage[6][array_rand(self::$dataMessage[6])];
                     }
 
                     if ($object->appointment != 0 || $object->appointment_not_yet != 0) {
