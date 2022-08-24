@@ -510,7 +510,7 @@
             <button type="button" class="btn btn-primary d-none" id="ratings" data-bs-toggle="modal" data-bs-target="#largeModal"></button>
 
             <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
+                <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title"><b class="text-danger">BẢNG XẾP HẠNG NHÂN VIÊN GỌI KHÁCH HÀNG TRONG NGÀY HÔM NAY.</b></h5>
@@ -522,7 +522,6 @@
                             <tr>
                                 <th scope="col">Xếp Hạng</th>
                                 <th scope="col">Tên Nhân Viên</th>
-                                <th scope="col">Xếp Loại</th>
                             </tr>
                             </thead>
                             <tbody></tbody>
@@ -530,7 +529,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <p class="text-left text-success">CẢM ƠN SỰ CỐNG HIẾN VÀ LÀM VIỆC NGHIÊM TÚC CỦA CÁC BẠN TRONG NGÀY HÔM NAY.</p>
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                      <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Đóng</button>
                     </div>
                   </div>
                 </div>
@@ -646,7 +645,6 @@
                                                 <span class="${index <= 2 ? 'badge' : '' }  rounded-pill bg-${class_color}"> ${index + 1}</span>
                                             </th>
                                             <td>${item.name}</td>
-                                            <td>${item.message}</td>
                                         </tr>
                                     `);
                                 });
