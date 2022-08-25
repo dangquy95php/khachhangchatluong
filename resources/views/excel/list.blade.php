@@ -75,7 +75,7 @@
                         <th scope="col">Người Import</th>
                         <th scope="col">Số dòng import thành công</th>
                         <th scope="col">Thông tin</th>
-                        <th scope="col">Tên File<i class="bi bi-file-earmark-excel text-success"></i></th>
+                        <th scope="col"><i class="bi bi-file-earmark-excel text-success"></i>Tên File</th>
                         <th scope="col">Ngày Tạo</th>
                         <th scope="col" class="text-center">Hành Động</th>
                      </tr>
@@ -93,7 +93,7 @@
                         <td>{{ $import->user->name }}</td>
                         <td><span class="badge rounded-pill {{ $import->number != 0 ? 'bg-success' : 'bg-warning' }} ">{{ $import->number }}</span></td>
                         <td><span class="badge rounded-pill {{ $import->status == 'Thành Công' ? 'bg-success' : ($import->status == 'Trùng Lặp' ? 'bg-warning' : 'bg-danger' ) }} ">{{ $import->status }}</span></td>
-                        <td class="text-danger"><i class="bi bi-file-earmark-excel text-success"></i> {{ $import->file_name }}</td>
+                        <td><i class="bi bi-file-earmark-excel text-success"></i>{{ $import->file_name }}</td>
                         <td>{{ $import->created_at }}</td>
                         <td class="text-center">
                             <a href="{{route('delete_import', $import->id) }}" class="btn btn-danger">Xoá</button>

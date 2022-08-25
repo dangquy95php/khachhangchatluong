@@ -20,7 +20,7 @@ class DashboardController extends Controller
       $todayData = User::with('get_data_today')->get();
       foreach($todayData as $data) {
          foreach($data->get_data_today as &$item) {
-            $item->username = $data->username;
+            $item->username = $data->name ?: $data->username;
             $result[] = $item;
          }
       }

@@ -22,7 +22,7 @@ class CustomerExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 
         foreach($todayData as $data) {
            foreach($data->get_data_today as &$item) {
-              $item->username = $data->username;
+              $item->username = $data->name ?: $data->username;
               $item->gioi_tinh = ($item->gioi_tinh == 'M' ? 'Nam' : 'Nữ');
               $result[] = $item;
            }

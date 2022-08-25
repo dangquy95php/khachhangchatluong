@@ -25,10 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-    Route::get('/create', 'UserController@create')->name('create_account');
-    Route::post('/create', 'UserController@postCreate')->name('post_create_account');
 
-    Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
@@ -55,6 +52,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+    Route::get('/create', 'UserController@create')->name('create_account');
+    Route::post('/create', 'UserController@postCreate')->name('post_create_account');
+
+    Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 
     Route::group(['prefix' => 'area'], function () {
         Route::get('/', 'AreaController@index')->name('index_area');
