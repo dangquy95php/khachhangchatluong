@@ -124,4 +124,17 @@ class ExcelController extends Controller
 
         return Excel::download(new CustomerExport, $time . 'danh-sach-da-hen.xlsx');
     }
+
+    public function historyDelete($id, Request $request)
+    {
+        try {
+            $historyExcel = HistoryExcel::findOrFail($id);
+            $historyExcel->delete();
+            Toastr::success("Xóa lịch sử import ". $historyExcel->file_name ." thành công!");
+        } catch (\Exception $ex) {
+            Toastr::error("Xóa lịch sử import thất bại!". $ex->getMessage());
+        }
+
+        return redirect()->route('data_import');
+    }
 }

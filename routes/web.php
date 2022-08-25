@@ -93,6 +93,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::get('/customer/delete/{id}', 'ExcelController@deleteExcelCustomer')->name('delete_excel_import');
 
         Route::get('/appointment', 'ExcelController@appointmentExport')->name('appointment_excel');
+        Route::get('/history-delete/{id}', 'ExcelController@historyDelete')->name('delete_import');
+
+
     });
     Route::group(['prefix' => 'history'], function () {
         Route::get('/area', 'HistoryController@indexArea')->name('history_area');

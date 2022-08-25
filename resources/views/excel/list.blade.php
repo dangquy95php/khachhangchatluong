@@ -77,6 +77,7 @@
                         <th scope="col">Thông tin</th>
                         <th scope="col">Tên File<i class="bi bi-file-earmark-excel text-success"></i></th>
                         <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Hành Động</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -94,6 +95,9 @@
                         <td><span class="badge rounded-pill {{ $import->status == 'Thành Công' ? 'bg-success' : ($import->status == 'Trùng Lặp' ? 'bg-warning' : 'bg-danger' ) }} ">{{ $import->status }}</span></td>
                         <td class="text-danger"><i class="bi bi-file-earmark-excel text-success"></i> {{ $import->file_name }}</td>
                         <td>{{ $import->created_at }}</td>
+                        <td>
+                            <a href="{{route('delete_import', $import->id) }}" class="btn btn-danger">Xoá</button>
+                        </td>
                      </tr>
                      @php
                     $j--;
