@@ -99,7 +99,6 @@ class HomeController extends Controller
                 $customer->updated_at = \Carbon\Carbon::now();
 
                 $customer->save();
-                Pagination::clearCache(Auth::id());
                 Toastr::success('Cập nhật thông tin khách hàng thàng công.');
             } catch (\Exception $ex) {
                 if (!empty($request->get('id'))) {

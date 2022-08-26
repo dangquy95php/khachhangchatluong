@@ -104,8 +104,6 @@ class AreaController extends Controller
         $area_id = $request->get('area_id');
         $user_id = $request->get('user_id');
 
-        Pagination::clearCache($user_id);
-
         try {
             Area::where([
                 'user_id' => $user_id,
