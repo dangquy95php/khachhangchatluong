@@ -55,16 +55,8 @@ class HomeController extends Controller
             // lay nguoi dung dau tien goi
             $customer = User::with("customer")->find(\Auth::user()->id);
         }
-
-        $currentPage = request()->get('page', 1);
-        if (!Cache::has((Auth::id() . $currentPage))) {
-            $history = Cache::remember(Auth::id() . $currentPage, 60*60*12, function() use($history) {
-                return $history->setRelation('histories', $history->histories()->paginate(100));
-            });
-        } else {
-            $history = Cache::get(Auth::id() . $currentPage);
-        }
-
+        
+        $history = $history->setRelation('histories', $history->histories()->paginate(50));
         $todayData->setRelation('customers', $todayData->customers()->where('customers.updated_at', '>=' ,Carbon::today())->get());
 
         $customer = $customer->customer;
