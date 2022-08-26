@@ -21,7 +21,7 @@
                   <thead>
                      <tr>
                      <th scope="col">#</th>
-                     <th scope="col">Username</th>
+                     <th scope="col">Nhân Viên</th>
                      <th class="text-center" scope="col">Tổng Cuộc Gọi</th>
                      <th class="text-center" scope="col">Tổng Cuộc Gọi Đã Hẹn</th>
                      </tr>
@@ -34,7 +34,7 @@
                         @if($user->username != 'admin')
                             <tr>
                                 <th scope="row">{{ $i }}</th>
-                            <td>{{ $user->username }}</td>
+                            <td>{{ $user->name ?: $user->username }}</td>
                             <td class="text-center">
                                 <span class="badge bg-{{ count($user->customers_today_called) > 0 ? 'success' : 'secondary' }}">{{ count($user->customers_today_called) }}</span>
                                 </td>
