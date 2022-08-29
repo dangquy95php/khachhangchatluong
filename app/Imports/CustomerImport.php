@@ -27,11 +27,11 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
     public function model(array $row)
     {
         $data = Customer::where('so_hop_dong', $row['so_hop_dong'])->first();
-       
+
         if (!$data) {
             $checkExist = Customer::where([
                 'so_thu_tu'        => @$row['so_thu_tu'],
-                'dien_thoai'       => $row['dien_thoai'],
+                'dien_thoai'       => @$row['dien_thoai'],
                 'ho'               => @$row['ho'],
                 'ten'              => @$row['ten'],
                 'menh_gia'         => @$row['menh_gia'],
@@ -64,7 +64,7 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
                         'dia_chi_cu_the'   => @$row['dia_chi_cu_the'],
                         'cccd'             => @$row['cccd'],
                     ]);
-    
+
                     return $customer;
                 } catch (\Exception $ex) {}
             }
