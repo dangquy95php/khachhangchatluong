@@ -137,13 +137,13 @@ class AreaController extends Controller
     public function delete($id, Request $request)
     {
         if (isset($_COOKIE['area_id']) && $id == $_COOKIE['area_id']) {
-            unset($_COOKIE['area_id']); 
-            setcookie('area_id', null, -1, '/'); 
+            unset($_COOKIE['area_id']);
+            setcookie('area_id', null, -1, '/');
         }
-      
+
         DB::beginTransaction();
         try {
-            $area = Area::find($id);
+            $area = Area::findOrFail($id);
             $area->delete();
             Toastr::success("Xoá khu vực ". $area->name ." thành công!");
             DB::commit();
@@ -151,7 +151,7 @@ class AreaController extends Controller
             DB::rollback();
             Toastr::error("Vui lòng mở cấp quyền! Rồi hãy xoá khu vực ". $area->name ." thất bại!". $ex->getMessage());
         }
-       
+
         return redirect()->route('index_area');
     }
 
@@ -210,7 +210,7 @@ class AreaController extends Controller
                 ->where('updated_at', '>=', \Config::get('config.DATE_REOPEN'))
                 ->where('type_call', '<>', self::APPOINTMENT)
                 ->update(['type_call' => null, 'called' => null, 'comment' => null]);
-            
+
             $area = Area::find($id);
             if ($numberRecord === 0) {
                 Toastr::warning("Dữ liệu cần khôi phục đã hết trong khu vực ". $area->name);
@@ -230,12 +230,12 @@ class AreaController extends Controller
 
                 Toastr::success("Khôi phục thành công ". $numberRecord ." khách hàng trong khu vực ". $area->name);
             }
-            DB::commit();    
+            DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
             Toastr::error("Khôi phục khu vực có lỗi xảy ra! Liên hệ SUPPORT ZALO(0964944719)". $ex->getMessage());
         }
-                            
+
         return redirect()->back();
     }
 }
