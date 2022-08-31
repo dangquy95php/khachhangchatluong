@@ -59,6 +59,10 @@ class ExcelController extends Controller
         $import->user_id = \Auth::id();
         $import->file_name = $fileNameOrigin;
 
+        if (\Cache::has('customers-news')) {
+            \Cache::forget('customers-news');
+        }
+
         \DB::beginTransaction();
 
         try {
