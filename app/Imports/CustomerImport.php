@@ -29,45 +29,29 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
         $data = Customer::where('so_hop_dong', $row['so_hop_dong'])->first();
 
         if (!$data) {
-            $checkExist = Customer::where([
-                'so_thu_tu'        => @$row['so_thu_tu'],
-                'dien_thoai'       => @$row['dien_thoai'],
-                'ho'               => @$row['ho'],
-                'ten'              => @$row['ten'],
-                'menh_gia'         => @$row['menh_gia'],
-                'tuoi'             => @$row['tuoi'],
-                'gioi_tinh'        => @$row['gioi_tinh'],
-                'dia_chi_cu_the'   => @$row['dia_chi_cu_the'],
-                'cccd'             => @$row['cccd'],
-                'nam_dao_han'      => @$row['nam_dao_han'],
-                'cv'               => @$row['cv'],
-                'msdl'             => @$row['msdl'],
-            ])->exists();
-            if(!$checkExist) {
-                try {
-                    $customer = Customer::create([
-                        'so_thu_tu'        => @$row['so_thu_tu'],
-                        'vpbank'           => @$row['vpbank'],
-                        'msdl'             => @$row['msdl'],
-                        'cv'               => @$row['cv'],
-                        'so_hop_dong'      => @$row['so_hop_dong'],
-                        'ngay_tham_gia'    => @$row['ngay_tham_gia'],
-                        'menh_gia'         => @$row['menh_gia'],
-                        'nam_dao_han'      => @$row['nam_dao_han'],
-                        'ho'               => @$row['ho'],
-                        'ten'              => @$row['ten'],
-                        'ten_kh'           => @$row['ho'] .' '. @$row['ten'],
-                        'gioi_tinh'        => @$row['gioi_tinh'],
-                        'ngay_sinh'        => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject(@$row['ngay_sinh'])->format('d/m/Y'),
-                        'tuoi'             => @$row['tuoi'],
-                        'dien_thoai'       => @$row['dien_thoai'],
-                        'dia_chi_cu_the'   => @$row['dia_chi_cu_the'],
-                        'cccd'             => @$row['cccd'],
-                    ]);
+            try {
+                $customer = Customer::create([
+                    'so_thu_tu'        => @$row['so_thu_tu'],
+                    'vpbank'           => @$row['vpbank'],
+                    'msdl'             => @$row['msdl'],
+                    'cv'               => @$row['cv'],
+                    'so_hop_dong'      => @$row['so_hop_dong'],
+                    'ngay_tham_gia'    => @$row['ngay_tham_gia'],
+                    'menh_gia'         => @$row['menh_gia'],
+                    'nam_dao_han'      => @$row['nam_dao_han'],
+                    'ho'               => @$row['ho'],
+                    'ten'              => @$row['ten'],
+                    'ten_kh'           => @$row['ho'] .' '. @$row['ten'],
+                    'gioi_tinh'        => @$row['gioi_tinh'],
+                    'ngay_sinh'        => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject(@$row['ngay_sinh'])->format('d/m/Y'),
+                    'tuoi'             => @$row['tuoi'],
+                    'dien_thoai'       => @$row['dien_thoai'],
+                    'dia_chi_cu_the'   => @$row['dia_chi_cu_the'],
+                    'cccd'             => @$row['cccd'],
+                ]);
 
-                    return $customer;
-                } catch (\Exception $ex) {}
-            }
+                return $customer;
+            } catch (\Exception $ex) {}
         }
     }
 
