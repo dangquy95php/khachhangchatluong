@@ -158,7 +158,7 @@ class AreaController extends Controller
     public function doleCustomersToArea()
     {
         $areas = Area::with('customers')->orderBy('name', 'ASC')->get();
-        $customers = Customer::whereNull('area_id')->whereNull('called')->skip(0)->take(500)->get();
+        $customers = Customer::whereNull('area_id')->whereNull('called')->skip(0)->take(1000)->get();
 
         return view('area.list-dole', compact('areas', 'customers'));
     }
