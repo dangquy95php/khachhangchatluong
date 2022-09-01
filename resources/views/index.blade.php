@@ -65,16 +65,6 @@
                 </li>
                 <!-- End Search Icon-->
 
-                <li class="nav-item d-flex flex-column">
-                    <div class="d-flex">
-                        <i class="bi bi-person-circle"></i>
-                        <label>&nbsp; Người tạo phần mềm: <b>Đặng Quý</b></label>
-                    </div>
-                    <div class="d-block">
-                        <i class="bi bi-telephone-fill"></i><label>: <b>0964.944.719</b></label>
-                    </div>
-                </li>
-
                 <!-- End Messages Nav -->
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
