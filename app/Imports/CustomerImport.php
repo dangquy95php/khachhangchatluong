@@ -28,7 +28,7 @@ class CustomerImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithCal
     {
         $data = Customer::where('so_hop_dong', $row['so_hop_dong'])->first();
 
-        if (!$data) {
+        if (!$data && !empty(@$row['dien_thoai'])) {
             try {
                 $customer = Customer::create([
                     'so_thu_tu'        => @$row['so_thu_tu'],
