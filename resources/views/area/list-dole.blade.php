@@ -82,15 +82,12 @@
                         </thead>
                         <tbody>
                             @php
-                            $j = $customers->total();
-                            if ($customers->currentPage() >= 2) {
-                               $j = $customers->total() - (($customers->currentPage() - 1) * $customers->perPage());
-                            }
+                            $i = count($customers);
                             @endphp
 
                             @foreach($customers as $customer)
                             <tr>
-                                <th scope="row">{{ $j }}</th>
+                                <th scope="row">{{ $i }}</th>
                                 <th class="customer_choose">
                                     <div class="form-check d-flex justify-content-center">
                                         <input name="choose_customers[]" class="form-check-input" type="checkbox" value="{{ $customer->id }}" id="flexCheckDefault">
@@ -118,16 +115,13 @@
                                 <td>{{ $customer->created_at }}</td>
                             </tr>
                             @php
-                            $j--;
+                            $i--;
                             @endphp
                             @endforeach
                         </tbody>
                     </table>
-                    @if($customers->total() == 0)
-                        <h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>
-                    @else
-                        {!! $customers->links('_partials.pagination') !!} 
-                    @endif
+                    {!! count($customers) == 0 ? '<h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>' : '' !!}
+                    <!-- End Table with stripped rows -->
                 </div>
             </div>
         </div>
