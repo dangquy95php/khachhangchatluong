@@ -36,7 +36,7 @@
                                         <input type="number" name="from_row" onkeyup="if(parseInt(this.value) > 2000 || parseInt(this.value) < 1){ this.value = ''; return false; }"  class="from_row form-control" value="{{ old('from_row') }}" placeholder="Từ dòng số">
                                     </div>
                                     <div class="col-md-3 mt-sm-2 mt-md-0">
-                                        <input type="number" name="to_row" value="{{ old('to_row') }}" onkeyup="if(parseInt(this.value) > 2000 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="to_row form-control" placeholder="Đến số dòng">
+                                        <input type="number" name="to_row" value="{{ old('to_row') }}" onkeyup="if(parseInt(this.value) > 3000 || parseInt(this.value) < 1){ this.value = ''; return false; }" class="to_row form-control" placeholder="Đến số dòng">
                                     </div>
                                     <div class="col-md-2 ps-md-0 mt-sm-2 mt-md-0">
                                         <a href="#" id="btn-submit-customer" class="btn btn-success">Đăng Ký</a>
@@ -82,11 +82,15 @@
                         </thead>
                         <tbody>
                             @php
-                            $i = count($customers);
+                            $j = $customers->total();
+                            if ($customers->currentPage() >= 2) {
+                               $j = $customers->total() - (($customers->currentPage() - 1) * $customers->perPage());
+                            }
                             @endphp
+
                             @foreach($customers as $customer)
                             <tr>
-                                <th scope="row">{{ $i }}</th>
+                                <th scope="row">{{ $j }}</th>
                                 <th class="customer_choose">
                                     <div class="form-check d-flex justify-content-center">
                                         <input name="choose_customers[]" class="form-check-input" type="checkbox" value="{{ $customer->id }}" id="flexCheckDefault">
@@ -114,14 +118,16 @@
                                 <td>{{ $customer->created_at }}</td>
                             </tr>
                             @php
-                            $i--;
+                            $j--;
                             @endphp
                             @endforeach
                         </tbody>
                     </table>
-
-                    {!! count($customers) == 0 ? '<h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>' : '' !!}
-                    <!-- End Table with stripped rows -->
+                    @if($customers->total() == 0)
+                        <h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>
+                    @else
+                        {!! $customers->links('_partials.pagination') !!} 
+                    @endif
                 </div>
             </div>
         </div>
@@ -152,7 +158,7 @@ $("#sortable_dole li").click(function() {
 $( "#btn-submit-customer" ).click(function() {
     var from_row = $('.from_row').val() || 0;
     var to_row = $('.to_row').val() || 0;
-
+   
     var checked = false;
     $( ".table .customer_choose input" ).each(function( index ) {
         if ($(this).is(':checked')) {
