@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         $data = [
             'username' => $request->get('username'),
-            'password' => urldecode($request->get('password')),
+            'password' => trim($request->get('password')),
             'status' => self::USER_ACTIVED,
         ];
         \Log::info($data);
@@ -118,9 +118,10 @@ class UserController extends Controller
         $user->status = $request->input('status');
 
         if (!Hash::check($request->input('password'), $user->password) && $request->get('check_password') !== 'on') {
-            $user->password = Hash::make($request->input('password'));
+            $user->password = trim($request->input('password'));
         }
         try {
+            
             if($user->isDirty()) {
                 Toastr::success('Thông tin người dùng đã thay đổi thành công.');
             } else {
