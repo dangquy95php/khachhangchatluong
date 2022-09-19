@@ -149,7 +149,7 @@ class AreaController extends Controller
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
-            Toastr::error("Vui lòng mở cấp quyền! Rồi hãy xoá khu vực ". $area->name ." thất bại!". $ex->getMessage());
+            Toastr::error("Vui lòng mở cấp quyền! Rồi hãy xoá khu vực!". $ex->getMessage());
         }
 
         return redirect()->route('index_area');
