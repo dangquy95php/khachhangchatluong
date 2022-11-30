@@ -66,7 +66,18 @@
          <div class="card">
             <div class="card-body table-responsive">
                <!-- Table with stripped rows -->
-               <h3 class="card-title pb-0">LỊCH SỬ IMPORTED DỮ LIỆU</h3>
+               <div class="d-md-flex justify-content-between card-title pb-0">
+                   <h5>LỊCH SỬ IMPORTED DỮ LIỆU</h5>
+
+                   <form class="row g-3" method="GET" enctype="multipart/form-data" action="/admin/excel/search">
+                        <div class="col-auto">
+                            <input name="search" type="text" class="form-control" placeholder="Nhập số hợp đồng tìm kiếm">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                        </div>
+                    </form>
+               </div>
                <hr class="mt-0">
                <table class="table table-striped">
                   <thead>

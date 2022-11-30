@@ -89,6 +89,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::group(['prefix' => 'excel'], function () {
         Route::get('/import', 'ExcelController@import')->name('data_import');
         Route::post('/import', 'ExcelController@postImport')->name('post_data_import');
+        Route::get('/search', 'ExcelController@seachSHD')->name('search_shd');
 
         Route::get('/history', 'ExcelController@history')->name('data_import_history');
         Route::get('/customer/delete/{id}', 'ExcelController@deleteExcelCustomer')->name('delete_excel_import');

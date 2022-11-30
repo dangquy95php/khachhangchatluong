@@ -137,4 +137,23 @@ class ExcelController extends Controller
 
         return redirect()->route('data_import');
     }
+
+    public function seachSHD(Request $request)
+    {
+        $checkExits = false;
+        if (request('search')) {
+            $checkExits = Customer::where('so_hop_dong', '=', $request->get('search'))->exists();
+        } else {
+            Toastr::info('Vui lòng nhập từ khóa tìm kiếm');
+            return redirect()->back();
+        }
+
+        if($checkExits) {
+            Toastr::error('Dữ liệu đã tồn tại trong hệ thống!');
+        } else {
+            Toastr::info('Dữ liệu chưa có trong hệ thống!');
+        }
+
+        return redirect()->back();
+    }
 }
