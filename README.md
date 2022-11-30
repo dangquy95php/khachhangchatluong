@@ -74,3 +74,7 @@ php artisan config:cache`
 
 ### Run migrate
 `php artisan migrate --path="/database/migrations/2022_08_18_153044_create_history_excel_table.php"`
+
+### Config source code khachhangchatluong
+`SLACK_REPORT_ENABLED=true
+LOG_SLACK_WEBHOOK_URL=https://hooks.slack.com/services/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`
