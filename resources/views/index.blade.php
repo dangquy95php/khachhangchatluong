@@ -719,7 +719,7 @@
                 });
             });
 
-            if($(".is-item-customer").length > 0) {
+            if($("#profile .is-item-customer").length > 0) {
                 let so_hop_dong    = $("#id_contract").val();
                 let ten_kh         = $("#ten_kh").val();
                 let dien_thoai     = $("#dien_thoai").val();
