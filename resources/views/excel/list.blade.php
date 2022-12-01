@@ -71,7 +71,7 @@
 
                    <form class="row g-3" method="GET" enctype="multipart/form-data" action="/admin/excel/search">
                         <div class="col-auto">
-                            <input name="search" type="text" class="form-control" placeholder="Nhập số hợp đồng tìm kiếm">
+                            <input name="search" type="text" class="form-control" placeholder="Tìm kiếm số hợp đồng ">
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
