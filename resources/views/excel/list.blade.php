@@ -66,8 +66,8 @@
          <div class="card">
             <div class="card-body table-responsive">
                <!-- Table with stripped rows -->
-               <div class="d-md-flex justify-content-between card-title pb-0">
-                   <h5>LỊCH SỬ IMPORTED DỮ LIỆU</h5>
+               <div class="d-md-flex justify-content-between card-title pb-0 pt-2">
+                   <h5 class="mb-0 d-flex align-items-center">LỊCH SỬ IMPORTED DỮ LIỆU</h5>
 
                    <form class="row g-3" method="GET" enctype="multipart/form-data" action="/admin/excel/search">
                         <div class="col-auto">
