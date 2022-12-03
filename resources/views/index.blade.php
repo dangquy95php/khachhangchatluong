@@ -718,28 +718,6 @@
                     }
                 });
             });
-
-            if($("#profile .is-item-customer").length > 0) {
-                let so_hop_dong    = $("#id_contract").val();
-                let ten_kh         = $("#ten_kh").val();
-                let dien_thoai     = $("#dien_thoai").val();
-                let gioi_tinh      = $("#gioi_tinh option:selected").text();
-                let tuoi           = $("#tuoi").val();
-
-                $("#profile .is-item-customer").each(function() {
-                    let ten_kh1 = $($(this).find('.ten_kh').get(0)).text().trim();
-                    let dien_thoai1 = $($(this).find('.dien_thoai').get(0)).text().trim();
-                    let gioi_tinh1 = $($(this).find('.gioi_tinh').get(0)).text().trim();
-                    let tuoi1 = $($(this).find('.tuoi').get(0)).text().trim();
-
-                    if (ten_kh == ten_kh1
-                    && dien_thoai == dien_thoai1 && gioi_tinh == gioi_tinh1
-                    && tuoi == tuoi1) {
-                        alert('Khách hàng này đã gọi rồi!');
-                        return false;
-                    }
-                });
-            }
         });
     </script>
 
