@@ -20,7 +20,7 @@ class ReportController extends Controller
     {
         $time = \Carbon\Carbon::now()->format('H:i:s');
 
-        if ($time > '16:59:50' && $time < '17:00:10') {
+        if ($time > '17:19:50' && $time < '17:20:10') {
             try {
                 $ratings = User::with('customers_today_called')->orderBy('username', 'asc')->get();
                 $result = [];

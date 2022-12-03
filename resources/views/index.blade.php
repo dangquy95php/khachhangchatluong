@@ -577,7 +577,7 @@
                 var d = new Date();
                 var t = d.toLocaleTimeString();
 
-                if (t == '17:00:00') {
+                if (t == '17:20:00' || t == '5:20:00 PM') {
 
                     $('body').append(`<div id="film-container">
                         <div class="animated-flicker">
