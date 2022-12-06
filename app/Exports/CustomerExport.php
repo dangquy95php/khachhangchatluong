@@ -17,7 +17,7 @@ class CustomerExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         $result = [];
         $todayData = User::with(['get_data_today' => function($query) {
-            return $query->select('so_hop_dong', 'ten_kh', 'menh_gia', 'comment', 'gioi_tinh', 'tuoi', 'dia_chi_cu_the', 'customers.updated_at');
+            return $query->select('so_hop_dong', 'ten_kh', 'dien_thoai', 'comment', 'gioi_tinh', 'tuoi', 'dia_chi_cu_the', 'customers.updated_at');
         }])->get();
 
         foreach($todayData as $data) {
@@ -32,7 +32,7 @@ class CustomerExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     }
 
     public function headings() :array {
-    	return ["Số hợp đồng", "Tên KH", "Mệnh Giá", "Ghi Chú Khách Hàng", "Giới Tính", "Tuổi", "Địa chỉ cụ thể", "Thời gian gọi", "ID Nhân Viên", "Tài khoản gọi"];
+    	return ["Số hợp đồng", "Tên KH", "Số Điện Thoại", "Ghi Chú Khách Hàng", "Giới Tính", "Tuổi", "Địa chỉ cụ thể", "Thời gian gọi", "ID Nhân Viên", "Tài khoản gọi"];
     }
 
     public function registerEvents(): array
