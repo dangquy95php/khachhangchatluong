@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use Brian2694\Toastr\Facades\Toastr;
-use App\Exports\CustomerExport;
+use App\Exports\AppointmentExport;
 use App\Imports\CustomerImport;
 use App\Models\HistoryExcel;
 use Carbon\Carbon;
@@ -122,7 +122,7 @@ class ExcelController extends Controller
         $time = str_replace(':', '_', $time);
         $time = str_replace(' ', '_', $time);
 
-        return Excel::download(new CustomerExport, $time . 'danh-sach-da-hen.xlsx');
+        return Excel::download(new AppointmentExport, $time . 'danh-sach-da-hen.xlsx');
     }
 
     public function historyDelete($id, Request $request)

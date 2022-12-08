@@ -12,6 +12,7 @@ class Customer extends Model
 
     const BY_AREA_ACTIVE = 1; // đã update sau khi import. Tức là đã cho khách hàng vào khu vực
 
+    const NOT_CALL = null;
     const NEW_CUSTOMER = 0;
     const AREA_ACTIVE = 1;
     /**
@@ -77,5 +78,14 @@ class Customer extends Model
     public function area()
     {
         return $this->hasOne(Area::class, 'id');
+    }
+
+    public static function get_data_export($start, $end)
+    {
+        return Customer::where('created_at', '>=', $start)
+                ->where('created_at', '<=', $end)
+                ->where('called', self::NOT_CALL)
+                ->orderBy('created_at', 'DESC')
+                ->select('so_thu_tu', 'vpbank', 'msdl', 'cv', 'so_hop_dong', 'menh_gia', 'nam_dao_han', 'ho', 'ten', 'ten_kh', 'gioi_tinh', 'ngay_sinh', 'tuoi', 'dien_thoai', 'dia_chi_cu_the', 'ngay_tham_gia', 'cccd')->get();
     }
 }

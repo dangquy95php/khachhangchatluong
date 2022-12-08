@@ -34,26 +34,38 @@ class CustomerController extends Controller
     public function export()
     {
         return Excel::download(new CustomerExport, 'customer.xlsx'); //download file export
-        return Excel::store(new CustomerExport, 'customer.xlsx', 'disk-name'); //lưu file export trên ổ cứng
+        // return Excel::store(new CustomerExport, 'customer.xlsx', 'disk-name'); //lưu file export trên ổ cứng
     }
 
     public function delete(Request $request)
     {
-        $startDate = $request->get('start_date');
-        $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
+        switch ($request->input('action')) {
+            case 'delete':
+                $startDate = $request->get('start_date');
+                $endDate = \Carbon\Carbon::parse($request->get('end_date'))->addDays(1);
 
-        try {
-            $count = Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->count();
-            Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->delete();
-            if ($count == 0) {
-                Toastr::warning("Dữ liệu không được tìm thấy. Không thể xoá được!");
-            } else {
-                Toastr::success("Xoá tổng cộng ". $count ." thành công");
-            }
-        } catch (\Exception $ex) {
-            Toastr::error("Xoá dữ liệu thất bại". $ex->getMessage());
+                try {
+                    $count = Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->count();
+                    Customer::where('created_at', '>=', $startDate)->where('created_at', '<=', $endDate)->delete();
+                    if ($count == 0) {
+                        Toastr::warning("Dữ liệu không được tìm thấy. Không thể xoá được!");
+                    } else {
+                        Toastr::success("Xoá tổng cộng ". $count ." thành công");
+                    }
+                } catch (\Exception $ex) {
+                    Toastr::error("Xoá dữ liệu thất bại". $ex->getMessage());
+                }
+                return redirect()->back();
+            break;
+    
+            case 'export':
+                $time = date('Y-m-d H:i:s');
+                $time = str_replace(':', '_', $time);
+                $time = str_replace(' ', '_', $time);
+        
+                return Excel::download(new CustomerExport($request->all()), $time .'customer.xlsx'); //download file export
+                break;
         }
-        return redirect()->back();
     }
 
     public function deleteById($id, Request $request)

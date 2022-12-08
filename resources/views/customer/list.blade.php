@@ -36,7 +36,8 @@
                   </div>
                   <div class="col-md-2 col-sm-2">
                      <div class="p-md-2 p-sm-0">
-                        <button onclick="return confirm('Dữ liệu xóa sẽ không khôi phục được. Bạn có muốn xóa không?');" type="submit" class="btn btn-success">Xoá</button>
+                        <button value="delete" onclick="return confirm('Dữ liệu xóa sẽ không khôi phục được. Bạn có muốn xóa không?');" name="action" type="submit" class="btn btn-primary">Xoá</button>
+                        <button name="action" value="export" class="btn btn-success" type="submit"><i class="bi bi-file-earmark-excel text-white"></i> Export</button>
                      </div>
                   </div>
                </div>

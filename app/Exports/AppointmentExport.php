@@ -11,24 +11,28 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use Carbon\Carbon;
 use App\Models\User;
 
-class CustomerExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
+class AppointmentExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-    }
-
     public function collection()
     {
-        $start_date = $this->data['start_date'];
-        $end_date = $this->data['end_date'];
-      
-        return Customer::get_data_export($start_date, $end_date);
+        $result = [];
+        $todayData = User::with(['get_data_today' => function($query) {
+            return $query->select('so_hop_dong', 'ten_kh', 'dien_thoai', 'comment', 'gioi_tinh', 'tuoi', 'dia_chi_cu_the', 'customers.updated_at');
+        }])->get();
+
+        foreach($todayData as $data) {
+           foreach($data->get_data_today as &$item) {
+              $item->username = $data->name ?: $data->username;
+              $item->gioi_tinh = ($item->gioi_tinh == 'M' ? 'Nam' : 'Nữ');
+              $result[] = $item;
+           }
+        }
+
+        return collect($result)->sortByDesc('updated_at');
     }
 
     public function headings() :array {
-
-    	return ["Số thứ tự", "Vpbank", "Msdl", "CV", "Số hợp đồng", "Mệnh giá", "Năm đáo hạn", "Họ", "Tên", "Tên Khách Hàng", "Giới tính", "Ngày Sinh", "Tuổi", "Điện thoại", "Địa chỉ", "Ngày tham gia", "CCCD"];
+    	return ["Số hợp đồng", "Tên KH", "Số Điện Thoại", "Ghi Chú Khách Hàng", "Giới Tính", "Tuổi", "Địa chỉ cụ thể", "Thời gian gọi", "ID Nhân Viên", "Tài khoản gọi"];
     }
 
     public function registerEvents(): array

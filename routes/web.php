@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'customer'], function () {
     // Route::post('/call', 'HomeController@updateCusomter');
 
     Route::get('/', 'CustomerController@index')->name('list_customer');
+    Route::get('/export-data', 'CustomerController@exportData')->name('customer.export-data');
     Route::get('/{id}/edit', 'HomeController@editCustomer')->name('customer.edit');
     Route::post('{id}', 'HomeController@postEditCustomer')->name('customer.edit.post');
 
