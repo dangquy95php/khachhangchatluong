@@ -71,7 +71,7 @@ class CustomerController extends Controller
                 $time = str_replace(':', '_', $time);
                 $time = str_replace(' ', '_', $time);
 
-                return Excel::download(new CustomerExport($request->all()), $time .'customer.xlsx'); //download file export
+                return Excel::download(new CustomerExport($request->all()), $time .'-danh-sach-export.xlsx'); //download file export
                 break;
         }
     }
