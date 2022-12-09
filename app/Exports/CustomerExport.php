@@ -22,7 +22,7 @@ class CustomerExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         $start_date = $this->data['start_date'];
         $end_date = $this->data['end_date'];
-      
+
         return Customer::get_data_export($start_date, $end_date);
     }
 
@@ -35,7 +35,7 @@ class CustomerExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A1:J1'; // All headers
+                $cellRange = 'A1:Q1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(13);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)

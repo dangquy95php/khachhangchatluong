@@ -39,6 +39,14 @@ class CustomerController extends Controller
 
     public function delete(Request $request)
     {
+        $request->validate([
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ], [
+            'start_date.required' => 'Vui lòng chọn này bắt đầu!',
+            'end_date.required' => 'Vui lòng chọn ngày kết thúc!'
+        ]);
+
         switch ($request->input('action')) {
             case 'delete':
                 $startDate = $request->get('start_date');
@@ -57,12 +65,12 @@ class CustomerController extends Controller
                 }
                 return redirect()->back();
             break;
-    
+
             case 'export':
                 $time = date('Y-m-d H:i:s');
                 $time = str_replace(':', '_', $time);
                 $time = str_replace(' ', '_', $time);
-        
+
                 return Excel::download(new CustomerExport($request->all()), $time .'customer.xlsx'); //download file export
                 break;
         }
