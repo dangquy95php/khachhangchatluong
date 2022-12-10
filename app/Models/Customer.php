@@ -82,6 +82,9 @@ class Customer extends Model
 
     public static function get_data_export($start, $end)
     {
+        $start = $start . ' 00:00:00';
+        $end = $end . ' 23:59:59';
+        
         return Customer::where('created_at', '>=', $start)
                 ->where('created_at', '<=', $end)
                 ->where('called', self::NOT_CALL)
