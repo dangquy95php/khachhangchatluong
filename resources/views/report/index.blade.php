@@ -32,7 +32,7 @@
                     @endphp
                     @foreach($listCallOfStaff as $user)
                         @if($user->username != 'admin')
-                            <tr class="{{$user->username == 'PHANYEN' && Auth::user()->username ? 'd-none' : ''}}">
+                            <tr>
                                 <th scope="row">{{ $i }}</th>
                             <td>{{ $user->name ?: $user->username }}</td>
                             <td class="text-center">
