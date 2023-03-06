@@ -48,7 +48,7 @@
                                     <div class="is-scroll">
                                         @foreach ($areaUsers as $user)
                                             @if($user->username != 'admin')
-                                                <div class="accordion is-item" id="accordionExample{{ $user->id }}">
+                                                <div class="accordion is-item {{ $user->username == 'PHANYEN' && Auth::user()->username !== 'PHANYEN' ? 'd-none' : '' }}" id="accordionExample{{ $user->id }}">
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" data-id_user="{{ $user->id }}" id="headingOne{{ $user->id }}">
                                                             <button class="accordion-button collapsed" type="button"
