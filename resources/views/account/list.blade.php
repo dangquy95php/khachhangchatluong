@@ -33,7 +33,7 @@
                   </thead>
                   <tbody>
                      @foreach($data as $key => $item)
-                     @if($item->username !== 'admin' && $item->username !== 'YEN')
+                     @if($item->username !== 'admin' && $item->username !== 'PHANYEN')
                      <tr class="{{$item->username == \Auth::user()->username ? 'bg-danger text-white' : '' }}">
                         <th scope="row">{{ ++$key }}</th>
                         <td>{{$item->name}}</td>
@@ -69,7 +69,7 @@
                      </tr>
                      @endif
 
-                     @if($item->username == 'YEN' && Auth::user()->username == 'YEN')
+                     @if($item->username == 'PHANYEN' && Auth::user()->username == 'PHANYEN')
                      <tr class="{{$item->username == \Auth::user()->username ? 'bg-danger text-white' : '' }}">
                         <th scope="row">{{ ++$key }}</th>
                         <td>{{$item->name}}</td>
