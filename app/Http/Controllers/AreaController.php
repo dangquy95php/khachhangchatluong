@@ -189,6 +189,7 @@ class AreaController extends Controller
             DB::rollback();
             Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
         }
+        
         return redirect()->back();
     }
 
