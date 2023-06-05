@@ -647,19 +647,19 @@
                 }
             }, 1000)
 
-            document.querySelector(".is-copy").onclick = (e) => {
-                navigator.clipboard.writeText($(e.currentTarget)[0].outerText);
-                if($(e.currentTarget)[0].outerText) {
-                    if($('.is-status-clip').hasClass('bi bi-clipboard')) {
-                        $('.is-status-clip').removeClass('bi bi-clipboard');
-                        $('.is-status-clip').addClass('bi bi-clipboard-check');
-                    }
-                    setTimeout(() => {
-                        $('.is-status-clip').removeClass('bi bi-clipboard-check');
-                        $('.is-status-clip').addClass('bi bi-clipboard');
-                    }, 2000);
-                }
-            }
+            // document.querySelector(".is-copy").onclick = (e) => {
+            //     navigator.clipboard.writeText($(e.currentTarget)[0].outerText);
+            //     if($(e.currentTarget)[0].outerText) {
+            //         if($('.is-status-clip').hasClass('bi bi-clipboard')) {
+            //             $('.is-status-clip').removeClass('bi bi-clipboard');
+            //             $('.is-status-clip').addClass('bi bi-clipboard-check');
+            //         }
+            //         setTimeout(() => {
+            //             $('.is-status-clip').removeClass('bi bi-clipboard-check');
+            //             $('.is-status-clip').addClass('bi bi-clipboard');
+            //         }, 2000);
+            //     }
+            // }
 
             $('.btn-search').click(function() {
                 var area_id = $("#data_area_id").val();
