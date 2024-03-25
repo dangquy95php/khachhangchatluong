@@ -119,6 +119,7 @@ class UserController extends Controller
 
         if (!Hash::check($request->input('password'), $user->password) && $request->get('check_password') !== 'on') {
             $user->password = trim($request->input('password'));
+            User::find($id)->update(['password' => $user->password]);
         }
         try {
             

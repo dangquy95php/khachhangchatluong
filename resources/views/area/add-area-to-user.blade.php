@@ -47,7 +47,7 @@
                                     <!-- Default Accordion -->
                                     <div class="is-scroll">
                                         @foreach ($areaUsers as $user)
-                                            @if($user->username != 'admin')
+                                            @if($user->username != 'dangquy')
                                                 <div class="accordion is-item" id="accordionExample{{ $user->id }}">
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" data-id_user="{{ $user->id }}" id="headingOne{{ $user->id }}">

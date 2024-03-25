@@ -90,7 +90,7 @@ class ExcelController extends Controller
         }
         $numberRows1 = Customer::count();
         $countImported = $numberRows1 - $numberRows;
-        if ($numberRows == $numberRows1) {
+        if ($numberRows == $numberRows1 || $countImported < 0) {
             $import->status = "Trùng Lặp";
             $import->save();
             Toastr::warning('Vui lòng kiểm tra lại dữ liệu đã bị trùng lặp!');

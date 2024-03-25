@@ -31,7 +31,7 @@ class AreaController extends Controller
 
     public function index(Request $request)
     {
-        $areas = Area::with('customers')->orderBy('updated_at', 'desc')->get();
+        $areas = Area::with('customers')->orderBy('updated_at', 'desc')->paginate(20);
         $areaAtatus = Area::getStatus();
 
         return view('area.list', compact('areas', 'areaAtatus'));
@@ -76,7 +76,7 @@ class AreaController extends Controller
     public function edit($id, Request $request)
     {
         $area = Area::find($id);
-        $areas = Area::all();
+        $areas = Area::orderBy('created_at', 'desc')->paginate(20);
         $areaAtatus = Area::getStatus();
 
         return view('area.list', compact('area', 'areas', 'areaAtatus'));
@@ -189,13 +189,14 @@ class AreaController extends Controller
             DB::rollback();
             Toastr::error("Cấp quyền cho khu vực bị thất bại! ". $ex->getMessage());
         }
+        
         return redirect()->back();
     }
 
     public function addAreaToUser(Request $request)
     {
         $areas = Area::whereNull('user_id')->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
-        $areaUsers = User::with('customers_area_has_users')->orderBy('username', 'ASC')->get();
+        $areaUsers = User::with('customers_area_has_users')->where('status', self::USER_ACTIVE)->orderBy('username', 'ASC')->get();
         $numberCustomerArea = Area::with('customers')->whereNotNull('areas.user_id')->get();
 
         return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'areaUsers' => $areaUsers, 'areas' => $areas, 'numberCustomerArea' => $numberCustomerArea ]);

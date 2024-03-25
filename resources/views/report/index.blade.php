@@ -31,7 +31,7 @@
                     $i = count($listCallOfStaff);
                     @endphp
                     @foreach($listCallOfStaff as $user)
-                        @if($user->username != 'admin')
+                        @if($user->username != 'dangquy')
                             <tr>
                                 <th scope="row">{{ $i }}</th>
                             <td>{{ $user->name ?: $user->username }}</td>
