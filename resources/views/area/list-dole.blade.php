@@ -31,6 +31,9 @@
                                         </li>
                                     @endforeach
                                 </ul>
+                                <div class="d-flex justify-content-start">
+                                    {!! $areas->appends(Arr::except(Request::query(),'page'))->links('_partials.pagination'); !!}
+                                </div>
                                 <div class="row pb-2">
                                     <div class="col-md-3">
                                         <input type="number" name="from_row" onkeyup="if(parseInt(this.value) > 2000 || parseInt(this.value) < 1){ this.value = ''; return false; }"  class="from_row form-control" value="{{ old('from_row') }}" placeholder="Từ dòng số">
@@ -126,7 +129,7 @@
                     @if($customers->total() == 0)
                         <h5 class="text-center pt-5 pb-5"><b>ĐÃ CẤP HẾT DỮ LIỆU CHO CÁC KHU VỰC</b></h5>
                     @else
-                        {!! $customers->links('_partials.pagination') !!} 
+                        {!! $customers->appends(Arr::except(Request::query(), 'page1'))->links('_partials.pagination'); !!}
                     @endif
                 </div>
             </div>
