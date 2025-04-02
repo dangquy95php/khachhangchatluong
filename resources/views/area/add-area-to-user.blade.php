@@ -29,8 +29,8 @@
                                 <ul class="list-group sortable flex-row" id="area_area_name">
                                     @foreach ($areas as $area)
                                         <li data-id="{{ $area->id }}"
-                                            class="btn-modify d-inline-flex btn {{count($area->customers) > 0 ? 'btn-secondary' : 'btn-danger'}} pe-1 me-1 mb-1">{{ $area->name }}
-                                            <span class="ms-2 badge bg-white  {{count($area->customers) > 0 ? 'text-secondary' : 'text-danger'}}">{{ count($area->customers) }}</span>
+                                            class="btn-modify d-inline-flex btn {{$area->customers_count > 0 ? 'btn-secondary' : 'btn-danger'}} pe-1 me-1 mb-1">{{ $area->name }}
+                                            <span class="ms-2 badge bg-white  {{$area->customers_count > 0 ? 'text-secondary' : 'text-danger'}}">{{ $area->customers_count }}</span>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -69,7 +69,7 @@
                                                                         {{ $area->name }}
                                                                         @foreach ($numberCustomerArea as $item)
                                                                             @if($area->id == $item->id)
-                                                                                <span class="ms-2 badge {{ count($item->customers) > 0 ? 'bg-white text-danger' : 'bg-danger text-white'}}">{{ count($item->customers) }}</span>
+                                                                                <span class="ms-2 badge {{ $item->customers_count > 0 ? 'bg-white text-danger' : 'bg-danger text-white'}}">{{ $item->customers_count }}</span>
                                                                             @endif
                                                                         @endforeach
                                                                     </li>

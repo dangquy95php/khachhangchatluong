@@ -158,7 +158,7 @@ class AreaController extends Controller
     public function doleCustomersToArea()
     {
         $areas = Area::with('customers')->orderBy('name', 'ASC')->paginate(20, ['*'], 'page');
-        $customers = Customer::whereNull('area_id')->whereNull('called')->paginate(2000, ['*'], 'page1');
+        $customers = Customer::whereNull('area_id')->whereNull('called')->paginate(1000, ['*'], 'page1');
 
         return view('area.list-dole', compact('areas', 'customers'));
     }
@@ -195,11 +195,11 @@ class AreaController extends Controller
 
     public function addAreaToUser(Request $request)
     {
-        $areas = Area::whereNull('user_id')->where('status', self::AREA_ACTIVE)->orderBy('name', 'ASC')->get();
+        $areas = Area::whereNull('user_id')->where('status', self::AREA_ACTIVE)->withCount('customers')->orderBy('name', 'ASC')->get();
         $areaUsers = User::with('customers_area_has_users')->where('status', self::USER_ACTIVE)->orderBy('username', 'ASC')->get();
-        $numberCustomerArea = Area::with('customers')->whereNotNull('areas.user_id')->get();
+        $numberCustomerArea = Area::withCount('customers')->whereNotNull('areas.user_id')->get();
 
-        return view('area.add-area-to-user', [ 'areas' => $this->dataAreas, 'areaUsers' => $areaUsers, 'areas' => $areas, 'numberCustomerArea' => $numberCustomerArea ]);
+        return view('area.add-area-to-user', [ 'areaUsers' => $areaUsers, 'areas' => $areas, 'numberCustomerArea' => $numberCustomerArea ]);
     }
 
     public function reopenArea($id)
